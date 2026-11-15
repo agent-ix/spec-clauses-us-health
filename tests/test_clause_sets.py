@@ -105,9 +105,18 @@ def test_quire_validates_the_module():
 
 
 @pytest.mark.trace("TC-003", "FR-001-AC-3")
-def test_local_quoin_install_reports_pack_false(tmp_path):
-    env = {**os.environ, "HOME": str(tmp_path / "home")}
-    pathlib.Path(env["HOME"]).mkdir()
+def test_local_quoin_install_has_no_object_or_artifact_contributions(tmp_path):
+    home = tmp_path / "home"
+    config_root = tmp_path / "config"
+    home.mkdir()
+    config_root.mkdir()
+    env = {
+        **os.environ,
+        "HOME": str(home),
+        "IX_CONFIG_ROOT": str(config_root),
+    }
+    catalog_before = run(engine_tool("quoin"), "catalog", "list", "--json", env=env)
+    assert catalog_before.returncode == 0, catalog_before.stderr + catalog_before.stdout
     installed = run(
         engine_tool("quoin"), "module", "install", f"path:{PACKAGE_ROOT}", env=env
     )
@@ -120,6 +129,9 @@ def test_local_quoin_install_reports_pack_false(tmp_path):
     ]
     assert len(found) == 1
     assert found[0]["source"]["type"] == "path"
+    catalog_after = run(engine_tool("quoin"), "catalog", "list", "--json", env=env)
+    assert catalog_after.returncode == 0, catalog_after.stderr + catalog_after.stdout
+    assert json.loads(catalog_after.stdout) == json.loads(catalog_before.stdout)
 
 
 def test_publish_check_accepts_the_empty_scaffold():

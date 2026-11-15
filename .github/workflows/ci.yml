@@ -17,10 +17,14 @@ jobs:
         with:
           node-version: "22"
       - name: Install Python test and packaging tools
-        run: python -m pip install poetry pytest PyYAML
+        run: python -m pip install poetry pytest PyYAML black ruff
       - name: Install Quire and Quoin CLIs
         run: npm ci
+      - name: Add engine CLIs to PATH
+        run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> "$GITHUB_PATH"
       - name: Install default Quire modules
         run: quoin module ensure-defaults
       - name: Verify module, rights, catalog, and distribution contents
         run: pytest
+      - name: Check Python style and compilation
+        run: make lint
