@@ -290,7 +290,7 @@ def test_fdca_524b_identity_and_source_match_the_current_us_code():
     )
     assert clause_set["source"] == {
         "title": "FD&C Act section 524B, Ensuring cybersecurity of devices",
-        "identifier": "21 U.S.C. § 360n-2; § 524B(b)(4) reserved",
+        "identifier": "21 U.S.C. § 360n-2",
         "officialUrl": ("https://uscode.house.gov/us/usc/119-124/t21/s360n-2/"),
     }
     assert clause_set["version"] == "2026-10-15"
@@ -308,8 +308,8 @@ def test_fdca_524b_contains_exactly_the_specified_clause_ids_and_outputs():
     """Compare the loaded 524B clause IDs and outputs with the spec table.
 
     Assumptions: The table in `spec.md` is the source of truth.
-    Criteria: The set contains exactly the listed clauses and outputs, with no
-    clause for reserved paragraph (b)(4).
+    Criteria: The set contains exactly the active clauses and output mappings
+    listed in the specification, including paragraph (b)(4).
     """
     binding = _fdca_524b_evaluate_error(PACKAGE_ROOT)
     assert binding.returncode == 0, binding.stderr + binding.stdout
@@ -322,7 +322,7 @@ def test_fdca_524b_contains_exactly_the_specified_clause_ids_and_outputs():
         entry["clauseId"]: entry for entry in json.loads(binding.stdout)["clauses"]
     }
     assert set(clauses) == set(expected)
-    assert "524B(b)(4)" not in clauses
+    assert "524B(b)(4)" in clauses
     assert {
         clause_id: clause["expectedOutputs"] for clause_id, clause in clauses.items()
     } == expected
@@ -388,7 +388,7 @@ def test_fdca_524b_does_not_infer_classification_and_reports_unknown_value(tmp_p
 
     Assumptions: Unrelated context is not a declared classification dimension.
     Criteria: Unrelated facts do not resolve applicability, and an unknown
-    cyber-device value produces an explicit unknown-value reason.
+    cyber-device value produces an unresolved outcome with an unknown-value reason.
     """
     dimension_module = stage_clause_sets(
         tmp_path / "dimension", CLAUSES_DIR / FDCA_524B_FILE

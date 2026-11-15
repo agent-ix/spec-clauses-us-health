@@ -12,7 +12,7 @@
   },
   "source": {
     "title": "FD&C Act section 524B, Ensuring cybersecurity of devices",
-    "identifier": "21 U.S.C. § 360n-2; § 524B(b)(4) reserved",
+    "identifier": "21 U.S.C. § 360n-2",
     "officialUrl": "https://uscode.house.gov/us/usc/119-124/t21/s360n-2/"
   },
   "classificationDimensions": {
@@ -82,8 +82,7 @@
       "styles": {},
       "expectedOutputs": [
         "vulnerability-management-plan",
-        "vulnerability-assessment",
-        "sbom"
+        "vulnerability-assessment"
       ],
       "applicability": {
         "op": "eq",
@@ -170,7 +169,28 @@
       "approvalRoles": [],
       "styles": {},
       "expectedOutputs": [
-        "soup-list"
+        "sbom"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "cyber_device",
+        "value": "yes"
+      }
+    },
+    {
+      "id": "524B(b)(4)",
+      "force": "mandatory",
+      "title": "§ 524B(b)(4) Additional cybersecurity requirements",
+      "text": "Comply with additional cybersecurity requirements established through regulation to demonstrate reasonable assurance that the device and related systems are cybersecure.",
+      "subjects": [
+        "cyber-devices",
+        "cybersecurity-requirements"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "security-risk-records"
       ],
       "applicability": {
         "op": "eq",

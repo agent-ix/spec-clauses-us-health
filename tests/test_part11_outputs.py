@@ -8,6 +8,16 @@ import pytest
 from conftest import REPO_ROOT, load_clause_sets
 
 
+def _part11_clause_set() -> dict:
+    return next(
+        clause_set
+        for clause_set in load_clause_sets()
+        if clause_set["authority"] == "us-fda"
+        and clause_set["id"] == "21-cfr-11"
+        and clause_set["version"] == "2026-11-12"
+    )
+
+
 def _section_rows(heading: str) -> list[list[str]]:
     spec = (REPO_ROOT / "spec" / "spec.md").read_text()
     section = spec.split(heading, 1)[1].split("### ", 1)[0]
@@ -33,7 +43,7 @@ def test_every_part11_clause_has_declared_outputs_matching_the_spec():
     Assumptions: The Part 11 clause table in spec.md defines expected outputs.
     Criteria: Each clause has outputs exactly matching the table and all are declared.
     """
-    (clause_set,) = load_clause_sets()
+    clause_set = _part11_clause_set()
     expected_outputs = _clause_outputs_table()
     declared_outputs = clause_set["outputCatalog"]
 
@@ -59,7 +69,7 @@ def test_customer_owned_table_matches_all_procedure_output_clauses():
     Assumptions: A clause is customer-owned exactly when every output is a procedure.
     Criteria: The spec table lists exactly the clauses satisfying that definition.
     """
-    (clause_set,) = load_clause_sets()
+    clause_set = _part11_clause_set()
     output_kinds = {
         name: definition["kind"]
         for name, definition in clause_set["outputCatalog"].items()
