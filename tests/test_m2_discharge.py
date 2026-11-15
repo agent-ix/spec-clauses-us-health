@@ -390,7 +390,12 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
             clause_id
             for clause_id, row in rows.items()
             if row["compliance"] == "undischarged"
-        } == set(rows) - expected_compliant
+        } == {
+            clause_id
+            for clause_id, row in rows.items()
+            if clause_id not in expected_compliant
+            and row["applicability"] != "not_applicable"
+        }
         assert rows["820.10(c)"]["compliance"] == "compliant", rows["820.10(c)"]
         assert rows["820.10(a)"]["compliance"] == "compliant"
         assert rows["VI.A"]["compliance"] == "compliant"
