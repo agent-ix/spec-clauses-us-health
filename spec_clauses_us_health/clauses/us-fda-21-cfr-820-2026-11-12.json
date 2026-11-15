@@ -1,0 +1,344 @@
+{
+  "schemaVersion": "clause-set-v1",
+  "authority": "us-fda",
+  "id": "21-cfr-820",
+  "title": "21 CFR Part 820 Quality Management System Regulation",
+  "version": "2026-11-12",
+  "rights": {
+    "structure": "citation_only",
+    "text": "original",
+    "clearance_ref": null,
+    "licence": "Public domain: US federal regulation (17 U.S.C. 105)"
+  },
+  "source": {
+    "title": "21 CFR Part 820 Quality Management System Regulation",
+    "identifier": "21 CFR Part 820, Title 21 up to date as of 2026-11-12",
+    "officialUrl": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820"
+  },
+  "classificationDimensions": {
+    "qmsr_traceability_applicability": {
+      "values": [
+        "applies",
+        "not_applicable"
+      ]
+    },
+    "qmsr_advisory_notice_applicability": {
+      "values": [
+        "applies",
+        "not_applicable"
+      ]
+    },
+    "qmsr_design_development_applicability": {
+      "values": [
+        "applies",
+        "not_applicable"
+      ]
+    },
+    "qmsr_life_support_applicability": {
+      "values": [
+        "applies",
+        "not_applicable"
+      ]
+    },
+    "qmsr_servicing_applicability": {
+      "values": [
+        "applies",
+        "not_applicable"
+      ]
+    }
+  },
+  "outputCatalog": {
+    "software-requirements": {
+      "kind": "record",
+      "description": "Functional and non-functional requirements (FR/NFR)."
+    },
+    "release-record": {
+      "kind": "record",
+      "description": "Engineering-assurance release decision."
+    },
+    "device-identification-record": {
+      "kind": "record",
+      "description": "Customer device identity and UDI assignment records."
+    },
+    "written-procedure": {
+      "kind": "procedure",
+      "description": "Customer-owned written procedure."
+    },
+    "traceability-records": {
+      "kind": "record",
+      "description": "Customer traceability procedures and device or batch traceability records."
+    },
+    "complaint-records": {
+      "kind": "record",
+      "description": "Customer complaint intake, evaluation, investigation, and response records."
+    },
+    "regulatory-report-records": {
+      "kind": "record",
+      "description": "Customer records of reports to regulatory authorities."
+    },
+    "advisory-notice-records": {
+      "kind": "record",
+      "description": "Customer records of advisory notices and related actions."
+    },
+    "software-architecture": {
+      "kind": "record",
+      "description": "`spec-objects-architecture` parts and connections."
+    },
+    "verification-records": {
+      "kind": "record",
+      "description": "Test matrix and retained evidence."
+    },
+    "risk-management-records": {
+      "kind": "record",
+      "description": "`spec-objects-safety` hazard, harm, risk-estimate, and residual-risk records."
+    },
+    "service-records": {
+      "kind": "record",
+      "description": "Customer records of device servicing activities."
+    },
+    "labeling-inspection-records": {
+      "kind": "record",
+      "description": "Customer records of labeling and packaging inspection and release checks."
+    }
+  },
+  "clauses": [
+    {
+      "id": "820.10(a)",
+      "force": "mandatory",
+      "title": "820.10(a) Quality management system documentation",
+      "text": "This provision is part of a regulation that incorporates requirements by reference; consult the cited public source for the full requirements.",
+      "subjects": [
+        "quality-system"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "software-requirements",
+        "release-record"
+      ]
+    },
+    {
+      "id": "820.10(b)(1)",
+      "force": "mandatory",
+      "title": "820.10(b)(1) Device identification",
+      "text": "This provision is part of a regulation that incorporates requirements by reference; consult the cited public source for the full requirements.",
+      "subjects": [
+        "device-identification"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "device-identification-record"
+      ]
+    },
+    {
+      "id": "820.10(b)(2)",
+      "force": "mandatory",
+      "title": "820.10(b)(2) Device traceability",
+      "text": "This provision is part of a regulation that incorporates requirements by reference; consult the cited public source for the full requirements.",
+      "subjects": [
+        "traceability"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "written-procedure",
+        "traceability-records"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "qmsr_traceability_applicability",
+        "value": "applies"
+      }
+    },
+    {
+      "id": "820.10(b)(3)",
+      "force": "mandatory",
+      "title": "820.10(b)(3) Complaint reporting",
+      "text": "This provision is part of a regulation that incorporates requirements by reference; consult the cited public source for the full requirements.",
+      "subjects": [
+        "complaints",
+        "regulatory-reporting"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "complaint-records",
+        "regulatory-report-records"
+      ]
+    },
+    {
+      "id": "820.10(b)(4)",
+      "force": "mandatory",
+      "title": "820.10(b)(4) Advisory notices",
+      "text": "This provision is part of a regulation that incorporates requirements by reference; consult the cited public source for the full requirements.",
+      "subjects": [
+        "advisory-notices"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "written-procedure",
+        "advisory-notice-records"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "qmsr_advisory_notice_applicability",
+        "value": "applies"
+      }
+    },
+    {
+      "id": "820.10(c)",
+      "force": "mandatory",
+      "title": "820.10(c) Design and development",
+      "text": "This provision is part of a regulation that incorporates requirements by reference; consult the cited public source for the full requirements.",
+      "subjects": [
+        "design-development",
+        "quality-system"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "software-requirements",
+        "software-architecture",
+        "verification-records",
+        "risk-management-records"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "qmsr_design_development_applicability",
+        "value": "applies"
+      }
+    },
+    {
+      "id": "820.10(d)",
+      "force": "mandatory",
+      "title": "820.10(d) Life-support device traceability",
+      "text": "This provision is part of a regulation that incorporates requirements by reference; consult the cited public source for the full requirements.",
+      "subjects": [
+        "life-support-devices"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "traceability-records"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "qmsr_life_support_applicability",
+        "value": "applies"
+      }
+    },
+    {
+      "id": "820.35(a)",
+      "force": "mandatory",
+      "title": "820.35(a) Complaint records",
+      "text": "This provision is part of a regulation that incorporates requirements by reference; consult the cited public source for the full requirements.",
+      "subjects": [
+        "complaints",
+        "records"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "complaint-records"
+      ]
+    },
+    {
+      "id": "820.35(b)",
+      "force": "mandatory",
+      "title": "820.35(b) Servicing records",
+      "text": "This provision is part of a regulation that incorporates requirements by reference; consult the cited public source for the full requirements.",
+      "subjects": [
+        "servicing",
+        "records"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "service-records"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "qmsr_servicing_applicability",
+        "value": "applies"
+      }
+    },
+    {
+      "id": "820.35(c)",
+      "force": "mandatory",
+      "title": "820.35(c) Device identification records",
+      "text": "This provision is part of a regulation that incorporates requirements by reference; consult the cited public source for the full requirements.",
+      "subjects": [
+        "device-identification",
+        "records"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "device-identification-record"
+      ]
+    },
+    {
+      "id": "820.45(a)",
+      "force": "mandatory",
+      "title": "820.45(a) Labeling and packaging controls",
+      "text": "This provision is part of a regulation that incorporates requirements by reference; consult the cited public source for the full requirements.",
+      "subjects": [
+        "labeling",
+        "packaging"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "written-procedure",
+        "labeling-inspection-records"
+      ]
+    },
+    {
+      "id": "820.45(b)",
+      "force": "mandatory",
+      "title": "820.45(b) Labeling and packaging release",
+      "text": "This provision is part of a regulation that incorporates requirements by reference; consult the cited public source for the full requirements.",
+      "subjects": [
+        "labeling",
+        "packaging",
+        "release"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "release-record"
+      ]
+    },
+    {
+      "id": "820.45(c)",
+      "force": "mandatory",
+      "title": "820.45(c) Labeling inspection records",
+      "text": "This provision is part of a regulation that incorporates requirements by reference; consult the cited public source for the full requirements.",
+      "subjects": [
+        "labeling",
+        "packaging"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "written-procedure",
+        "labeling-inspection-records"
+      ]
+    }
+  ]
+}

@@ -31,6 +31,8 @@ from conftest import (
 
 PART_11_FILE = "us-fda-21-cfr-11-2026-11-12.json"
 PART_11_KEY = "us-fda/21-cfr-11@2026-11-12"
+PART_820_FILE = "us-fda-21-cfr-820-2026-11-12.json"
+PART_820_KEY = "us-fda/21-cfr-820@2026-11-12"
 FDCA_524B_FILE = "us-congress-fdca-524b-2026-10-15.json"
 FDCA_524B_KEY = "us-congress/fdca-524b@2026-10-15"
 FDA_GUIDANCE_FILE = "us-fda-premarket-cybersecurity-2026-02-03.json"
@@ -118,6 +120,7 @@ def test_manifest_is_clause_only_and_lists_all_pack_sets():
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
     assert manifest["clause_sets"] == [
         f"clauses/{PART_11_FILE}",
+        f"clauses/{PART_820_FILE}",
         f"clauses/{FDCA_524B_FILE}",
         f"clauses/{FDA_GUIDANCE_FILE}",
         f"clauses/{PREMARKET_SOFTWARE_FILE}",
@@ -1036,6 +1039,7 @@ def test_part_11_manifest_and_source_metadata_match_the_spec():
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
     assert manifest["clause_sets"] == [
         f"clauses/{PART_11_FILE}",
+        f"clauses/{PART_820_FILE}",
         f"clauses/{FDCA_524B_FILE}",
         f"clauses/{FDA_GUIDANCE_FILE}",
         f"clauses/{PREMARKET_SOFTWARE_FILE}",

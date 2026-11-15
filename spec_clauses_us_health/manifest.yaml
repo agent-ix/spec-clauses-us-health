@@ -3,6 +3,7 @@ name: spec_clauses_us_health
 version: 0.1.0
 clause_sets:
   - clauses/us-fda-21-cfr-11-2026-11-12.json
+  - clauses/us-fda-21-cfr-820-2026-11-12.json
   - clauses/us-congress-fdca-524b-2026-10-15.json
   - clauses/us-fda-premarket-cybersecurity-2026-02-03.json
   - clauses/us-fda-premarket-device-software-2023-06-14.json
