@@ -8,7 +8,8 @@ quality_attribute: compliance
 
 ## Statement
 
-The pack SHALL publish original clause summaries backed by public sources only.
+The pack SHALL publish original clause summaries backed by public sources only,
+and SHALL NOT reproduce or paraphrase paywalled consensus standards.
 
 ## Scope
 
@@ -43,8 +44,9 @@ paraphrases protected expression and would inspect distribution files.
 | ID | Criteria | Verification |
 |----|----------|--------------|
 | NFR-001-AC-1 | Every published set declares `rights.text: original`, a non-blank public-source licence basis, and passes `quire publish-check`. | Test |
-| NFR-001-AC-2 | The M1 source metadata names the eCFR Part 11 page, and each set's source metadata identifies a public legal or public FDA source. | Test |
+| NFR-001-AC-2 | Every set's source metadata identifies its public legal or FDA source; Part 11 identifies the eCFR page, and the cybersecurity sets identify the US Code and current FDA guidance. | Test |
 | NFR-001-AC-3 | Clause summaries use original expression and do not reproduce or paraphrase a paywalled standard; the verification record cites only the public source and rights basis. | Analysis |
+| NFR-001-AC-4 | The 524B and FDA guidance sets contain no name, number, or paraphrase of a paywalled consensus standard referenced by the FDA guidance. | Analysis |
 
 ## Dependencies
 
