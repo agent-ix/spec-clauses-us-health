@@ -182,6 +182,7 @@ def _record_fact(
     clause_id: str,
     evidence_refs: list[str],
     root: pathlib.Path,
+    config: pathlib.Path,
 ) -> None:
     path = root / f"facts-{clause_id.replace('.', '-')}.json"
     path.write_text(
@@ -213,6 +214,8 @@ def _record_fact(
         str(binding_path),
         "--facts",
         str(path),
+        "--config-root",
+        str(config),
     )
     assert result.returncode == 0, result.stderr + result.stdout
 
@@ -304,7 +307,7 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
             binding = bindings[set_id]
             clause_ids = {row["clauseId"] for row in binding["clauses"]}
             assert clause in clause_ids, clause
-            _record_fact(evidence_repo, binding, clause, refs, root)
+            _record_fact(evidence_repo, binding, clause, refs, root, config)
 
         # The release verification is a producer output and supports the release rows.
         _record_fact(
@@ -313,6 +316,7 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
             "820.10(a)",
             [release_ref, req_ref],
             root,
+            config,
         )
         _record_fact(
             evidence_repo,
@@ -320,6 +324,7 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
             "VI.I",
             [release_ref],
             root,
+            config,
         )
 
         args = [
