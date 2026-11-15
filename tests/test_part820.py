@@ -178,9 +178,9 @@ def test_part820_applicability_fixture_errors_name_the_clause(clause_id, mutatio
         _assert_applicability_matches_spec(clause_set)
 
 
-@pytest.mark.trace("TC-072", "FR-014-AC-4")
+@pytest.mark.trace("TC-074", "FR-016-AC-1", "FR-016-AC-2")
 def test_part820_human_dimensions_control_only_their_dependent_clauses():
-    """Each human value binds, excludes, or leaves unresolved only its clause."""
+    """Only supplied Part 820 dimensions resolve their dependent clauses."""
     dimensions = {
         "qmsr_traceability_applicability": "820.10(b)(2)",
         "qmsr_advisory_notice_applicability": "820.10(b)(4)",
@@ -193,6 +193,10 @@ def test_part820_human_dimensions_control_only_their_dependent_clauses():
     assert set(baseline.values()) == {"binding"}
 
     missing_all = _outcomes(evaluate_clause_set(PACKAGE_ROOT, PART_820_KEY))
+    unrelated_fact = _outcomes(
+        evaluate_clause_set(PACKAGE_ROOT, PART_820_KEY, "device_class=class_II")
+    )
+    assert unrelated_fact == missing_all
     conditional_ids = set(dimensions.values())
     assert {key for key, value in missing_all.items() if value == "unresolved"} == (
         conditional_ids
