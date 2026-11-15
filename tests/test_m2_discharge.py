@@ -334,7 +334,7 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
             "--pack",
             "spec_clauses_us_health",
             "--repo",
-            str(project),
+            str(evidence_repo),
             "--as-of",
             AS_OF,
             "--json",
