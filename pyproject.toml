@@ -1,7 +1,42 @@
-[project]
+[tool.poetry]
 name = "spec_clauses_us_health"
 version = "0.1.0"
 description = "US health-law compliance clause sets"
-readme = "README.md"
-license = "AGPL-3.0-or-later"
-requires-python = ">=3.13"
+authors = ["Agent IX <agents@agent-ix.dev>"]
+packages = [{ include = "spec_clauses_us_health" }]
+include = [
+    { path = "spec_clauses_us_health/manifest.yaml", format = ["sdist", "wheel"] },
+    { path = "spec_clauses_us_health/clauses/*.json", format = ["sdist", "wheel"] },
+]
+
+[tool.poetry.dependencies]
+python = ">=3.13,<3.14"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^9.0.2"
+PyYAML = "^6.0.2"
+black = "^26.1.0"
+ruff = "^0.14.13"
+
+[tool.poetry.scripts]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["error"]
+markers = ["trace: Bind a test to one or more spec IDs."]
+
+[tool.black]
+line-length = 88
+target-version = ["py310"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "TID"]
+ignore = ["E203"]
+
+[build-system]
+requires = ["poetry-core>=2.0.0"]
+build-backend = "poetry.core.masonry.api"
