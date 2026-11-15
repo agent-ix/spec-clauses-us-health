@@ -369,7 +369,7 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
             for matrix in report["matrices"]
             for row in matrix["rows"]
         }
-        assert rows["820.10(c)"]["compliance"] == "compliant"
+        assert rows["820.10(c)"]["compliance"] == "compliant", report
         assert rows["820.10(a)"]["compliance"] == "compliant"
         assert rows["VI.A"]["compliance"] == "compliant"
         assert rows["VI.I"]["compliance"] == "compliant"
