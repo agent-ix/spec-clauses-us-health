@@ -29,6 +29,8 @@ relationships:
     type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/FR-013"
     type: covers
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-014"
+    type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/NFR-001"
     type: covers
 ---
@@ -51,7 +53,8 @@ publish gate; source-rights analysis records only the public source and its
 rights basis. PLAT-1613 authors HIPAA clause content, PLAT-1616 authors its
 NIST crosswalk, and PLAT-1621 delivers the addressable-disposition workflow.
 PLAT-1572 authors the M2 FDA device-software guidance set and its level-based
-evaluation tests.
+evaluation tests. PLAT-1569 authors the M2 Part 820 set and its clause-table
+and applicability tests.
 
 ## Functional Requirement Coverage
 
@@ -114,6 +117,11 @@ evaluation tests.
 | FR-013 | FR-013-AC-1 | TC-057 | 🚧 Planned for PLAT-1616 |
 | FR-013 | FR-013-AC-2 | TC-058 | 🚧 Planned for PLAT-1616 |
 | FR-013 | FR-013-AC-3 | TC-059 | 🚧 Planned for PLAT-1616 |
+| FR-014 | FR-014-AC-1 | TC-069 | 🚧 Planned for PLAT-1569 |
+| FR-014 | FR-014-AC-2 | TC-070 | 🚧 Planned for PLAT-1569 |
+| FR-014 | FR-014-AC-3 | TC-071 | 🚧 Planned for PLAT-1569 |
+| FR-014 | FR-014-AC-4 | TC-072 | 🚧 Planned for PLAT-1569 |
+| FR-014 | FR-014-AC-5 | TC-073 | 🚧 Planned for PLAT-1569 |
 | FR-015 | FR-015-AC-1 | TC-060 | ✅ Implemented in PLAT-1572 |
 | FR-015 | FR-015-AC-2 | TC-061 | ✅ Implemented in PLAT-1572 |
 | FR-015 | FR-015-AC-3 | TC-062 | ✅ Implemented in PLAT-1572 |
@@ -202,3 +210,8 @@ evaluation tests.
 | TC-066 | An undeclared documentation level leaves clauses unresolved with an explicit dimension diagnostic | Unit | P1 | FR-016-AC-5 | ✅ Implemented in PLAT-1572 |
 | TC-067 | The basic-level RMM marks an enhanced-only recommendation not applicable | Integration | P1 | FR-016-AC-3 | ✅ Implemented in PLAT-1572 |
 | TC-068 | HIPAA source-rights analysis confirms original summaries and excludes paywalled source text | Analysis | P1 | FR-012-AC-6 | 🚧 Planned for PLAT-1613 |
+| TC-069 | `test_part820_identity_source_and_rights_match_the_dated_ecfr_snapshot`: wrong key, source URL, or rights basis fails the exact metadata assertion | Unit | P0 | FR-014-AC-1 | 🚧 Planned for PLAT-1569 |
+| TC-070 | `test_part820_clause_ids_match_the_normative_table_and_exclusions`: an extra or missing ID fails the exact set comparison | Unit | P0 | FR-014-AC-2 | 🚧 Planned for PLAT-1569 |
+| TC-071 | `test_part820_clauses_match_force_outputs_and_ibr_treatment`: wrong force, output list, or IBR text fails with the affected clause ID | Unit | P0 | FR-014-AC-3 | 🚧 Planned for PLAT-1569 |
+| TC-072 | `test_part820_applicability_matches_the_normative_table_exactly` and mutation fixtures: changed, missing, or added expression raises an assertion naming the clause ID | Unit | P0 | FR-014-AC-4 | 🚧 Planned for PLAT-1569 |
+| TC-073 | `test_part820_spec_validates_and_module_passes_publish_check`: a nonzero validation or publish-check exit fails acceptance | Integration | P1 | FR-014-AC-5 | 🚧 Planned for PLAT-1569 |
