@@ -37,6 +37,8 @@ FDA_GUIDANCE_FILE = "us-fda-premarket-cybersecurity-2026-02-03.json"
 FDA_GUIDANCE_KEY = "us-fda/premarket-cybersecurity@2026-02-03"
 HIPAA_FILE = "us-hhs-45-cfr-164-subpart-c-2026-11-12.json"
 HIPAA_KEY = "us-hhs/45-cfr-164-subpart-c@2026-11-12"
+PREMARKET_SOFTWARE_FILE = "us-fda-premarket-device-software-2023-06-14.json"
+PREMARKET_SOFTWARE_KEY = "us-fda/premarket-device-software@2023-06-14"
 
 
 def _part_11_outcomes(binding: dict) -> dict[str, str]:
@@ -118,6 +120,7 @@ def test_manifest_is_clause_only_and_lists_all_pack_sets():
         f"clauses/{PART_11_FILE}",
         f"clauses/{FDCA_524B_FILE}",
         f"clauses/{FDA_GUIDANCE_FILE}",
+        f"clauses/{PREMARKET_SOFTWARE_FILE}",
         f"clauses/{HIPAA_FILE}",
     ]
     assert not {"object_types", "archetypes", "edges"}.intersection(manifest)
@@ -298,6 +301,203 @@ def test_hipaa_role_only_gates_business_associate_contract_clauses():
     )
     assert missing[ce_only] == missing[ba_only] == "unresolved"
     assert all(missing[key] == "binding" for key in both)
+
+
+@pytest.mark.trace("TC-060", "FR-015-AC-1")
+def test_premarket_software_identity_source_and_rights_match_spec():
+    """The clause set identifies only the dated public FDA guidance."""
+    manifest = yaml.safe_load(MANIFEST_PATH.read_text())
+    assert f"clauses/{PREMARKET_SOFTWARE_FILE}" in manifest["clause_sets"]
+
+    (clause_set,) = [
+        item
+        for item in load_clause_sets()
+        if clause_set_key(item) == PREMARKET_SOFTWARE_KEY
+    ]
+    assert clause_set["rights"] == {
+        "structure": "citation_only",
+        "text": "original",
+        "clearance_ref": None,
+        "licence": "Public domain: U.S. Government guidance (17 U.S.C. 105)",
+    }
+    assert clause_set["source"] == {
+        "title": "Content of Premarket Submissions for Device Software Functions",
+        "identifier": "FDA Guidance for Industry and FDA Staff, issued 2023-06-14",
+        "officialUrl": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/content-premarket-submissions-device-software-functions",
+    }
+    result = evaluate_clause_set(PACKAGE_ROOT, PREMARKET_SOFTWARE_KEY)
+    assert result["clauseSet"] == {
+        "authority": "us-fda",
+        "id": "premarket-device-software",
+        "version": "2023-06-14",
+    }
+
+
+@pytest.mark.trace("TC-061", "FR-015-AC-2")
+def test_premarket_software_clause_ids_and_outputs_match_section_vi_table():
+    """The complete Section VI clause and output set matches the specification."""
+    clause_set = next(
+        item
+        for item in load_clause_sets()
+        if clause_set_key(item) == PREMARKET_SOFTWARE_KEY
+    )
+    expected = {
+        row[0]: {
+            "outputs": [value.strip("`") for value in row[3].split(", ")],
+            "applicability": row[2],
+        }
+        for row in _spec_table("M2 FDA Premarket Device-Software Guidance Clause Table")
+    }
+    clauses = {clause["id"]: clause for clause in clause_set["clauses"]}
+    assert len(clauses) == len(clause_set["clauses"]) == len(expected)
+    assert set(clauses) == set(expected)
+    assert {
+        clause_id: clause["expectedOutputs"] for clause_id, clause in clauses.items()
+    } == {clause_id: row["outputs"] for clause_id, row in expected.items()}
+
+
+@pytest.mark.trace("TC-062", "FR-015-AC-3")
+def test_premarket_software_clauses_match_force_outputs_and_level_table():
+    """Every recommendation has original text, catalog outputs, and declared gating."""
+    clause_set = next(
+        item
+        for item in load_clause_sets()
+        if clause_set_key(item) == PREMARKET_SOFTWARE_KEY
+    )
+    expected = {
+        row[0]: {
+            "outputs": [value.strip("`") for value in row[3].split(", ")],
+            "applicability": row[2],
+        }
+        for row in _spec_table("M2 FDA Premarket Device-Software Guidance Clause Table")
+    }
+    clauses = {clause["id"]: clause for clause in clause_set["clauses"]}
+    for clause_id, clause in clauses.items():
+        assert clause["force"] == "recommended"
+        assert clause["title"].strip() and clause["text"].strip()
+        assert clause["expectedOutputs"] == expected[clause_id]["outputs"]
+        assert clause["expectedOutputs"]
+        assert set(clause["expectedOutputs"]) <= set(clause_set["outputCatalog"])
+        assert clause["applicability"] == {
+            "op": "at_least",
+            "dimension": "documentation_level",
+            "value": expected[clause_id]["applicability"]
+            .split(" ")[-1]
+            .strip("`")
+            .strip(),
+        }
+
+
+@pytest.mark.trace("TC-063", "FR-015-AC-4")
+def test_documentation_level_is_exactly_ordered_basic_then_enhanced():
+    """The declared human-supplied levels have only the specified order."""
+    clause_set = next(
+        item
+        for item in load_clause_sets()
+        if clause_set_key(item) == PREMARKET_SOFTWARE_KEY
+    )
+    assert clause_set["classificationDimensions"] == {
+        "documentation_level": {
+            "values": ["basic", "enhanced"],
+            "order": [["basic"], ["enhanced"]],
+        }
+    }
+
+
+@pytest.mark.trace("TC-064", "FR-015-AC-5")
+def test_premarket_software_module_validates_and_passes_publish_check():
+    """The spec and publishability checks accept the completed module."""
+    artifact_module = pathlib.Path.home() / ".ix/filament/modules/spec-artifacts-iso"
+    process_module = pathlib.Path.home() / ".ix/filament/modules/spec-artifacts-process"
+    validation = run(
+        engine_tool("quire"),
+        "validate",
+        "--scope",
+        str(REPO_ROOT),
+        "--module",
+        str(artifact_module),
+        "--module",
+        str(process_module),
+        "spec/**/*.md",
+    )
+    assert validation.returncode == 0, validation.stderr + validation.stdout
+    publish = run(engine_tool("quire"), "publish-check", "--module", str(PACKAGE_ROOT))
+    assert publish.returncode == 0, publish.stderr + publish.stdout
+
+
+@pytest.mark.trace("TC-065", "FR-016-AC-3", "FR-016-AC-4")
+def test_premarket_software_level_evaluation_is_explicit_and_ordered():
+    """Basic, enhanced, and missing levels produce the required outcomes."""
+    expected_ids = {
+        row[0]
+        for row in _spec_table("M2 FDA Premarket Device-Software Guidance Clause Table")
+    }
+    enhanced_only = {"VI.F.enhanced", "VI.G.enhanced", "VI.H.enhanced"}
+    for value, excluded in (("basic", enhanced_only), ("enhanced", set())):
+        outcomes = _clause_outcomes(
+            evaluate_clause_set(
+                PACKAGE_ROOT, PREMARKET_SOFTWARE_KEY, f"documentation_level={value}"
+            )
+        )
+        assert set(outcomes) == expected_ids
+        assert {key for key, outcome in outcomes.items() if outcome == "binding"} == (
+            expected_ids - excluded
+        )
+        if excluded:
+            assert {outcomes[key] for key in excluded} == {"not_binding"}
+
+    missing = _clause_outcomes(
+        evaluate_clause_set(PACKAGE_ROOT, PREMARKET_SOFTWARE_KEY)
+    )
+    assert set(missing) == expected_ids
+    assert set(missing.values()) == {"unresolved"}
+
+
+@pytest.mark.trace("TC-066", "FR-016-AC-5")
+def test_invalid_documentation_level_is_unresolved_with_dimension_diagnostic():
+    """An undeclared level leaves clauses unresolved with a dimension diagnostic."""
+    result = run(
+        engine_tool("quire"),
+        "clauses",
+        "evaluate",
+        "--module",
+        str(PACKAGE_ROOT),
+        "--authority",
+        "us-fda",
+        "--set",
+        "premarket-device-software",
+        "--version",
+        "2023-06-14",
+        "--context",
+        "documentation_level=advanced",
+        "--json",
+    )
+    assert result.returncode == 0, result.stderr + result.stdout
+    binding = json.loads(result.stdout)
+    assert set(_clause_outcomes(binding).values()) == {"unresolved"}
+    assert all(
+        any(
+            reason["code"] == "unknown_value"
+            and reason["dimension"] == "documentation_level"
+            and '"advanced"' in reason["message"]
+            for reason in clause["reasons"]
+        )
+        for clause in binding["clauses"]
+    )
+
+
+@pytest.mark.trace("TC-067", "FR-016-AC-3")
+def test_basic_level_rmm_marks_enhanced_only_clause_not_applicable(tmp_path):
+    """A basic-level report visibly excludes an enhanced-only recommendation."""
+    result = record_and_render_matrix(
+        tmp_path,
+        PACKAGE_ROOT,
+        PREMARKET_SOFTWARE_KEY,
+        "documentation_level=basic",
+        clause_id="VI.A",
+    )
+    assert result.returncode == 0, result.stderr + result.stdout
+    assert r"VI.F.enhanced | Not applicable |" in result.stdout + result.stderr
 
 
 def test_publish_check_accepts_all_declared_clause_sets():
@@ -838,6 +1038,7 @@ def test_part_11_manifest_and_source_metadata_match_the_spec():
         f"clauses/{PART_11_FILE}",
         f"clauses/{FDCA_524B_FILE}",
         f"clauses/{FDA_GUIDANCE_FILE}",
+        f"clauses/{PREMARKET_SOFTWARE_FILE}",
         f"clauses/{HIPAA_FILE}",
     ]
 

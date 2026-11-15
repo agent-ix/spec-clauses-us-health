@@ -1,0 +1,260 @@
+{
+  "schemaVersion": "clause-set-v1",
+  "authority": "us-fda",
+  "id": "premarket-device-software",
+  "title": "Content of Premarket Submissions for Device Software Functions",
+  "version": "2023-06-14",
+  "rights": {
+    "structure": "citation_only",
+    "text": "original",
+    "clearance_ref": null,
+    "licence": "Public domain: U.S. Government guidance (17 U.S.C. 105)"
+  },
+  "source": {
+    "title": "Content of Premarket Submissions for Device Software Functions",
+    "identifier": "FDA Guidance for Industry and FDA Staff, issued 2023-06-14",
+    "officialUrl": "https://www.fda.gov/regulatory-information/search-fda-guidance-documents/content-premarket-submissions-device-software-functions"
+  },
+  "classificationDimensions": {
+    "documentation_level": {
+      "values": ["basic", "enhanced"],
+      "order": [["basic"], ["enhanced"]]
+    }
+  },
+  "outputCatalog": {
+    "risk-management-records": {
+      "kind": "record",
+      "description": "`spec-objects-safety` hazard, harm, risk-estimate, and residual-risk records."
+    },
+    "software-description": {
+      "kind": "document",
+      "description": "Customer description of device software functions, inputs, outputs, and platforms."
+    },
+    "software-requirements": {
+      "kind": "record",
+      "description": "Functional and non-functional requirements (FR/NFR)."
+    },
+    "software-architecture": {
+      "kind": "record",
+      "description": "`spec-objects-architecture` parts and connections."
+    },
+    "software-design": {
+      "kind": "document",
+      "description": "Customer software design specification."
+    },
+    "written-procedure": {
+      "kind": "procedure",
+      "description": "Customer-owned written procedure."
+    },
+    "configuration-management-plan": {
+      "kind": "document",
+      "description": "Customer configuration-management and maintenance plan."
+    },
+    "verification-records": {
+      "kind": "record",
+      "description": "Test matrix and retained evidence."
+    },
+    "release-record": {
+      "kind": "record",
+      "description": "Engineering-assurance release decision."
+    },
+    "anomaly-list": {
+      "kind": "record",
+      "description": "Unresolved-anomaly report."
+    }
+  },
+  "clauses": [
+    {
+      "id": "VI.A",
+      "force": "recommended",
+      "title": "VI.A Documentation level and rationale",
+      "text": "State the chosen documentation level and explain the choice using relevant submission materials.",
+      "subjects": ["software-documentation"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["risk-management-records"],
+      "applicability": {
+        "op": "at_least",
+        "dimension": "documentation_level",
+        "value": "basic"
+      }
+    },
+    {
+      "id": "VI.B",
+      "force": "recommended",
+      "title": "VI.B Software description",
+      "text": "Describe the software's principal functions, intended use, users, inputs, outputs, and computing platforms; identify material changes from an earlier submission when applicable.",
+      "subjects": ["software-documentation"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["software-description"],
+      "applicability": {
+        "op": "at_least",
+        "dimension": "documentation_level",
+        "value": "basic"
+      }
+    },
+    {
+      "id": "VI.C",
+      "force": "recommended",
+      "title": "VI.C Risk management file",
+      "text": "Provide the risk-management plan, assessment of identified risks and their controls, and the resulting risk-management summary.",
+      "subjects": ["software-documentation"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["risk-management-records"],
+      "applicability": {
+        "op": "at_least",
+        "dimension": "documentation_level",
+        "value": "basic"
+      }
+    },
+    {
+      "id": "VI.D",
+      "force": "recommended",
+      "title": "VI.D Software requirements specification",
+      "text": "Present organized system or software requirements with enough trace links to relate them to other submission materials.",
+      "subjects": ["software-documentation"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["software-requirements"],
+      "applicability": {
+        "op": "at_least",
+        "dimension": "documentation_level",
+        "value": "basic"
+      }
+    },
+    {
+      "id": "VI.E",
+      "force": "recommended",
+      "title": "VI.E System and software architecture",
+      "text": "Show the device's software modules, layers, interfaces, relationships, data movement, and interactions with users or external systems.",
+      "subjects": ["software-documentation"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["software-architecture"],
+      "applicability": {
+        "op": "at_least",
+        "dimension": "documentation_level",
+        "value": "basic"
+      }
+    },
+    {
+      "id": "VI.F.enhanced",
+      "force": "recommended",
+      "title": "VI.F Enhanced software design specification",
+      "text": "Provide technical design details that explain software behavior and show how the design implements and traces to requirements for intended use, function, safety, and effectiveness.",
+      "subjects": ["software-documentation"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["software-design"],
+      "applicability": {
+        "op": "at_least",
+        "dimension": "documentation_level",
+        "value": "enhanced"
+      }
+    },
+    {
+      "id": "VI.G",
+      "force": "recommended",
+      "title": "VI.G Development and configuration practices",
+      "text": "Summarize lifecycle planning and configuration-management and maintenance activities, or provide a declaration of conformity to a recognized consensus standard without naming the standard.",
+      "subjects": ["software-documentation"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["written-procedure"],
+      "applicability": {
+        "op": "at_least",
+        "dimension": "documentation_level",
+        "value": "basic"
+      }
+    },
+    {
+      "id": "VI.G.enhanced",
+      "force": "recommended",
+      "title": "VI.G Enhanced configuration and maintenance plans",
+      "text": "Add complete configuration-management and maintenance plans, or a declaration of conformity to a recognized consensus standard without naming the standard.",
+      "subjects": ["software-documentation"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["configuration-management-plan"],
+      "applicability": {
+        "op": "at_least",
+        "dimension": "documentation_level",
+        "value": "enhanced"
+      }
+    },
+    {
+      "id": "VI.H",
+      "force": "recommended",
+      "title": "VI.H Verification and validation testing",
+      "text": "Summarize unit, integration, and system testing, and include a system-level protocol and report with expected and observed outcomes and pass or fail results.",
+      "subjects": ["software-documentation"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["verification-records"],
+      "applicability": {
+        "op": "at_least",
+        "dimension": "documentation_level",
+        "value": "basic"
+      }
+    },
+    {
+      "id": "VI.H.enhanced",
+      "force": "recommended",
+      "title": "VI.H Enhanced testing detail",
+      "text": "Include unit- and integration-level test protocols and reports with expected and observed outcomes and pass or fail results.",
+      "subjects": ["software-documentation"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["verification-records"],
+      "applicability": {
+        "op": "at_least",
+        "dimension": "documentation_level",
+        "value": "enhanced"
+      }
+    },
+    {
+      "id": "VI.I",
+      "force": "recommended",
+      "title": "VI.I Software version history",
+      "text": "List tested software versions with their dates, identifiers, and concise descriptions of changes from the preceding tested version.",
+      "subjects": ["software-documentation"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["release-record"],
+      "applicability": {
+        "op": "at_least",
+        "dimension": "documentation_level",
+        "value": "basic"
+      }
+    },
+    {
+      "id": "VI.J",
+      "force": "recommended",
+      "title": "VI.J Unresolved software anomalies",
+      "text": "List unresolved software anomalies and assess each one's potential effect on device safety and effectiveness.",
+      "subjects": ["software-documentation"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["anomaly-list"],
+      "applicability": {
+        "op": "at_least",
+        "dimension": "documentation_level",
+        "value": "basic"
+      }
+    }
+  ]
+}

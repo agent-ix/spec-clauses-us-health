@@ -50,6 +50,8 @@ remain with PLAT-1559. Licensing rights metadata is exercised by the PLAT-1549
 publish gate; source-rights analysis records only the public source and its
 rights basis. PLAT-1613 authors HIPAA clause content, PLAT-1616 authors its
 NIST crosswalk, and PLAT-1621 delivers the addressable-disposition workflow.
+PLAT-1572 authors the M2 FDA device-software guidance set and its level-based
+evaluation tests.
 
 ## Functional Requirement Coverage
 
@@ -112,6 +114,14 @@ NIST crosswalk, and PLAT-1621 delivers the addressable-disposition workflow.
 | FR-013 | FR-013-AC-1 | TC-057 | 🚧 Planned for PLAT-1616 |
 | FR-013 | FR-013-AC-2 | TC-058 | 🚧 Planned for PLAT-1616 |
 | FR-013 | FR-013-AC-3 | TC-059 | 🚧 Planned for PLAT-1616 |
+| FR-015 | FR-015-AC-1 | TC-060 | ✅ Implemented in PLAT-1572 |
+| FR-015 | FR-015-AC-2 | TC-061 | ✅ Implemented in PLAT-1572 |
+| FR-015 | FR-015-AC-3 | TC-062 | ✅ Implemented in PLAT-1572 |
+| FR-015 | FR-015-AC-4 | TC-063 | ✅ Implemented in PLAT-1572 |
+| FR-015 | FR-015-AC-5 | TC-064 | ✅ Implemented in PLAT-1572 |
+| FR-016 | FR-016-AC-3 | TC-065, TC-067 | ✅ Implemented in PLAT-1572 |
+| FR-016 | FR-016-AC-4 | TC-065 | ✅ Implemented in PLAT-1572 |
+| FR-016 | FR-016-AC-5 | TC-066 | ✅ Implemented in PLAT-1572 |
 
 ## Non-Functional Requirement Coverage
 
@@ -183,3 +193,11 @@ NIST crosswalk, and PLAT-1621 delivers the addressable-disposition workflow.
 | TC-057 | Each crosswalk row preserves CPRT provenance and targets a catalog control | Unit | P0 | FR-013-AC-1 | 🚧 Planned for PLAT-1616 |
 | TC-058 | Each included Security Rule standard has a CPRT-backed target and § 164.314(b) is absent | Unit | P0 | FR-013-AC-2 | 🚧 Planned for PLAT-1616 |
 | TC-059 | Unmapped source clauses remain explicit and unverified target IDs or normalization fail | Unit | P1 | FR-013-AC-3 | 🚧 Planned for PLAT-1616 |
+| TC-060 | The M2 premarket device-software set identifies its official FDA source and public rights basis | Unit | P0 | FR-015-AC-1 | ✅ Implemented in PLAT-1572 |
+| TC-061 | M2 premarket device-software clause IDs and outputs match the Section VI table | Unit | P0 | FR-015-AC-2 | ✅ Implemented in PLAT-1572 |
+| TC-062 | Each M2 premarket software clause has recommended force, an output, and its table-defined level | Unit | P0 | FR-015-AC-3 | ✅ Implemented in PLAT-1572 |
+| TC-063 | The M2 documentation level contains only ordered basic and enhanced values | Unit | P0 | FR-015-AC-4 | ✅ Implemented in PLAT-1572 |
+| TC-064 | M2 specification validation and clause-set publish check both pass | Integration | P1 | FR-015-AC-5 | ✅ Implemented in PLAT-1572 |
+| TC-065 | Basic and enhanced levels bind the specified Section VI rows; omitted level leaves all rows unresolved | Unit | P0 | FR-016-AC-3, FR-016-AC-4 | ✅ Implemented in PLAT-1572 |
+| TC-066 | An undeclared documentation level leaves clauses unresolved with an explicit dimension diagnostic | Unit | P1 | FR-016-AC-5 | ✅ Implemented in PLAT-1572 |
+| TC-067 | The basic-level RMM marks an enhanced-only recommendation not applicable | Integration | P1 | FR-016-AC-3 | ✅ Implemented in PLAT-1572 |
