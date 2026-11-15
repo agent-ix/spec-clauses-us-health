@@ -1,0 +1,7 @@
+spec_clauses_us_health/
+tests/
+spec/
+scripts/
+pyproject.toml
+poetry.lock
+package-lock.json
