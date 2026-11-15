@@ -33,8 +33,8 @@ normalized to the installed 5.2.0 catalog.
   pack-specific `cprtCrosswalks` field. It SHALL NOT add synthetic clauses or
   place these elements in native `ClauseSet.crosswalks` records. Quire
   evaluation and Quoin RMM do not consume `cprtCrosswalks`.
-- A source clause with no exact workbook relationship SHALL be listed in
-  `unmappedSourceClauses` rather than assigned an inferred control.
+- The module SHALL list each source clause with no exact workbook relationship
+  in `unmappedSourceClauses` rather than assign it an inferred control.
 - Rows from control-family worksheets SHALL use relation `partial`; rows from
   the `Relationships-AC` worksheet, which lists related controls, SHALL use
   relation `informative`. Each row SHALL have a non-blank original rationale
