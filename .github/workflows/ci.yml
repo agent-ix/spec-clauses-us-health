@@ -20,5 +20,7 @@ jobs:
         run: python -m pip install poetry pytest PyYAML
       - name: Install Quire and Quoin CLIs
         run: npm ci
+      - name: Install default Quire modules
+        run: quoin module ensure-defaults
       - name: Verify module, rights, catalog, and distribution contents
         run: pytest

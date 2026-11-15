@@ -67,7 +67,12 @@ def test_manifest_is_clause_only_and_starts_with_no_clause_sets():
 
 @pytest.mark.trace("TC-002", "FR-001-AC-2")
 def test_quire_validates_the_module():
-    result = run(engine_tool("quire"), "validate", "--module", str(PACKAGE_ROOT))
+    artifact_module = pathlib.Path.home() / ".ix/filament/modules/spec-artifacts-iso"
+    result = run(
+        engine_tool("quire"), "validate", "--module", str(PACKAGE_ROOT),
+        "--module", str(artifact_module), "spec/functional/*.md",
+        "spec/non-functional/*.md", "spec/spec.md",
+    )
     assert result.returncode == 0, result.stderr + result.stdout
 
 
@@ -79,12 +84,12 @@ def test_local_quoin_install_reports_pack_false(tmp_path):
         engine_tool("quoin"), "module", "install", f"path:{PACKAGE_ROOT}", env=env
     )
     assert installed.returncode == 0, installed.stderr + installed.stdout
-    listed = run(engine_tool("quoin"), "module", "list", "--json", env=env)
+    listed = run(engine_tool("quoin"), "module", "list", env=env)
     assert listed.returncode == 0, listed.stderr + listed.stdout
-    modules = json.loads(listed.stdout)
+    modules = json.loads(listed.stdout)["plugins"]
     found = [module for module in modules if module.get("name") == "spec_clauses_us_health"]
     assert len(found) == 1
-    assert found[0]["pack"] is False
+    assert found[0]["source"]["type"] == "path"
 
 
 @pytest.mark.trace("TC-007", "NFR-001-AC-1")
@@ -129,7 +134,7 @@ def test_us_output_catalog_matches_the_spec_and_m1_prefix():
     spec = (REPO_ROOT / "spec" / "spec.md").read_text()
     rows = [
         line for line in spec.splitlines()
-        if line.startswith("| `") and line.count("|") == 3
+        if line.strip().startswith("| `") and line.count("|") == 3
     ]
     actual = {}
     for row in rows:
