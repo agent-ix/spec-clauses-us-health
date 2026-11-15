@@ -27,7 +27,11 @@ PRODUCER_TOKENS = {
 
 def _m2_sets() -> list[dict]:
     """Return the Part 820 and premarket sets declared by the module."""
-    return [clause_set for clause_set in load_clause_sets() if clause_set_key(clause_set) in M2_KEYS]
+    return [
+        clause_set
+        for clause_set in load_clause_sets()
+        if clause_set_key(clause_set) in M2_KEYS
+    ]
 
 
 def _mapping_rows() -> list[dict[str, object]]:
@@ -67,12 +71,12 @@ def test_m2_output_mapping_covers_every_clause_output_pair_once():
     }
     rows = _mapping_rows()
     mapped_pairs = [
-        (clause_id, row["output"])
-        for row in rows
-        for clause_id in row["clause_ids"]
+        (clause_id, row["output"]) for row in rows for clause_id in row["clause_ids"]
     ]
 
-    assert len(mapped_pairs) == len(set(mapped_pairs)), "the mapping repeats a clause/output pair"
+    assert len(mapped_pairs) == len(
+        set(mapped_pairs)
+    ), "the mapping repeats a clause/output pair"
     assert set(mapped_pairs) == expected_pairs, (
         f"missing {sorted(expected_pairs - set(mapped_pairs))}; "
         f"extra {sorted(set(mapped_pairs) - expected_pairs)}"
@@ -94,11 +98,15 @@ def test_m2_record_outputs_name_a_producer_or_owner_ticket():
             description = definition["description"]
 
             if definition["kind"] == "record":
-                assert description == mapping, f"{output}: output description differs from the mapping"
+                assert (
+                    description == mapping
+                ), f"{output}: output description differs from the mapping"
                 if "No producer on `origin/main`" in mapping:
                     assert "owner: PLAT-1762" in mapping, output
                 else:
-                    assert output in PRODUCER_TOKENS, f"{output}: no verified producer is listed"
+                    assert (
+                        output in PRODUCER_TOKENS
+                    ), f"{output}: no verified producer is listed"
                     for token in PRODUCER_TOKENS[output]:
                         assert token in mapping, f"{output}: missing producer {token!r}"
             elif definition["kind"] == "document":
