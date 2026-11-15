@@ -32,6 +32,7 @@ relationships:
   - target: "ix://agent-ix/spec-clauses-us-health/FR-014"
     type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/FR-018"
+    type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/FR-017"
     type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/NFR-001"
@@ -136,10 +137,10 @@ resolution tests.
 | FR-015 | FR-015-AC-5 | TC-064 | ✅ Implemented in PLAT-1572 |
 | FR-016 | FR-016-AC-1 | TC-074 | ✅ Implemented in PLAT-1569 |
 | FR-016 | FR-016-AC-2 | TC-074 | ✅ Implemented in PLAT-1569 |
-| FR-017 | FR-017-AC-1 | TC-078 | 🚧 Planned for PLAT-1582 |
-| FR-017 | FR-017-AC-2 | TC-079 | 🚧 Planned for PLAT-1582 |
-| FR-017 | FR-017-AC-3 | TC-080 | 🚧 Planned for PLAT-1582 |
-| FR-017 | FR-017-AC-4 | TC-081 | 🚧 Planned for PLAT-1582 |
+| FR-017 | FR-017-AC-1 | TC-078 | ✅ Implemented in PLAT-1582 |
+| FR-017 | FR-017-AC-2 | TC-079 | ✅ Implemented in PLAT-1582 |
+| FR-017 | FR-017-AC-3 | TC-080 | ✅ Implemented in PLAT-1582 |
+| FR-017 | FR-017-AC-4 | TC-081 | ✅ Implemented in PLAT-1582 |
 | FR-016 | FR-016-AC-3 | TC-065, TC-067 | ✅ Implemented in PLAT-1572 |
 | FR-016 | FR-016-AC-4 | TC-065 | ✅ Implemented in PLAT-1572 |
 | FR-016 | FR-016-AC-5 | TC-066 | ✅ Implemented in PLAT-1572 |
@@ -235,7 +236,7 @@ resolution tests.
 | TC-075 | Every unique M2 clause and expected-output pair appears once in the producer mapping table | Unit | P0 | FR-018-AC-1 | ✅ Implemented in PLAT-1575 |
 | TC-076 | Every M2 record mapping names its owner or a producer whose module entries or CLI command resolve in installed sources | Unit | P0 | FR-018-AC-2 | ✅ Implemented in PLAT-1575 |
 | TC-077 | Shared output names retain the same kind and description in every US set | Unit | P0 | FR-018-AC-3 | ✅ Implemented in PLAT-1575 |
-| TC-078 | `test_premarket_crosswalk_pairs_match_the_m2_table_and_resolve`: source-target pairs equal the M2 table and all declared targets resolve | Unit | P0 | FR-017-AC-1 | 🚧 Planned for PLAT-1582 |
-| TC-079 | `test_crosswalk_unknown_source_or_target_fails_with_identifier`: invalid source and target fixtures fail with their identifier | Unit | P0 | FR-017-AC-2 | 🚧 Planned for PLAT-1582 |
-| TC-080 | `test_crosswalk_requires_relation_and_nonblank_rationale`: each mapping has supported relation and one-sentence original rationale without designators | Unit | P1 | FR-017-AC-3 | 🚧 Planned for PLAT-1582 |
-| TC-081 | `test_crosswalk_is_informative_and_does_not_claim_equivalence`: all mappings remain informative | Unit | P1 | FR-017-AC-4 | 🚧 Planned for PLAT-1582 |
+| TC-078 | `test_premarket_crosswalk_pairs_match_the_m2_table_and_resolve`: source-target pairs equal the M2 table and all declared targets resolve | Unit | P0 | FR-017-AC-1 | ✅ Implemented in PLAT-1582 |
+| TC-079 | `test_crosswalk_unknown_source_or_target_fails_with_identifier`: invalid source and target fixtures fail with their identifier | Unit | P0 | FR-017-AC-2 | ✅ Implemented in PLAT-1582 |
+| TC-080 | `test_crosswalk_requires_relation_and_nonblank_rationale`: each mapping has supported relation and one-sentence original rationale without designators | Unit | P1 | FR-017-AC-3 | ✅ Implemented in PLAT-1582 |
+| TC-081 | `test_crosswalk_is_informative_and_does_not_claim_equivalence`: all mappings remain informative | Unit | P1 | FR-017-AC-4 | ✅ Implemented in PLAT-1582 |

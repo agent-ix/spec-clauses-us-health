@@ -101,6 +101,50 @@ def _unresolved_cprt_targets(
     return failures
 
 
+def _m2_crosswalk_sets() -> dict[str, dict]:
+    return {
+        clause_set_key(clause_set): clause_set
+        for clause_set in load_clause_sets()
+        if clause_set_key(clause_set) in {PREMARKET_DEVICE_SOFTWARE_KEY, PART_820_KEY}
+    }
+
+
+def _m2_crosswalk_link_failures(
+    crosswalks: list[dict], source_clause_ids: set[str], target_clause_ids: set[str]
+) -> list[str]:
+    failures = []
+    for crosswalk in crosswalks:
+        source = crosswalk.get("sourceClause", "")
+        if source not in source_clause_ids:
+            failures.append(
+                f"crosswalk {source!r} has unknown source clause {source!r}"
+            )
+        target = crosswalk.get("target", {}).get("clause", "")
+        if target not in target_clause_ids:
+            failures.append(
+                f"crosswalk {source!r} has unknown target clause {target!r}"
+            )
+    return failures
+
+
+def _m2_crosswalk_metadata_failures(crosswalks: list[dict]) -> list[str]:
+    failures = []
+    for crosswalk in crosswalks:
+        source = crosswalk.get("sourceClause", "")
+        if crosswalk.get("relation") not in {"equivalent", "partial", "informative"}:
+            failures.append(f"crosswalk {source!r} has an unsupported relation")
+        rationale = crosswalk.get("rationale", "").strip()
+        if not rationale:
+            failures.append(f"crosswalk {source!r} has no rationale")
+        elif not rationale.endswith(".") or re.search(
+            r"[.!?](?:\s+\S|$).*[.!?]", rationale
+        ):
+            failures.append(f"crosswalk {source!r} rationale is not one sentence")
+        if CLAUSE_DESIGNATOR.search(rationale):
+            failures.append(f"crosswalk {source!r} rationale contains a designator")
+    return failures
+
+
 def _crosswalk_table_rows() -> list[tuple[str, str, str, str]]:
     spec = (REPO_ROOT / "spec" / "spec.md").read_text()
     section = spec.split("### Cybersecurity Crosswalk Plan", 1)[1].split(
@@ -577,3 +621,138 @@ def test_hipaa_unmapped_clauses_targets_and_normalizations_are_explicit() -> Non
                     "numbers without leading zeroes."
                 ),
             }, f"unrecorded or incorrect normalization for {source_target_id}"
+
+
+@pytest.mark.trace("TC-078", "FR-017-AC-1")
+def test_premarket_crosswalk_pairs_match_the_m2_table_and_resolve() -> None:
+    """Every guidance clause has exactly its declared Part 820 targets.
+
+    Assumptions:
+        The M2 Section VI crosswalk target column is normative.
+    Criteria:
+        The complete source-target set matches the table and all IDs resolve.
+    """
+    expected_pairs = {
+        ("VI.A", "820.10(a)"),
+        ("VI.A", "820.10(c)"),
+        ("VI.B", "820.10(a)"),
+        ("VI.B", "820.10(c)"),
+        ("VI.C", "820.10(a)"),
+        ("VI.C", "820.10(c)"),
+        ("VI.D", "820.10(a)"),
+        ("VI.D", "820.10(c)"),
+        ("VI.E", "820.10(c)"),
+        ("VI.F.enhanced", "820.10(c)"),
+        ("VI.G", "820.10(a)"),
+        ("VI.G", "820.10(c)"),
+        ("VI.G.enhanced", "820.10(a)"),
+        ("VI.G.enhanced", "820.10(c)"),
+        ("VI.H", "820.10(a)"),
+        ("VI.H", "820.10(c)"),
+        ("VI.H.enhanced", "820.10(a)"),
+        ("VI.H.enhanced", "820.10(c)"),
+        ("VI.I", "820.10(a)"),
+        ("VI.J", "820.10(a)"),
+    }
+    sets = _m2_crosswalk_sets()
+    assert set(sets) == {PREMARKET_DEVICE_SOFTWARE_KEY, PART_820_KEY}
+    source_set = sets[PREMARKET_DEVICE_SOFTWARE_KEY]
+    part_820_set = sets[PART_820_KEY]
+    rows = source_set["crosswalks"]
+    actual_pairs = {(row["sourceClause"], row["target"]["clause"]) for row in rows}
+    source_ids = {clause["id"] for clause in source_set["clauses"]}
+    target_ids = {clause["id"] for clause in part_820_set["clauses"]}
+
+    assert len(actual_pairs) == len(rows), "an M2 crosswalk pair is duplicated"
+    assert actual_pairs == expected_pairs, (
+        f"missing pairs: {sorted(expected_pairs - actual_pairs)}; "
+        f"unexpected pairs: {sorted(actual_pairs - expected_pairs)}"
+    )
+    assert {source for source, _ in actual_pairs} == source_ids
+    assert not _m2_crosswalk_link_failures(rows, source_ids, target_ids)
+
+
+@pytest.mark.trace("TC-079", "FR-017-AC-2")
+def test_crosswalk_unknown_source_or_target_fails_with_identifier() -> None:
+    """Cross-set link validation names the invalid identifier and its row.
+
+    Assumptions:
+        Crosswalk references are validated against declared clause IDs.
+    Criteria:
+        Unknown source and target fixtures each produce a crosswalk diagnostic.
+    """
+    sets = _m2_crosswalk_sets()
+    source_set = sets[PREMARKET_DEVICE_SOFTWARE_KEY]
+    part_820_set = sets[PART_820_KEY]
+    source_ids = {clause["id"] for clause in source_set["clauses"]}
+    target_ids = {clause["id"] for clause in part_820_set["clauses"]}
+    valid_row = source_set["crosswalks"][0]
+
+    unknown_source = copy.deepcopy(valid_row)
+    unknown_source["sourceClause"] = "unknown-source"
+    source_failures = _m2_crosswalk_link_failures(
+        [unknown_source], source_ids, target_ids
+    )
+    assert len(source_failures) == 1
+    assert "crosswalk" in source_failures[0] and "unknown-source" in source_failures[0]
+
+    unknown_target = copy.deepcopy(valid_row)
+    unknown_target["target"]["clause"] = "unknown-target"
+    target_failures = _m2_crosswalk_link_failures(
+        [unknown_target], source_ids, target_ids
+    )
+    assert len(target_failures) == 1
+    assert "crosswalk" in target_failures[0] and "unknown-target" in target_failures[0]
+
+
+@pytest.mark.trace("TC-080", "FR-017-AC-3")
+def test_crosswalk_requires_relation_and_nonblank_rationale() -> None:
+    """Each M2 row has authored relation and original single-sentence rationale.
+
+    Assumptions:
+        The supported native crosswalk relation values are closed.
+    Criteria:
+        Rows use a supported relation, have one sentence, and contain no clause IDs.
+    """
+    sets = _m2_crosswalk_sets()
+    rows = sets[PREMARKET_DEVICE_SOFTWARE_KEY]["crosswalks"]
+    assert rows
+    assert not _m2_crosswalk_metadata_failures(rows)
+
+    missing_relation = copy.deepcopy(rows[0])
+    missing_relation.pop("relation")
+    assert (
+        "unsupported relation" in _m2_crosswalk_metadata_failures([missing_relation])[0]
+    )
+    blank_rationale = copy.deepcopy(rows[0])
+    blank_rationale["rationale"] = "  "
+    assert "no rationale" in _m2_crosswalk_metadata_failures([blank_rationale])[0]
+    named_designator = copy.deepcopy(rows[0])
+    named_designator["rationale"] = "This relates to 820.10(a)."
+    assert "designator" in _m2_crosswalk_metadata_failures([named_designator])[0]
+
+
+@pytest.mark.trace("TC-081", "FR-017-AC-4")
+def test_crosswalk_is_informative_and_does_not_claim_equivalence() -> None:
+    """M2 crosswalks remain descriptive relations without derived control facts.
+
+    Assumptions:
+        The clause-set crosswalk model stores references, relations, and rationale.
+    Criteria:
+        Every row is informative and the records contain no derived fact fields.
+    """
+    rows = _m2_crosswalk_sets()[PREMARKET_DEVICE_SOFTWARE_KEY]["crosswalks"]
+    assert rows
+    for row in rows:
+        assert (
+            row["relation"] == "informative"
+        ), f"crosswalk {row['sourceClause']} asserts {row['relation']!r}"
+        assert set(row) == {
+            "sourceClause",
+            "target",
+            "relation",
+            "rationale",
+        }, (
+            f"crosswalk {row['sourceClause']} contains fields beyond "
+            "descriptive metadata"
+        )
