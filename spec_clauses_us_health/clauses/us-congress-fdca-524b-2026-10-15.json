@@ -198,5 +198,267 @@
         "value": "yes"
       }
     }
+  ],
+  "crosswalks": [
+    {
+      "sourceClause": "524B(a)",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "premarket-cybersecurity",
+          "version": "2026-02-03"
+        },
+        "clause": "VII.C.1"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation provides a related cybersecurity-process reference for the statutory obligation."
+    },
+    {
+      "sourceClause": "524B(a)",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "premarket-cybersecurity",
+          "version": "2026-02-03"
+        },
+        "clause": "VII.C.2"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation provides a related cybersecurity-architecture reference for the statutory obligation."
+    },
+    {
+      "sourceClause": "524B(a)",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "premarket-cybersecurity",
+          "version": "2026-02-03"
+        },
+        "clause": "VII.C.3"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation provides a related component-inventory reference for the statutory obligation."
+    },
+    {
+      "sourceClause": "524B(b)(1)",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "premarket-cybersecurity",
+          "version": "2026-02-03"
+        },
+        "clause": "VII.C.1"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation provides a related cybersecurity-process reference for the statutory obligation."
+    },
+    {
+      "sourceClause": "524B(b)(2)",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "premarket-cybersecurity",
+          "version": "2026-02-03"
+        },
+        "clause": "VII.C.2"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation provides a related cybersecurity-architecture reference for the statutory obligation."
+    },
+    {
+      "sourceClause": "524B(b)(2)(A)",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "premarket-cybersecurity",
+          "version": "2026-02-03"
+        },
+        "clause": "VII.C.2"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation provides a related cybersecurity-architecture reference for the statutory obligation."
+    },
+    {
+      "sourceClause": "524B(b)(2)(B)",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "premarket-cybersecurity",
+          "version": "2026-02-03"
+        },
+        "clause": "VII.C.2"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation provides a related cybersecurity-architecture reference for the statutory obligation."
+    },
+    {
+      "sourceClause": "524B(b)(3)",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "premarket-cybersecurity",
+          "version": "2026-02-03"
+        },
+        "clause": "VII.C.3"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation provides a related component-inventory reference for the statutory obligation."
+    },
+    {
+      "sourceClause": "524B(b)(4)",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "premarket-cybersecurity",
+          "version": "2026-02-03"
+        },
+        "clause": "VII.C.2"
+      },
+      "relation": "informative",
+      "rationale": "This FDA section discusses subsection (b)(2) processes and is included only as context for the regulation-authorizing paragraph."
+    },
+    {
+      "sourceClause": "524B(a)",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "RA-3"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related risk-assessment reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "524B(b)(1)",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "RA-5"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related vulnerability-assessment reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "524B(b)(1)",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SI-5"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related security-advisory reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "524B(b)(2)",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SA-3"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related lifecycle reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "524B(b)(2)",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SA-8"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related security-engineering reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "524B(b)(2)(A)",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SA-3"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related lifecycle reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "524B(b)(2)(A)",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SA-8"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related security-engineering reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "524B(b)(2)(B)",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SI-2"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related flaw-remediation reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "524B(b)(3)",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "CM-8"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related component-inventory reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "524B(b)(3)",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SR-4"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related supply-chain-provenance reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "524B(b)(4)",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SA-8"
+      },
+      "relation": "informative",
+      "rationale": "This general security-engineering principle is included only as context for the regulation-authorizing paragraph."
+    }
   ]
 }
