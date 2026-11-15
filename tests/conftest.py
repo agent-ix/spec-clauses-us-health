@@ -47,8 +47,18 @@ def evaluate_clause_set(module_root: pathlib.Path, key: str, *context: str) -> d
     authority, rest = key.split("/")
     set_id, version = rest.split("@")
     args = [
-        engine_tool("quire"), "clauses", "evaluate", "--module", str(module_root),
-        "--authority", authority, "--set", set_id, "--version", version, "--json",
+        engine_tool("quire"),
+        "clauses",
+        "evaluate",
+        "--module",
+        str(module_root),
+        "--authority",
+        authority,
+        "--set",
+        set_id,
+        "--version",
+        version,
+        "--json",
     ]
     for entry in context:
         args.extend(["--context", entry])
@@ -84,27 +94,47 @@ def record_and_render_matrix(
     binding_path = tmp_path / "binding.json"
     binding_path.write_text(json.dumps(binding))
     facts_path = tmp_path / "facts.json"
-    facts_path.write_text(json.dumps([{
-        "kind": "direct",
-        "clauseId": clause_id,
-        "evidenceRefs": ["evidence://example.invalid/run/one"],
-        "attestation": {
-            "attestedBy": "reviewer",
-            "authority": "quality-lead",
-            "attestedAt": "2026-11-01T00:00:00Z",
-            "expiresAt": "2027-11-01T00:00:00Z",
-        },
-    }]))
+    facts_path.write_text(
+        json.dumps(
+            [
+                {
+                    "kind": "direct",
+                    "clauseId": clause_id,
+                    "evidenceRefs": ["evidence://example.invalid/run/one"],
+                    "attestation": {
+                        "attestedBy": "reviewer",
+                        "authority": "quality-lead",
+                        "attestedAt": "2026-11-01T00:00:00Z",
+                        "expiresAt": "2027-11-01T00:00:00Z",
+                    },
+                }
+            ]
+        )
+    )
     repo = tmp_path / "evidence-store"
     repo.mkdir()
     recorded = run(
-        engine_tool("quoin"), "evidence", "record-discharge", "--repo", str(repo),
-        "--binding", str(binding_path), "--facts", str(facts_path),
+        engine_tool("quoin"),
+        "evidence",
+        "record-discharge",
+        "--repo",
+        str(repo),
+        "--binding",
+        str(binding_path),
+        "--facts",
+        str(facts_path),
     )
     assert recorded.returncode == 0, recorded.stderr
     return run(
-        engine_tool("quoin"), "discharge", "--binding", str(binding_path), "--rmm",
-        "--repo", str(repo), "--as-of", "2026-11-14T00:00:00Z",
+        engine_tool("quoin"),
+        "discharge",
+        "--binding",
+        str(binding_path),
+        "--rmm",
+        "--repo",
+        str(repo),
+        "--as-of",
+        "2026-11-14T00:00:00Z",
     )
 
 

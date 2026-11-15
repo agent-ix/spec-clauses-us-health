@@ -4,10 +4,13 @@ test:
 	pytest
 
 lint:
+	ruff check .
+	black --check .
 	python -m compileall -q spec_clauses_us_health tests
 
 format:
-	python -m compileall -q spec_clauses_us_health tests
+	black .
+	ruff check --fix .
 
 build:
 	poetry build
