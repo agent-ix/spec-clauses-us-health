@@ -19,19 +19,25 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const inner = "spec_clauses_us_health";
 const payload = ["manifest.yaml", "clauses"];
+const unownedBackupMessage =
+  "stage-npm: .npm-stage-backup has no ownership marker and contains data; inspect and remove the unowned data before retrying";
+
+function removeEmptyMarkerlessBackup(backupRoot) {
+  if (!existsSync(backupRoot)) return true;
+  try {
+    rmdirSync(backupRoot);
+    return true;
+  } catch (error) {
+    if (error.code === "ENOTEMPTY" || error.code === "EEXIST") return false;
+    throw error;
+  }
+}
 
 function restoreOriginals() {
   const backupRoot = join(root, ".npm-stage-backup");
   const marker = join(backupRoot, "owned.json");
   if (!existsSync(marker)) {
-    if (existsSync(backupRoot)) {
-      try {
-        rmdirSync(backupRoot);
-      } catch (error) {
-        if (error.code !== "ENOTEMPTY" && error.code !== "EEXIST") throw error;
-      }
-    }
-    return;
+    return removeEmptyMarkerlessBackup(backupRoot);
   }
   const { originals } = JSON.parse(readFileSync(marker, "utf8"));
 
@@ -46,17 +52,30 @@ function restoreOriginals() {
     }
   }
   rmSync(backupRoot, { recursive: true, force: true });
+  return true;
 }
 
 if (process.argv.includes("--clean")) {
-  restoreOriginals();
+  if (!restoreOriginals()) {
+    console.error(unownedBackupMessage);
+    process.exit(1);
+  }
   process.exit(0);
 }
 
 const backupRoot = join(root, ".npm-stage-backup");
 if (existsSync(backupRoot)) {
-  console.error("stage-npm: unfinished staging backup exists; run --clean to restore it");
-  process.exit(1);
+  if (!existsSync(join(backupRoot, "owned.json"))) {
+    if (!removeEmptyMarkerlessBackup(backupRoot)) {
+      console.error(unownedBackupMessage);
+      process.exit(1);
+    }
+  } else {
+    console.error(
+      "stage-npm: unfinished staging backup exists; run --clean to restore it",
+    );
+    process.exit(1);
+  }
 }
 if (!existsSync(join(root, inner)) || !statSync(join(root, inner)).isDirectory()) {
   console.error(`stage-npm: module directory ${inner} is missing`);

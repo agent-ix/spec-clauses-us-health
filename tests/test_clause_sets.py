@@ -318,12 +318,13 @@ def test_npm_pack_restores_preexisting_staging_paths(tmp_path):
     assert not (package / ".npm-stage-backup").exists()
 
 
-def test_clean_removes_only_empty_markerless_backup_directories(tmp_path):
+def test_markerless_backup_refuses_unowned_data_and_allows_retry(tmp_path):
     package = tmp_path / "package"
     scripts = package / "scripts"
     scripts.mkdir(parents=True)
     script = scripts / "stage-npm.mjs"
     shutil.copy(REPO_ROOT / "scripts" / "stage-npm.mjs", script)
+    shutil.copytree(PACKAGE_ROOT, package / PACKAGE_ROOT.name)
     backup = package / ".npm-stage-backup"
 
     backup.mkdir()
@@ -337,8 +338,34 @@ def test_clean_removes_only_empty_markerless_backup_directories(tmp_path):
     unowned_file = backup / "keep.bin"
     unowned_bytes = b"unowned backup data\x00\xff"
     unowned_file.write_bytes(unowned_bytes)
+    prepack = subprocess.run(
+        ["node", str(script)], capture_output=True, text=True
+    )
+    assert prepack.returncode != 0
+    assert "inspect and remove the unowned data" in prepack.stderr
+    assert "run --clean" not in prepack.stderr
+
     nonempty_cleanup = subprocess.run(
         ["node", str(script), "--clean"], capture_output=True, text=True
     )
-    assert nonempty_cleanup.returncode == 0, nonempty_cleanup.stderr
+    assert nonempty_cleanup.returncode != 0
+    assert "inspect and remove the unowned data" in nonempty_cleanup.stderr
     assert unowned_file.read_bytes() == unowned_bytes
+
+    unowned_file.unlink()
+    retry_cleanup = subprocess.run(
+        ["node", str(script), "--clean"], capture_output=True, text=True
+    )
+    assert retry_cleanup.returncode == 0, retry_cleanup.stderr
+    assert not backup.exists()
+
+    retry_prepack = subprocess.run(
+        ["node", str(script)], capture_output=True, text=True
+    )
+    assert retry_prepack.returncode == 0, retry_prepack.stderr
+    restored = subprocess.run(
+        ["node", str(script), "--clean"], capture_output=True, text=True
+    )
+    assert restored.returncode == 0, restored.stderr
+    assert not (package / "manifest.yaml").exists()
+    assert not (package / "clauses").exists()
