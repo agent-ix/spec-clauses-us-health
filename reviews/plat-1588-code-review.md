@@ -93,6 +93,11 @@ bindings:
 | FND-003 | fixed | The test mutates the recorded `820.10(c)` fact, runs `quoin discharge`, and passes the modified facts to the established pack reference resolver, which raises an error naming `820.10(c)`. |
 | FND-004 | still-open | `tests/test_premarket_outputs.py::_mapping_rows` already implements this table parser; reusing one shared implementation is required by the no-duplication review rule. |
 | FND-005 | still-open | `tests/test_part11_discharge.py::_resolve_fact_refs` already implements this resolver; reusing one shared implementation is required by the no-duplication review rule. |
+| FND-001 | fixed | The expected compliant/open lists are now derived from the shared PLAT-1575 mapping parser and asserted against the M2 RMM rows. |
+| FND-002 | fixed | The basic-context test asserts `VI.F.enhanced`, `VI.G.enhanced`, and `VI.H.enhanced` are not applicable. |
+| FND-003 | fixed | The test mutates `820.10(c)`, runs Quoin discharge, and checks the mutated fact with the shared pack reference resolver. |
+| FND-004 | fixed | Both output tests now import the one `m2_mapping_rows` helper from `tests/conftest.py`. |
+| FND-005 | fixed | Both discharge tests now import the one `resolve_fact_refs` helper from `tests/conftest.py`. |
 
 ```yaml
 - fnd: FND-004
@@ -121,3 +126,39 @@ bindings:
     with pytest.raises(AssertionError, match=r"820\.10\(c\): evidence ref does not resolve"):
         _resolve_fact_refs(project, facts)
 ```
+
+
+```yaml
+dispositions:
+  - fnd: FND-001
+    outcome: fixed
+    after_excerpt: |-
+      expected_compliant, expected_open = _expected_m2_lists()
+      assert {clause_id for clause_id, row in m2_rows.items() if row["compliance"] == "compliant"} == expected_compliant
+      assert {clause_id for clause_id, row in m2_rows.items() if row["compliance"] == "undischarged"} == expected_open
+  - fnd: FND-002
+    outcome: fixed
+    after_excerpt: |-
+      for clause_id in ["VI.F.enhanced", "VI.G.enhanced", "VI.H.enhanced"]:
+          assert basic_rows[clause_id]["applicability"] == "not_applicable"
+  - fnd: FND-003
+    outcome: fixed
+    after_excerpt: |-
+      changed_report = run(*args)
+      with pytest.raises(AssertionError, match=r"820\.10\(c\): evidence ref does not resolve"):
+          resolve_fact_refs(project, facts)
+  - fnd: FND-004
+    outcome: fixed
+    after_excerpt: |-
+      from conftest import m2_mapping_rows
+      rows = m2_mapping_rows()
+  - fnd: FND-005
+    outcome: fixed
+    after_excerpt: |-
+      from conftest import resolve_fact_refs
+      resolve_fact_refs(project, facts)
+```
+
+## Disposition pass 2 result
+
+**PASS** for SR-028 at `bf04ca0cc6e52e589fb1d05192eae383995d2db2`. All five findings are fixed. The focused related suites passed (6 tests).
