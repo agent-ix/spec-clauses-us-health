@@ -126,12 +126,12 @@ def _unresolved_nist_targets(
 
 @pytest.mark.trace("TC-047", "FR-011-AC-1")
 def test_cybersecurity_crosswalks_match_the_normative_table_exactly() -> None:
-    """Compare both clause sets' source, target, and relation tuples to the spec.
+    """Compare source, target, relation, and b(4) context to the spec.
 
     Assumptions:
         The cybersecurity crosswalk plan in spec/spec.md is normative.
     Criteria:
-        Each table row appears exactly once in the clause sets and no extra row exists.
+        Each table row appears exactly once, with b(4) targets explicitly contextual.
     Trace: FR-011-AC-1
     """
     expected = _expected_rows()
@@ -141,6 +141,21 @@ def test_cybersecurity_crosswalks_match_the_normative_table_exactly() -> None:
         f"missing crosswalks: {sorted(set(expected) - set(actual))}; "
         f"unexpected crosswalks: {sorted(set(actual) - set(expected))}"
     )
+
+    b4_crosswalks = [
+        crosswalk
+        for crosswalk in _source_sets()[FDCA_KEY]["crosswalks"]
+        if crosswalk["sourceClause"] == "524B(b)(4)"
+    ]
+    assert {
+        (crosswalk["target"]["set"]["id"], crosswalk["target"]["clause"])
+        for crosswalk in b4_crosswalks
+    } == {
+        ("premarket-cybersecurity", "VII.C.2"),
+        ("sp800-53", "SA-8"),
+    }
+    assert all(crosswalk["relation"] == "informative" for crosswalk in b4_crosswalks)
+    assert all("only as context" in crosswalk["rationale"] for crosswalk in b4_crosswalks)
 
 
 @pytest.mark.trace("TC-048", "FR-011-AC-2")
