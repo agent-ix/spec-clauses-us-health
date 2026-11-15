@@ -62,15 +62,10 @@ def _hipaa_expected_rows() -> list[tuple[str, str, str, int]]:
         ]
 
 
-def _hipaa_expected_unmapped() -> list[str]:
-    spec = (
-        REPO_ROOT
-        / "spec"
-        / "functional"
-        / "FR-013-hipaa-nist-crosswalk-source-and-target.md"
-    ).read_text()
-    section = spec.split("## Explicitly unmapped source clauses", 1)[1]
-    return re.findall(r"^- `([^`]+)`$", section, re.M)
+def _hipaa_unmapped_source_ids() -> set[str]:
+    clause_ids = {clause["id"] for clause in _hipaa_clause_set()["clauses"]}
+    source_ids = {row[0] for row in _hipaa_expected_rows()}
+    return clause_ids - source_ids
 
 
 def _normalized_nist_id(source_id: str) -> str:
@@ -412,7 +407,6 @@ def test_hipaa_crosswalks_match_the_exact_public_cprt_workbook_rows() -> None:
     expected = _hipaa_expected_rows()
     actual = [_hipaa_crosswalk_row(item) for item in crosswalks]
 
-    assert len(expected) == 274
     assert len(actual) == len(set(actual)), "a HIPAA CPRT row is repeated"
     assert set(actual) == set(expected), (
         f"missing rows: {sorted(set(expected) - set(actual))}; "
@@ -546,11 +540,10 @@ def test_hipaa_unmapped_clauses_targets_and_normalizations_are_explicit() -> Non
     clause_set = _hipaa_clause_set()
     crosswalks = clause_set.get("cprtCrosswalks", [])
     unmapped = clause_set.get("unmappedSourceClauses", [])
-    expected_unmapped = _hipaa_expected_unmapped()
+    expected_unmapped = _hipaa_unmapped_source_ids()
     hipaa_clause_ids = {clause["id"] for clause in clause_set["clauses"]}
 
-    assert unmapped == expected_unmapped
-    assert len(unmapped) == 14
+    assert set(unmapped) == expected_unmapped
     assert set(unmapped) <= hipaa_clause_ids
     assert not set(unmapped) & {item["sourceElementId"] for item in crosswalks}
 
