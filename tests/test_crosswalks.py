@@ -91,7 +91,7 @@ def _normalized_nist_id(source_id: str) -> str:
 def _hipaa_crosswalk_row(crosswalk: dict) -> tuple[str, str, str, str, int]:
     provenance = crosswalk["provenance"]
     return (
-        crosswalk["sourceClause"],
+        crosswalk["sourceElementId"],
         provenance["focalElement"],
         crosswalk["target"]["clause"],
         provenance["worksheet"],
@@ -412,18 +412,52 @@ def test_hipaa_crosswalks_match_the_exact_public_cprt_workbook_rows() -> None:
         f"unexpected rows: {sorted(set(actual) - set(expected))}"
     )
     for crosswalk in crosswalks:
+        assert set(crosswalk) <= {
+            "sourceElementId",
+            "target",
+            "provenance",
+            "normalization",
+        }
+        assert {"sourceElementId", "target", "provenance"} <= set(crosswalk)
+        assert set(crosswalk["target"]) == {"set", "clause"}
+        assert crosswalk["target"]["set"] == {
+            "authority": "nist",
+            "id": "sp800-53",
+            "version": "5.2.0",
+        }
         provenance = crosswalk["provenance"]
+        assert set(provenance) == {
+            "workbook",
+            "worksheet",
+            "row",
+            "direction",
+            "focalElement",
+            "referenceElement",
+        }
+        assert crosswalk["sourceElementId"] == provenance["referenceElement"]
+        assert isinstance(provenance["row"], int) and provenance["row"] > 1
+        assert provenance["worksheet"]
         workbook = provenance["workbook"]
+        assert set(workbook) == {
+            "id",
+            "title",
+            "version",
+            "released",
+            "url",
+            "sha256",
+        }
         assert workbook["url"] == CPRT_WORKBOOK_URL
         assert workbook["sha256"] == CPRT_WORKBOOK_SHA256
         assert workbook["id"] == "SP800-66R2-800-53R5.1.1"
+        assert workbook["title"] == "SP-800-66-Rev-2-to-SP-800-53-Rev-5.1.1"
         assert workbook["version"] == "1.0.0"
         assert provenance["direction"] == "focal-to-reference"
-        assert provenance["referenceElement"] == crosswalk["sourceClause"]
         assert provenance["focalElement"] == crosswalk["target"]["clause"] or (
             crosswalk.get("normalization", {}).get("from") == provenance["focalElement"]
         )
-        assert crosswalk["relation"] == "informative"
+    assert not clause_set.get(
+        "crosswalks"
+    ), "parent-level source elements must not be represented as native clause refs"
 
 
 @pytest.mark.trace("FR-013-AC-2", "TC-058")
@@ -432,7 +466,7 @@ def test_hipaa_cprt_crosswalks_cover_only_the_included_security_standards() -> N
     crosswalks = _hipaa_clause_set().get("cprtCrosswalks", [])
     covered_standards = set()
     for crosswalk in crosswalks:
-        source = crosswalk["sourceClause"]
+        source = crosswalk["sourceElementId"]
         for standard in ("164.308", "164.310", "164.312", "164.316"):
             if source.startswith(standard):
                 covered_standards.add(standard)
@@ -447,7 +481,8 @@ def test_hipaa_cprt_crosswalks_cover_only_the_included_security_standards() -> N
         "164.316",
     }
     assert not any(
-        crosswalk["sourceClause"].startswith("164.314(b)") for crosswalk in crosswalks
+        crosswalk["sourceElementId"].startswith("164.314(b)")
+        for crosswalk in crosswalks
     ), "§ 164.314(b) must not be included"
 
 
@@ -463,7 +498,7 @@ def test_hipaa_unmapped_clauses_targets_and_normalizations_are_explicit() -> Non
     assert unmapped == expected_unmapped
     assert len(unmapped) == 14
     assert set(unmapped) <= hipaa_clause_ids
-    assert not set(unmapped) & {item["sourceClause"] for item in crosswalks}
+    assert not set(unmapped) & {item["sourceElementId"] for item in crosswalks}
 
     installed_targets = _installed_nist_clause_ids()
     for crosswalk in crosswalks:

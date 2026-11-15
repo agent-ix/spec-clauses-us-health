@@ -36,6 +36,11 @@ well-defined.
   than clause IDs in this clause set, the module SHALL store these source
   relationships as `cprtCrosswalks`; it SHALL NOT add synthetic clauses or map
   parent-level source elements to child clauses.
+- `cprtCrosswalks` is pack-specific provenance metadata. Quire's native
+  `ClauseSet.crosswalks` field requires `sourceClause` to identify a clause in
+  the source set, so it cannot represent these exact parent-level source
+  elements. Quire evaluation and Quoin RMM do not consume `cprtCrosswalks`;
+  these records provide auditable source relationships only.
 - The crosswalk SHALL include at least one CPRT-backed, verified target
   control for each included standard: §§ 164.308, 164.310, 164.312, 164.314(a),
   and 164.316. It SHALL NOT include § 164.314(b).
@@ -66,6 +71,23 @@ traceable relationship record reference.
 ## Exact CPRT source-to-target pair table
 
 This table is the complete row-level pair set from NIST CPRT's published workbook **SP-800-66-Rev-2-to-SP-800-53-Rev-5.1.1**, framework identifier `SP800-66R2-800-53R5.1.1`, version `1.0.0`, released 2024-03-20. NIST publishes the file at [SP800-53_SecurityRule_Crosswalk_2024.xlsx](https://csrc.nist.gov/csrc/media/Projects/olir/documents/submissions/SP800-53_SecurityRule_Crosswalk_2024.xlsx). NIST states its publications are generally in the U.S. public domain ([NIST publication rights FAQ](https://www.nist.gov/nist-research-library/library-faqs)). This table reproduces only identifiers; it does not copy workbook descriptions or NIST publication text. SHA-256: `80ee1b51d5b48f394e35311a9a93006d2f9e530e35266c6f1f00eb212b776b95`. The workbook does not expose CPRT internal relationship IDs; `sheet:row` below is the stable row locator in the published source artifact. The workbook row direction is NIST target control (`Focal Document Element`) to HIPAA source element (`Reference Document Element`); the first and third columns provide a reverse-lookup view without changing or claiming a different source relationship direction. Only element identifiers are reproduced here; source descriptions and control text are not copied.
+
+Each row is represented in the HIPAA set's `cprtCrosswalks` array with this
+shape:
+
+| Field | Meaning |
+|---|---|
+| `sourceElementId` | The workbook's HIPAA reference element ID; it is not rewritten as a clause ID. |
+| `target.set` and `target.clause` | The installed target key `nist/sp800-53@5.2.0` and its canonical control ID. |
+| `provenance.workbook` | Workbook ID, title, version, release date, official URL, and the source artifact SHA-256. |
+| `provenance.worksheet` and `provenance.row` | The exact worksheet and one-based row locator in that workbook. |
+| `provenance.direction`, `focalElement`, and `referenceElement` | The original NIST-focal to HIPAA-reference direction and IDs. |
+| `normalization` | Present only when a source control ID changes; records the 5.1.1 ID, 5.2.0 ID, method, and reason. |
+
+The repository test suite validates the record shape, exact pair set,
+provenance, unmapped IDs, target catalog membership, and every normalization.
+The `cprtCrosswalks` extension is not a native Quire `ClauseSet.crosswalks`
+entry and does not affect profile evaluation or RMM rendering.
 
 The fourth column is the exact NIST 5.1.1 element identifier. The fifth is its canonical ID in the installed `nist/sp800-53@5.2.0` catalog. Normalization removes leading zeroes from control and enhancement numbers only; it does not change the control family or number. Each normalized target was found in the pinned catalog. The pair table covers the five included Security Rule standards and contains no § 164.314(b) entry.
 

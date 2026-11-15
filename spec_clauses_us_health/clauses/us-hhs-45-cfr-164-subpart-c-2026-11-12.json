@@ -1189,7 +1189,7 @@
   ],
   "cprtCrosswalks": [
     {
-      "sourceClause": "164.308(a)(3)",
+      "sourceElementId": "164.308(a)(3)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1198,8 +1198,6 @@
         },
         "clause": "AC-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1223,7 +1221,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(A)",
+      "sourceElementId": "164.308(a)(3)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1232,8 +1230,6 @@
         },
         "clause": "AC-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1257,7 +1253,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)",
+      "sourceElementId": "164.308(a)(4)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1266,8 +1262,6 @@
         },
         "clause": "AC-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1291,7 +1285,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)(ii)(B)",
+      "sourceElementId": "164.308(a)(4)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1300,8 +1294,6 @@
         },
         "clause": "AC-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1325,7 +1317,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)(ii)(C)",
+      "sourceElementId": "164.308(a)(4)(ii)(C)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1334,8 +1326,6 @@
         },
         "clause": "AC-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1359,7 +1349,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)",
+      "sourceElementId": "164.312(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1368,8 +1358,6 @@
         },
         "clause": "AC-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1393,7 +1381,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1402,8 +1390,6 @@
         },
         "clause": "AC-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1427,7 +1413,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1436,8 +1422,6 @@
         },
         "clause": "AC-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1461,7 +1445,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)",
+      "sourceElementId": "164.308(a)(3)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1470,8 +1454,6 @@
         },
         "clause": "AC-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1495,7 +1477,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(A)",
+      "sourceElementId": "164.308(a)(3)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1504,8 +1486,6 @@
         },
         "clause": "AC-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1529,7 +1509,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(B)",
+      "sourceElementId": "164.308(a)(3)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1538,8 +1518,6 @@
         },
         "clause": "AC-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1563,7 +1541,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)",
+      "sourceElementId": "164.308(a)(4)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1572,8 +1550,6 @@
         },
         "clause": "AC-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1597,7 +1573,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)(ii)(B)",
+      "sourceElementId": "164.308(a)(4)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1606,8 +1582,6 @@
         },
         "clause": "AC-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1631,7 +1605,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)(ii)(C)",
+      "sourceElementId": "164.308(a)(4)(ii)(C)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1640,8 +1614,6 @@
         },
         "clause": "AC-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1665,7 +1637,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)(2)(i)",
+      "sourceElementId": "164.312(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1674,8 +1646,6 @@
         },
         "clause": "AC-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1699,7 +1669,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)(2)(ii)",
+      "sourceElementId": "164.312(a)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1708,8 +1678,6 @@
         },
         "clause": "AC-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1733,7 +1701,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)",
+      "sourceElementId": "164.308(a)(3)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1742,8 +1710,6 @@
         },
         "clause": "AC-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1767,7 +1733,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(A)",
+      "sourceElementId": "164.308(a)(3)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1776,8 +1742,6 @@
         },
         "clause": "AC-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1801,7 +1765,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)(ii)(B)",
+      "sourceElementId": "164.308(a)(4)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1810,8 +1774,6 @@
         },
         "clause": "AC-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1835,7 +1797,7 @@
       }
     },
     {
-      "sourceClause": "164.310(b)",
+      "sourceElementId": "164.310(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1844,8 +1806,6 @@
         },
         "clause": "AC-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1869,7 +1829,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)",
+      "sourceElementId": "164.312(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1878,8 +1838,6 @@
         },
         "clause": "AC-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1903,7 +1861,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)(2)(i)",
+      "sourceElementId": "164.312(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1912,8 +1870,6 @@
         },
         "clause": "AC-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1937,7 +1893,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)(2)(ii)",
+      "sourceElementId": "164.312(a)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1946,8 +1902,6 @@
         },
         "clause": "AC-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -1971,7 +1925,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(A)",
+      "sourceElementId": "164.308(a)(3)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -1980,8 +1934,6 @@
         },
         "clause": "AC-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2005,7 +1957,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)(ii)(B)",
+      "sourceElementId": "164.308(a)(4)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2014,8 +1966,6 @@
         },
         "clause": "AC-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2039,7 +1989,7 @@
       }
     },
     {
-      "sourceClause": "164.310(b)",
+      "sourceElementId": "164.310(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2048,8 +1998,6 @@
         },
         "clause": "AC-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2073,7 +2021,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)",
+      "sourceElementId": "164.308(a)(3)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2082,8 +2030,6 @@
         },
         "clause": "AC-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2107,7 +2053,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)",
+      "sourceElementId": "164.308(a)(4)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2116,8 +2062,6 @@
         },
         "clause": "AC-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2141,7 +2085,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)(ii)(A)",
+      "sourceElementId": "164.308(a)(4)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2150,8 +2094,6 @@
         },
         "clause": "AC-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2175,7 +2117,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)",
+      "sourceElementId": "164.312(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2184,8 +2126,6 @@
         },
         "clause": "AC-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2209,7 +2149,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)",
+      "sourceElementId": "164.308(a)(3)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2218,8 +2158,6 @@
         },
         "clause": "AC-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2243,7 +2181,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)",
+      "sourceElementId": "164.308(a)(4)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2252,8 +2190,6 @@
         },
         "clause": "AC-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2277,7 +2213,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)(ii)(A)",
+      "sourceElementId": "164.308(a)(4)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2286,8 +2222,6 @@
         },
         "clause": "AC-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2311,7 +2245,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)",
+      "sourceElementId": "164.312(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2320,8 +2254,6 @@
         },
         "clause": "AC-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2345,7 +2277,7 @@
       }
     },
     {
-      "sourceClause": "164.310(b)",
+      "sourceElementId": "164.310(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2354,8 +2286,6 @@
         },
         "clause": "AC-11"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2373,7 +2303,7 @@
       }
     },
     {
-      "sourceClause": "164.310(b)",
+      "sourceElementId": "164.310(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2382,8 +2312,6 @@
         },
         "clause": "AC-12"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2401,7 +2329,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)(2)(iii)",
+      "sourceElementId": "164.312(a)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2410,8 +2338,6 @@
         },
         "clause": "AC-12"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2429,7 +2355,7 @@
       }
     },
     {
-      "sourceClause": "164.310(b)",
+      "sourceElementId": "164.310(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2438,8 +2364,6 @@
         },
         "clause": "AC-16"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2457,7 +2381,7 @@
       }
     },
     {
-      "sourceClause": "164.310(b)",
+      "sourceElementId": "164.310(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2466,8 +2390,6 @@
         },
         "clause": "AC-17"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2485,7 +2407,7 @@
       }
     },
     {
-      "sourceClause": "164.310(b)",
+      "sourceElementId": "164.310(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2494,8 +2416,6 @@
         },
         "clause": "AC-19"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2513,7 +2433,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(5)",
+      "sourceElementId": "164.308(a)(5)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2522,8 +2442,6 @@
         },
         "clause": "AT-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2547,7 +2465,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2556,8 +2474,6 @@
         },
         "clause": "AT-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2581,7 +2497,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2590,8 +2506,6 @@
         },
         "clause": "AT-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2615,7 +2529,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(5)",
+      "sourceElementId": "164.308(a)(5)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2624,8 +2538,6 @@
         },
         "clause": "AT-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2649,7 +2561,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(5)(ii)(A)",
+      "sourceElementId": "164.308(a)(5)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2658,8 +2570,6 @@
         },
         "clause": "AT-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2683,7 +2593,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(5)(ii)(B)",
+      "sourceElementId": "164.308(a)(5)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2692,8 +2602,6 @@
         },
         "clause": "AT-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2717,7 +2625,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(5)(ii)(D)",
+      "sourceElementId": "164.308(a)(5)(ii)(D)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2726,8 +2634,6 @@
         },
         "clause": "AT-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2751,7 +2657,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(5)",
+      "sourceElementId": "164.308(a)(5)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2760,8 +2666,6 @@
         },
         "clause": "AT-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2785,7 +2689,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(5)(ii)(A)",
+      "sourceElementId": "164.308(a)(5)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2794,8 +2698,6 @@
         },
         "clause": "AT-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2819,7 +2721,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(5)(ii)(B)",
+      "sourceElementId": "164.308(a)(5)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2828,8 +2730,6 @@
         },
         "clause": "AT-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2853,7 +2753,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(5)(ii)(C)",
+      "sourceElementId": "164.308(a)(5)(ii)(C)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2862,8 +2762,6 @@
         },
         "clause": "AT-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2887,7 +2785,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(5)(ii)(D)",
+      "sourceElementId": "164.308(a)(5)(ii)(D)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2896,8 +2794,6 @@
         },
         "clause": "AT-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2921,7 +2817,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(5)",
+      "sourceElementId": "164.308(a)(5)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2930,8 +2826,6 @@
         },
         "clause": "AT-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2955,7 +2849,7 @@
       }
     },
     {
-      "sourceClause": "164.312(b)",
+      "sourceElementId": "164.312(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2964,8 +2858,6 @@
         },
         "clause": "AU-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -2989,7 +2881,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -2998,8 +2890,6 @@
         },
         "clause": "AU-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3023,7 +2913,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3032,8 +2922,6 @@
         },
         "clause": "AU-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3057,7 +2945,7 @@
       }
     },
     {
-      "sourceClause": "164.312(b)",
+      "sourceElementId": "164.312(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3066,8 +2954,6 @@
         },
         "clause": "AU-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3091,7 +2977,7 @@
       }
     },
     {
-      "sourceClause": "164.312(b)",
+      "sourceElementId": "164.312(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3100,8 +2986,6 @@
         },
         "clause": "AU-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3125,7 +3009,7 @@
       }
     },
     {
-      "sourceClause": "164.312(b)",
+      "sourceElementId": "164.312(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3134,8 +3018,6 @@
         },
         "clause": "AU-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3159,7 +3041,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(1)(ii)(D)",
+      "sourceElementId": "164.308(a)(1)(ii)(D)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3168,8 +3050,6 @@
         },
         "clause": "AU-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3193,7 +3073,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(5)(ii)(C)",
+      "sourceElementId": "164.308(a)(5)(ii)(C)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3202,8 +3082,6 @@
         },
         "clause": "AU-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3227,7 +3105,7 @@
       }
     },
     {
-      "sourceClause": "164.312(b)",
+      "sourceElementId": "164.312(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3236,8 +3114,6 @@
         },
         "clause": "AU-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3261,7 +3137,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(1)(ii)(D)",
+      "sourceElementId": "164.308(a)(1)(ii)(D)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3270,8 +3146,6 @@
         },
         "clause": "AU-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3295,7 +3169,7 @@
       }
     },
     {
-      "sourceClause": "164.312(b)",
+      "sourceElementId": "164.312(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3304,8 +3178,6 @@
         },
         "clause": "AU-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3329,7 +3201,7 @@
       }
     },
     {
-      "sourceClause": "164.312(b)",
+      "sourceElementId": "164.312(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3338,8 +3210,6 @@
         },
         "clause": "AU-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3363,7 +3233,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(8)",
+      "sourceElementId": "164.308(a)(8)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3372,8 +3242,6 @@
         },
         "clause": "CA-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3397,7 +3265,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3406,8 +3274,6 @@
         },
         "clause": "CA-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3431,7 +3297,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3440,8 +3306,6 @@
         },
         "clause": "CA-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3465,7 +3329,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(8)",
+      "sourceElementId": "164.308(a)(8)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3474,8 +3338,6 @@
         },
         "clause": "CA-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3499,7 +3361,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)",
+      "sourceElementId": "164.316(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3508,8 +3370,6 @@
         },
         "clause": "CA-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3533,7 +3393,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)(ii)(A)",
+      "sourceElementId": "164.308(a)(4)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3542,8 +3402,6 @@
         },
         "clause": "CA-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3567,7 +3425,7 @@
       }
     },
     {
-      "sourceClause": "164.308(b)(1)",
+      "sourceElementId": "164.308(b)(1)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3576,8 +3434,6 @@
         },
         "clause": "CA-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3601,7 +3457,7 @@
       }
     },
     {
-      "sourceClause": "164.308(b)(4)",
+      "sourceElementId": "164.308(b)(4)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3610,8 +3466,6 @@
         },
         "clause": "CA-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3635,7 +3489,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)(2)(ii)",
+      "sourceElementId": "164.314(a)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3644,8 +3498,6 @@
         },
         "clause": "CA-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3669,7 +3521,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(2)",
+      "sourceElementId": "164.308(a)(2)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3678,8 +3530,6 @@
         },
         "clause": "CA-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3703,7 +3553,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(8)",
+      "sourceElementId": "164.308(a)(8)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3712,8 +3562,6 @@
         },
         "clause": "CA-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3737,7 +3585,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(1)(ii)(D)",
+      "sourceElementId": "164.308(a)(1)(ii)(D)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3746,8 +3594,6 @@
         },
         "clause": "CA-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3771,7 +3617,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(8)",
+      "sourceElementId": "164.308(a)(8)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3780,8 +3626,6 @@
         },
         "clause": "CA-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3805,7 +3649,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(8)",
+      "sourceElementId": "164.308(a)(8)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3814,8 +3658,6 @@
         },
         "clause": "CA-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3839,7 +3681,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3848,8 +3690,6 @@
         },
         "clause": "CM-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3873,7 +3713,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3882,8 +3722,6 @@
         },
         "clause": "CM-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3907,7 +3745,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)",
+      "sourceElementId": "164.310(d)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3916,8 +3754,6 @@
         },
         "clause": "CM-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3941,7 +3777,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)(2)(iii)",
+      "sourceElementId": "164.310(d)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3950,8 +3786,6 @@
         },
         "clause": "CM-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -3975,7 +3809,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)",
+      "sourceElementId": "164.308(a)(7)",
       "target": {
         "set": {
           "authority": "nist",
@@ -3984,8 +3818,6 @@
         },
         "clause": "CP-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4009,7 +3841,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4018,8 +3850,6 @@
         },
         "clause": "CP-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4043,7 +3873,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4052,8 +3882,6 @@
         },
         "clause": "CP-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4077,7 +3905,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)",
+      "sourceElementId": "164.308(a)(7)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4086,8 +3914,6 @@
         },
         "clause": "CP-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4111,7 +3937,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(B)",
+      "sourceElementId": "164.308(a)(7)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4120,8 +3946,6 @@
         },
         "clause": "CP-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4145,7 +3969,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(C)",
+      "sourceElementId": "164.308(a)(7)(ii)(C)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4154,8 +3978,6 @@
         },
         "clause": "CP-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4179,7 +4001,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(D)",
+      "sourceElementId": "164.308(a)(7)(ii)(D)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4188,8 +4010,6 @@
         },
         "clause": "CP-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4213,7 +4033,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(E)",
+      "sourceElementId": "164.308(a)(7)(ii)(E)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4222,8 +4042,6 @@
         },
         "clause": "CP-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4247,7 +4065,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(i)",
+      "sourceElementId": "164.310(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4256,8 +4074,6 @@
         },
         "clause": "CP-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4281,7 +4097,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)(2)(ii)",
+      "sourceElementId": "164.312(a)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4290,8 +4106,6 @@
         },
         "clause": "CP-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4315,7 +4129,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(E)",
+      "sourceElementId": "164.308(a)(7)(ii)(E)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4324,8 +4138,6 @@
         },
         "clause": "CP-2(8)"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4349,7 +4161,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(D)",
+      "sourceElementId": "164.308(a)(7)(ii)(D)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4358,8 +4170,6 @@
         },
         "clause": "CP-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4383,7 +4193,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(D)",
+      "sourceElementId": "164.308(a)(7)(ii)(D)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4392,8 +4202,6 @@
         },
         "clause": "CP-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4417,7 +4225,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(A)",
+      "sourceElementId": "164.308(a)(7)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4426,8 +4234,6 @@
         },
         "clause": "CP-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4451,7 +4257,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(B)",
+      "sourceElementId": "164.308(a)(7)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4460,8 +4266,6 @@
         },
         "clause": "CP-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4485,7 +4289,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(i)",
+      "sourceElementId": "164.310(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4494,8 +4298,6 @@
         },
         "clause": "CP-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4519,7 +4321,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(B)",
+      "sourceElementId": "164.308(a)(7)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4528,8 +4330,6 @@
         },
         "clause": "CP-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4553,7 +4353,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(i)",
+      "sourceElementId": "164.310(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4562,8 +4362,6 @@
         },
         "clause": "CP-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4587,7 +4385,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(B)",
+      "sourceElementId": "164.308(a)(7)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4596,8 +4394,6 @@
         },
         "clause": "CP-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4621,7 +4417,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(A)",
+      "sourceElementId": "164.308(a)(7)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4630,8 +4426,6 @@
         },
         "clause": "CP-9"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4655,7 +4449,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(B)",
+      "sourceElementId": "164.308(a)(7)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4664,8 +4458,6 @@
         },
         "clause": "CP-9"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4689,7 +4481,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)(2)(iv)",
+      "sourceElementId": "164.310(d)(2)(iv)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4698,8 +4490,6 @@
         },
         "clause": "CP-9"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4723,7 +4513,7 @@
       }
     },
     {
-      "sourceClause": "164.312(c)",
+      "sourceElementId": "164.312(c)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4732,8 +4522,6 @@
         },
         "clause": "CP-9"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4757,7 +4545,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(A)",
+      "sourceElementId": "164.308(a)(7)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4766,8 +4554,6 @@
         },
         "clause": "CP-9(1)"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4791,7 +4577,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(B)",
+      "sourceElementId": "164.308(a)(7)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4800,8 +4586,6 @@
         },
         "clause": "CP-10"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4819,7 +4603,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(C)",
+      "sourceElementId": "164.308(a)(7)(ii)(C)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4828,8 +4612,6 @@
         },
         "clause": "CP-10"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4847,7 +4629,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4856,8 +4638,6 @@
         },
         "clause": "IA-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4881,7 +4661,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4890,8 +4670,6 @@
         },
         "clause": "IA-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4915,7 +4693,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)(2)(i)",
+      "sourceElementId": "164.312(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4924,8 +4702,6 @@
         },
         "clause": "IA-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4949,7 +4725,7 @@
       }
     },
     {
-      "sourceClause": "164.312(d)",
+      "sourceElementId": "164.312(d)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4958,8 +4734,6 @@
         },
         "clause": "IA-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -4983,7 +4757,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)(2)(i)",
+      "sourceElementId": "164.312(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -4992,8 +4766,6 @@
         },
         "clause": "IA-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5017,7 +4789,7 @@
       }
     },
     {
-      "sourceClause": "164.312(d)",
+      "sourceElementId": "164.312(d)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5026,8 +4798,6 @@
         },
         "clause": "IA-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5051,7 +4821,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)(2)(i)",
+      "sourceElementId": "164.312(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5060,8 +4830,6 @@
         },
         "clause": "IA-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5085,7 +4853,7 @@
       }
     },
     {
-      "sourceClause": "164.312(d)",
+      "sourceElementId": "164.312(d)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5094,8 +4862,6 @@
         },
         "clause": "IA-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5119,7 +4885,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)(2)(i)",
+      "sourceElementId": "164.312(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5128,8 +4894,6 @@
         },
         "clause": "IA-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5153,7 +4917,7 @@
       }
     },
     {
-      "sourceClause": "164.312(d)",
+      "sourceElementId": "164.312(d)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5162,8 +4926,6 @@
         },
         "clause": "IA-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5187,7 +4949,7 @@
       }
     },
     {
-      "sourceClause": "164.312(d)",
+      "sourceElementId": "164.312(d)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5196,8 +4958,6 @@
         },
         "clause": "IA-9"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5221,7 +4981,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(6)",
+      "sourceElementId": "164.308(a)(6)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5230,8 +4990,6 @@
         },
         "clause": "IR-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5255,7 +5013,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5264,8 +5022,6 @@
         },
         "clause": "IR-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5289,7 +5045,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5298,8 +5054,6 @@
         },
         "clause": "IR-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5323,7 +5077,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(6)",
+      "sourceElementId": "164.308(a)(6)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5332,8 +5086,6 @@
         },
         "clause": "IR-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5357,7 +5109,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(6)",
+      "sourceElementId": "164.308(a)(6)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5366,8 +5118,6 @@
         },
         "clause": "IR-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5391,7 +5141,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(6)",
+      "sourceElementId": "164.308(a)(6)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5400,8 +5150,6 @@
         },
         "clause": "IR-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5425,7 +5173,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(6)(ii)",
+      "sourceElementId": "164.308(a)(6)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5434,8 +5182,6 @@
         },
         "clause": "IR-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5459,7 +5205,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(1)(ii)(D)",
+      "sourceElementId": "164.308(a)(1)(ii)(D)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5468,8 +5214,6 @@
         },
         "clause": "IR-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5493,7 +5237,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(6)(ii)",
+      "sourceElementId": "164.308(a)(6)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5502,8 +5246,6 @@
         },
         "clause": "IR-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5527,7 +5269,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(1)(ii)(D)",
+      "sourceElementId": "164.308(a)(1)(ii)(D)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5536,8 +5278,6 @@
         },
         "clause": "IR-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5561,7 +5301,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(6)(ii)",
+      "sourceElementId": "164.308(a)(6)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5570,8 +5310,6 @@
         },
         "clause": "IR-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5595,7 +5333,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)(2)(i)",
+      "sourceElementId": "164.314(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5604,8 +5342,6 @@
         },
         "clause": "IR-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5629,7 +5365,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)(2)(iii)",
+      "sourceElementId": "164.314(a)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5638,8 +5374,6 @@
         },
         "clause": "IR-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5663,7 +5397,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(6)(ii)",
+      "sourceElementId": "164.308(a)(6)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5672,8 +5406,6 @@
         },
         "clause": "IR-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5697,7 +5429,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(6)(ii)",
+      "sourceElementId": "164.308(a)(6)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5706,8 +5438,6 @@
         },
         "clause": "IR-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5731,7 +5461,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(6)(ii)",
+      "sourceElementId": "164.308(a)(6)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5740,8 +5470,6 @@
         },
         "clause": "IR-9"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5765,7 +5493,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(iv)",
+      "sourceElementId": "164.310(a)(2)(iv)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5774,8 +5502,6 @@
         },
         "clause": "MA-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5799,7 +5525,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5808,8 +5534,6 @@
         },
         "clause": "MA-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5833,7 +5557,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5842,8 +5566,6 @@
         },
         "clause": "MA-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5867,7 +5589,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(iv)",
+      "sourceElementId": "164.310(a)(2)(iv)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5876,8 +5598,6 @@
         },
         "clause": "MA-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5901,7 +5621,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(A)",
+      "sourceElementId": "164.308(a)(3)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5910,8 +5630,6 @@
         },
         "clause": "MA-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5935,7 +5653,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(iv)",
+      "sourceElementId": "164.310(a)(2)(iv)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5944,8 +5662,6 @@
         },
         "clause": "MA-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -5969,7 +5685,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)",
+      "sourceElementId": "164.310(d)",
       "target": {
         "set": {
           "authority": "nist",
@@ -5978,8 +5694,6 @@
         },
         "clause": "MP-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6003,7 +5717,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6012,8 +5726,6 @@
         },
         "clause": "MP-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6037,7 +5749,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6046,8 +5758,6 @@
         },
         "clause": "MP-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6071,7 +5781,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(A)",
+      "sourceElementId": "164.308(a)(3)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6080,8 +5790,6 @@
         },
         "clause": "MP-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6105,7 +5813,7 @@
       }
     },
     {
-      "sourceClause": "164.310(c)",
+      "sourceElementId": "164.310(c)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6114,8 +5822,6 @@
         },
         "clause": "MP-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6139,7 +5845,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)",
+      "sourceElementId": "164.310(d)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6148,8 +5854,6 @@
         },
         "clause": "MP-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6173,7 +5877,7 @@
       }
     },
     {
-      "sourceClause": "164.312(c)",
+      "sourceElementId": "164.312(c)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6182,8 +5886,6 @@
         },
         "clause": "MP-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6207,7 +5909,7 @@
       }
     },
     {
-      "sourceClause": "164.310(c)",
+      "sourceElementId": "164.310(c)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6216,8 +5918,6 @@
         },
         "clause": "MP-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6241,7 +5941,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)",
+      "sourceElementId": "164.310(d)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6250,8 +5950,6 @@
         },
         "clause": "MP-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6275,7 +5973,7 @@
       }
     },
     {
-      "sourceClause": "164.310(c)",
+      "sourceElementId": "164.310(c)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6284,8 +5982,6 @@
         },
         "clause": "MP-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6309,7 +6005,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)",
+      "sourceElementId": "164.310(d)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6318,8 +6014,6 @@
         },
         "clause": "MP-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6343,7 +6037,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)(2)(iv)",
+      "sourceElementId": "164.310(d)(2)(iv)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6352,8 +6046,6 @@
         },
         "clause": "MP-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6377,7 +6069,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)",
+      "sourceElementId": "164.310(d)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6386,8 +6078,6 @@
         },
         "clause": "MP-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6411,7 +6101,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)(2)(iii)",
+      "sourceElementId": "164.310(d)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6420,8 +6110,6 @@
         },
         "clause": "MP-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6445,7 +6133,7 @@
       }
     },
     {
-      "sourceClause": "164.312(c)",
+      "sourceElementId": "164.312(c)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6454,8 +6142,6 @@
         },
         "clause": "MP-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6479,7 +6165,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)",
+      "sourceElementId": "164.310(d)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6488,8 +6174,6 @@
         },
         "clause": "MP-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6513,7 +6197,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)(2)(i)",
+      "sourceElementId": "164.310(d)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6522,8 +6206,6 @@
         },
         "clause": "MP-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6547,7 +6229,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)(2)(ii)",
+      "sourceElementId": "164.310(d)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6556,8 +6238,6 @@
         },
         "clause": "MP-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6581,7 +6261,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)",
+      "sourceElementId": "164.310(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6590,8 +6270,6 @@
         },
         "clause": "PE-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6615,7 +6293,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(ii)",
+      "sourceElementId": "164.310(a)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6624,8 +6302,6 @@
         },
         "clause": "PE-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6649,7 +6325,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(iii)",
+      "sourceElementId": "164.310(a)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6658,8 +6334,6 @@
         },
         "clause": "PE-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6683,7 +6357,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6692,8 +6366,6 @@
         },
         "clause": "PE-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6717,7 +6389,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6726,8 +6398,6 @@
         },
         "clause": "PE-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6751,7 +6421,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)",
+      "sourceElementId": "164.310(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6760,8 +6430,6 @@
         },
         "clause": "PE-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6785,7 +6453,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(i)",
+      "sourceElementId": "164.310(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6794,8 +6462,6 @@
         },
         "clause": "PE-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6819,7 +6485,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(iii)",
+      "sourceElementId": "164.310(a)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6828,8 +6494,6 @@
         },
         "clause": "PE-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6853,7 +6517,7 @@
       }
     },
     {
-      "sourceClause": "164.310(c)",
+      "sourceElementId": "164.310(c)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6862,8 +6526,6 @@
         },
         "clause": "PE-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6887,7 +6549,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)",
+      "sourceElementId": "164.310(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6896,8 +6558,6 @@
         },
         "clause": "PE-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6921,7 +6581,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(i)",
+      "sourceElementId": "164.310(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6930,8 +6590,6 @@
         },
         "clause": "PE-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6955,7 +6613,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(iii)",
+      "sourceElementId": "164.310(a)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6964,8 +6622,6 @@
         },
         "clause": "PE-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -6989,7 +6645,7 @@
       }
     },
     {
-      "sourceClause": "164.310(b)",
+      "sourceElementId": "164.310(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -6998,8 +6654,6 @@
         },
         "clause": "PE-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7023,7 +6677,7 @@
       }
     },
     {
-      "sourceClause": "164.310(c)",
+      "sourceElementId": "164.310(c)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7032,8 +6686,6 @@
         },
         "clause": "PE-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7057,7 +6709,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)",
+      "sourceElementId": "164.310(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7066,8 +6718,6 @@
         },
         "clause": "PE-3(1)"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7091,7 +6741,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(iii)",
+      "sourceElementId": "164.310(a)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7100,8 +6750,6 @@
         },
         "clause": "PE-3(1)"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7125,7 +6773,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)",
+      "sourceElementId": "164.310(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7134,8 +6782,6 @@
         },
         "clause": "PE-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7159,7 +6805,7 @@
       }
     },
     {
-      "sourceClause": "164.310(c)",
+      "sourceElementId": "164.310(c)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7168,8 +6814,6 @@
         },
         "clause": "PE-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7193,7 +6837,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)",
+      "sourceElementId": "164.310(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7202,8 +6846,6 @@
         },
         "clause": "PE-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7227,7 +6869,7 @@
       }
     },
     {
-      "sourceClause": "164.310(b)",
+      "sourceElementId": "164.310(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7236,8 +6878,6 @@
         },
         "clause": "PE-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7261,7 +6901,7 @@
       }
     },
     {
-      "sourceClause": "164.310(c)",
+      "sourceElementId": "164.310(c)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7270,8 +6910,6 @@
         },
         "clause": "PE-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7295,7 +6933,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(iii)",
+      "sourceElementId": "164.310(a)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7304,8 +6942,6 @@
         },
         "clause": "PE-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7329,7 +6965,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(iii)",
+      "sourceElementId": "164.310(a)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7338,8 +6974,6 @@
         },
         "clause": "PE-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7363,7 +6997,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)",
+      "sourceElementId": "164.310(d)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7372,8 +7006,6 @@
         },
         "clause": "PE-16"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7391,7 +7023,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)(2)(iii)",
+      "sourceElementId": "164.310(d)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7400,8 +7032,6 @@
         },
         "clause": "PE-16"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7419,7 +7049,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(i)",
+      "sourceElementId": "164.310(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7428,8 +7058,6 @@
         },
         "clause": "PE-17"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7447,7 +7075,7 @@
       }
     },
     {
-      "sourceClause": "164.310(c)",
+      "sourceElementId": "164.310(c)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7456,8 +7084,6 @@
         },
         "clause": "PE-18"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7475,7 +7101,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)",
+      "sourceElementId": "164.310(d)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7484,8 +7110,6 @@
         },
         "clause": "PE-20"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7503,7 +7127,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)(2)(iii)",
+      "sourceElementId": "164.310(d)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7512,8 +7136,6 @@
         },
         "clause": "PE-20"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7531,7 +7153,7 @@
       }
     },
     {
-      "sourceClause": "164.316(a)",
+      "sourceElementId": "164.316(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7540,8 +7162,6 @@
         },
         "clause": "PL-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7565,7 +7185,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7574,8 +7194,6 @@
         },
         "clause": "PL-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7599,7 +7217,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7608,8 +7226,6 @@
         },
         "clause": "PL-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7633,7 +7249,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(1)(ii)(B)",
+      "sourceElementId": "164.308(a)(1)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7642,8 +7258,6 @@
         },
         "clause": "PL-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7667,7 +7281,7 @@
       }
     },
     {
-      "sourceClause": "164.310(a)(2)(ii)",
+      "sourceElementId": "164.310(a)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7676,8 +7290,6 @@
         },
         "clause": "PL-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7701,7 +7313,7 @@
       }
     },
     {
-      "sourceClause": "164.316(a)",
+      "sourceElementId": "164.316(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7710,8 +7322,6 @@
         },
         "clause": "PL-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7735,7 +7345,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)",
+      "sourceElementId": "164.316(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7744,8 +7354,6 @@
         },
         "clause": "PL-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7769,7 +7377,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7778,8 +7386,6 @@
         },
         "clause": "PL-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7803,7 +7409,7 @@
       }
     },
     {
-      "sourceClause": "164.310(b)",
+      "sourceElementId": "164.310(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7812,8 +7418,6 @@
         },
         "clause": "PL-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7837,7 +7441,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7846,8 +7450,6 @@
         },
         "clause": "PM-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7871,7 +7473,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7880,8 +7482,6 @@
         },
         "clause": "PM-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7905,7 +7505,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(2)",
+      "sourceElementId": "164.308(a)(2)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7914,8 +7514,6 @@
         },
         "clause": "PM-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7939,7 +7537,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(A)",
+      "sourceElementId": "164.308(a)(3)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7948,8 +7546,6 @@
         },
         "clause": "PS-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -7973,7 +7569,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(B)",
+      "sourceElementId": "164.308(a)(3)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -7982,8 +7578,6 @@
         },
         "clause": "PS-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8007,7 +7601,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(C)",
+      "sourceElementId": "164.308(a)(3)(ii)(C)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8016,8 +7610,6 @@
         },
         "clause": "PS-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8041,7 +7633,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8050,8 +7642,6 @@
         },
         "clause": "PS-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8075,7 +7665,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8084,8 +7674,6 @@
         },
         "clause": "PS-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8109,7 +7697,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(B)",
+      "sourceElementId": "164.308(a)(3)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8118,8 +7706,6 @@
         },
         "clause": "PS-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8143,7 +7729,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(B)",
+      "sourceElementId": "164.308(a)(3)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8152,8 +7738,6 @@
         },
         "clause": "PS-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8177,7 +7761,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(C)",
+      "sourceElementId": "164.308(a)(3)(ii)(C)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8186,8 +7770,6 @@
         },
         "clause": "PS-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8211,7 +7793,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(B)",
+      "sourceElementId": "164.308(a)(3)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8220,8 +7802,6 @@
         },
         "clause": "PS-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8245,7 +7825,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(C)",
+      "sourceElementId": "164.308(a)(3)(ii)(C)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8254,8 +7834,6 @@
         },
         "clause": "PS-5"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8279,7 +7857,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(A)",
+      "sourceElementId": "164.308(a)(3)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8288,8 +7866,6 @@
         },
         "clause": "PS-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8313,7 +7889,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(B)",
+      "sourceElementId": "164.308(a)(3)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8322,8 +7898,6 @@
         },
         "clause": "PS-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8347,7 +7921,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)(ii)(B)",
+      "sourceElementId": "164.308(a)(4)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8356,8 +7930,6 @@
         },
         "clause": "PS-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8381,7 +7953,7 @@
       }
     },
     {
-      "sourceClause": "164.310(b)",
+      "sourceElementId": "164.310(b)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8390,8 +7962,6 @@
         },
         "clause": "PS-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8415,7 +7985,7 @@
       }
     },
     {
-      "sourceClause": "164.310(d)(2)(iii)",
+      "sourceElementId": "164.310(d)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8424,8 +7994,6 @@
         },
         "clause": "PS-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8449,7 +8017,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)",
+      "sourceElementId": "164.314(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8458,8 +8026,6 @@
         },
         "clause": "PS-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8483,7 +8049,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)(2)(i)",
+      "sourceElementId": "164.314(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8492,8 +8058,6 @@
         },
         "clause": "PS-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8517,7 +8081,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)(2)(ii)",
+      "sourceElementId": "164.314(a)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8526,8 +8090,6 @@
         },
         "clause": "PS-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8551,7 +8113,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)(2)(iii)",
+      "sourceElementId": "164.314(a)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8560,8 +8122,6 @@
         },
         "clause": "PS-6"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8585,7 +8145,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(A)",
+      "sourceElementId": "164.308(a)(3)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8594,8 +8154,6 @@
         },
         "clause": "PS-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8619,7 +8177,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(3)(ii)(B)",
+      "sourceElementId": "164.308(a)(3)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8628,8 +8186,6 @@
         },
         "clause": "PS-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8653,7 +8209,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(4)(ii)(B)",
+      "sourceElementId": "164.308(a)(4)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8662,8 +8218,6 @@
         },
         "clause": "PS-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8687,7 +8241,7 @@
       }
     },
     {
-      "sourceClause": "164.308(b)(1)",
+      "sourceElementId": "164.308(b)(1)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8696,8 +8250,6 @@
         },
         "clause": "PS-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8721,7 +8273,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)",
+      "sourceElementId": "164.314(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8730,8 +8282,6 @@
         },
         "clause": "PS-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8755,7 +8305,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)(2)(i)",
+      "sourceElementId": "164.314(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8764,8 +8314,6 @@
         },
         "clause": "PS-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8789,7 +8337,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)(2)(ii)",
+      "sourceElementId": "164.314(a)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8798,8 +8346,6 @@
         },
         "clause": "PS-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8823,7 +8369,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)(2)(iii)",
+      "sourceElementId": "164.314(a)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8832,8 +8378,6 @@
         },
         "clause": "PS-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8857,7 +8401,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(1)(ii)(C)",
+      "sourceElementId": "164.308(a)(1)(ii)(C)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8866,8 +8410,6 @@
         },
         "clause": "PS-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8891,7 +8433,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8900,8 +8442,6 @@
         },
         "clause": "PT-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8925,7 +8465,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8934,8 +8474,6 @@
         },
         "clause": "PT-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8959,7 +8497,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(1)",
+      "sourceElementId": "164.308(a)(1)",
       "target": {
         "set": {
           "authority": "nist",
@@ -8968,8 +8506,6 @@
         },
         "clause": "RA-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -8993,7 +8529,7 @@
       }
     },
     {
-      "sourceClause": "164.316(a)",
+      "sourceElementId": "164.316(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9002,8 +8538,6 @@
         },
         "clause": "RA-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9027,7 +8561,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9036,8 +8570,6 @@
         },
         "clause": "RA-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9061,7 +8593,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9070,8 +8602,6 @@
         },
         "clause": "RA-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9095,7 +8625,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(1)(ii)(A)",
+      "sourceElementId": "164.308(a)(1)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9104,8 +8634,6 @@
         },
         "clause": "RA-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9129,7 +8657,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(1)(ii)(B)",
+      "sourceElementId": "164.308(a)(1)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9138,8 +8666,6 @@
         },
         "clause": "RA-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9163,7 +8689,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(E)",
+      "sourceElementId": "164.308(a)(7)(ii)(E)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9172,8 +8698,6 @@
         },
         "clause": "RA-2"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9197,7 +8721,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(7)(ii)(E)",
+      "sourceElementId": "164.308(a)(7)(ii)(E)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9206,8 +8730,6 @@
         },
         "clause": "RA-2(1)"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9231,7 +8753,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(1)(ii)(A)",
+      "sourceElementId": "164.308(a)(1)(ii)(A)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9240,8 +8762,6 @@
         },
         "clause": "RA-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9265,7 +8785,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(1)(ii)(B)",
+      "sourceElementId": "164.308(a)(1)(ii)(B)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9274,8 +8794,6 @@
         },
         "clause": "RA-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9299,7 +8817,7 @@
       }
     },
     {
-      "sourceClause": "164.316(a)",
+      "sourceElementId": "164.316(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9308,8 +8826,6 @@
         },
         "clause": "RA-3"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9333,7 +8849,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9342,8 +8858,6 @@
         },
         "clause": "SA-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9367,7 +8881,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9376,8 +8890,6 @@
         },
         "clause": "SA-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9401,7 +8913,7 @@
       }
     },
     {
-      "sourceClause": "164.308(b)(4)",
+      "sourceElementId": "164.308(b)(4)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9410,8 +8922,6 @@
         },
         "clause": "SA-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9435,7 +8945,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)",
+      "sourceElementId": "164.314(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9444,8 +8954,6 @@
         },
         "clause": "SA-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9469,7 +8977,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)(2)(i)",
+      "sourceElementId": "164.314(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9478,8 +8986,6 @@
         },
         "clause": "SA-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9503,7 +9009,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)(2)(iii)",
+      "sourceElementId": "164.314(a)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9512,8 +9018,6 @@
         },
         "clause": "SA-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9537,7 +9041,7 @@
       }
     },
     {
-      "sourceClause": "164.308(b)(1)",
+      "sourceElementId": "164.308(b)(1)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9546,8 +9050,6 @@
         },
         "clause": "SA-9"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9571,7 +9073,7 @@
       }
     },
     {
-      "sourceClause": "164.308(b)(4)",
+      "sourceElementId": "164.308(b)(4)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9580,8 +9082,6 @@
         },
         "clause": "SA-9"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9605,7 +9105,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)",
+      "sourceElementId": "164.314(a)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9614,8 +9114,6 @@
         },
         "clause": "SA-9"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9639,7 +9137,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)(2)(i)",
+      "sourceElementId": "164.314(a)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9648,8 +9146,6 @@
         },
         "clause": "SA-9"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9673,7 +9169,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)(2)(ii)",
+      "sourceElementId": "164.314(a)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9682,8 +9178,6 @@
         },
         "clause": "SA-9"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9707,7 +9201,7 @@
       }
     },
     {
-      "sourceClause": "164.314(a)(2)(iii)",
+      "sourceElementId": "164.314(a)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9716,8 +9210,6 @@
         },
         "clause": "SA-9"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9741,7 +9233,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9750,8 +9242,6 @@
         },
         "clause": "SC-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9775,7 +9265,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9784,8 +9274,6 @@
         },
         "clause": "SC-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9809,7 +9297,7 @@
       }
     },
     {
-      "sourceClause": "164.312(c)",
+      "sourceElementId": "164.312(c)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9818,8 +9306,6 @@
         },
         "clause": "SC-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9843,7 +9329,7 @@
       }
     },
     {
-      "sourceClause": "164.312(c)(2)",
+      "sourceElementId": "164.312(c)(2)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9852,8 +9338,6 @@
         },
         "clause": "SC-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9877,7 +9361,7 @@
       }
     },
     {
-      "sourceClause": "164.312(e)(1)",
+      "sourceElementId": "164.312(e)(1)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9886,8 +9370,6 @@
         },
         "clause": "SC-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9911,7 +9393,7 @@
       }
     },
     {
-      "sourceClause": "164.312(e)(2)(i)",
+      "sourceElementId": "164.312(e)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9920,8 +9402,6 @@
         },
         "clause": "SC-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9945,7 +9425,7 @@
       }
     },
     {
-      "sourceClause": "164.312(e)(2)(ii)",
+      "sourceElementId": "164.312(e)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9954,8 +9434,6 @@
         },
         "clause": "SC-8"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -9979,7 +9457,7 @@
       }
     },
     {
-      "sourceClause": "164.312(e)(2)(ii)",
+      "sourceElementId": "164.312(e)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -9988,8 +9466,6 @@
         },
         "clause": "SC-12"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -10007,7 +9483,7 @@
       }
     },
     {
-      "sourceClause": "164.312(a)(2)(iv)",
+      "sourceElementId": "164.312(a)(2)(iv)",
       "target": {
         "set": {
           "authority": "nist",
@@ -10016,8 +9492,6 @@
         },
         "clause": "SC-13"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -10035,7 +9509,7 @@
       }
     },
     {
-      "sourceClause": "164.312(e)(2)(ii)",
+      "sourceElementId": "164.312(e)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -10044,8 +9518,6 @@
         },
         "clause": "SC-13"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -10063,7 +9535,7 @@
       }
     },
     {
-      "sourceClause": "164.312(c)",
+      "sourceElementId": "164.312(c)",
       "target": {
         "set": {
           "authority": "nist",
@@ -10072,8 +9544,6 @@
         },
         "clause": "SI-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -10097,7 +9567,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -10106,8 +9576,6 @@
         },
         "clause": "SI-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -10131,7 +9599,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -10140,8 +9608,6 @@
         },
         "clause": "SI-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -10165,7 +9631,7 @@
       }
     },
     {
-      "sourceClause": "164.308(a)(1)(ii)(D)",
+      "sourceElementId": "164.308(a)(1)(ii)(D)",
       "target": {
         "set": {
           "authority": "nist",
@@ -10174,8 +9640,6 @@
         },
         "clause": "SI-4"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -10199,7 +9663,7 @@
       }
     },
     {
-      "sourceClause": "164.312(c)",
+      "sourceElementId": "164.312(c)",
       "target": {
         "set": {
           "authority": "nist",
@@ -10208,8 +9672,6 @@
         },
         "clause": "SI-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -10233,7 +9695,7 @@
       }
     },
     {
-      "sourceClause": "164.312(c)(2)",
+      "sourceElementId": "164.312(c)(2)",
       "target": {
         "set": {
           "authority": "nist",
@@ -10242,8 +9704,6 @@
         },
         "clause": "SI-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -10267,7 +9727,7 @@
       }
     },
     {
-      "sourceClause": "164.312(e)(2)(i)",
+      "sourceElementId": "164.312(e)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -10276,8 +9736,6 @@
         },
         "clause": "SI-7"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -10301,7 +9759,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(i)",
+      "sourceElementId": "164.316(b)(2)(i)",
       "target": {
         "set": {
           "authority": "nist",
@@ -10310,8 +9768,6 @@
         },
         "clause": "SI-12"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -10329,7 +9785,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(ii)",
+      "sourceElementId": "164.316(b)(2)(ii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -10338,8 +9794,6 @@
         },
         "clause": "SR-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
@@ -10363,7 +9817,7 @@
       }
     },
     {
-      "sourceClause": "164.316(b)(2)(iii)",
+      "sourceElementId": "164.316(b)(2)(iii)",
       "target": {
         "set": {
           "authority": "nist",
@@ -10372,8 +9826,6 @@
         },
         "clause": "SR-1"
       },
-      "relation": "informative",
-      "rationale": "Records the published CPRT relationship without claiming equivalence or discharge.",
       "provenance": {
         "workbook": {
           "id": "SP800-66R2-800-53R5.1.1",
