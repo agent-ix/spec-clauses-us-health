@@ -33,6 +33,8 @@ relationships:
     type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/FR-018"
     type: covers
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-019"
+    type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/FR-017"
     type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/NFR-001"
@@ -62,7 +64,8 @@ and applicability tests. PLAT-1575 maps each M2 clause output to an available
 producer or an owner ticket for outputs without a producer; its mapping checks
 do not generate evidence facts.
 PLAT-1582 authors the exact M2 guidance-to-Part-820 crosswalks and their
-resolution tests.
+resolution tests. PLAT-1588 exercises M2 discharge outcomes against the
+synthetic reference corpus.
 
 ## Functional Requirement Coverage
 
@@ -147,6 +150,11 @@ resolution tests.
 | FR-018 | FR-018-AC-1 | TC-075 | ✅ Implemented in PLAT-1575 |
 | FR-018 | FR-018-AC-2 | TC-076 | ✅ Implemented in PLAT-1575 |
 | FR-018 | FR-018-AC-3 | TC-077 | ✅ Implemented in PLAT-1575 |
+| FR-019 | FR-019-AC-1 | TC-082 | 🚧 Planned for PLAT-1588 |
+| FR-019 | FR-019-AC-2 | TC-082 | 🚧 Planned for PLAT-1588 |
+| FR-019 | FR-019-AC-3 | TC-082 | 🚧 Planned for PLAT-1588 |
+| FR-019 | FR-019-AC-4 | TC-082 | 🚧 Planned for PLAT-1588 |
+| FR-019 | FR-019-AC-5 | TC-082 | 🚧 Planned for PLAT-1588 |
 
 ## Non-Functional Requirement Coverage
 
@@ -240,3 +248,4 @@ resolution tests.
 | TC-079 | `test_crosswalk_unknown_source_or_target_fails_with_identifier`: invalid source and target fixtures fail with their identifier | Unit | P0 | FR-017-AC-2 | ✅ Implemented in PLAT-1582 |
 | TC-080 | `test_crosswalk_requires_relation_and_nonblank_rationale`: each mapping has supported relation and one-sentence original rationale without designators | Unit | P1 | FR-017-AC-3 | ✅ Implemented in PLAT-1582 |
 | TC-081 | `test_crosswalk_is_informative_and_does_not_claim_equivalence`: all mappings remain informative | Unit | P1 | FR-017-AC-4 | ✅ Implemented in PLAT-1582 |
+| TC-082 | M2 RMM includes three ordered sets with matching row counts, mapped outcomes, basic-level applicability, missing-reference refusal, and deterministic Markdown | Integration | P0 | FR-019-AC-1, FR-019-AC-2, FR-019-AC-3, FR-019-AC-4, FR-019-AC-5 | 🚧 Planned for PLAT-1588 |
