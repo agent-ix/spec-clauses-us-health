@@ -276,6 +276,19 @@ def test_all_declared_sets_load_and_match_one_catalog():
     clause_sets = load_clause_sets()
     assert all(clause_set_key(item) for item in clause_sets)
     assert_output_catalog_consistent(clause_sets)
+    catalog = {
+        name: {"kind": kind, "description": description}
+        for name, kind, description in _spec_table("US Health-Law Output Catalog")
+    }
+    for clause_set in clause_sets:
+        used_names = {
+            name
+            for clause in clause_set["clauses"]
+            for name in clause["expectedOutputs"]
+        }
+        assert clause_set["outputCatalog"] == {
+            name: catalog[name] for name in sorted(used_names)
+        }, f"{clause_set_key(clause_set)} differs from the canonical output catalog"
 
 
 @pytest.mark.trace("TC-032", "FR-008-AC-1")
@@ -460,6 +473,9 @@ def test_fda_guidance_clause_ids_and_outputs_match_the_specification():
     assert {
         key: clause["expectedOutputs"] for key, clause in clauses.items()
     } == expected
+    assert "anomal" in clauses["V.A.5"]["title"].lower()
+    assert "anomal" in clauses["V.A.5"]["text"].lower()
+    assert "known vulnerabilit" not in clauses["V.A.5"]["text"].lower()
 
 
 @pytest.mark.trace("TC-039", "FR-009-AC-3")
@@ -534,49 +550,6 @@ def test_fda_guidance_rights_metadata_and_wording_are_citation_only():
         analysis.lower().split()
     )
     assert not re.search(r"\b(?:ISO|IEC|ANSI|AAMI|IEEE|NEMA|ASTM|UL)\s*[0-9]", raw)
-
-
-@pytest.mark.trace("TC-047", "FR-009-AC-2")
-def test_fda_guidance_v_a_5_covers_unresolved_anomalies():
-    """Keep V.A.5 mapped to the FDA's unresolved-anomalies section.
-
-    Assumptions: The current FDA guidance table is the source for the set.
-    Criteria: V.A.5 describes unresolved software anomalies, not known
-    vulnerabilities.
-    Trace: FR-009-AC-2
-    """
-    (clause_set,) = [
-        item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
-    ]
-    clause = next(item for item in clause_set["clauses"] if item["id"] == "V.A.5")
-    assert "anomal" in clause["title"].lower()
-    assert "anomal" in clause["text"].lower()
-    assert "vulnerabilit" not in clause["title"].lower()
-    assert "known vulnerabilit" not in clause["text"].lower()
-
-
-@pytest.mark.trace("TC-048", "FR-010-AC-2")
-def test_fda_guidance_output_definitions_match_the_canonical_catalog():
-    """Use canonical catalog entries for each output declared by the FDA set.
-
-    Assumptions: The master output catalog is the canonical source.
-    Criteria: The clause set carries exactly the canonical definitions for its
-    referenced outputs.
-    Trace: FR-010-AC-2
-    """
-    (clause_set,) = [
-        item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
-    ]
-    catalog = {
-        name: {"kind": kind, "description": description}
-        for name, kind, description in _spec_table("US Health-Law Output Catalog")
-    }
-    used_names = {
-        name for clause in clause_set["clauses"] for name in clause["expectedOutputs"]
-    }
-    assert clause_set["outputCatalog"] == {
-        name: catalog[name] for name in sorted(used_names)
-    }
 
 
 @pytest.mark.trace("TC-042", "FR-009-AC-6")
