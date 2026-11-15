@@ -65,7 +65,7 @@ def test_manifest_is_clause_only_and_starts_with_no_clause_sets():
     assert not {"object_types", "archetypes", "edges"}.intersection(manifest)
 
 
-@pytest.mark.trace("TC-002", "FR-001-AC-2")
+@pytest.mark.trace("TC-004", "FR-001-AC-4")
 def test_quire_validates_the_module():
     artifact_module = pathlib.Path.home() / ".ix/filament/modules/spec-artifacts-iso"
     result = run(
@@ -92,13 +92,11 @@ def test_local_quoin_install_reports_pack_false(tmp_path):
     assert found[0]["source"]["type"] == "path"
 
 
-@pytest.mark.trace("TC-007", "NFR-001-AC-1")
 def test_publish_check_accepts_the_empty_scaffold():
     result = run(engine_tool("quire"), "publish-check", "--module", str(PACKAGE_ROOT))
     assert result.returncode == 0, result.stderr + result.stdout
 
 
-@pytest.mark.trace("TC-007", "NFR-001-AC-1")
 def test_publish_check_rejects_a_licensed_synthetic_set(tmp_path):
     root = tmp_path / "module"
     clauses = root / "clauses"
@@ -134,7 +132,7 @@ def test_us_output_catalog_matches_the_spec_and_m1_prefix():
     spec = (REPO_ROOT / "spec" / "spec.md").read_text()
     rows = [
         line for line in spec.splitlines()
-        if line.strip().startswith("| `") and line.count("|") == 3
+        if line.strip().startswith("| `") and line.count("|") == 4
     ]
     actual = {}
     for row in rows:
@@ -199,6 +197,8 @@ def test_clause_files_ship_in_wheel_and_npm_tarball():
         assert packed.returncode == 0, packed.stderr
         with tarfile.open(next(pathlib.Path(tmp).glob("*.tgz"))) as archive:
             npm_files = set(archive.getnames())
+    assert "spec_clauses_us_health/manifest.yaml" in wheel_files
+    assert "package/manifest.yaml" in npm_files
     for path in shipped:
         relative = path.relative_to(PACKAGE_ROOT).as_posix()
         assert f"spec_clauses_us_health/{relative}" in wheel_files
