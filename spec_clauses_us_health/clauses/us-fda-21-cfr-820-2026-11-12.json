@@ -50,15 +50,15 @@
   "outputCatalog": {
     "software-requirements": {
       "kind": "record",
-      "description": "Functional and non-functional requirements (FR/NFR)."
+      "description": "Requirements authored with the `spec-artifacts-iso` StR, FR, and NFR archetypes."
     },
     "release-record": {
       "kind": "record",
-      "description": "Engineering-assurance release decision."
+      "description": "Release evidence snapshot produced by `quoin release snapshot`."
     },
     "device-identification-record": {
       "kind": "record",
-      "description": "Customer device identity and UDI assignment records."
+      "description": "No producer on `origin/main`; customer-supplied device identity and UDI assignment records; owner PLAT-1762."
     },
     "written-procedure": {
       "kind": "procedure",
@@ -66,39 +66,39 @@
     },
     "traceability-records": {
       "kind": "record",
-      "description": "Customer traceability procedures and device or batch traceability records."
+      "description": "No producer on `origin/main`; customer-supplied traceability procedures and device or batch records; owner PLAT-1762."
     },
     "complaint-records": {
       "kind": "record",
-      "description": "Customer complaint intake, evaluation, investigation, and response records."
+      "description": "No producer on `origin/main`; customer-supplied complaint intake, evaluation, investigation, and response records; owner PLAT-1762."
     },
     "regulatory-report-records": {
       "kind": "record",
-      "description": "Customer records of reports to regulatory authorities."
+      "description": "No producer on `origin/main`; customer-supplied records of reports to regulatory authorities; owner PLAT-1762."
     },
     "advisory-notice-records": {
       "kind": "record",
-      "description": "Customer records of advisory notices and related actions."
+      "description": "No producer on `origin/main`; customer-supplied records of advisory notices and related actions; owner PLAT-1762."
     },
     "software-architecture": {
       "kind": "record",
-      "description": "`spec-objects-architecture` parts and connections."
+      "description": "`spec-objects-architecture` `part`, `port`, `connection`, and `allocation` artifacts; ADR artifacts from `spec-artifacts-process`."
     },
     "verification-records": {
       "kind": "record",
-      "description": "Test matrix and retained evidence."
+      "description": "`quire matrix` / `quoin matrix` results and `quoin evidence record`."
     },
     "risk-management-records": {
       "kind": "record",
-      "description": "`spec-objects-safety` hazard, harm, risk-estimate, and residual-risk records."
+      "description": "`spec-objects-safety` `hazard` and `failure_mode` artifacts; `quoin risk-summary`."
     },
     "service-records": {
       "kind": "record",
-      "description": "Customer records of device servicing activities."
+      "description": "No producer on `origin/main`; customer-supplied device servicing records; owner PLAT-1762."
     },
     "labeling-inspection-records": {
       "kind": "record",
-      "description": "Customer records of labeling and packaging inspection and release checks."
+      "description": "No producer on `origin/main`; customer-supplied labeling and packaging inspection records; owner PLAT-1762."
     }
   },
   "clauses": [

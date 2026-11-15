@@ -114,7 +114,7 @@
     },
     "verification-records": {
       "kind": "record",
-      "description": "Test matrix and retained evidence."
+      "description": "`quire matrix` / `quoin matrix` results and `quoin evidence record`."
     },
     "audit-trail": {
       "kind": "record",

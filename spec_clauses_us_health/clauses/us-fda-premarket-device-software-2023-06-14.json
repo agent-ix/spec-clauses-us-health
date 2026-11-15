@@ -24,23 +24,23 @@
   "outputCatalog": {
     "risk-management-records": {
       "kind": "record",
-      "description": "`spec-objects-safety` hazard, harm, risk-estimate, and residual-risk records."
+      "description": "`spec-objects-safety` `hazard` and `failure_mode` artifacts; `quoin risk-summary`."
     },
     "software-description": {
       "kind": "document",
-      "description": "Customer description of device software functions, inputs, outputs, and platforms."
+      "description": "Customer-provided software function, input, output, and platform description; no toolchain producer."
     },
     "software-requirements": {
       "kind": "record",
-      "description": "Functional and non-functional requirements (FR/NFR)."
+      "description": "Requirements authored with the `spec-artifacts-iso` StR, FR, and NFR archetypes."
     },
     "software-architecture": {
       "kind": "record",
-      "description": "`spec-objects-architecture` parts and connections."
+      "description": "`spec-objects-architecture` `part`, `port`, `connection`, and `allocation` artifacts; ADR artifacts from `spec-artifacts-process`."
     },
     "software-design": {
       "kind": "document",
-      "description": "Customer software design specification."
+      "description": "Customer-provided software design specification; no toolchain producer."
     },
     "written-procedure": {
       "kind": "procedure",
@@ -48,19 +48,19 @@
     },
     "configuration-management-plan": {
       "kind": "document",
-      "description": "Customer configuration-management and maintenance plan."
+      "description": "Customer-provided configuration-management and maintenance plan; no toolchain producer."
     },
     "verification-records": {
       "kind": "record",
-      "description": "Test matrix and retained evidence."
+      "description": "`quire matrix` / `quoin matrix` results and `quoin evidence record`."
     },
     "release-record": {
       "kind": "record",
-      "description": "Engineering-assurance release decision."
+      "description": "Release evidence snapshot produced by `quoin release snapshot`."
     },
     "anomaly-list": {
       "kind": "record",
-      "description": "Unresolved-anomaly report."
+      "description": "Unresolved anomalies reported by `quoin anomaly report`."
     }
   },
   "clauses": [
