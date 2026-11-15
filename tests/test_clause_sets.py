@@ -130,8 +130,9 @@ def test_us_output_catalog_matches_the_spec_and_m1_prefix():
         "system-validation", "written-procedure", "training-record",
     ]
     spec = (REPO_ROOT / "spec" / "spec.md").read_text()
+    catalog_section = spec.split("### US Health-Law Output Catalog", 1)[1].split("### ", 1)[0]
     rows = [
-        line for line in spec.splitlines()
+        line for line in catalog_section.splitlines()
         if line.strip().startswith("| `") and line.count("|") == 4
     ]
     actual = {}
