@@ -54,7 +54,7 @@
     },
     "release-record": {
       "kind": "record",
-      "description": "Engineering-assurance `release-decision` and `release-verify`; `quoin release snapshot`."
+      "description": "Release evidence snapshot produced by `quoin release snapshot`."
     },
     "device-identification-record": {
       "kind": "record",
@@ -86,11 +86,11 @@
     },
     "verification-records": {
       "kind": "record",
-      "description": "`quire matrix` / `quoin matrix` results and quire-rs retained verification evidence."
+      "description": "`quire matrix` / `quoin matrix` results and `quoin evidence record`."
     },
     "risk-management-records": {
       "kind": "record",
-      "description": "`spec-objects-safety` `hazard`, `hazardous_situation`, `harm`, `risk_estimate`, `residual_risk`, `benefit_risk`, and `overall_residual_risk_evaluation` records; `quoin risk-summary`."
+      "description": "`spec-objects-safety` `hazard` and `failure_mode` artifacts; `quoin risk-summary`."
     },
     "service-records": {
       "kind": "record",

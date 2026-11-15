@@ -2,27 +2,116 @@
 
 from __future__ import annotations
 
+import json
 import re
+import subprocess
+from pathlib import Path
 
 import pytest
+import yaml
 from conftest import assert_output_catalog_consistent, clause_set_key, load_clause_sets
 
 PART_820_KEY = "us-fda/21-cfr-820@2026-11-12"
 PREMARKET_KEY = "us-fda/premarket-device-software@2023-06-14"
 M2_KEYS = {PART_820_KEY, PREMARKET_KEY}
 
-PRODUCER_TOKENS = {
-    "risk-management-records": ("spec-objects-safety", "quoin risk-summary"),
-    "software-requirements": ("spec-artifacts-iso", "StR", "FR", "NFR"),
-    "software-architecture": (
-        "spec-objects-architecture",
-        "spec-artifacts-process",
-        "ADR",
-    ),
-    "verification-records": ("quire matrix", "quoin matrix", "quire-rs"),
-    "release-record": ("release-decision", "release-verify", "quoin release snapshot"),
-    "anomaly-list": ("quoin anomaly report",),
+MODULE_EVIDENCE = {
+    "risk-management-records": {
+        "spec-objects-safety": {"object_types": {"hazard", "failure_mode"}}
+    },
+    "software-requirements": {
+        "spec-artifacts-iso": {"composition": {"StR", "FR", "NFR"}}
+    },
+    "software-architecture": {
+        "spec-objects-architecture": {
+            "object_types": {"part", "port", "connection", "allocation"}
+        },
+        "spec-artifacts-process": {"artifact_types": {"ADR"}},
+    },
 }
+
+COMMAND_EVIDENCE = {
+    "risk-management-records": (("quoin", "risk-summary"),),
+    "verification-records": (
+        ("quire", "matrix"),
+        ("quoin", "matrix"),
+        ("quoin", "evidence", "record"),
+    ),
+    "release-record": (("quoin", "release", "snapshot"),),
+    "anomaly-list": (("quoin", "anomaly", "report"),),
+}
+
+
+def _installed_module_manifests() -> dict[str, tuple[Path, dict]]:
+    """Load manifests from the modules that the installed Quoin resolves."""
+    result = subprocess.run(
+        ["quoin", "module", "list"], check=True, capture_output=True, text=True
+    )
+    installed = json.loads(result.stdout)
+    manifests = {}
+    for module in installed["plugins"]:
+        root = Path(module.get("resolvedPath") or module["targetPath"])
+        manifest_path = root / "manifest.yaml"
+        if manifest_path.is_file():
+            manifests[module["name"]] = (
+                manifest_path,
+                yaml.safe_load(manifest_path.read_text()),
+            )
+    return manifests
+
+
+def _declared_names(manifest: dict, key: str) -> set[str]:
+    return {entry["name"] for entry in manifest.get(key, [])}
+
+
+def _declared_composition(manifest: dict) -> set[str]:
+    return {
+        artifact
+        for archetype in manifest.get("archetypes", [])
+        for artifact in archetype.get("composition", {}).get("expected_artifacts", [])
+    }
+
+
+def _assert_command_exists(command: tuple[str, ...]) -> None:
+    """Require each mapped producer command to appear in its installed CLI help."""
+    result = subprocess.run(
+        [*command, "--help"], check=True, capture_output=True, text=True
+    )
+    assert (
+        command[-1] in result.stdout
+    ), f"producer command {' '.join(command)} is absent from its CLI help"
+
+
+def _assert_producer_source_evidence(output: str, mapping: str) -> None:
+    """Resolve each mapped producer to an installed manifest or CLI entrypoint."""
+    manifests = _installed_module_manifests()
+    assert (
+        output in MODULE_EVIDENCE or output in COMMAND_EVIDENCE
+    ), f"{output}: producer has no source-evidence strategy"
+
+    for module_name, declarations in MODULE_EVIDENCE.get(output, {}).items():
+        assert module_name in mapping, f"{output}: mapping omits {module_name}"
+        assert module_name in manifests, f"{output}: {module_name} is not installed"
+        manifest_path, manifest = manifests[module_name]
+        for declaration, expected in declarations.items():
+            if declaration == "composition":
+                actual = _declared_composition(manifest)
+            else:
+                actual = _declared_names(manifest, declaration)
+            assert expected <= actual, (
+                f"{output}: {manifest_path} lacks {declaration} "
+                f"{sorted(expected - actual)}"
+            )
+            for entrypoint in expected:
+                assert (
+                    entrypoint.casefold() in mapping.casefold()
+                ), f"{output}: mapping omits declared entrypoint {entrypoint!r}"
+
+    for command in COMMAND_EVIDENCE.get(output, ()):
+        assert (
+            " ".join(command).casefold() in mapping.casefold()
+        ), f"{output}: mapping omits producer command {' '.join(command)!r}"
+        _assert_command_exists(command)
 
 
 def _m2_sets() -> list[dict]:
@@ -102,14 +191,8 @@ def test_m2_record_outputs_name_a_producer_or_owner_ticket():
                     assert "owner PLAT-1762" in mapping, output
                     assert "PLAT-1762" in description, output
                 else:
-                    assert (
-                        output in PRODUCER_TOKENS
-                    ), f"{output}: no verified producer is listed"
-                    for token in PRODUCER_TOKENS[output]:
-                        assert token in mapping, f"{output}: missing producer {token!r}"
-                        assert (
-                            token in description
-                        ), f"{output}: description omits producer {token!r}"
+                    assert mapping in description or description in mapping, output
+                    _assert_producer_source_evidence(output, mapping)
             elif definition["kind"] == "document":
                 assert "Customer-provided" in mapping, output
                 assert "no toolchain producer" in mapping, output

@@ -461,15 +461,15 @@ facts are recorded against artifact instances with a person's attestation.
 
 | M2 clause IDs | Output name | Kind | Producer or owner |
 |---|---|---|---|
-| `VI.A`, `VI.C`, `820.10(c)` | `risk-management-records` | `record` | `spec-objects-safety` `hazard`, `hazardous_situation`, `harm`, `risk_estimate`, `residual_risk`, `benefit_risk`, and `overall_residual_risk_evaluation` records; `quoin risk-summary` |
+| `VI.A`, `VI.C`, `820.10(c)` | `risk-management-records` | `record` | `spec-objects-safety` `hazard` and `failure_mode` artifacts; `quoin risk-summary` |
 | `VI.B` | `software-description` | `document` | Customer-provided software function, input, output, and platform description; no toolchain producer |
 | `VI.D`, `820.10(a)`, `820.10(c)` | `software-requirements` | `record` | `spec-artifacts-iso` StR, FR, and NFR archetypes |
 | `VI.E`, `820.10(c)` | `software-architecture` | `record` | `spec-objects-architecture` `part`, `port`, `connection`, and `allocation` artifacts; ADR artifacts from `spec-artifacts-process` |
 | `VI.F.enhanced` | `software-design` | `document` | Customer-provided software design specification; no toolchain producer |
 | `VI.G`, `820.10(b)(2)`, `820.10(b)(4)`, `820.45(a)`, `820.45(c)` | `written-procedure` | `procedure` | Customer-owned written procedure; no toolchain producer |
 | `VI.G.enhanced` | `configuration-management-plan` | `document` | Customer-provided configuration-management and maintenance plan; no toolchain producer |
-| `VI.H`, `VI.H.enhanced`, `820.10(c)` | `verification-records` | `record` | `quire matrix` / `quoin matrix` results and quire-rs retained verification evidence |
-| `VI.I`, `820.10(a)`, `820.45(b)` | `release-record` | `record` | Engineering-assurance `release-decision` and `release-verify`; `quoin release snapshot` |
+| `VI.H`, `VI.H.enhanced`, `820.10(c)` | `verification-records` | `record` | `quire matrix` / `quoin matrix` results and `quoin evidence record` |
+| `VI.I`, `820.10(a)`, `820.45(b)` | `release-record` | `record` | Release evidence snapshot produced by `quoin release snapshot`. |
 | `VI.J` | `anomaly-list` | `record` | Unresolved anomalies reported by `quoin anomaly report`. |
 | `820.10(b)(1)`, `820.35(c)` | `device-identification-record` | `record` | No producer on `origin/main`; customer-supplied device identity and UDI assignment records; owner PLAT-1762. |
 | `820.10(b)(2)`, `820.10(d)` | `traceability-records` | `record` | No producer on `origin/main`; customer-supplied traceability procedures and device or batch records; owner PLAT-1762. |
@@ -503,14 +503,14 @@ does not claim cross-repository enforcement.
 | `system-validation` | `record` | Validation evidence for the toolchain's intended use. |
 | `written-procedure` | `procedure` | Customer-owned written procedure. |
 | `training-record` | `procedure` | Customer-owned training record. |
-| `risk-management-records` | `record` | `spec-objects-safety` `hazard`, `hazardous_situation`, `harm`, `risk_estimate`, `residual_risk`, `benefit_risk`, and `overall_residual_risk_evaluation` records; `quoin risk-summary`. |
+| `risk-management-records` | `record` | `spec-objects-safety` `hazard` and `failure_mode` artifacts; `quoin risk-summary`. |
 | `software-requirements` | `record` | Requirements authored with the `spec-artifacts-iso` StR, FR, and NFR archetypes. |
 | `software-architecture` | `record` | `spec-objects-architecture` `part`, `port`, `connection`, and `allocation` artifacts; ADR artifacts from `spec-artifacts-process`. |
-| `verification-records` | `record` | `quire matrix` / `quoin matrix` results and quire-rs retained verification evidence. |
+| `verification-records` | `record` | `quire matrix` / `quoin matrix` results and `quoin evidence record`. |
 | `soup-list` | `record` | Software of unknown provenance (SOUP) report. |
 | `security-risk-records` | `record` | `spec-objects-security` threat, risk, and control records. |
 | `anomaly-list` | `record` | Unresolved anomalies reported by `quoin anomaly report`. |
-| `release-record` | `record` | Engineering-assurance `release-decision` and `release-verify`; `quoin release snapshot`. |
+| `release-record` | `record` | Release evidence snapshot produced by `quoin release snapshot`. |
 | `audit-logging` | `record` | `security.audit_event` records and associated retention evidence. |
 | `security-controls` | `record` | `security.control` records; the clause set does not define a producer. |
 | `health-data-flows` | `record` | Health-data flow records; PLAT-1756 in the Data-Flow Model project owns the producer definition. |
