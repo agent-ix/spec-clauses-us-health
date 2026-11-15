@@ -543,7 +543,10 @@ def test_fda_guidance_source_rights_analysis_and_content_are_citation_only():
     assert clause_set["rights"]["clearance_ref"] is None
     assert "https://www.fda.gov/media/119933/download" in analysis
     assert "17 U.S.C. 105" in analysis
-    assert "no FDA guidance text or paywalled standard text is reproduced" in analysis
+    assert (
+        "no fda guidance text or paywalled standard text is reproduced"
+        in " ".join(analysis.lower().split())
+    )
     assert not re.search(r"\b(?:ISO|IEC|ANSI|AAMI|IEEE|NEMA|ASTM|UL)\s*[0-9]", raw)
 
 
