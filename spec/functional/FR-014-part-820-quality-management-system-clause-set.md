@@ -44,7 +44,7 @@ applicability, outputs, and incorporated-by-reference boundary.
 | FR-014-AC-2 | The set contains exactly the clause IDs in the M2 Part 820 Clause Table, including the § 820.10 paragraphs, §§ 820.35(a)–(c), and §§ 820.45(a)–(c); it omits §§ 820.1, 820.3, 820.5, 820.7, 820.10(e), 820.35(d), and reserved provisions. | Test |
 | FR-014-AC-3 | Every listed clause has force `mandatory`, at least one expected output in its declared output catalog, and the incorporated-by-reference treatment stated in the table. | Test |
 | FR-014-AC-4 | Each listed clause's applicability expression exactly matches the table; a fixture with a changed, missing, or added expression fails and names the clause. | Test |
-| FR-014-AC-5 | `quire validate --module <pkg>` and `quire publish-check --module <pkg>` exit 0 for the module containing the set. | Test |
+| FR-014-AC-5 | `quire validate --scope . --module <spec-artifacts-iso-module-root> --module <spec-artifacts-process-module-root> 'spec/**/*.md'` and `quire publish-check --module <pkg>` both exit 0. | Test |
 
 ## Dependencies
 
