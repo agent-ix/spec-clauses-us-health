@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import json
-import re
 import subprocess
 from pathlib import Path
 
@@ -14,6 +13,7 @@ from conftest import (
     clause_set_key,
     engine_tool,
     load_clause_sets,
+    m2_mapping_rows,
 )
 
 PART_820_KEY = "us-fda/21-cfr-820@2026-11-12"
@@ -134,32 +134,6 @@ def _m2_sets() -> list[dict]:
     ]
 
 
-def _mapping_rows() -> list[dict[str, object]]:
-    """Read the normative M2 output mapping table from the master specification."""
-    from conftest import REPO_ROOT
-
-    spec = (REPO_ROOT / "spec" / "spec.md").read_text()
-    section = spec.split("### M2 Output Producer Mapping", 1)[1].split("### ", 1)[0]
-    rows = []
-    for line in section.splitlines():
-        if not line.strip().startswith("| `"):
-            continue
-        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
-        clause_ids = tuple(re.findall(r"`([^`]+)`", cells[0]))
-        output_name = cells[1].strip("`")
-        if not clause_ids or not output_name:
-            continue
-        rows.append(
-            {
-                "clause_ids": clause_ids,
-                "output": output_name,
-                "kind": cells[2].strip("`"),
-                "producer_or_owner": cells[3],
-            }
-        )
-    return rows
-
-
 @pytest.mark.trace("TC-075", "FR-018-AC-1")
 def test_m2_output_mapping_covers_every_clause_output_pair_once():
     """The mapping table equals the M2 clause tables without duplicate pairs."""
@@ -169,7 +143,7 @@ def test_m2_output_mapping_covers_every_clause_output_pair_once():
         for clause in clause_set["clauses"]
         for output in clause["expectedOutputs"]
     }
-    rows = _mapping_rows()
+    rows = m2_mapping_rows()
     mapped_pairs = [
         (clause_id, row["output"]) for row in rows for clause_id in row["clause_ids"]
     ]
@@ -186,7 +160,7 @@ def test_m2_output_mapping_covers_every_clause_output_pair_once():
 @pytest.mark.trace("TC-076", "FR-018-AC-2")
 def test_m2_record_outputs_name_a_producer_or_owner_ticket():
     """Each M2 record description matches its current producer or tracked owner."""
-    rows = _mapping_rows()
+    rows = m2_mapping_rows()
     by_output = {row["output"]: row for row in rows}
     assert len(by_output) == len(rows), "each output must have one mapping row"
 

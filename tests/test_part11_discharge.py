@@ -10,7 +10,7 @@ import shutil
 import tempfile
 
 import pytest
-from conftest import PACKAGE_ROOT, REPO_ROOT, engine_tool, run
+from conftest import PACKAGE_ROOT, REPO_ROOT, engine_tool, resolve_fact_refs, run
 
 PART_11_KEY = "us-fda/21-cfr-11@2026-11-12"
 AS_OF = "2026-11-14T00:00:00Z"
@@ -66,25 +66,6 @@ def _verify_signature(
         "subject": "reviewer@example.invalid",
         "verification": result.stderr.strip(),
     }
-
-
-def _resolve_fact_refs(repo: pathlib.Path, facts: list[dict]) -> None:
-    for fact in facts:
-        refs = fact.get("evidenceRefs", [])
-        if fact.get("approvalRef"):
-            refs = [*refs, fact["approvalRef"]]
-        for reference in refs:
-            if reference.startswith("evidence://example.invalid/"):
-                relative = reference.removeprefix("evidence://example.invalid/")
-            else:
-                relative = reference
-            path = (repo / relative).resolve()
-            assert path.is_relative_to(
-                repo.resolve()
-            ), f"{fact['clauseId']}: evidence ref escapes the corpus: {reference}"
-            assert (
-                path.is_file()
-            ), f"{fact['clauseId']}: evidence ref does not resolve: {reference}"
 
 
 def _make_signed_corpus(repo: pathlib.Path, private_key: pathlib.Path) -> pathlib.Path:
@@ -316,7 +297,7 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
             fact["kind"] == "direct" and fact["clauseId"] in CUSTOMER_OWNED
             for fact in facts
         )
-        _resolve_fact_refs(repo, facts)
+        resolve_fact_refs(repo, facts)
         resolved_approval = (repo / approval_path).resolve()
         assert resolved_approval.is_relative_to(repo.resolve())
         assert resolved_approval.is_file()
@@ -455,7 +436,7 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
         with pytest.raises(
             AssertionError, match=r"11\.10\(e\).*evidence ref does not resolve"
         ) as error:
-            _resolve_fact_refs(repo, [{**facts[0], "evidenceRefs": [missing_ref]}])
+            resolve_fact_refs(repo, [{**facts[0], "evidenceRefs": [missing_ref]}])
         assert missing_ref in str(error.value)
 
     assert not pathlib.Path(temporary).exists()

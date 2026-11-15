@@ -15,6 +15,8 @@ from conftest import (
     clause_set_key,
     engine_tool,
     load_clause_sets,
+    m2_mapping_rows,
+    resolve_fact_refs,
     run,
 )
 
@@ -195,31 +197,9 @@ def _stage_module(destination: pathlib.Path) -> pathlib.Path:
     return destination
 
 
-def _m2_mapping_rows() -> list[dict[str, object]]:
-    """Read output ownership directly from PLAT-1575's normative table."""
-    spec = (REPO_ROOT / "spec" / "spec.md").read_text()
-    section = spec.split("### M2 Output Producer Mapping", 1)[1].split("### ", 1)[0]
-    rows = []
-    for line in section.splitlines():
-        if not line.strip().startswith("| `"):
-            continue
-        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
-        clause_ids = tuple(part.strip("`") for part in cells[0].split(", "))
-        if not clause_ids or not cells[1]:
-            continue
-        rows.append(
-            {
-                "clause_ids": clause_ids,
-                "output": cells[1].strip("`"),
-                "producer_or_owner": cells[3],
-            }
-        )
-    return rows
-
-
 def _expected_m2_lists() -> tuple[set[str], set[str]]:
     """Classify clause rows using the PLAT-1575 mapping and corpus artifacts."""
-    mapping = _m2_mapping_rows()
+    mapping = m2_mapping_rows()
     mapping_by_pair = {
         (clause_id, row["output"]): row["producer_or_owner"]
         for row in mapping
@@ -294,23 +274,6 @@ def _record_fact(
     )
     assert result.returncode == 0, result.stderr + result.stdout
     return path
-
-
-def _resolve_fact_refs(repo: pathlib.Path, facts: list[dict]) -> None:
-    for fact in facts:
-        for reference in fact.get("evidenceRefs", []):
-            relative = (
-                reference.removeprefix("evidence://example.invalid/")
-                if reference.startswith("evidence://example.invalid/")
-                else reference
-            )
-            path = (repo / relative).resolve()
-            assert path.is_relative_to(
-                repo.resolve()
-            ), f"{fact['clauseId']}: evidence ref escapes the corpus: {reference}"
-            assert (
-                path.is_file()
-            ), f"{fact['clauseId']}: evidence ref does not resolve: {reference}"
 
 
 @pytest.mark.trace("TC-082", "FR-007-AC-2", "FR-007-AC-3")
@@ -536,7 +499,7 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
         with pytest.raises(
             AssertionError, match=r"820\.10\(c\): evidence ref does not resolve"
         ):
-            _resolve_fact_refs(project, facts)
+            resolve_fact_refs(project, facts)
 
         markdown = run(*[arg for arg in args if arg != "--json"])
         markdown_repeat = run(*[arg for arg in args if arg != "--json"])
