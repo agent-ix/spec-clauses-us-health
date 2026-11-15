@@ -1,0 +1,1174 @@
+{
+  "schemaVersion": "clause-set-v1",
+  "authority": "us-hhs",
+  "id": "45-cfr-164-subpart-c",
+  "title": "45 CFR Part 164 Subpart C Security Standards for the Protection of Electronic Protected Health Information",
+  "version": "2026-11-12",
+  "rights": {
+    "structure": "citation_only",
+    "text": "original",
+    "clearance_ref": null,
+    "licence": "Public domain: US federal regulation (17 U.S.C. 105)"
+  },
+  "source": {
+    "title": "45 CFR Part 164 Subpart C, Security Standards for the Protection of Electronic Protected Health Information",
+    "identifier": "45 CFR Part 164 Subpart C",
+    "officialUrl": "https://www.ecfr.gov/on/2026-11-12/title-45/subtitle-A/subchapter-C/part-164/subpart-C"
+  },
+  "classificationDimensions": {
+    "hipaa_role": {
+      "values": [
+        "covered_entity",
+        "business_associate"
+      ]
+    }
+  },
+  "outputCatalog": {
+    "security-controls": {
+      "kind": "record",
+      "description": "`security.control` records; the clause set does not define a producer."
+    },
+    "security-risk-records": {
+      "kind": "record",
+      "description": "`spec-objects-security` threat, risk, and control records."
+    },
+    "written-procedure": {
+      "kind": "procedure",
+      "description": "Customer-owned written procedure."
+    },
+    "audit-logging": {
+      "kind": "record",
+      "description": "`security.audit_event` records and associated retention evidence."
+    },
+    "access-control": {
+      "kind": "record",
+      "description": "Repository permission and branch-rule settings."
+    },
+    "audit-trail": {
+      "kind": "record",
+      "description": "Git history and signed-approval history produced by the `approval-trail` capability for the record."
+    },
+    "health-data-flows": {
+      "kind": "record",
+      "description": "Health-data flow records; PLAT-1756 in the Data-Flow Model project owns the producer definition."
+    }
+  },
+  "clauses": [
+    {
+      "id": "164.308(a)(1)(i)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(1)(i) Security Rule clause",
+      "text": "Establish and maintain security measures that manage risks to electronic protected health information.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "security-risk-records",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(1)(ii)(A)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(1)(ii)(A) Security Rule clause",
+      "text": "Conduct an accurate and thorough assessment of risks and vulnerabilities to electronic protected health information.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-risk-records"
+      ]
+    },
+    {
+      "id": "164.308(a)(1)(ii)(B)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(1)(ii)(B) Security Rule clause",
+      "text": "Implement security measures sufficient to reduce identified risks and vulnerabilities to a reasonable and appropriate level.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "security-risk-records"
+      ]
+    },
+    {
+      "id": "164.308(a)(1)(ii)(C)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(1)(ii)(C) Security Rule clause",
+      "text": "Apply appropriate sanctions to workforce members who fail to comply with security policies and procedures.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(1)(ii)(D)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(1)(ii)(D) Security Rule clause",
+      "text": "Regularly review records of information-system activity, including audit logs, access reports, and incident tracking.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "audit-logging"
+      ]
+    },
+    {
+      "id": "164.308(a)(2)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(2) Security Rule clause",
+      "text": "Assign security responsibility to an identified security official.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.308(a)(3)(i)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(3)(i) Security Rule clause",
+      "text": "Implement procedures that ensure workforce members have appropriate access and prevent access by those who should not have it.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(3)(ii)(A)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(3)(ii)(A) Security Rule clause",
+      "text": "Authorize workforce members who need access to electronic protected health information.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(3)(ii)(B)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(3)(ii)(B) Security Rule clause",
+      "text": "Determine workforce-member access to electronic protected health information through authorization and supervision procedures.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(3)(ii)(C)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(3)(ii)(C) Security Rule clause",
+      "text": "Terminate access when a workforce member leaves or no longer needs it.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(4)(i)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(4)(i) Security Rule clause",
+      "text": "Implement policies and procedures for authorizing access to electronic protected health information.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "access-control",
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.308(a)(4)(ii)(A)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(4)(ii)(A) Security Rule clause",
+      "text": "When a clearinghouse is part of a larger organization, protect its electronic protected health information from unauthorized access by that organization.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "access-control"
+      ]
+    },
+    {
+      "id": "164.308(a)(4)(ii)(B)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(4)(ii)(B) Security Rule clause",
+      "text": "Establish policies and procedures for granting access to electronic protected health information through appropriate system resources.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "access-control",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(4)(ii)(C)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(4)(ii)(C) Security Rule clause",
+      "text": "Establish, document, review, and modify users\u2019 access rights under the organization\u2019s access authorization policies.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "access-control",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(5)(i)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(5)(i) Security Rule clause",
+      "text": "Implement a security awareness and training program for workforce members, including management.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(5)(ii)(A)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(5)(ii)(A) Security Rule clause",
+      "text": "Provide periodic security reminders to the workforce.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(5)(ii)(B)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(5)(ii)(B) Security Rule clause",
+      "text": "Protect against, detect, and report malicious software.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.308(a)(5)(ii)(C)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(5)(ii)(C) Security Rule clause",
+      "text": "Monitor log-in attempts and report discrepancies.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "audit-logging",
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.308(a)(5)(ii)(D)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(5)(ii)(D) Security Rule clause",
+      "text": "Establish and change passwords as needed to support access security.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(6)(i)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(6)(i) Security Rule clause",
+      "text": "Identify and respond to suspected or known security incidents, mitigate harmful effects, and document outcomes.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(6)(ii)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(6)(ii) Security Rule clause",
+      "text": "Establish and implement procedures for responding to and reporting security incidents.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "audit-logging",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(7)(i)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(7)(i) Security Rule clause",
+      "text": "Establish policies and procedures for responding to emergencies that damage systems containing electronic protected health information.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(7)(ii)(A)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(7)(ii)(A) Security Rule clause",
+      "text": "Maintain retrievable exact copies of electronic protected health information.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.308(a)(7)(ii)(B)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(7)(ii)(B) Security Rule clause",
+      "text": "Restore lost data and information after an emergency.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.308(a)(7)(ii)(C)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(7)(ii)(C) Security Rule clause",
+      "text": "Continue critical business processes while protecting electronic protected health information during an emergency.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.308(a)(7)(ii)(D)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(7)(ii)(D) Security Rule clause",
+      "text": "Test and revise emergency procedures periodically.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(a)(7)(ii)(E)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(7)(ii)(E) Security Rule clause",
+      "text": "Assess the criticality of applications containing electronic protected health information.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "security-risk-records"
+      ]
+    },
+    {
+      "id": "164.308(a)(8)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(a)(8) Security Rule clause",
+      "text": "Periodically evaluate security policies, procedures, and technical and nontechnical measures.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "security-risk-records"
+      ]
+    },
+    {
+      "id": "164.308(b)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(b) Security Rule clause",
+      "text": "Obtain satisfactory assurances from business associates that they will safeguard electronic protected health information.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.308(b)(3)",
+      "force": "mandatory",
+      "title": "\u00a7 164.308(b)(3) Security Rule clause",
+      "text": "Document satisfactory assurances through a written contract or other arrangement.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.310(a)(1)",
+      "force": "mandatory",
+      "title": "\u00a7 164.310(a)(1) Security Rule clause",
+      "text": "Limit physical access to facilities while ensuring authorized access is permitted.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.310(a)(2)(i)",
+      "force": "mandatory",
+      "title": "\u00a7 164.310(a)(2)(i) Security Rule clause",
+      "text": "Establish procedures for facility access that support restoration after an emergency or other occurrence.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.310(a)(2)(ii)",
+      "force": "mandatory",
+      "title": "\u00a7 164.310(a)(2)(ii) Security Rule clause",
+      "text": "Establish facility security plans and safeguards against unauthorized physical access, tampering, and theft.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.310(a)(2)(iii)",
+      "force": "mandatory",
+      "title": "\u00a7 164.310(a)(2)(iii) Security Rule clause",
+      "text": "Control and validate access to facilities based on a person\u2019s role or function.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "access-control",
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.310(a)(2)(iv)",
+      "force": "mandatory",
+      "title": "\u00a7 164.310(a)(2)(iv) Security Rule clause",
+      "text": "Document security-related repairs and modifications to facility components such as hardware, walls, doors, and locks.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.310(b)",
+      "force": "mandatory",
+      "title": "\u00a7 164.310(b) Security Rule clause",
+      "text": "Implement policies and procedures for workstation use that protect electronic protected health information.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.310(c)",
+      "force": "mandatory",
+      "title": "\u00a7 164.310(c) Security Rule clause",
+      "text": "Implement physical safeguards for workstations that access electronic protected health information.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.310(d)(1)",
+      "force": "mandatory",
+      "title": "\u00a7 164.310(d)(1) Security Rule clause",
+      "text": "Implement policies and procedures for receipt, removal, and movement of electronic media containing protected health information.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.310(d)(2)(i)",
+      "force": "mandatory",
+      "title": "\u00a7 164.310(d)(2)(i) Security Rule clause",
+      "text": "Dispose of electronic protected health information and the media on which it is stored securely.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.310(d)(2)(ii)",
+      "force": "mandatory",
+      "title": "\u00a7 164.310(d)(2)(ii) Security Rule clause",
+      "text": "Remove electronic protected health information from electronic media before reuse.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.310(d)(2)(iii)",
+      "force": "mandatory",
+      "title": "\u00a7 164.310(d)(2)(iii) Security Rule clause",
+      "text": "Maintain records of hardware and electronic media movements and responsible persons.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "security-controls",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.310(d)(2)(iv)",
+      "force": "mandatory",
+      "title": "\u00a7 164.310(d)(2)(iv) Security Rule clause",
+      "text": "Create retrievable copies of electronic protected health information before moving equipment.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.312(a)(1)",
+      "force": "mandatory",
+      "title": "\u00a7 164.312(a)(1) Security Rule clause",
+      "text": "Implement technical policies and procedures that allow access only to authorized persons or software programs.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "access-control",
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.312(a)(2)(i)",
+      "force": "mandatory",
+      "title": "\u00a7 164.312(a)(2)(i) Security Rule clause",
+      "text": "Assign a unique name or number to identify and track each user.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "access-control"
+      ]
+    },
+    {
+      "id": "164.312(a)(2)(ii)",
+      "force": "mandatory",
+      "title": "\u00a7 164.312(a)(2)(ii) Security Rule clause",
+      "text": "Establish procedures for obtaining necessary electronic protected health information during an emergency.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "access-control",
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.312(a)(2)(iii)",
+      "force": "mandatory",
+      "title": "\u00a7 164.312(a)(2)(iii) Security Rule clause",
+      "text": "Terminate an electronic session after a predetermined period of inactivity.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "access-control",
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.312(a)(2)(iv)",
+      "force": "mandatory",
+      "title": "\u00a7 164.312(a)(2)(iv) Security Rule clause",
+      "text": "Encrypt and decrypt electronic protected health information as appropriate.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "access-control",
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.312(b)",
+      "force": "mandatory",
+      "title": "\u00a7 164.312(b) Security Rule clause",
+      "text": "Implement mechanisms that record and examine activity in systems containing electronic protected health information.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "audit-logging",
+        "audit-trail"
+      ]
+    },
+    {
+      "id": "164.312(c)(1)",
+      "force": "mandatory",
+      "title": "\u00a7 164.312(c)(1) Security Rule clause",
+      "text": "Implement policies and procedures that protect electronic protected health information from improper alteration or destruction.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.312(c)(2)",
+      "force": "mandatory",
+      "title": "\u00a7 164.312(c)(2) Security Rule clause",
+      "text": "Implement electronic mechanisms to confirm that electronic protected health information has not been improperly altered or destroyed.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.312(d)",
+      "force": "mandatory",
+      "title": "\u00a7 164.312(d) Security Rule clause",
+      "text": "Verify that a person or entity seeking access is who or what it claims to be.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "access-control",
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.312(e)(1)",
+      "force": "mandatory",
+      "title": "\u00a7 164.312(e)(1) Security Rule clause",
+      "text": "Implement technical security measures against unauthorized access to electronic protected health information transmitted over communications networks.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "health-data-flows",
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.312(e)(2)(i)",
+      "force": "mandatory",
+      "title": "\u00a7 164.312(e)(2)(i) Security Rule clause",
+      "text": "Implement security measures to ensure electronic protected health information is not improperly modified during transmission.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "health-data-flows",
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.312(e)(2)(ii)",
+      "force": "mandatory",
+      "title": "\u00a7 164.312(e)(2)(ii) Security Rule clause",
+      "text": "Implement a mechanism to encrypt electronic protected health information when appropriate during transmission.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "addressable"
+      },
+      "expectedOutputs": [
+        "health-data-flows",
+        "security-controls"
+      ]
+    },
+    {
+      "id": "164.314(a)(1)",
+      "force": "mandatory",
+      "title": "\u00a7 164.314(a)(1) Security Rule clause",
+      "text": "Require business associate contracts and other arrangements to include applicable safeguards for electronic protected health information.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.314(a)(2)(i)",
+      "force": "mandatory",
+      "title": "\u00a7 164.314(a)(2)(i) Security Rule clause",
+      "text": "Require a business associate to comply with applicable safeguards, flow down those requirements to subcontractors, and report security incidents to the covered entity.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.314(a)(2)(ii)",
+      "force": "mandatory",
+      "title": "\u00a7 164.314(a)(2)(ii) Security Rule clause",
+      "text": "A covered entity may use another arrangement that meets the referenced requirements in place of a business associate contract.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "written-procedure"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "hipaa_role",
+        "value": "covered_entity"
+      }
+    },
+    {
+      "id": "164.314(a)(2)(iii)",
+      "force": "mandatory",
+      "title": "\u00a7 164.314(a)(2)(iii) Security Rule clause",
+      "text": "Apply the applicable business associate contract requirements to agreements between a business associate and its subcontractors.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "written-procedure"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "hipaa_role",
+        "value": "business_associate"
+      }
+    },
+    {
+      "id": "164.316(a)",
+      "force": "mandatory",
+      "title": "\u00a7 164.316(a) Security Rule clause",
+      "text": "Implement reasonable and appropriate policies and procedures to comply with the Security Rule.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.316(b)(1)",
+      "force": "mandatory",
+      "title": "\u00a7 164.316(b)(1) Security Rule clause",
+      "text": "Maintain written policies and procedures and written or electronic records of required actions and assessments.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.316(b)(2)(i)",
+      "force": "mandatory",
+      "title": "\u00a7 164.316(b)(2)(i) Security Rule clause",
+      "text": "Retain required documentation for six years from creation or the date it was last in effect, whichever is later.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.316(b)(2)(ii)",
+      "force": "mandatory",
+      "title": "\u00a7 164.316(b)(2)(ii) Security Rule clause",
+      "text": "Make documentation available to those responsible for implementing the procedures to which it relates.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "written-procedure"
+      ]
+    },
+    {
+      "id": "164.316(b)(2)(iii)",
+      "force": "mandatory",
+      "title": "\u00a7 164.316(b)(2)(iii) Security Rule clause",
+      "text": "Review and update documentation periodically and when environmental or operational changes affect security.",
+      "subjects": [
+        "electronic-protected-health-information"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {
+        "implementation": "required"
+      },
+      "expectedOutputs": [
+        "written-procedure"
+      ]
+    }
+  ]
+}
