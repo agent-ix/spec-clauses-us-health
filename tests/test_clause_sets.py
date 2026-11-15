@@ -408,9 +408,7 @@ def test_markerless_backup_refuses_unowned_data_and_allows_retry(tmp_path):
     assert not (package / "clauses").exists()
 
 
-@pytest.mark.trace(
-    "TC-005", "TC-008", "FR-002-AC-1", "FR-003-AC-1"
-)
+@pytest.mark.trace("TC-005", "TC-008", "FR-002-AC-1", "FR-003-AC-1")
 def test_part_11_manifest_and_source_metadata_match_the_spec():
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
     assert manifest["clause_sets"] == [f"clauses/{PART_11_FILE}"]
@@ -514,14 +512,10 @@ def test_open_system_controls_wait_for_per_paragraph_assessments():
             "signature_basis=non_biometric",
         )
     )
-    assert all(
-        outcomes[f"11.10({letter})"] == "unresolved" for letter in "abcdefghijk"
-    )
+    assert all(outcomes[f"11.10({letter})"] == "unresolved" for letter in "abcdefghijk")
     assert outcomes["11.30"] == "binding"
     assert outcomes["11.200(a)"] == "binding"
-    assert all(
-        outcomes[f"11.300({letter})"] == "unresolved" for letter in "abcde"
-    )
+    assert all(outcomes[f"11.300({letter})"] == "unresolved" for letter in "abcde")
 
 
 @pytest.mark.trace("TC-014", "FR-004-AC-3")
