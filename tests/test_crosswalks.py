@@ -9,7 +9,13 @@ import re
 
 import pytest
 import yaml
-from conftest import CLAUSES_DIR, REPO_ROOT, clause_set_key, engine_tool, load_clause_sets, run
+from conftest import (
+    REPO_ROOT,
+    clause_set_key,
+    engine_tool,
+    load_clause_sets,
+    run,
+)
 
 FDCA_KEY = "us-congress/fdca-524b@2026-10-15"
 FDA_GUIDANCE_KEY = "us-fda/premarket-cybersecurity@2026-02-03"
@@ -77,13 +83,15 @@ def _installed_security_module() -> pathlib.Path:
     result = run(engine_tool("quoin"), "module", "list")
     assert result.returncode == 0, result.stderr + result.stdout
     modules = json.loads(result.stdout)["plugins"]
-    matches = [module for module in modules if module.get("name") == SECURITY_MODULE_NAME]
+    matches = [
+        module for module in modules if module.get("name") == SECURITY_MODULE_NAME
+    ]
     assert len(matches) == 1, f"expected one installed {SECURITY_MODULE_NAME} module"
     module_path = pathlib.Path(matches[0]["targetPath"]).resolve()
     assert module_path.is_dir(), f"installed module path does not exist: {module_path}"
-    assert not module_path.is_relative_to(REPO_ROOT.resolve()), (
-        "NIST targets must come from the installed module, not a repository copy"
-    )
+    assert not module_path.is_relative_to(
+        REPO_ROOT.resolve()
+    ), "NIST targets must come from the installed module, not a repository copy"
     return module_path
 
 
@@ -105,7 +113,9 @@ def _unresolved_nist_targets(
     for crosswalk in crosswalks:
         target = crosswalk["target"]
         target_set = target["set"]
-        target_key = f"{target_set['authority']}/{target_set['id']}@{target_set['version']}"
+        target_key = (
+            f"{target_set['authority']}/{target_set['id']}@{target_set['version']}"
+        )
         if target_key == NIST_KEY and target["clause"] not in target_clause_ids:
             failures.append(
                 f"crosswalk {crosswalk['sourceClause']} -> {target_key}#"
@@ -171,11 +181,11 @@ def test_every_524b_clause_crosswalks_to_fda_guidance() -> None:
 
 
 @pytest.mark.trace("TC-049", "FR-011-AC-3", "FR-011-AC-5")
-def test_every_cybersecurity_clause_resolves_nist_targets_from_the_installed_module() -> None:
+def test_every_cybersecurity_clause_resolves_nist_targets_from_module() -> None:
     """Resolve every cybersecurity clause's NIST target through the installed module.
 
     Assumptions:
-        CI installs default Quire modules before running tests; no NIST files are copied.
+        CI installs default Quire modules before tests; NIST files are not copied.
     Criteria:
         Every 524B and FDA guidance clause has an existing NIST target.
     Trace: FR-011-AC-3, FR-011-AC-5
@@ -243,7 +253,9 @@ def _actual_crosswalks() -> list[dict]:
 
 
 @pytest.mark.trace("TC-051", "FR-011-AC-3", "FR-011-AC-5")
-def test_crosswalks_have_valid_relations_rationales_and_no_standard_designators() -> None:
+def test_crosswalks_have_valid_relations_rationales_and_no_standard_designators() -> (
+    None
+):
     """Crosswalk metadata is authored, informative, and avoids paywalled standards.
 
     Assumptions:
@@ -258,14 +270,14 @@ def test_crosswalks_have_valid_relations_rationales_and_no_standard_designators(
     assert crosswalks, "no cybersecurity crosswalks are present"
     for crosswalk in crosswalks:
         source = crosswalk["sourceClause"]
-        assert crosswalk["relation"] in allowed_relations, (
-            f"crosswalk {source} has unsupported relation {crosswalk['relation']!r}"
-        )
+        assert (
+            crosswalk["relation"] in allowed_relations
+        ), f"crosswalk {source} has unsupported relation {crosswalk['relation']!r}"
         rationale = crosswalk.get("rationale", "")
         assert rationale.strip(), f"crosswalk {source} has no rationale"
-        assert not NIST_DESIGNATOR.search(rationale), (
-            f"crosswalk {source} names a standards designator"
-        )
+        assert not NIST_DESIGNATOR.search(
+            rationale
+        ), f"crosswalk {source} names a standards designator"
 
 
 @pytest.mark.trace("TC-051", "FR-011-AC-5")
@@ -281,10 +293,13 @@ def test_nist_target_catalog_is_read_from_the_installed_module_not_a_copy() -> N
     module_path = _installed_security_module()
     manifest = yaml.safe_load((module_path / "manifest.yaml").read_text())
     assert any(
-        clause_set_key(json.loads((module_path / relative_path).read_text())) == NIST_KEY
+        clause_set_key(json.loads((module_path / relative_path).read_text()))
+        == NIST_KEY
         for relative_path in manifest.get("clause_sets", [])
     ), f"installed module does not declare {NIST_KEY}"
 
     tracked = run("git", "ls-files", "*nist-sp800-53*.json", cwd=REPO_ROOT)
     assert tracked.returncode == 0, tracked.stderr
-    assert tracked.stdout.strip() == "", "NIST clause data was copied into this repository"
+    assert (
+        tracked.stdout.strip() == ""
+    ), "NIST clause data was copied into this repository"
