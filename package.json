@@ -20,6 +20,6 @@
   },
   "devDependencies": {
     "@agent-ix/quire-cli": "0.44.0",
-    "@agent-ix/quoin": "0.34.0"
+    "@agent-ix/quoin": "0.35.0"
   }
 }
