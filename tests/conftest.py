@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import re
 import shutil
 import subprocess
 
@@ -14,6 +15,51 @@ REPO_ROOT = pathlib.Path(__file__).resolve().parent.parent
 PACKAGE_ROOT = REPO_ROOT / "spec_clauses_us_health"
 MANIFEST_PATH = PACKAGE_ROOT / "manifest.yaml"
 CLAUSES_DIR = PACKAGE_ROOT / "clauses"
+
+
+def m2_mapping_rows(spec_root: pathlib.Path = REPO_ROOT) -> list[dict[str, object]]:
+    """Read the normative M2 output mapping table from the master specification."""
+    spec = (spec_root / "spec" / "spec.md").read_text()
+    section = spec.split("### M2 Output Producer Mapping", 1)[1].split("### ", 1)[0]
+    rows = []
+    for line in section.splitlines():
+        if not line.strip().startswith("| `"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        clause_ids = tuple(re.findall(r"`([^`]+)`", cells[0]))
+        output_name = cells[1].strip("`")
+        if not clause_ids or not output_name:
+            continue
+        rows.append(
+            {
+                "clause_ids": clause_ids,
+                "output": output_name,
+                "kind": cells[2].strip("`"),
+                "producer_or_owner": cells[3],
+            }
+        )
+    return rows
+
+
+def resolve_fact_refs(repo: pathlib.Path, facts: list[dict]) -> None:
+    """Require each fact reference to resolve inside the synthetic corpus."""
+    for fact in facts:
+        refs = fact.get("evidenceRefs", [])
+        if fact.get("approvalRef"):
+            refs = [*refs, fact["approvalRef"]]
+        for reference in refs:
+            relative = (
+                reference.removeprefix("evidence://example.invalid/")
+                if reference.startswith("evidence://example.invalid/")
+                else reference
+            )
+            path = (repo / relative).resolve()
+            assert path.is_relative_to(
+                repo.resolve()
+            ), f"{fact['clauseId']}: evidence ref escapes the corpus: {reference}"
+            assert (
+                path.is_file()
+            ), f"{fact['clauseId']}: evidence ref does not resolve: {reference}"
 
 
 def engine_tool(name: str) -> str:
