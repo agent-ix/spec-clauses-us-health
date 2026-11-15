@@ -1,0 +1,14 @@
+{
+  "recordId": "approval://example.invalid/part11/customer-procedure-acceptance",
+  "recordType": "person-approval",
+  "personId": "person://example.invalid/customer/quality-lead",
+  "personName": "Synthetic Customer Quality Lead",
+  "approvedClauseIds": [
+    "11.10(i)",
+    "11.10(j)",
+    "11.300(b)",
+    "11.300(c)"
+  ],
+  "approvedAt": "2026-11-14T00:00:00Z",
+  "rationale": "Synthetic customer acceptance for the Part 11 procedure obligations."
+}
