@@ -394,8 +394,8 @@ def test_hipaa_crosswalks_match_the_exact_public_cprt_workbook_rows() -> None:
     """Bind each HIPAA mapping to the workbook row and its original direction.
 
     Assumptions:
-        The FR-013 pair table records the official workbook's exact identifier
-        pairs and one-based worksheet row locators.
+        The normative pair table records the official workbook's exact
+        identifier pairs and one-based worksheet row locators.
     Criteria:
         The packaged crosswalk has exactly those rows and keeps the published
         NIST-focal to HIPAA-reference direction.
