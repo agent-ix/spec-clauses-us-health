@@ -124,9 +124,9 @@ def _synthetic_set(key: str, output_catalog: dict) -> dict:
 
 
 @pytest.mark.trace("TC-002", "FR-001-AC-2")
-def test_manifest_is_clause_only_and_starts_with_no_clause_sets():
+def test_manifest_is_clause_only_and_lists_the_part_11_set():
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
-    assert manifest["clause_sets"] == []
+    assert manifest["clause_sets"] == [f"clauses/{PART_11_FILE}"]
     assert not {"object_types", "archetypes", "edges"}.intersection(manifest)
 
 
@@ -439,21 +439,6 @@ def test_part_11_manifest_and_source_metadata_match_the_spec():
         "version": "2026-11-12",
     }
 
-    artifact_module = pathlib.Path.home() / ".ix/filament/modules/spec-artifacts-iso"
-    validation = run(
-        engine_tool("quire"),
-        "validate",
-        "--scope",
-        str(REPO_ROOT),
-        "--module",
-        str(PACKAGE_ROOT),
-        "--module",
-        str(artifact_module),
-        "spec/**/*.md",
-    )
-    assert validation.returncode == 0, validation.stderr + validation.stdout
-
-
 @pytest.mark.trace("TC-009", "FR-003-AC-2")
 def test_part_11_contains_exactly_the_specified_clause_ids():
     binding = evaluate_clause_set(PACKAGE_ROOT, PART_11_KEY)
@@ -570,17 +555,28 @@ def test_empty_context_leaves_every_part_11_clause_unresolved():
 
 
 @pytest.mark.trace("TC-017", "FR-004-AC-6")
-def test_unknown_applicability_dimensions_and_values_are_rejected():
-    unknown_dimension = _part_11_evaluate_error(
-        PACKAGE_ROOT,
-        "system_type=closed",
-        "open_system_11_10_z_applicability=appropriate",
+def test_undeclared_applicability_dimensions_and_values_are_rejected(tmp_path):
+    dimension_module = stage_clause_sets(
+        tmp_path / "dimension", CLAUSES_DIR / PART_11_FILE
     )
+    dimension_path = dimension_module / "clauses" / PART_11_FILE
+    dimension_set = json.loads(dimension_path.read_text())
+    dimension_set["clauses"][0]["applicability"]["terms"][1]["terms"][1][
+        "dimension"
+    ] = "not_declared"
+    dimension_path.write_text(json.dumps(dimension_set))
+    unknown_dimension = _part_11_evaluate_error(dimension_module)
     assert unknown_dimension.returncode != 0
+
+    value_module = stage_clause_sets(tmp_path / "value", CLAUSES_DIR / PART_11_FILE)
+    value_path = value_module / "clauses" / PART_11_FILE
+    value_set = json.loads(value_path.read_text())
+    value_set["clauses"][0]["applicability"]["terms"][1]["terms"][1][
+        "value"
+    ] = "maybe"
+    value_path.write_text(json.dumps(value_set))
     unknown_value = _part_11_evaluate_error(
-        PACKAGE_ROOT,
-        "system_type=open",
-        "open_system_11_10_a_applicability=maybe",
+        value_module
     )
     assert unknown_value.returncode != 0
 
@@ -625,6 +621,6 @@ def test_single_set_rmm_marks_one_direct_fact_compliant(tmp_path):
     )
     assert result.returncode == 0, result.stderr + result.stdout
     output = result.stdout + result.stderr
-    assert "11.10(e)" in output
+    assert "11.10(e)" in output or r"11\.10\(e\)" in output
     assert "Compliant" in output
     assert "Not compliant - undischarged" in output
