@@ -14,13 +14,16 @@ import zipfile
 import pytest
 import yaml
 from conftest import (
+    CLAUSES_DIR,
     MANIFEST_PATH,
     PACKAGE_ROOT,
     REPO_ROOT,
     assert_output_catalog_consistent,
     clause_set_key,
+    evaluate_clause_set,
     engine_tool,
     load_clause_sets,
+    record_and_render_matrix,
     run,
     stage_clause_sets,
 )
