@@ -381,15 +381,19 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
         assert rows["VI.B"]["compliance"] == "undischarged"
         assert rows["820.10(b)(1)"]["compliance"] == "undischarged"
 
-        basic = run(
-            *[
-                item
-                for item in args
-                if item not in ["--context", "documentation_level=enhanced"]
-            ],
-            "--context",
-            "documentation_level=basic",
-        )
+        basic_args = []
+        index = 0
+        while index < len(args):
+            if (
+                args[index] == "--context"
+                and args[index + 1] == "documentation_level=enhanced"
+            ):
+                index += 2
+                continue
+            basic_args.append(args[index])
+            index += 1
+        basic_args.extend(["--context", "documentation_level=basic"])
+        basic = run(*basic_args)
         assert basic.returncode == 0, basic.stderr + basic.stdout
         basic_rows = {
             row["clauseId"]: row
