@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import pathlib
+import re
 import shutil
 import subprocess
 import tarfile
@@ -32,6 +33,8 @@ PART_11_FILE = "us-fda-21-cfr-11-2026-11-12.json"
 PART_11_KEY = "us-fda/21-cfr-11@2026-11-12"
 FDCA_524B_FILE = "us-congress-fdca-524b-2026-10-15.json"
 FDCA_524B_KEY = "us-congress/fdca-524b@2026-10-15"
+FDA_GUIDANCE_FILE = "us-fda-premarket-cybersecurity-2026-02-03.json"
+FDA_GUIDANCE_KEY = "us-fda/premarket-cybersecurity@2026-02-03"
 
 
 def _part_11_outcomes(binding: dict) -> dict[str, str]:
@@ -107,11 +110,12 @@ def _synthetic_set(key: str, output_catalog: dict) -> dict:
 
 
 @pytest.mark.trace("TC-002", "FR-001-AC-2")
-def test_manifest_is_clause_only_and_lists_all_public_law_sets():
+def test_manifest_is_clause_only_and_lists_all_pack_sets():
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
     assert manifest["clause_sets"] == [
         f"clauses/{PART_11_FILE}",
         f"clauses/{FDCA_524B_FILE}",
+        f"clauses/{FDA_GUIDANCE_FILE}",
     ]
     assert not {"object_types", "archetypes", "edges"}.intersection(manifest)
 
@@ -272,6 +276,19 @@ def test_all_declared_sets_load_and_match_one_catalog():
     clause_sets = load_clause_sets()
     assert all(clause_set_key(item) for item in clause_sets)
     assert_output_catalog_consistent(clause_sets)
+    catalog = {
+        name: {"kind": kind, "description": description}
+        for name, kind, description in _spec_table("US Health-Law Output Catalog")
+    }
+    for clause_set in clause_sets:
+        used_names = {
+            name
+            for clause in clause_set["clauses"]
+            for name in clause["expectedOutputs"]
+        }
+        assert clause_set["outputCatalog"] == {
+            name: catalog[name] for name in sorted(used_names)
+        }, f"{clause_set_key(clause_set)} differs from the canonical output catalog"
 
 
 @pytest.mark.trace("TC-032", "FR-008-AC-1")
@@ -414,6 +431,149 @@ def test_fdca_524b_does_not_infer_classification_and_reports_unknown_value(tmp_p
     )
 
 
+@pytest.mark.trace("TC-037", "FR-009-AC-1")
+def test_fda_guidance_identity_and_source_match_the_current_guidance():
+    manifest = yaml.safe_load(MANIFEST_PATH.read_text())
+    assert f"clauses/{FDA_GUIDANCE_FILE}" in manifest["clause_sets"]
+
+    (clause_set,) = [
+        item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
+    ]
+    assert clause_set["rights"] == {
+        "structure": "citation_only",
+        "text": "original",
+        "clearance_ref": None,
+        "licence": "Public domain: U.S. Government guidance (17 U.S.C. 105)",
+    }
+    assert clause_set["source"] == {
+        "title": (
+            "Cybersecurity in Medical Devices: Quality Management System "
+            "Considerations and Content of Premarket Submissions"
+        ),
+        "identifier": "FDA Guidance for Industry and FDA Staff, issued 2026-02-03",
+        "officialUrl": "https://www.fda.gov/media/119933/download",
+    }
+    result = evaluate_clause_set(PACKAGE_ROOT, FDA_GUIDANCE_KEY)
+    assert result["clauseSet"] == {
+        "authority": "us-fda",
+        "id": "premarket-cybersecurity",
+        "version": "2026-02-03",
+    }
+
+
+@pytest.mark.trace("TC-038", "FR-009-AC-2")
+def test_fda_guidance_clause_ids_and_outputs_match_the_specification():
+    result = evaluate_clause_set(PACKAGE_ROOT, FDA_GUIDANCE_KEY)
+    expected = {
+        row[0]: [output.strip("`") for output in row[2].split(", ")]
+        for row in _spec_table("FDA Premarket Cybersecurity Guidance Clause Table")
+    }
+    clauses = {entry["clauseId"]: entry for entry in result["clauses"]}
+    assert set(clauses) == set(expected)
+    assert {
+        key: clause["expectedOutputs"] for key, clause in clauses.items()
+    } == expected
+    (clause_set,) = [
+        item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
+    ]
+    section_v_a_5 = next(
+        clause for clause in clause_set["clauses"] if clause["id"] == "V.A.5"
+    )
+    assert "anomal" in section_v_a_5["title"].lower()
+    assert "anomal" in section_v_a_5["text"].lower()
+    assert "known vulnerabilit" not in section_v_a_5["text"].lower()
+
+
+@pytest.mark.trace("TC-039", "FR-009-AC-3")
+def test_fda_guidance_clauses_are_recommended_and_use_declared_outputs():
+    (clause_set,) = [
+        item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
+    ]
+    assert all(clause["force"] == "recommended" for clause in clause_set["clauses"])
+    assert all(
+        clause["title"].strip() and clause["text"].strip()
+        for clause in clause_set["clauses"]
+    )
+    assert all(clause["expectedOutputs"] for clause in clause_set["clauses"])
+    assert all(
+        set(clause["expectedOutputs"]) <= set(clause_set["outputCatalog"])
+        for clause in clause_set["clauses"]
+    )
+    result = evaluate_clause_set(PACKAGE_ROOT, FDA_GUIDANCE_KEY)
+    assert result["clauses"]
+
+
+@pytest.mark.trace("TC-040", "FR-009-AC-4")
+def test_fda_guidance_applicability_uses_only_the_supplied_cyber_device_value():
+    (clause_set,) = [
+        item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
+    ]
+    assert clause_set["classificationDimensions"] == {
+        "cyber_device": {"values": ["yes", "no"]}
+    }
+    ids = {
+        row[0]
+        for row in _spec_table("FDA Premarket Cybersecurity Guidance Clause Table")
+    }
+    gated_ids = {"VII.C.1", "VII.C.2", "VII.C.3"}
+    for value, expected in (("yes", "binding"), ("no", "not_binding")):
+        result = evaluate_clause_set(
+            PACKAGE_ROOT, FDA_GUIDANCE_KEY, f"cyber_device={value}"
+        )
+        outcomes = _clause_outcomes(result)
+        assert set(outcomes) == ids
+        assert {key for key, outcome in outcomes.items() if outcome == expected} == (
+            ids if value == "yes" else gated_ids
+        )
+        assert all(outcomes[clause_id] == "binding" for clause_id in ids - gated_ids)
+
+    missing = evaluate_clause_set(PACKAGE_ROOT, FDA_GUIDANCE_KEY)
+    missing_outcomes = _clause_outcomes(missing)
+    assert {missing_outcomes[key] for key in gated_ids} == {"unresolved"}
+    assert all(missing_outcomes[key] == "binding" for key in ids - gated_ids)
+
+    unrelated = evaluate_clause_set(
+        PACKAGE_ROOT, FDA_GUIDANCE_KEY, "product_has_network=yes"
+    )
+    unrelated_outcomes = _clause_outcomes(unrelated)
+    assert {unrelated_outcomes[key] for key in gated_ids} == {"unresolved"}
+    assert all(unrelated_outcomes[key] == "binding" for key in ids - gated_ids)
+
+
+def test_fda_guidance_rights_metadata_and_wording_are_citation_only():
+    clause_path = CLAUSES_DIR / FDA_GUIDANCE_FILE
+    raw = clause_path.read_text()
+    clause_set = json.loads(raw)
+    analysis = (
+        REPO_ROOT / "reviews" / "plat-1596-source-rights-analysis.md"
+    ).read_text()
+    assert clause_set["rights"]["structure"] == "citation_only"
+    assert clause_set["rights"]["text"] == "original"
+    assert clause_set["rights"]["clearance_ref"] is None
+    assert "https://www.fda.gov/media/119933/download" in analysis
+    assert "17 U.S.C. 105" in analysis
+    assert "no fda guidance text or paywalled standard text is reproduced" in " ".join(
+        analysis.lower().split()
+    )
+    assert not re.search(r"\b(?:ISO|IEC|ANSI|AAMI|IEEE|NEMA|ASTM|UL)\s*[0-9]", raw)
+
+
+@pytest.mark.trace("TC-042", "FR-009-AC-6")
+@pytest.mark.trace("TC-046", "FR-010-AC-4")
+def test_fda_guidance_sbom_clauses_use_the_catalogued_lifecycle_output():
+    (clause_set,) = [
+        item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
+    ]
+    clauses = {clause["id"]: clause for clause in clause_set["clauses"]}
+    assert clauses["V.A.4"]["expectedOutputs"] == ["sbom"]
+    assert clauses["VII.C.3"]["expectedOutputs"] == ["sbom"]
+    description = clause_set["outputCatalog"]["sbom"]["description"]
+    assert "support status" in description
+    assert "end-of-support dates" in description
+    assert "soup-list" not in clauses["V.A.4"]["expectedOutputs"]
+    assert "soup-list" not in clauses["VII.C.3"]["expectedOutputs"]
+
+
 def test_clause_files_ship_in_wheel_and_npm_tarball():
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
     shipped = [PACKAGE_ROOT / item for item in manifest["clause_sets"]]
@@ -541,13 +701,14 @@ def test_markerless_backup_refuses_unowned_data_and_allows_retry(tmp_path):
 def test_part_11_manifest_and_source_metadata_match_the_spec():
     """Description: Verify the Part 11 set identity, source, and rights metadata.
 
-    Assumptions: The reviewed spec defines one public-law citation-only set.
+    Assumptions: The reviewed spec defines a public-law citation-only set.
     Criteria: Manifest, set key, source citation, and rights match that definition.
     """
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
     assert manifest["clause_sets"] == [
         f"clauses/{PART_11_FILE}",
         f"clauses/{FDCA_524B_FILE}",
+        f"clauses/{FDA_GUIDANCE_FILE}",
     ]
 
     clause_set = next(
