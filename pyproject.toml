@@ -21,6 +21,7 @@ PyYAML = "^6.0.2"
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 filterwarnings = ["error"]
+markers = ["trace: Bind a test to one or more spec IDs."]
 
 [build-system]
 requires = ["poetry-core>=2.0.0"]
