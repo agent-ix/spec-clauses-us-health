@@ -543,6 +543,7 @@ def test_fda_guidance_v_a_5_covers_unresolved_anomalies():
     Assumptions: The current FDA guidance table is the source for the set.
     Criteria: V.A.5 describes unresolved software anomalies, not known
     vulnerabilities.
+    Trace: FR-009-AC-2
     """
     (clause_set,) = [
         item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
@@ -561,6 +562,7 @@ def test_fda_guidance_output_definitions_match_the_canonical_catalog():
     Assumptions: The master output catalog is the canonical source.
     Criteria: The clause set carries exactly the canonical definitions for its
     referenced outputs.
+    Trace: FR-010-AC-2
     """
     (clause_set,) = [
         item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
