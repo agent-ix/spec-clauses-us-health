@@ -374,6 +374,23 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
             for matrix in report["matrices"]
             for row in matrix["rows"]
         }
+        expected_compliant = {
+            "11.10(e)",
+            "820.10(a)",
+            "820.10(c)",
+            "VI.A",
+            "VI.I",
+        }
+        assert {
+            clause_id
+            for clause_id, row in rows.items()
+            if row["compliance"] == "compliant"
+        } == expected_compliant
+        assert {
+            clause_id
+            for clause_id, row in rows.items()
+            if row["compliance"] == "undischarged"
+        } == set(rows) - expected_compliant
         assert rows["820.10(c)"]["compliance"] == "compliant", rows["820.10(c)"]
         assert rows["820.10(a)"]["compliance"] == "compliant"
         assert rows["VI.A"]["compliance"] == "compliant"
@@ -420,3 +437,7 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
             markdown_repeat.stderr + markdown_repeat.stdout
         )
         assert markdown.stdout.encode() == markdown_repeat.stdout.encode()
+        assert "us-fda/21-cfr-820@2026-11-12" in markdown.stdout
+        assert "Not compliant - undischarged" in markdown.stdout
+
+    assert not pathlib.Path(temp).exists()
