@@ -16,3 +16,9 @@ The spec-only PR changes the normative catalog size, and the existing catalog te
 | ID | Severity | Summary | Refs | Escape Cause |
 | --- | --- | --- | --- | --- |
 | FND-001 | high | CI fails because tests/test_clause_sets.py expects 18 catalog entries while the updated specification defines 24; update the test and expected catalog from the normative source so the check passes with the six added entries. | tests/test_clause_sets.py:220 | correct-requirement-no-evidence |
+
+## Dispositions
+
+| FND | outcome | reason |
+| --- | --- | --- |
+| FND-001 | fixed | after_excerpt: assert len(catalog) == 25 |

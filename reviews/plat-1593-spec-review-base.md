@@ -16,3 +16,9 @@ The base checklist found a stale TestMatrix: it says each criterion maps to a te
 | ID | Severity | Summary | Refs | Escape Cause |
 | --- | --- | --- | --- | --- |
 | FND-001 | medium | TM-001 still covers FR-001 through FR-007 and has no planned verification rows for FR-008 through FR-011; add cases for the new statutory, guidance, catalog, and crosswalk criteria. | spec/tests.md:27 | missing-requirement |
+
+## Dispositions
+
+| FND | outcome | reason |
+| --- | --- | --- |
+| FND-001 | fixed | after_excerpt: `FR-008` through `FR-011` TestMatrix rows TC-032 through TC-051 map every listed acceptance criterion to a planned test case. |

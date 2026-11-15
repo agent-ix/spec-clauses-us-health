@@ -16,3 +16,9 @@ Quoin advise's mismatches on Inspection and Analysis methods were reviewed and a
 | ID | Severity | Summary | Refs | Escape Cause |
 | --- | --- | --- | --- | --- |
 | FND-001 | medium | FR-009 and its catalog allow V.A.4 and VII.C.3 to emit a generic soup-list without requiring per-component support status and end-of-support dates; add those fields to the output definition and its acceptance criteria. | spec/functional/FR-009-fda-premarket-cybersecurity-guidance-clause-set.md:46 | missing-requirement |
+
+## Dispositions
+
+| FND | outcome | reason |
+| --- | --- | --- |
+| FND-001 | fixed | after_excerpt: Each SBOM component SHALL include its support status and end-of-support date. |

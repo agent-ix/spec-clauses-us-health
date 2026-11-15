@@ -1,18 +1,24 @@
 ---
-id: SR-007
-title: Dependency review of PLAT-1593 spec changes
+id: SR-006
+title: Integrity review of PLAT-1593 spec changes
 type: SpecReview
-analysis: dependency
-scope: "agent-ix/spec-clauses-us-health; FR-008 through FR-011 dependencies and external NIST set dependency"
+analysis: integrity
+scope: "agent-ix/spec-clauses-us-health; FR-008 through FR-011 and the master crosswalk table"
 review_set: all
 ---
 
 ## Summary
 
-The requirement graph is acyclic: FR-008 and FR-009 extend FR-003 and FR-004; FR-010 extends FR-005; and FR-011 depends on the two cybersecurity sets. The NIST module is identified as an external test dependency with target resolution as its contract.
+The IDs are sequential and the new requirement relationships are acyclic. The master crosswalk table uses a relation value outside the engine contract, so the crosswalk rows cannot validate as written.
 
 ## Findings
 
-| ID | Severity | Summary | Refs |
-| --- | --- | --- | --- |
-| FND-001 | low | No findings (placeholder) | - |
+| ID | Severity | Summary | Refs | Escape Cause |
+| --- | --- | --- | --- | --- |
+| FND-001 | high | Every crosswalk row uses mapped_to, but CrosswalkRelation accepts only equivalent, partial, or informative; choose a supported relation for each mapping and require supported values in the table. | spec/spec.md:183 | wrong-requirement |
+
+## Dispositions
+
+| FND | outcome | reason |
+| --- | --- | --- |
+| FND-001 | fixed | after_excerpt: Each relation value uses the `ClauseSet` enum: `equivalent`, `partial`, or `informative`. Every mapping in this plan is `informative`: it points readers to related guidance or controls and makes no equivalence or partial-coverage claim. |
