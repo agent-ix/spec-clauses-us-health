@@ -127,6 +127,8 @@ and applicability tests.
 | FR-015 | FR-015-AC-3 | TC-062 | ✅ Implemented in PLAT-1572 |
 | FR-015 | FR-015-AC-4 | TC-063 | ✅ Implemented in PLAT-1572 |
 | FR-015 | FR-015-AC-5 | TC-064 | ✅ Implemented in PLAT-1572 |
+| FR-016 | FR-016-AC-1 | TC-074 | ✅ Implemented in PLAT-1569 |
+| FR-016 | FR-016-AC-2 | TC-074 | ✅ Implemented in PLAT-1569 |
 | FR-016 | FR-016-AC-3 | TC-065, TC-067 | ✅ Implemented in PLAT-1572 |
 | FR-016 | FR-016-AC-4 | TC-065 | ✅ Implemented in PLAT-1572 |
 | FR-016 | FR-016-AC-5 | TC-066 | ✅ Implemented in PLAT-1572 |
@@ -215,3 +217,4 @@ and applicability tests.
 | TC-071 | `test_part820_clauses_match_force_outputs_and_ibr_treatment`: wrong force, output list, or IBR text fails with the affected clause ID | Unit | P0 | FR-014-AC-3 | ✅ Implemented in PLAT-1569 |
 | TC-072 | `test_part820_applicability_matches_the_normative_table_exactly` and mutation fixtures: changed, missing, or added expression raises an assertion naming the clause ID | Unit | P0 | FR-014-AC-4 | ✅ Implemented in PLAT-1569 |
 | TC-073 | `test_part820_spec_validates_and_module_passes_publish_check`: a nonzero validation or publish-check exit fails acceptance | Integration | P1 | FR-014-AC-5 | ✅ Implemented in PLAT-1569 |
+| TC-074 | `test_part820_human_dimensions_control_only_their_dependent_clauses`: each declared dimension binds, excludes, or remains unresolved as supplied; `device_class=class_II` does not resolve a missing Part 820 dimension | Unit | P0 | FR-016-AC-1, FR-016-AC-2 | ✅ Implemented in PLAT-1569 |
