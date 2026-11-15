@@ -19,8 +19,16 @@ from conftest import (
 
 FDCA_KEY = "us-congress/fdca-524b@2026-10-15"
 FDA_GUIDANCE_KEY = "us-fda/premarket-cybersecurity@2026-02-03"
+HIPAA_KEY = "us-hhs/45-cfr-164-subpart-c@2026-11-12"
 NIST_KEY = "nist/sp800-53@5.2.0"
 SECURITY_MODULE_NAME = "spec-objects-security"
+CPRT_WORKBOOK_URL = (
+    "https://csrc.nist.gov/csrc/media/Projects/olir/documents/submissions/"
+    "SP800-53_SecurityRule_Crosswalk_2024.xlsx"
+)
+CPRT_WORKBOOK_SHA256 = (
+    "80ee1b51d5b48f394e35311a9a93006d2f9e530e35266c6f1f00eb212b776b95"
+)
 NIST_DESIGNATOR = re.compile(r"\b(?:ISO|IEC|ANSI|AAMI|IEEE|NEMA|ASTM|UL)\s*[0-9]", re.I)
 
 
@@ -30,6 +38,65 @@ def _source_sets() -> dict[str, dict]:
         for clause_set in load_clause_sets()
         if clause_set_key(clause_set) in {FDCA_KEY, FDA_GUIDANCE_KEY}
     }
+
+
+def _hipaa_clause_set() -> dict:
+    matches = [
+        clause_set
+        for clause_set in load_clause_sets()
+        if clause_set_key(clause_set) == HIPAA_KEY
+    ]
+    assert len(matches) == 1, f"expected exactly one HIPAA set, got {len(matches)}"
+    return matches[0]
+
+
+def _hipaa_expected_rows() -> list[tuple[str, str, str, str, int]]:
+    spec = (
+        REPO_ROOT
+        / "spec"
+        / "functional"
+        / "FR-013-hipaa-nist-crosswalk-source-and-target.md"
+    ).read_text()
+    rows = []
+    for line in spec.splitlines():
+        if not line.startswith("| `"):
+            continue
+        cells = [cell.strip().strip("`") for cell in line.strip("|").split("|")]
+        if len(cells) != 4:
+            continue
+        source, source_target, target, locator = cells
+        worksheet, row_number = locator.rsplit(":", 1)
+        rows.append((source, source_target, target, worksheet, int(row_number)))
+    return rows
+
+
+def _hipaa_expected_unmapped() -> list[str]:
+    spec = (
+        REPO_ROOT
+        / "spec"
+        / "functional"
+        / "FR-013-hipaa-nist-crosswalk-source-and-target.md"
+    ).read_text()
+    section = spec.split(
+        "The following clause IDs have no exact source relationship", 1
+    )[1].split("| HIPAA source element ID", 1)[0]
+    return re.findall(r"^- `([^`]+)`$", section, re.M)
+
+
+def _normalized_nist_id(source_id: str) -> str:
+    without_control_zeroes = re.sub(r"-(0+)(\d+)", r"-\2", source_id)
+    return re.sub(r"\((0+)(\d+)\)", r"(\2)", without_control_zeroes)
+
+
+def _hipaa_crosswalk_row(crosswalk: dict) -> tuple[str, str, str, str, int]:
+    provenance = crosswalk["provenance"]
+    return (
+        crosswalk["sourceClause"],
+        provenance["focalElement"],
+        crosswalk["target"]["clause"],
+        provenance["worksheet"],
+        provenance["row"],
+    )
 
 
 def _crosswalk_table_rows() -> list[tuple[str, str, str, str]]:
@@ -320,3 +387,111 @@ def test_nist_target_catalog_is_read_from_the_installed_module_not_a_copy() -> N
     assert (
         tracked.stdout.strip() == ""
     ), "NIST clause data was copied into this repository"
+
+
+@pytest.mark.trace("FR-013-AC-1", "TC-057")
+def test_hipaa_crosswalks_match_the_exact_public_cprt_workbook_rows() -> None:
+    """Bind each HIPAA mapping to the workbook row and its original direction.
+
+    Assumptions:
+        The FR-013 pair table records the official workbook's exact identifier
+        pairs and one-based worksheet row locators.
+    Criteria:
+        The packaged crosswalk has exactly those rows and keeps the published
+        NIST-focal to HIPAA-reference direction.
+    """
+    clause_set = _hipaa_clause_set()
+    crosswalks = clause_set.get("crosswalks", [])
+    expected = _hipaa_expected_rows()
+    actual = [_hipaa_crosswalk_row(item) for item in crosswalks]
+
+    assert len(expected) == 274
+    assert len(actual) == len(set(actual)), "a HIPAA CPRT row is repeated"
+    assert set(actual) == set(expected), (
+        f"missing rows: {sorted(set(expected) - set(actual))}; "
+        f"unexpected rows: {sorted(set(actual) - set(expected))}"
+    )
+    for crosswalk in crosswalks:
+        provenance = crosswalk["provenance"]
+        workbook = provenance["workbook"]
+        assert workbook["url"] == CPRT_WORKBOOK_URL
+        assert workbook["sha256"] == CPRT_WORKBOOK_SHA256
+        assert workbook["id"] == "SP800-66R2-800-53R5.1.1"
+        assert workbook["version"] == "1.0.0"
+        assert provenance["direction"] == "focal-to-reference"
+        assert provenance["referenceElement"] == crosswalk["sourceClause"]
+        assert provenance["focalElement"] == crosswalk["target"]["clause"] or (
+            crosswalk.get("normalization", {}).get("from") == provenance["focalElement"]
+        )
+        assert crosswalk["relation"] == "informative"
+
+
+@pytest.mark.trace("FR-013-AC-2", "TC-058")
+def test_hipaa_cprt_crosswalks_cover_only_the_included_security_standards() -> None:
+    """Check source-standard coverage and the excluded business-associate clause."""
+    crosswalks = _hipaa_clause_set().get("crosswalks", [])
+    covered_standards = set()
+    for crosswalk in crosswalks:
+        source = crosswalk["sourceClause"]
+        for standard in ("164.308", "164.310", "164.312", "164.316"):
+            if source.startswith(standard):
+                covered_standards.add(standard)
+        if source.startswith("164.314(a)"):
+            covered_standards.add("164.314(a)")
+
+    assert covered_standards == {
+        "164.308",
+        "164.310",
+        "164.312",
+        "164.314(a)",
+        "164.316",
+    }
+    assert not any(
+        crosswalk["sourceClause"].startswith("164.314(b)") for crosswalk in crosswalks
+    ), "§ 164.314(b) must not be included"
+
+
+@pytest.mark.trace("FR-013-AC-3", "TC-059")
+def test_hipaa_unmapped_clauses_targets_and_normalizations_are_explicit() -> None:
+    """Reject inferred mappings, absent targets, and unrecorded normalization."""
+    clause_set = _hipaa_clause_set()
+    crosswalks = clause_set.get("crosswalks", [])
+    unmapped = clause_set.get("unmappedSourceClauses", [])
+    expected_unmapped = _hipaa_expected_unmapped()
+    hipaa_clause_ids = {clause["id"] for clause in clause_set["clauses"]}
+
+    assert unmapped == expected_unmapped
+    assert len(unmapped) == 14
+    assert set(unmapped) <= hipaa_clause_ids
+    assert not set(unmapped) & {item["sourceClause"] for item in crosswalks}
+
+    installed_targets = _installed_nist_clause_ids()
+    for crosswalk in crosswalks:
+        target = crosswalk["target"]
+        target_set = target["set"]
+        target_key = (
+            f"{target_set['authority']}/{target_set['id']}@{target_set['version']}"
+        )
+        assert target_key == NIST_KEY
+        target_id = target["clause"]
+        assert target_id in installed_targets, f"unknown NIST target {target_id}"
+
+        provenance = crosswalk["provenance"]
+        source_target_id = provenance["focalElement"]
+        normalized_id = _normalized_nist_id(source_target_id)
+        assert normalized_id == target_id
+        normalization = crosswalk.get("normalization")
+        if source_target_id == target_id:
+            assert (
+                normalization is None
+            ), "unchanged targets must not claim normalization"
+        else:
+            assert normalization == {
+                "method": "leading-zero-removal",
+                "from": source_target_id,
+                "to": target_id,
+                "reason": (
+                    "The installed 5.2.0 catalog uses the control and enhancement "
+                    "numbers without leading zeroes."
+                ),
+            }, f"unrecorded or incorrect normalization for {source_target_id}"
