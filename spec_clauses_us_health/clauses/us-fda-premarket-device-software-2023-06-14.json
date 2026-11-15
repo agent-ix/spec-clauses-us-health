@@ -256,5 +256,267 @@
         "value": "basic"
       }
     }
+  ],
+  "crosswalks": [
+    {
+      "sourceClause": "VI.A",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(a)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes documentation relevant to a quality management system."
+    },
+    {
+      "sourceClause": "VI.A",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(c)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes software design and development documentation for a device."
+    },
+    {
+      "sourceClause": "VI.B",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(a)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes documentation relevant to a quality management system."
+    },
+    {
+      "sourceClause": "VI.B",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(c)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes software design and development documentation for a device."
+    },
+    {
+      "sourceClause": "VI.C",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(a)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes documentation relevant to a quality management system."
+    },
+    {
+      "sourceClause": "VI.C",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(c)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes software design and development documentation for a device."
+    },
+    {
+      "sourceClause": "VI.D",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(a)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes documentation relevant to a quality management system."
+    },
+    {
+      "sourceClause": "VI.D",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(c)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes software design and development documentation for a device."
+    },
+    {
+      "sourceClause": "VI.E",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(c)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes software design and development documentation for a device."
+    },
+    {
+      "sourceClause": "VI.F.enhanced",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(c)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes software design and development documentation for a device."
+    },
+    {
+      "sourceClause": "VI.G",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(a)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes documentation relevant to a quality management system."
+    },
+    {
+      "sourceClause": "VI.G",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(c)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes software design and development documentation for a device."
+    },
+    {
+      "sourceClause": "VI.G.enhanced",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(a)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes documentation relevant to a quality management system."
+    },
+    {
+      "sourceClause": "VI.G.enhanced",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(c)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes software design and development documentation for a device."
+    },
+    {
+      "sourceClause": "VI.H",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(a)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes documentation relevant to a quality management system."
+    },
+    {
+      "sourceClause": "VI.H",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(c)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes software design and development documentation for a device."
+    },
+    {
+      "sourceClause": "VI.H.enhanced",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(a)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes documentation relevant to a quality management system."
+    },
+    {
+      "sourceClause": "VI.H.enhanced",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(c)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes software design and development documentation for a device."
+    },
+    {
+      "sourceClause": "VI.I",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(a)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes documentation relevant to a quality management system."
+    },
+    {
+      "sourceClause": "VI.J",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "21-cfr-820",
+          "version": "2026-11-12"
+        },
+        "clause": "820.10(a)"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation describes documentation relevant to a quality management system."
+    }
   ]
 }
