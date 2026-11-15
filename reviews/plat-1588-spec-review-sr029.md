@@ -81,3 +81,21 @@ dispositions:
 ## Disposition pass 2 result
 
 FND-001 is fixed. FND-002 remains open pending alignment of FR-019-AC-4 with PLAT-1588 AC4's pack reference-resolution contract.
+
+| FND-002 | fixed | FR-019-AC-4 now assigns missing-reference rejection to the pack-side evidence-reference resolver and explicitly says the Quoin CLI does not reject it. |
+
+```yaml
+dispositions:
+  - fnd: FND-002
+    outcome: fixed
+    after_excerpt: |-
+      - The pack-side evidence-reference resolver SHALL reject a discharge fact that
+        references an evidence file absent from the corpus and identify the affected
+        clause. The Quoin discharge CLI is not the component that rejects this
+        missing reference.
+      | FR-019-AC-4 | Changing a discharge fact's evidence reference to a missing corpus file makes the pack-side evidence-reference resolver reject the fact and identify the affected clause. | Test |
+```
+
+## Final disposition pass 2 result
+
+**PASS** for SR-029 at `c85f13ba4321b0d3a5d104b2459a0484b57cdd74`. FND-001 and FND-002 are fixed. FR-019 now owns the five M2 discharge outcomes, TC-082 binds all five ACs, and AC-4 names the pack-side resolver as the rejecting component.
