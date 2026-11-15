@@ -7,7 +7,6 @@ import pathlib
 import subprocess
 
 import pytest
-
 from conftest import MANIFEST_PATH, PACKAGE_ROOT, REPO_ROOT, engine_tool
 
 
