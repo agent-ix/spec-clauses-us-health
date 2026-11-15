@@ -59,88 +59,131 @@
       "force": "recommended",
       "title": "V.A.1 Threat model",
       "text": "Document a product threat model that describes the system, assets, trust boundaries, and relevant cybersecurity threats.",
-      "subjects": ["medical-devices", "premarket-submissions"],
+      "subjects": [
+        "medical-devices",
+        "premarket-submissions"
+      ],
       "obligatedActors": [],
       "approvalRoles": [],
       "styles": {},
-      "expectedOutputs": ["threat-model"]
+      "expectedOutputs": [
+        "threat-model"
+      ]
     },
     {
       "id": "V.A.2",
       "force": "recommended",
       "title": "V.A.2 Cybersecurity risk assessment",
       "text": "Assess cybersecurity risks to the device and related systems, including identified risks, controls, residual risks, and the rationale for risk decisions.",
-      "subjects": ["medical-devices", "premarket-submissions"],
+      "subjects": [
+        "medical-devices",
+        "premarket-submissions"
+      ],
       "obligatedActors": [],
       "approvalRoles": [],
       "styles": {},
-      "expectedOutputs": ["security-risk-assessment"]
+      "expectedOutputs": [
+        "security-risk-assessment"
+      ]
     },
     {
       "id": "V.A.4",
       "force": "recommended",
       "title": "V.A.4 Software bill of materials",
       "text": "Provide a machine-readable software bill of materials and, for each component, its support status and end-of-support date; if unavailable, explain why it cannot be included.",
-      "subjects": ["medical-devices", "software-components", "premarket-submissions"],
+      "subjects": [
+        "medical-devices",
+        "software-components",
+        "premarket-submissions"
+      ],
       "obligatedActors": [],
       "approvalRoles": [],
       "styles": {},
-      "expectedOutputs": ["sbom"]
+      "expectedOutputs": [
+        "sbom"
+      ]
     },
     {
       "id": "V.A.5",
       "force": "recommended",
       "title": "V.A.5 Unresolved software anomalies assessment",
       "text": "Assess unresolved software anomalies that could affect device safety or effectiveness, document their impact and risk, and explain how they are addressed or why they remain open.",
-      "subjects": ["medical-devices", "software-components", "premarket-submissions"],
+      "subjects": [
+        "medical-devices",
+        "software-components",
+        "premarket-submissions"
+      ],
       "obligatedActors": [],
       "approvalRoles": [],
       "styles": {},
-      "expectedOutputs": ["vulnerability-assessment"]
+      "expectedOutputs": [
+        "vulnerability-assessment"
+      ]
     },
     {
       "id": "V.B.2",
       "force": "recommended",
       "title": "V.B.2 Security architecture views",
       "text": "Provide security architecture views that explain the device and related systems, their security-relevant interactions, and how identified risks are addressed.",
-      "subjects": ["medical-devices", "premarket-submissions"],
+      "subjects": [
+        "medical-devices",
+        "premarket-submissions"
+      ],
       "obligatedActors": [],
       "approvalRoles": [],
       "styles": {},
-      "expectedOutputs": ["security-architecture-views"]
+      "expectedOutputs": [
+        "security-architecture-views"
+      ]
     },
     {
       "id": "V.C",
       "force": "recommended",
       "title": "V.C Cybersecurity testing",
       "text": "Provide the cybersecurity requirements and acceptance criteria and document testing that demonstrates the security controls were implemented and tested effectively.",
-      "subjects": ["medical-devices", "premarket-submissions"],
+      "subjects": [
+        "medical-devices",
+        "premarket-submissions"
+      ],
       "obligatedActors": [],
       "approvalRoles": [],
       "styles": {},
-      "expectedOutputs": ["cybersecurity-test-results"]
+      "expectedOutputs": [
+        "cybersecurity-test-results"
+      ]
     },
     {
       "id": "VI.B",
       "force": "recommended",
       "title": "VI.B Cybersecurity management plan",
       "text": "Describe how postmarket vulnerabilities will be monitored, identified, addressed, and communicated, including responsible roles, update timelines, and coordinated disclosure procedures.",
-      "subjects": ["medical-devices", "postmarket-security"],
+      "subjects": [
+        "medical-devices",
+        "postmarket-security"
+      ],
       "obligatedActors": [],
       "approvalRoles": [],
       "styles": {},
-      "expectedOutputs": ["vulnerability-management-plan"]
+      "expectedOutputs": [
+        "vulnerability-management-plan"
+      ]
     },
     {
       "id": "VII.C.1",
       "force": "recommended",
       "title": "VII.C.1 Plans and procedures",
       "text": "Provide a plan to monitor, identify, and address postmarket vulnerabilities and exploits in a reasonable time, including coordinated vulnerability disclosure and related procedures.",
-      "subjects": ["cyber-devices", "postmarket-security"],
+      "subjects": [
+        "cyber-devices",
+        "postmarket-security"
+      ],
       "obligatedActors": [],
       "approvalRoles": [],
       "styles": {},
-      "expectedOutputs": ["vulnerability-management-plan", "vulnerability-assessment"],
+      "expectedOutputs": [
+        "vulnerability-management-plan",
+        "vulnerability-assessment"
+      ],
       "applicability": {
         "op": "eq",
         "dimension": "cyber_device",
@@ -152,11 +195,18 @@
       "force": "recommended",
       "title": "VII.C.2 Cybersecurity processes and procedures",
       "text": "Document the processes used to design, develop, and maintain cybersecurity for the device and related systems, including their risks and controls.",
-      "subjects": ["cyber-devices", "cybersecurity-requirements"],
+      "subjects": [
+        "cyber-devices",
+        "cybersecurity-requirements"
+      ],
       "obligatedActors": [],
       "approvalRoles": [],
       "styles": {},
-      "expectedOutputs": ["security-risk-assessment", "security-architecture-views", "cybersecurity-test-results"],
+      "expectedOutputs": [
+        "security-risk-assessment",
+        "security-architecture-views",
+        "cybersecurity-test-results"
+      ],
       "applicability": {
         "op": "eq",
         "dimension": "cyber_device",
@@ -168,16 +218,257 @@
       "force": "recommended",
       "title": "VII.C.3 Software bill of materials",
       "text": "Provide a software bill of materials for the cyber device and include component support status and end-of-support dates.",
-      "subjects": ["cyber-devices", "software-components"],
+      "subjects": [
+        "cyber-devices",
+        "software-components"
+      ],
       "obligatedActors": [],
       "approvalRoles": [],
       "styles": {},
-      "expectedOutputs": ["sbom"],
+      "expectedOutputs": [
+        "sbom"
+      ],
       "applicability": {
         "op": "eq",
         "dimension": "cyber_device",
         "value": "yes"
       }
+    }
+  ],
+  "crosswalks": [
+    {
+      "sourceClause": "V.A.1",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "RA-3"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related risk-assessment reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "V.A.2",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "RA-3"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related risk-assessment reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "V.A.2",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "RA-5"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related vulnerability-assessment reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "V.A.4",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "CM-8"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related component-inventory reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "V.A.4",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SR-4"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related supply-chain-provenance reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "V.A.5",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "RA-5"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related vulnerability-assessment reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "V.A.5",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SI-2"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related flaw-remediation reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "V.B.2",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SA-8"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related security-engineering reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "V.B.2",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SA-11"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related developer-testing reference for the cybersecurity recommendation."
+    },
+    {
+      "sourceClause": "V.C",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "CA-8"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related penetration-testing reference for the cybersecurity recommendation."
+    },
+    {
+      "sourceClause": "V.C",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SA-11"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related developer-testing reference for the cybersecurity recommendation."
+    },
+    {
+      "sourceClause": "VI.B",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SR-2"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related supply-chain-risk reference for the cybersecurity recommendation."
+    },
+    {
+      "sourceClause": "VII.C.1",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "RA-5"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related vulnerability-assessment reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "VII.C.1",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SI-5"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related security-advisory reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "VII.C.2",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SA-3"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related lifecycle reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "VII.C.2",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SA-8"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related security-engineering reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "VII.C.3",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "CM-8"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related component-inventory reference for the cybersecurity obligation."
+    },
+    {
+      "sourceClause": "VII.C.3",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SR-4"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related supply-chain-provenance reference for the cybersecurity obligation."
     }
   ]
 }
