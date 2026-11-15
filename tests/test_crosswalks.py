@@ -732,6 +732,13 @@ def test_crosswalk_requires_relation_and_nonblank_rationale() -> None:
     blank_rationale = copy.deepcopy(rows[0])
     blank_rationale["rationale"] = "  "
     assert "no rationale" in _m2_crosswalk_metadata_failures([blank_rationale])[0]
+    multiple_sentences = copy.deepcopy(rows[0])
+    multiple_sentences["rationale"] = (
+        "This provides context. It does not assert equivalence."
+    )
+    assert (
+        "not one sentence" in _m2_crosswalk_metadata_failures([multiple_sentences])[0]
+    )
     named_designator = copy.deepcopy(rows[0])
     named_designator["rationale"] = "This relates to 820.10(a)."
     assert "designator" in _m2_crosswalk_metadata_failures([named_designator])[0]
