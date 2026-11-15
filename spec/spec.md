@@ -192,6 +192,17 @@ or that a control satisfies a legal obligation. Each relation value uses the
 this plan is `informative`: it points readers to related guidance or controls
 and makes no equivalence or partial-coverage claim.
 
+For `524B(b)(4)`, the statute authorizes FDA to require other cybersecurity
+requirements through regulation. The current guidance's footnote 14 explains
+that FDA is not required to issue a regulation elaborating the requirements
+already specified in section 524B; it does not identify a specific additional
+regulation under this paragraph. The `VII.C.2` pointer is included only as
+context because that section discusses cybersecurity processes and procedures
+for reasonable assurance under `524B(b)(2)`. The `SA-8` pointer is included
+only because NIST describes it as a general security-engineering-principles
+control. Neither pointer asserts coverage of `524B(b)(4)`, identifies an
+additional FDA regulation, or establishes equivalence or legal compliance.
+
 | Source clause | Target set key | Target ID | Relation |
 |---|---|---|---|
 | `524B(a)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.1` | `informative` |
@@ -202,6 +213,7 @@ and makes no equivalence or partial-coverage claim.
 | `524B(b)(2)(A)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `informative` |
 | `524B(b)(2)(B)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `informative` |
 | `524B(b)(3)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.3` | `informative` |
+| `524B(b)(4)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `informative` |
 | `524B(a)` | `nist/sp800-53@5.2.0` | `RA-3` | `informative` |
 | `524B(b)(1)` | `nist/sp800-53@5.2.0` | `RA-5` | `informative` |
 | `524B(b)(1)` | `nist/sp800-53@5.2.0` | `SI-5` | `informative` |
@@ -212,6 +224,7 @@ and makes no equivalence or partial-coverage claim.
 | `524B(b)(2)(B)` | `nist/sp800-53@5.2.0` | `SI-2` | `informative` |
 | `524B(b)(3)` | `nist/sp800-53@5.2.0` | `CM-8` | `informative` |
 | `524B(b)(3)` | `nist/sp800-53@5.2.0` | `SR-4` | `informative` |
+| `524B(b)(4)` | `nist/sp800-53@5.2.0` | `SA-8` | `informative` |
 | `V.A.1` | `nist/sp800-53@5.2.0` | `RA-3` | `informative` |
 | `V.A.2` | `nist/sp800-53@5.2.0` | `RA-3` | `informative` |
 | `V.A.2` | `nist/sp800-53@5.2.0` | `RA-5` | `informative` |
