@@ -180,8 +180,8 @@ resolution tests.
 | TC-019 | Conflicting kind or description for a reused output fails across US sets | Unit | P0 | FR-005-AC-2 | ✅ Helper and Part 11 catalog checked in PLAT-1553 |
 | TC-020 | A later US set reuses an output only with the catalog definition | Unit | P1 | FR-005-AC-3 | 🚧 Planned for PLAT-1545 |
 | TC-021 | Customer-owned clauses are exactly those whose outputs are all procedures | Unit | P0 | FR-006-AC-1 | ✅ Implemented in PLAT-1553 |
-| TC-022 | Delegated discharge requires a rationale and customer acceptance reference | Integration | P0 | FR-006-AC-2 | 🚧 Planned for PLAT-1559 |
-| TC-023 | Direct discharge is rejected and the toolchain claims no procedure output | Integration | P0 | FR-006-AC-3 | 🚧 Planned for PLAT-1559 |
+| TC-022 | The customer-owned corpus fact has a delegated decision, non-empty rationale, and person-naming customer-acceptance approvalRef; the CLI records it and the RMM preserves all three values | Integration | P0 | FR-006-AC-2 | 🚧 Planned for PLAT-1559 |
+| TC-023 | The customer-owned corpus has no direct fact and the RMM claims no toolchain-produced procedure | Integration | P0 | FR-006-AC-3 | 🚧 Planned for PLAT-1559 |
 | TC-024 | The synthetic corpus validates against the discharge input contract | Integration | P1 | FR-007-AC-1 | 🚧 Planned for PLAT-1559 |
 | TC-025 | Test-time fixture signing creates and verifies a signed commit and tag, then removes the temporary key | Integration | P1 | FR-007-AC-2 | 🚧 Planned for PLAT-1559 |
 | TC-026 | Test-time discharge facts use and clean up a temporary evidence store | Integration | P1 | FR-007-AC-3 | 🚧 Planned for PLAT-1559 |
