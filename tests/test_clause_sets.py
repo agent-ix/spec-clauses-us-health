@@ -22,6 +22,7 @@ from conftest import (
     engine_tool,
     load_clause_sets,
     run,
+    stage_clause_sets,
 )
 
 US_OUTPUT_CATALOG = {
@@ -68,6 +69,44 @@ US_OUTPUT_CATALOG = {
     "anomaly-list": ("record", "Unresolved-anomaly report."),
     "release-record": ("record", "Engineering-assurance release decision."),
 }
+
+PART_11_FILE = "us-fda-21-cfr-11-2026-11-12.json"
+PART_11_KEY = "us-fda/21-cfr-11@2026-11-12"
+PART_11_IDS = {
+    *(f"11.10({letter})" for letter in "abcdefghijk"),
+    "11.30",
+    "11.50(a)",
+    "11.50(b)",
+    "11.70",
+    "11.100(a)",
+    "11.100(b)",
+    "11.100(c)",
+    "11.200(a)",
+    "11.200(b)",
+    *(f"11.300({letter})" for letter in "abcde"),
+}
+
+
+def _part_11_outcomes(binding: dict) -> dict[str, str]:
+    return {clause["clauseId"]: clause["outcome"] for clause in binding["clauses"]}
+
+
+def _part_11_evaluate_error(module_root: pathlib.Path, *context: str):
+    return run(
+        engine_tool("quire"),
+        "clauses",
+        "evaluate",
+        "--module",
+        str(module_root),
+        "--authority",
+        "us-fda",
+        "--set",
+        "21-cfr-11",
+        "--version",
+        "2026-11-12",
+        "--json",
+        *[argument for entry in context for argument in ("--context", entry)],
+    )
 
 
 def _synthetic_set(key: str, output_catalog: dict) -> dict:
@@ -367,3 +406,228 @@ def test_markerless_backup_refuses_unowned_data_and_allows_retry(tmp_path):
     assert restored.returncode == 0, restored.stderr
     assert not (package / "manifest.yaml").exists()
     assert not (package / "clauses").exists()
+
+
+@pytest.mark.trace(
+    "TC-005", "TC-008", "FR-002-AC-1", "FR-003-AC-1"
+)
+def test_part_11_manifest_and_source_metadata_match_the_spec():
+    manifest = yaml.safe_load(MANIFEST_PATH.read_text())
+    assert manifest["clause_sets"] == [f"clauses/{PART_11_FILE}"]
+
+    (clause_set,) = load_clause_sets()
+    assert clause_set_key(clause_set) == PART_11_KEY
+    assert clause_set["rights"] == {
+        "structure": "citation_only",
+        "text": "original",
+        "clearance_ref": None,
+        "licence": "Public domain: US federal regulation (17 U.S.C. 105)",
+    }
+    assert clause_set["source"] == {
+        "title": "21 CFR Part 11 Electronic Records; Electronic Signatures",
+        "identifier": "21 CFR Part 11",
+        "officialUrl": (
+            "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11"
+        ),
+    }
+    evaluated = _part_11_evaluate_error(PACKAGE_ROOT)
+    assert evaluated.returncode == 0, evaluated.stderr
+    assert json.loads(evaluated.stdout)["clauseSet"] == {
+        "authority": "us-fda",
+        "id": "21-cfr-11",
+        "version": "2026-11-12",
+    }
+
+    artifact_module = pathlib.Path.home() / ".ix/filament/modules/spec-artifacts-iso"
+    validation = run(
+        engine_tool("quire"),
+        "validate",
+        "--scope",
+        str(REPO_ROOT),
+        "--module",
+        str(PACKAGE_ROOT),
+        "--module",
+        str(artifact_module),
+        "spec/**/*.md",
+    )
+    assert validation.returncode == 0, validation.stderr + validation.stdout
+
+
+@pytest.mark.trace("TC-009", "FR-003-AC-2")
+def test_part_11_contains_exactly_the_specified_clause_ids():
+    binding = evaluate_clause_set(PACKAGE_ROOT, PART_11_KEY)
+    assert {entry["clauseId"] for entry in binding["clauses"]} == PART_11_IDS
+
+
+@pytest.mark.trace("TC-010", "FR-003-AC-3")
+def test_part_11_clauses_are_mandatory_nonempty_and_loadable():
+    (clause_set,) = load_clause_sets()
+    assert len(clause_set["clauses"]) == 25
+    assert all(clause["force"] == "mandatory" for clause in clause_set["clauses"])
+    assert all(clause["text"].strip() for clause in clause_set["clauses"])
+    assert all(clause["expectedOutputs"] for clause in clause_set["clauses"])
+    validated = _part_11_evaluate_error(PACKAGE_ROOT)
+    assert validated.returncode == 0, validated.stderr + validated.stdout
+
+
+@pytest.mark.trace("TC-011", "FR-003-AC-4")
+def test_clause_with_undeclared_output_fails_and_names_the_clause(tmp_path):
+    staged = stage_clause_sets(tmp_path, CLAUSES_DIR / PART_11_FILE)
+    staged_path = staged / "clauses" / PART_11_FILE
+    staged_set = json.loads(staged_path.read_text())
+    next(clause for clause in staged_set["clauses"] if clause["id"] == "11.10(a)")[
+        "expectedOutputs"
+    ] = ["missing-output"]
+    staged_path.write_text(json.dumps(staged_set))
+
+    result = _part_11_evaluate_error(staged)
+    assert result.returncode != 0
+    assert "11.10(a)" in result.stderr + result.stdout
+
+
+@pytest.mark.trace("TC-012", "FR-004-AC-1")
+def test_closed_systems_bind_11_10_without_signatures_binding_elsewhere():
+    outcomes = _part_11_outcomes(
+        evaluate_clause_set(
+            PACKAGE_ROOT,
+            PART_11_KEY,
+            "system_type=closed",
+            "electronic_signatures=not_used",
+        )
+    )
+    assert all(outcomes[f"11.10({letter})"] == "binding" for letter in "abcdefghijk")
+    assert all(
+        outcome == "not_binding"
+        for clause_id, outcome in outcomes.items()
+        if not clause_id.startswith("11.10(")
+    )
+
+
+@pytest.mark.trace("TC-013", "FR-004-AC-2")
+def test_open_system_controls_wait_for_per_paragraph_assessments():
+    outcomes = _part_11_outcomes(
+        evaluate_clause_set(
+            PACKAGE_ROOT,
+            PART_11_KEY,
+            "system_type=open",
+            "electronic_signatures=used",
+            "signature_basis=non_biometric",
+        )
+    )
+    assert all(
+        outcomes[f"11.10({letter})"] == "unresolved" for letter in "abcdefghijk"
+    )
+    assert outcomes["11.30"] == "binding"
+    assert outcomes["11.200(a)"] == "binding"
+    assert all(
+        outcomes[f"11.300({letter})"] == "unresolved" for letter in "abcde"
+    )
+
+
+@pytest.mark.trace("TC-014", "FR-004-AC-3")
+def test_open_system_assessments_resolve_only_the_named_control():
+    outcomes = _part_11_outcomes(
+        evaluate_clause_set(
+            PACKAGE_ROOT,
+            PART_11_KEY,
+            "system_type=open",
+            "open_system_11_10_a_applicability=appropriate",
+            "open_system_11_10_b_applicability=not_appropriate",
+        )
+    )
+    assert outcomes["11.10(a)"] == "binding"
+    assert outcomes["11.10(b)"] == "not_binding"
+    assert outcomes["11.10(c)"] == "unresolved"
+
+
+@pytest.mark.trace("TC-015", "FR-004-AC-4")
+def test_nonbiometric_11_300_requires_identification_code_password():
+    shared = (
+        "electronic_signatures=used",
+        "signature_basis=non_biometric",
+    )
+    identification = _part_11_outcomes(
+        evaluate_clause_set(
+            PACKAGE_ROOT,
+            PART_11_KEY,
+            *shared,
+            "signature_method=identification_code_password",
+        )
+    )
+    other = _part_11_outcomes(
+        evaluate_clause_set(
+            PACKAGE_ROOT,
+            PART_11_KEY,
+            *shared,
+            "signature_method=other",
+        )
+    )
+    assert all(identification[f"11.300({letter})"] == "binding" for letter in "abcde")
+    assert all(other[f"11.300({letter})"] == "not_binding" for letter in "abcde")
+
+
+@pytest.mark.trace("TC-016", "FR-004-AC-5")
+def test_empty_context_leaves_every_part_11_clause_unresolved():
+    outcomes = _part_11_outcomes(evaluate_clause_set(PACKAGE_ROOT, PART_11_KEY))
+    assert set(outcomes.values()) == {"unresolved"}
+
+
+@pytest.mark.trace("TC-017", "FR-004-AC-6")
+def test_unknown_applicability_dimensions_and_values_are_rejected():
+    unknown_dimension = _part_11_evaluate_error(
+        PACKAGE_ROOT,
+        "system_type=closed",
+        "open_system_11_10_z_applicability=appropriate",
+    )
+    assert unknown_dimension.returncode != 0
+    unknown_value = _part_11_evaluate_error(
+        PACKAGE_ROOT,
+        "system_type=open",
+        "open_system_11_10_a_applicability=maybe",
+    )
+    assert unknown_value.returncode != 0
+
+
+@pytest.mark.trace("TC-031", "FR-003-AC-5")
+def test_certification_clause_uses_the_fda_record_output():
+    (clause_set,) = load_clause_sets()
+    clause = next(
+        entry for entry in clause_set["clauses"] if entry["id"] == "11.100(c)"
+    )
+    assert "fda-certification-record" in clause["expectedOutputs"]
+    assert clause_set["outputCatalog"]["fda-certification-record"]["kind"] == "record"
+
+
+@pytest.mark.trace("TC-006", "FR-002-AC-2")
+def test_part_11_publish_check_accepts_the_original_text_module():
+    result = run(engine_tool("quire"), "publish-check", "--module", str(PACKAGE_ROOT))
+    assert result.returncode == 0, result.stderr + result.stdout
+
+
+@pytest.mark.trace("TC-007", "FR-002-AC-3")
+def test_licensed_part_11_fixture_is_refused_with_its_set_key(tmp_path):
+    staged = stage_clause_sets(tmp_path, CLAUSES_DIR / PART_11_FILE)
+    staged_path = staged / "clauses" / PART_11_FILE
+    staged_set = json.loads(staged_path.read_text())
+    staged_set["rights"]["text"] = "licensed"
+    staged_path.write_text(json.dumps(staged_set))
+
+    result = run(engine_tool("quire"), "publish-check", "--module", str(staged))
+    assert result.returncode == 2
+    assert PART_11_KEY in result.stderr + result.stdout
+
+
+@pytest.mark.trace("TC-026", "FR-007-AC-3")
+def test_single_set_rmm_marks_one_direct_fact_compliant(tmp_path):
+    result = record_and_render_matrix(
+        tmp_path,
+        PACKAGE_ROOT,
+        PART_11_KEY,
+        "system_type=closed",
+        clause_id="11.10(e)",
+    )
+    assert result.returncode == 0, result.stderr + result.stdout
+    output = result.stdout + result.stderr
+    assert "11.10(e)" in output
+    assert "Compliant" in output
+    assert "Not compliant - undischarged" in output
