@@ -9,7 +9,7 @@ review_set: subset
 
 ## Summary
 
-No active AssuranceProfile instance applies in this repository. The corrected validation commands still omit the process module root required to load the repository's `TestMatrix` artifact, so both criteria fail on the full spec glob.
+No active AssuranceProfile instance applies in this repository. The initial review found that both criteria omitted the process module root required to load `TestMatrix`; the fix adds it and the full spec validation now exits 0.
 
 ## Findings
 
@@ -44,3 +44,10 @@ findings:
     finding: "The command omits the process module root that declares the TestMatrix archetype used by spec/tests.md. Running it against the full spec glob with only spec-artifacts-iso exits 1 with unknown type 'TestMatrix'; adding spec-artifacts-process as a second --module root exits 0."
 ```
 +++
+
+
+## Dispositions
+
+| FND | outcome | reason |
+| --- | --- | --- |
+| FND-001 | fixed | after_excerpt: `quire validate --scope . --module <spec-artifacts-iso-module-root> --module <spec-artifacts-process-module-root> 'spec/**/*.md'` exits 0 for both FR-014-AC-5 and FR-015-AC-5. |
