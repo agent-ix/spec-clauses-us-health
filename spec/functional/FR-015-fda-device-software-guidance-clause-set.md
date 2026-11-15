@@ -7,6 +7,8 @@ relationships:
     type: extends
   - target: "ix://agent-ix/spec-clauses-us-health/FR-002"
     type: extends
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-005"
+    type: uses
 ---
 # FR-015: The M2 set records FDA device-software submission recommendations
 

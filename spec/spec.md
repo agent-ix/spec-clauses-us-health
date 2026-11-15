@@ -402,22 +402,23 @@ level. `at_least documentation_level enhanced` binds only at the enhanced
 level. A missing value leaves every row unresolved. No set logic selects or
 infers a documentation level.
 
-| Clause ID | Documentation level | Applicability | Expected outputs |
-|---|---|---|---|
-| `VI.A` | basic and enhanced | `at_least documentation_level basic` | `risk-management-records` |
-| `VI.B` | basic and enhanced | `at_least documentation_level basic` | `software-description` |
-| `VI.C` | basic and enhanced | `at_least documentation_level basic` | `risk-management-records` |
-| `VI.D` | basic and enhanced | `at_least documentation_level basic` | `software-requirements` |
-| `VI.E` | basic and enhanced | `at_least documentation_level basic` | `software-architecture` |
-| `VI.F.enhanced` | enhanced | `at_least documentation_level enhanced` | `software-design` |
-| `VI.G` | basic and enhanced | `at_least documentation_level basic` | `written-procedure` |
-| `VI.G.enhanced` | enhanced | `at_least documentation_level enhanced` | `configuration-management-plan` |
-| `VI.H` | basic and enhanced | `at_least documentation_level basic` | `verification-records` |
-| `VI.H.enhanced` | enhanced | `at_least documentation_level enhanced` | `verification-records` |
-| `VI.I` | basic and enhanced | `at_least documentation_level basic` | `release-record` |
-| `VI.J` | basic and enhanced | `at_least documentation_level basic` | `anomaly-list` |
+| Clause ID | Documentation level | Applicability | Expected outputs | Part 820 crosswalk target IDs |
+|---|---|---|---|---|
+| `VI.A` | basic and enhanced | `at_least documentation_level basic` | `risk-management-records` | `820.10(a)`, `820.10(c)` |
+| `VI.B` | basic and enhanced | `at_least documentation_level basic` | `software-description` | `820.10(a)`, `820.10(c)` |
+| `VI.C` | basic and enhanced | `at_least documentation_level basic` | `risk-management-records` | `820.10(a)`, `820.10(c)` |
+| `VI.D` | basic and enhanced | `at_least documentation_level basic` | `software-requirements` | `820.10(a)`, `820.10(c)` |
+| `VI.E` | basic and enhanced | `at_least documentation_level basic` | `software-architecture` | `820.10(c)` |
+| `VI.F.enhanced` | enhanced | `at_least documentation_level enhanced` | `software-design` | `820.10(c)` |
+| `VI.G` | basic and enhanced | `at_least documentation_level basic` | `written-procedure` | `820.10(a)`, `820.10(c)` |
+| `VI.G.enhanced` | enhanced | `at_least documentation_level enhanced` | `configuration-management-plan` | `820.10(a)`, `820.10(c)` |
+| `VI.H` | basic and enhanced | `at_least documentation_level basic` | `verification-records` | `820.10(a)`, `820.10(c)` |
+| `VI.H.enhanced` | enhanced | `at_least documentation_level enhanced` | `verification-records` | `820.10(a)`, `820.10(c)` |
+| `VI.I` | basic and enhanced | `at_least documentation_level basic` | `release-record` | `820.10(a)` |
+| `VI.J` | basic and enhanced | `at_least documentation_level basic` | `anomaly-list` | `820.10(a)` |
 
-These are the complete Section VI clause identifiers for PLAT-1572. The §
+These are the complete Section VI clause identifiers and exact Part 820 target
+IDs for PLAT-1572 and PLAT-1582. The §
 VI.F software-design specification is an enhanced-only submission clause; the
 basic-level treatment is not a premarket-submission recommendation. Enhanced
 § VI.G and VI.H rows state only the added documentation beyond their baseline

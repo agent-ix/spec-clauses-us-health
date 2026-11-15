@@ -7,6 +7,8 @@ relationships:
     type: extends
   - target: "ix://agent-ix/spec-clauses-us-health/FR-002"
     type: extends
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-005"
+    type: uses
 ---
 # FR-014: The M2 set describes selected Part 820 manufacturer requirements
 

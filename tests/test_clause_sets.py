@@ -331,16 +331,17 @@ def test_publish_check_rejects_a_licensed_synthetic_set(tmp_path):
 
 @pytest.mark.trace("TC-018", "FR-005-AC-1", "TC-043", "FR-010-AC-1")
 def test_us_clause_set_output_catalog_matches_the_spec():
-    catalog = {
-        name: {"kind": kind, "description": description}
-        for name, kind, description in _spec_table("US Health-Law Output Catalog")
-    }
+    catalog_rows = _spec_table("US Health-Law Output Catalog")
+    catalog = {}
+    for name, kind, description in catalog_rows:
+        assert name not in catalog, f"duplicate output catalog name in spec: {name}"
+        catalog[name] = {"kind": kind, "description": description}
     m1_names = {
         output.strip("`")
         for row in _spec_table("Part 11 Clause Table")
         for output in row[2].split(", ")
     }
-    assert len(catalog) == 28
+    assert len(catalog) == 38
     assert set(list(catalog)[:10]) <= m1_names
 
     for clause_set in load_clause_sets():

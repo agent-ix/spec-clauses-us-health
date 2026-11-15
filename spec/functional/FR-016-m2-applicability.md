@@ -5,6 +5,10 @@ type: FR
 relationships:
   - target: "ix://agent-ix/spec-clauses-us-health/FR-004"
     type: extends
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-014"
+    type: constrains
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-015"
+    type: constrains
 ---
 # FR-016: M2 applicability uses only explicit human-supplied facts
 

@@ -2,6 +2,11 @@
 id: FR-017
 title: FDA device-software recommendations crosswalk to Part 820 clauses
 type: FR
+relationships:
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-014"
+    type: depends_on
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-015"
+    type: depends_on
 ---
 # FR-017: FDA device-software recommendations crosswalk to Part 820 clauses
 
@@ -26,7 +31,7 @@ row SHALL NOT state legal equivalence.
 
 | ID | Criteria | Verification |
 |---|---|---|
-| FR-017-AC-1 | Every guidance clause in the M2 table has at least one crosswalk row whose target resolves to an ID in the Part 820 table and whose relation and rationale are present. | Test |
+| FR-017-AC-1 | Every guidance clause has one or more target IDs exactly as listed in the M2 FDA table; the source-target pair set equals that table, every target resolves to a Part 820 ID, and every row has relation and rationale. | Test |
 | FR-017-AC-2 | A crosswalk fixture with an unknown source or target clause fails and names the invalid identifier. | Test |
 | FR-017-AC-3 | A crosswalk row with a missing relation or empty rationale fails validation. | Test |
 | FR-017-AC-4 | The crosswalk identifies every mapping as informative and contains no relation `equivalent`. | Test |
