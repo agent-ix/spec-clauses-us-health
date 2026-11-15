@@ -1039,6 +1039,7 @@ def test_part_11_manifest_and_source_metadata_match_the_spec():
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
     assert manifest["clause_sets"] == [
         f"clauses/{PART_11_FILE}",
+        f"clauses/{PART_820_FILE}",
         f"clauses/{FDCA_524B_FILE}",
         f"clauses/{FDA_GUIDANCE_FILE}",
         f"clauses/{PREMARKET_SOFTWARE_FILE}",
