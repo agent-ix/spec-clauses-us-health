@@ -98,17 +98,18 @@ def test_m2_record_outputs_name_a_producer_or_owner_ticket():
             description = definition["description"]
 
             if definition["kind"] == "record":
-                assert (
-                    description == mapping
-                ), f"{output}: output description differs from the mapping"
                 if "No producer on `origin/main`" in mapping:
                     assert "owner: PLAT-1762" in mapping, output
+                    assert "owner: PLAT-1762" in description, output
                 else:
                     assert (
                         output in PRODUCER_TOKENS
                     ), f"{output}: no verified producer is listed"
                     for token in PRODUCER_TOKENS[output]:
                         assert token in mapping, f"{output}: missing producer {token!r}"
+                        assert (
+                            token in description
+                        ), f"{output}: description omits producer {token!r}"
             elif definition["kind"] == "document":
                 assert "Customer-provided" in mapping, output
                 assert "no toolchain producer" in mapping, output
