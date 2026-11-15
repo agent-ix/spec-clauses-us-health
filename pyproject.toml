@@ -1,0 +1,7 @@
+[project]
+name = "spec_clauses_us_health"
+version = "0.1.0"
+description = "US health-law compliance clause sets"
+readme = "README.md"
+license = "AGPL-3.0-or-later"
+requires-python = ">=3.13"
