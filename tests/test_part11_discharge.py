@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
 import pathlib
@@ -45,6 +46,26 @@ def _save_tool_output(repo: pathlib.Path, name: str, value: dict) -> str:
         json.dumps(value, sort_keys=True, separators=(",", ":")) + "\n"
     )
     return relative.as_posix()
+
+
+def _verify_signature(
+    repo: pathlib.Path, allowed_signers: pathlib.Path, kind: str
+) -> dict:
+    command = ["git", "-C", str(repo), "-c", "gpg.format=ssh"]
+    command.extend(["-c", f"gpg.ssh.allowedSignersFile={allowed_signers}"])
+    command.extend(
+        ["verify-commit", "HEAD"]
+        if kind == "commit"
+        else ["verify-tag", "part11-synthetic-approval"]
+    )
+    result = run(*command, cwd=repo)
+    assert result.returncode == 0, result.stderr + result.stdout
+    return {
+        "kind": kind,
+        "status": "signed_valid",
+        "subject": "reviewer@example.invalid",
+        "verification": result.stderr.strip(),
+    }
 
 
 def _resolve_fact_refs(repo: pathlib.Path, facts: list[dict]) -> None:
@@ -103,6 +124,9 @@ def _make_signed_corpus(repo: pathlib.Path, private_key: pathlib.Path) -> pathli
         "-m",
         "Synthetic Part 11 corpus",
     )
+    approval_digest = hashlib.sha256(
+        (repo / "approvals/customer-procedure-acceptance.json").read_bytes()
+    ).hexdigest()
     _git(
         repo,
         "-c",
@@ -115,8 +139,8 @@ def _make_signed_corpus(repo: pathlib.Path, private_key: pathlib.Path) -> pathli
         "-s",
         "-m",
         "Synthetic Part 11 approval\n\n"
-        "Approved-Record-Id: record://example.invalid/FR-001\n"
-        "Approved-Record-Digest: sha256:0123456789abcdef\n"
+        "Approved-Record-Id: approval://example.invalid/part11/customer-procedure-acceptance\n"
+        f"Approved-Record-Digest: sha256:{approval_digest}\n"
         "Signed-off-meaning: reviewed",
         "part11-synthetic-approval",
     )
@@ -137,16 +161,6 @@ def _stage_part11_module(destination: pathlib.Path) -> pathlib.Path:
         "  - clauses/us-fda-21-cfr-11-2026-11-12.json\n"
     )
     return destination
-
-
-def _run_producer(command: str, request: dict) -> dict:
-    return _run_json(
-        engine_tool("engineering-assurance"),
-        command,
-        "--request",
-        "-",
-        input=json.dumps(request),
-    )
 
 
 @pytest.mark.trace("TC-024", "FR-007-AC-1")
@@ -209,58 +223,42 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
         )
         assert install.returncode == 0, install.stderr + install.stdout
 
-        commit = _git(repo, "rev-parse", "HEAD")
-        signature_commit = _run_producer(
-            "signature-verify",
-            {
-                "protocol": "engineering-assurance.signature-verify-request/v1",
-                "repository": str(repo),
-                "revision": commit,
-                "kind": "commit",
-                "allowed_signers": str(allowed_signers),
-            },
+        signature_commit = _verify_signature(repo, allowed_signers, "commit")
+        signature_tag = _verify_signature(repo, allowed_signers, "tag")
+        approval_path = "approvals/customer-procedure-acceptance.json"
+        approval_record = json.loads(
+            (REPO_ROOT / "tests/corpus" / approval_path).read_text()
         )
-        signature_tag = _run_producer(
-            "signature-verify",
-            {
-                "protocol": "engineering-assurance.signature-verify-request/v1",
-                "repository": str(repo),
-                "revision": "part11-synthetic-approval",
-                "kind": "tag",
-                "allowed_signers": str(allowed_signers),
-            },
-        )
-        approval_request = {
-            "protocol": "engineering-assurance.approval-verify-request/v1",
-            "repository": str(repo),
-            "tag": "part11-synthetic-approval",
-            "record_id": "record://example.invalid/FR-001",
-            "record_digest": "sha256:0123456789abcdef",
-            "allowed_signers": str(allowed_signers),
+        assert approval_record == {
+            "recordId": "approval://example.invalid/part11/customer-procedure-acceptance",
+            "recordType": "person-approval",
+            "personId": "person://example.invalid/customer/quality-lead",
+            "personName": "Synthetic Customer Quality Lead",
+            "approvedClauseIds": sorted(CUSTOMER_OWNED),
+            "approvedAt": AS_OF,
+            "rationale": (
+                "Synthetic customer acceptance for the Part 11 procedure "
+                "obligations."
+            ),
         }
-        approval = _run_producer("approval-verify", approval_request)
-        trail = _run_producer(
-            "approval-trail",
-            {
-                "protocol": "engineering-assurance.approval-trail-request/v1",
-                "repository": str(repo),
-                "record_id": approval_request["record_id"],
-                "record_digest": approval_request["record_digest"],
-                "allowed_signers": str(allowed_signers),
-            },
+        tag_message = _git(
+            repo,
+            "for-each-ref",
+            "refs/tags/part11-synthetic-approval",
+            "--format=%(contents)",
         )
-        assert signature_commit["status"] == "signed_valid", signature_commit
-        assert signature_tag["status"] == "signed_valid"
-        assert approval["status"] == "approved"
-        assert trail["entries"]
+        assert approval_record["recordId"] in tag_message
+        assert (
+            hashlib.sha256((repo / approval_path).read_bytes()).hexdigest()
+            in tag_message
+        )
 
         refs = {
             "commit": _save_tool_output(
                 repo, "signature-commit.json", signature_commit
             ),
             "tag": _save_tool_output(repo, "signature-tag.json", signature_tag),
-            "approval": _save_tool_output(repo, "approval-verify.json", approval),
-            "trail": _save_tool_output(repo, "approval-trail.json", trail),
+            "approval": approval_path,
         }
         binding = _run_json(
             engine_tool("quire"),
@@ -296,7 +294,6 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
                     refs["commit"],
                     refs["tag"],
                     refs["approval"],
-                    refs["trail"],
                 ],
                 "attestation": attestation,
             }
@@ -316,6 +313,19 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
 
         _assert_customer_owned_facts_are_delegated(facts)
         _resolve_fact_refs(repo, facts)
+        procedure_fact = next(fact for fact in facts if fact["clauseId"] == "11.10(j)")
+        assert procedure_fact["approvalRef"] == (
+            f"evidence://example.invalid/{approval_path}"
+        )
+        resolved_approval = (repo / approval_path).resolve()
+        assert resolved_approval.is_relative_to(repo.resolve())
+        assert resolved_approval.is_file()
+        assert json.loads(resolved_approval.read_text()) == approval_record
+        assert approval_record["recordType"] == "person-approval"
+        assert approval_record["personId"] == (
+            "person://example.invalid/customer/quality-lead"
+        )
+        assert "11.10(j)" in approval_record["approvedClauseIds"]
         facts_path = root / "facts.json"
         facts_path.write_text(json.dumps(facts))
         evidence_store = repo / "evidence-store"
@@ -342,7 +352,7 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
                     "clauseId": "11.10(i)",
                     "decision": "delegated",
                     "owner": "customer@example.invalid",
-                    "approvalRef": "evidence://example.invalid/evidence/approval-verify.json",
+                    "approvalRef": f"evidence://example.invalid/{approval_path}",
                     "attestation": attestation,
                 },
                 "rationale",
@@ -387,7 +397,7 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
                 "decision": decision,
                 "owner": "customer@example.invalid",
                 "rationale": "Customer owns this fictional procedure obligation.",
-                "approvalRef": f"evidence://example.invalid/{refs['approval']}",
+                "approvalRef": f"evidence://example.invalid/{approval_path}",
                 "attestation": attestation,
             }
             for decision in ("accepted_risk", "temporary_exception")
@@ -466,9 +476,7 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
             assert rows[clause_id]["compliance"] == "tailored"
             tailoring = rows[clause_id]["tailoringDescription"]
             assert "delegated" in tailoring
-            assert (
-                f"approval evidence://example.invalid/{refs['approval']}" in tailoring
-            )
+            assert f"approval evidence://example.invalid/{approval_path}" in tailoring
 
         missing_ref = "evidence://example.invalid/evidence/missing.json"
         with pytest.raises(
