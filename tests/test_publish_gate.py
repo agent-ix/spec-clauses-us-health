@@ -3,7 +3,9 @@
 from __future__ import annotations
 
 import json
+import os
 import pathlib
+import shutil
 import subprocess
 
 import pytest
@@ -96,3 +98,55 @@ def test_npm_pack_dry_run_restores_staged_module_paths() -> None:
     assert not (REPO_ROOT / "manifest.yaml").exists()
     assert not (REPO_ROOT / "clauses").exists()
     assert MANIFEST_PATH.is_file()
+
+
+def test_npm_pack_dry_run_restores_preexisting_payload_bytes(
+    tmp_path: pathlib.Path,
+) -> None:
+    """Dry-run staging restores pre-existing payload paths byte-for-byte.
+
+    Assumptions:
+        The isolated package copy contains the real package lifecycle and module.
+
+    Criteria:
+        npm pack succeeds and restores the original manifest and nested clauses.
+    """
+    package = tmp_path / "package"
+    package.mkdir()
+    for name in ("package.json", "README.md", "LICENSE"):
+        shutil.copy2(REPO_ROOT / name, package / name)
+    shutil.copytree(REPO_ROOT / "scripts", package / "scripts")
+    shutil.copytree(PACKAGE_ROOT, package / PACKAGE_ROOT.name)
+
+    original_manifest = b"previous module manifest\n\x00\xff"
+    (package / "manifest.yaml").write_bytes(original_manifest)
+    clauses = package / "clauses"
+    (clauses / "nested").mkdir(parents=True)
+    original_files = {
+        "first.json": b"first clause bytes\x00",
+        "nested/second.json": b"second clause bytes\xff",
+    }
+    for relative_path, contents in original_files.items():
+        (clauses / relative_path).write_bytes(contents)
+
+    result = subprocess.run(
+        ["npm", "pack", "--dry-run", "--json"],
+        cwd=package,
+        capture_output=True,
+        text=True,
+        env={
+            **os.environ,
+            "npm_config_registry": "https://registry.npmjs.org/",
+        },
+        check=False,
+    )
+    assert result.returncode == 0, result.stderr + result.stdout
+    assert (package / "manifest.yaml").read_bytes() == original_manifest
+    restored_files = {
+        path.relative_to(clauses).as_posix(): path.read_bytes()
+        for path in clauses.rglob("*")
+        if path.is_file()
+    }
+    assert restored_files == original_files
+    assert (clauses / "nested").is_dir()
+    assert not (package / ".npm-stage-backup").exists()
