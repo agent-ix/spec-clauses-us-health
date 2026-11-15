@@ -129,12 +129,12 @@ does not claim cross-repository enforcement.
 
 | Name | Kind | Description |
 |---|---|---|
-| `audit-trail` | `record` | Git history of the record. |
-| `signed-record` | `record` | Signed commit or tag verified by `git verify-commit` or `git verify-tag`. |
-| `signer-registry` | `record` | Allowed-signers mapping from signing key to named person. |
-| `signature-meaning` | `record` | The `Signed-off-meaning:` trailer. |
+| `audit-trail` | `record` | Git history and signed-approval history produced by the `approval-trail` capability for the record. |
+| `signed-record` | `record` | Signed commits and tags verified by the `signature-verify` capability. |
+| `signer-registry` | `record` | Allowed-signers mapping from signing key to named person, read by the `approval-trail` capability. |
+| `signature-meaning` | `record` | The `Signed-off-meaning:` trailer verified by the `approval-verify` capability. |
 | `fda-certification-record` | `record` | Evidence that the electronic-signature certification was submitted to FDA. |
-| `approval-trail` | `record` | Engineering-assurance approval-trail output. |
+| `approval-trail` | `record` | Signed approval history for a record produced by the `approval-trail` capability. |
 | `access-control` | `record` | Repository permission and branch-rule settings. |
 | `system-validation` | `record` | Validation evidence for the toolchain's intended use. |
 | `written-procedure` | `procedure` | Customer-owned written procedure. |
@@ -154,9 +154,19 @@ A clause is customer-owned when every expected output has kind `procedure`.
 The customer discharges such a clause using a `disposition` fact whose decision
 is `delegated`, rationale is non-empty, and `approvalRef` names the customer's
 acceptance. A `direct` fact is not accepted for this case. The pack toolchain
-does not claim or generate a procedure output. M1 customer-owned clauses are
-`11.10(i)`, `11.10(j)`, `11.300(b)`, and `11.300(c)`.
-No customer-owned flag or other field is added to the clause-set schema.
+does not claim or generate a procedure output. The M1 customer-owned clause
+table is:
+
+| Clause ID | Expected outputs |
+|---|---|
+| `11.10(i)` | `training-record` |
+| `11.10(j)` | `written-procedure` |
+| `11.300(b)` | `written-procedure` |
+| `11.300(c)` | `written-procedure` |
+
+This table contains exactly the clauses whose expected outputs are all kind
+`procedure` in the Part 11 clause table above. No customer-owned flag or other
+field is added to the clause-set schema.
 
 ### Reference Corpus and Delivery Architecture
 

@@ -32,9 +32,11 @@ Quire's computed matrix and source trace tags remain the evidence of
 implementation coverage.
 
 The module scaffold and catalog tests belong to PLAT-1545. Clause evaluation
-tests are authored with PLAT-1423. Corpus discharge cases are implemented with
-PLAT-1559. Licensing rights metadata is exercised by the PLAT-1549 publish gate;
-source-rights analysis records only the public source and its rights basis.
+tests are authored with PLAT-1423. PLAT-1553 binds Part 11 outputs to producing
+capabilities and verifies the customer-owned table; corpus discharge cases
+remain with PLAT-1559. Licensing rights metadata is exercised by the PLAT-1549
+publish gate; source-rights analysis records only the public source and its
+rights basis.
 
 ## Functional Requirement Coverage
 
@@ -59,10 +61,10 @@ source-rights analysis records only the public source and its rights basis.
 | FR-004 | FR-004-AC-5 | TC-016 | ✅ Implemented in PLAT-1423 |
 | FR-004 | FR-004-AC-6 | TC-017 | ✅ Implemented in PLAT-1423 |
 | FR-005 | FR-005-AC-1 | TC-018 | 🚧 Planned for PLAT-1545 |
-| FR-005 | FR-005-AC-2 | TC-019 | 🚧 Planned for PLAT-1545 |
+| FR-005 | FR-005-AC-2 | TC-019 | ✅ Implemented in PLAT-1553 |
 | FR-005 | FR-005-AC-3 | TC-020 | 🚧 Planned for PLAT-1545 |
 | FR-005 | FR-005-AC-4 | TC-030 | 🚧 Planned for PLAT-1545 |
-| FR-006 | FR-006-AC-1 | TC-021 | 🚧 Planned for PLAT-1559 |
+| FR-006 | FR-006-AC-1 | TC-021 | ✅ Implemented in PLAT-1553 |
 | FR-006 | FR-006-AC-2 | TC-022 | 🚧 Planned for PLAT-1559 |
 | FR-006 | FR-006-AC-3 | TC-023 | 🚧 Planned for PLAT-1559 |
 | FR-007 | FR-007-AC-1 | TC-024 | 🚧 Planned for PLAT-1559 |
@@ -98,9 +100,9 @@ source-rights analysis records only the public source and its rights basis.
 | TC-016 | An empty applicability context leaves every clause unresolved | Unit | P1 | FR-004-AC-5 | ✅ Implemented in PLAT-1423 |
 | TC-017 | Undeclared applicability dimensions or values are rejected | Unit | P1 | FR-004-AC-6 | ✅ Implemented in PLAT-1423 |
 | TC-018 | The US catalog contains its exact 18 output definitions and M1 entries | Unit | P0 | FR-005-AC-1 | 🚧 Planned for PLAT-1545 |
-| TC-019 | Conflicting kind or description for a reused output fails across US sets | Unit | P0 | FR-005-AC-2 | 🚧 Planned for PLAT-1545 |
+| TC-019 | Conflicting kind or description for a reused output fails across US sets | Unit | P0 | FR-005-AC-2 | ✅ Helper and Part 11 catalog checked in PLAT-1553 |
 | TC-020 | A later US set reuses an output only with the catalog definition | Unit | P1 | FR-005-AC-3 | 🚧 Planned for PLAT-1545 |
-| TC-021 | Customer-owned clauses are exactly those whose outputs are all procedures | Unit | P0 | FR-006-AC-1 | 🚧 Planned for PLAT-1559 |
+| TC-021 | Customer-owned clauses are exactly those whose outputs are all procedures | Unit | P0 | FR-006-AC-1 | ✅ Implemented in PLAT-1553 |
 | TC-022 | Delegated discharge requires a rationale and customer acceptance reference | Integration | P0 | FR-006-AC-2 | 🚧 Planned for PLAT-1559 |
 | TC-023 | Direct discharge is rejected and the toolchain claims no procedure output | Integration | P0 | FR-006-AC-3 | 🚧 Planned for PLAT-1559 |
 | TC-024 | The synthetic corpus validates against the discharge input contract | Integration | P1 | FR-007-AC-1 | 🚧 Planned for PLAT-1559 |

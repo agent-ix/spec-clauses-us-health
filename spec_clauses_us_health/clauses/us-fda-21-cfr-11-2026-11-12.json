@@ -118,7 +118,7 @@
     },
     "audit-trail": {
       "kind": "record",
-      "description": "Git history of the record."
+      "description": "Git history and signed-approval history produced by the `approval-trail` capability for the record."
     },
     "access-control": {
       "kind": "record",
@@ -134,19 +134,19 @@
     },
     "signed-record": {
       "kind": "record",
-      "description": "Signed commit or tag verified by `git verify-commit` or `git verify-tag`."
+      "description": "Signed commits and tags verified by the `signature-verify` capability."
     },
     "signer-registry": {
       "kind": "record",
-      "description": "Allowed-signers mapping from signing key to named person."
+      "description": "Allowed-signers mapping from signing key to named person, read by the `approval-trail` capability."
     },
     "signature-meaning": {
       "kind": "record",
-      "description": "The `Signed-off-meaning:` trailer."
+      "description": "The `Signed-off-meaning:` trailer verified by the `approval-verify` capability."
     },
     "approval-trail": {
       "kind": "record",
-      "description": "Engineering-assurance approval-trail output."
+      "description": "Signed approval history for a record produced by the `approval-trail` capability."
     },
     "fda-certification-record": {
       "kind": "record",
