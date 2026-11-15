@@ -1,31 +1,34 @@
 ---
 id: FR-005
-title: Reused output names preserve one pack-wide definition
+title: Reused output names preserve one US pack definition
 type: FR
 ---
-# FR-005: Reused output names preserve one pack-wide definition
+# FR-005: Reused output names preserve one US pack definition
 
 ## Description
 
-The shared catalog in `spec/spec.md` is the convention for M1–M4 US sets and
-the EU set. Because the engine stores an output catalog per set, each set
-declares its used subset with the catalog's exact kind and description.
+The output catalog in `spec/spec.md` is the local convention for every US set
+in this repository. Because the engine stores an output catalog per set, each
+US set declares its used subset with the catalog's exact kind and description.
+The same names are offered to the EU pack for reuse, but cross-repository
+consistency is outside this requirement's enforceable scope.
 
 ## Behavior
 
-- The M1 set SHALL use only names in the shared catalog.
-- A pack test SHALL compare each output's kind and description across all sets
-  and fail on any conflict.
+- The M1 set SHALL use only names in the US catalog.
+- A pack test SHALL compare each output's kind and description across all US
+  sets in this repository and fail on any conflict.
 - The module SHALL NOT add a pack-level catalog field to the engine schema.
 
 ## Acceptance Criteria
 
 | ID | Criteria | Verification |
 |----|----------|--------------|
-| FR-005-AC-1 | The catalog defines all 17 names listed in `spec/spec.md`, with the stated kind and description; the first nine entries are exactly those required for M1. | Inspection |
-| FR-005-AC-2 | A test over every set in the module fails when two declarations of one output name differ in kind or description. | Test |
-| FR-005-AC-3 | M1, later US sets, and the EU pack can reuse the catalog names without adding a pack-level catalog field. | Inspection |
+| FR-005-AC-1 | A catalog test finds exactly the 17 names listed in `spec/spec.md`, with the stated kind and description; it confirms that the first nine entries are the M1 catalog entries. | Test |
+| FR-005-AC-2 | A test over every US set in this repository fails when two declarations of one output name differ in kind or description. | Test |
+| FR-005-AC-3 | A fixture US set that reuses a catalog name with its declared kind and description passes the catalog test. | Test |
+| FR-005-AC-4 | The module schema defines no pack-level output catalog field. | Test |
 
 ## Dependencies
 
-- Defines the convention reused by PLAT-1424 and later US pack sets.
+- Defines the catalog for later US sets; the EU pack may adopt the same names in its own specification.

@@ -8,10 +8,7 @@ quality_attribute: compliance
 
 ## Statement
 
-Every published file SHALL use original expression or identify only public
-sources by title and citation. It SHALL NOT reproduce or paraphrase paywalled
-standards, including any standard incorporated by reference in a regulation or
-FDA guidance.
+The pack SHALL publish original clause summaries backed by public sources only.
 
 ## Scope
 
@@ -22,28 +19,32 @@ artifacts included in distributions or CI output.
 
 Public law may be named and cited, but a regulation's incorporation by reference
 does not grant distribution rights to the incorporated standard. The clause
-text therefore remains original and concise.
+text therefore remains original and concise. Analysis is used for
+NFR-001-AC-3 because a property test would require scanning authored or
+packaged prose and cannot determine semantic paraphrase reliably; the public
+source's rights basis is recorded instead.
 
 ## Measurement and Evaluation
 
 | Metric | Target | Threshold | Method |
 |---|---|---|---|
-| Prohibited standards-body designators in package source | 0 | Any hit fails | Deterministic scan |
-| Rights scan fixture with an injected designator | Rejected with file and line | Any undetected fixture fails | Test |
+| Set rights metadata | Every published set declares original text and a public source basis | A set without both declarations fails publication check | Test |
 
 ## Verification
 
-The publication-gate designator scan runs over the package and reports a
-nonzero exit when a prohibited designator occurs. A fixture with an injected
-designator must fail and identify its file and line.
+`quire publish-check` verifies the set's declared rights metadata. A source
+analysis records the public citation and rights basis used for each authored
+set. The metadata test checks structured rights fields only. We do not scan
+package files or corpus fixtures. A string scan cannot determine whether prose
+paraphrases protected expression and would inspect distribution files.
 
 ## Acceptance Criteria
 
 | ID | Criteria | Verification |
 |----|----------|--------------|
-| NFR-001-AC-1 | The package scan reports no prohibited standard-body designators in published files. | Test |
-| NFR-001-AC-2 | An injected designator fixture fails and identifies the file and line. | Test |
-| NFR-001-AC-3 | No authored file names or paraphrases a paywalled standard. | Inspection |
+| NFR-001-AC-1 | Every published set declares `rights.text: original`, a non-blank public-source licence basis, and passes `quire publish-check`. | Test |
+| NFR-001-AC-2 | The M1 source metadata names the eCFR Part 11 page, and each set's source metadata identifies a public legal or public FDA source. | Test |
+| NFR-001-AC-3 | Clause summaries use original expression and do not reproduce or paraphrase a paywalled standard; the verification record cites only the public source and rights basis. | Analysis |
 
 ## Dependencies
 

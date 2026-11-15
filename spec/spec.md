@@ -29,8 +29,8 @@ not determine whether a customer is legally compliant.
   `spec_clauses_us_health`, and one quire module named by its package manifest.
 - The Part 11 set identity, rights metadata, source, clause identifiers, force,
   classification dimensions, applicability expressions, and expected outputs.
-- A stable output catalog convention shared by later US Health-Law and EU
-  Health-Law sets.
+- A stable output catalog for all US Health-Law sets in this repository; the
+  EU pack may adopt the names in its own specification.
 - Customer-owned obligations, the synthetic discharge corpus, and module
   packaging and CI boundaries.
 - Public source attribution and the rule against reproducing paywalled standards.
@@ -64,13 +64,22 @@ summaries are original wording. Public law may be named and cited; no text from
 a paywalled standard, including material incorporated by reference, is included
 or paraphrased.
 
-The pack uses `system_type` (`closed`, `open`) and
-`electronic_signatures` (`used`, `not_used`) as unordered dimensions. It uses
-`signature_basis` (`non_biometric`, `biometric`) as an unordered dimension.
-Applicability is evaluated with the existing `clause-set-v1` expression model.
-The clause table below is normative for identifiers, applicability, and output
-names. The clause content ticket authors original concise summaries from the
-listed citations.
+The pack uses `system_type` (`closed`, `open`),
+`electronic_signatures` (`used`, `not_used`), `signature_basis`
+(`non_biometric`, `biometric`), `signature_method`
+(`identification_code_password`, `other`), and
+For each § 11.10 paragraph, the pack also declares an unordered
+`open_system_11_10_<letter>_applicability` dimension with values `appropriate`
+and `not_appropriate`. The signature method and each open-system applicability
+value are supplied by the user; the pack does not infer them. Section 11.10
+controls bind for closed systems. For open systems, each control remains
+unresolved until the user classifies that control as appropriate or not
+appropriate under § 11.30. Section 11.300 binds only for non-biometric
+signatures that the user classifies as using an identification-code/password
+method. Applicability uses the existing
+`clause-set-v1` expression model. The clause table below is normative for
+identifiers, applicability, and output names. The clause content ticket authors
+original concise summaries from the listed citations.
 
 ### Part 11 Clause Table
 
@@ -80,17 +89,17 @@ catalog below. `all[...]` denotes the engine's `all` expression and each
 
 | Clause ID | Applicability | Expected outputs |
 |---|---|---|
-| `11.10(a)` | `in system_type [closed, open]` | `system-validation`, `verification-records` |
-| `11.10(b)` | `in system_type [closed, open]` | `verification-records` |
-| `11.10(c)` | `in system_type [closed, open]` | `audit-trail` |
-| `11.10(d)` | `in system_type [closed, open]` | `access-control` |
-| `11.10(e)` | `in system_type [closed, open]` | `audit-trail` |
-| `11.10(f)` | `in system_type [closed, open]` | `system-validation`, `written-procedure` |
-| `11.10(g)` | `in system_type [closed, open]` | `access-control` |
-| `11.10(h)` | `in system_type [closed, open]` | `system-validation` |
-| `11.10(i)` | `in system_type [closed, open]` | `training-record` |
-| `11.10(j)` | `in system_type [closed, open]` | `written-procedure` |
-| `11.10(k)` | `in system_type [closed, open]` | `access-control`, `audit-trail` |
+| `11.10(a)` | `any[eq system_type closed, all[eq system_type open, eq open_system_11_10_a_applicability appropriate]]` | `system-validation`, `verification-records` |
+| `11.10(b)` | `any[eq system_type closed, all[eq system_type open, eq open_system_11_10_b_applicability appropriate]]` | `verification-records` |
+| `11.10(c)` | `any[eq system_type closed, all[eq system_type open, eq open_system_11_10_c_applicability appropriate]]` | `audit-trail` |
+| `11.10(d)` | `any[eq system_type closed, all[eq system_type open, eq open_system_11_10_d_applicability appropriate]]` | `access-control` |
+| `11.10(e)` | `any[eq system_type closed, all[eq system_type open, eq open_system_11_10_e_applicability appropriate]]` | `audit-trail` |
+| `11.10(f)` | `any[eq system_type closed, all[eq system_type open, eq open_system_11_10_f_applicability appropriate]]` | `system-validation`, `written-procedure` |
+| `11.10(g)` | `any[eq system_type closed, all[eq system_type open, eq open_system_11_10_g_applicability appropriate]]` | `access-control` |
+| `11.10(h)` | `any[eq system_type closed, all[eq system_type open, eq open_system_11_10_h_applicability appropriate]]` | `system-validation` |
+| `11.10(i)` | `any[eq system_type closed, all[eq system_type open, eq open_system_11_10_i_applicability appropriate]]` | `training-record` |
+| `11.10(j)` | `any[eq system_type closed, all[eq system_type open, eq open_system_11_10_j_applicability appropriate]]` | `written-procedure` |
+| `11.10(k)` | `any[eq system_type closed, all[eq system_type open, eq open_system_11_10_k_applicability appropriate]]` | `access-control`, `audit-trail` |
 | `11.30` | `eq system_type open` | `signed-record`, `access-control` |
 | `11.50(a)` | `eq electronic_signatures used` | `signed-record`, `signer-registry`, `signature-meaning` |
 | `11.50(b)` | `eq electronic_signatures used` | `signed-record`, `audit-trail` |
@@ -100,22 +109,23 @@ catalog below. `all[...]` denotes the engine's `all` expression and each
 | `11.100(c)` | `eq electronic_signatures used` | `written-procedure` |
 | `11.200(a)` | `all[eq electronic_signatures used, eq signature_basis non_biometric]` | `signer-registry`, `access-control`, `written-procedure` |
 | `11.200(b)` | `all[eq electronic_signatures used, eq signature_basis biometric]` | `access-control`, `system-validation` |
-| `11.300(a)` | `all[eq electronic_signatures used, eq signature_basis non_biometric]` | `signer-registry`, `access-control` |
-| `11.300(b)` | `all[eq electronic_signatures used, eq signature_basis non_biometric]` | `written-procedure` |
-| `11.300(c)` | `all[eq electronic_signatures used, eq signature_basis non_biometric]` | `written-procedure` |
-| `11.300(d)` | `all[eq electronic_signatures used, eq signature_basis non_biometric]` | `access-control`, `written-procedure` |
-| `11.300(e)` | `all[eq electronic_signatures used, eq signature_basis non_biometric]` | `system-validation` |
+| `11.300(a)` | `all[eq electronic_signatures used, eq signature_basis non_biometric, eq signature_method identification_code_password]` | `signer-registry`, `access-control` |
+| `11.300(b)` | `all[eq electronic_signatures used, eq signature_basis non_biometric, eq signature_method identification_code_password]` | `written-procedure` |
+| `11.300(c)` | `all[eq electronic_signatures used, eq signature_basis non_biometric, eq signature_method identification_code_password]` | `written-procedure` |
+| `11.300(d)` | `all[eq electronic_signatures used, eq signature_basis non_biometric, eq signature_method identification_code_password]` | `access-control`, `written-procedure` |
+| `11.300(e)` | `all[eq electronic_signatures used, eq signature_basis non_biometric, eq signature_method identification_code_password]` | `system-validation` |
 
 Sections 11.1–11.3 establish scope, implementation, and definitions and are not
 clauses in this set. Paragraph IDs retain the CFR designator, including
 subparagraph letters. The list above contains 25 clause IDs.
 
-### Pack-Wide Output Catalog
+### US Health-Law Output Catalog
 
-Every set declares only the outputs it uses. When an output name is reused, its
-kind and description remain identical across all sets in both health-law packs.
-The cross-set test enforces this convention; there is no engine-level pack
-catalog.
+Every US set in this repository declares only the outputs it uses. When an
+output name is reused here, its kind and description remain identical across
+the US sets. The cross-set test enforces this local convention; there is no
+engine-level pack catalog. The EU pack may adopt these names, but this spec
+does not claim cross-repository enforcement.
 
 | Name | Kind | Description |
 |---|---|---|
@@ -149,14 +159,15 @@ No customer-owned flag or other field is added to the clause-set schema.
 
 ### Reference Corpus and Delivery Architecture
 
-`tests/corpus/` is a minimal synthetic project used by discharge tests. All
-identifiers and evidence references use the reserved `example.invalid` domain.
-Tests create a fixture SSH key, signed commits, and a signed tag at runtime;
-private keys and discharge facts are not committed. Each test writes discharge
-facts to a temporary evidence store. The module package contains its manifest
-and clause JSON; CI installs the package/module and checks validation,
-publication rights, applicability, catalog consistency, and corpus discharge.
-The module remains clause-only and sets `pack: false` when installed.
+`tests/corpus/` is a minimal synthetic project used by discharge tests. Any
+synthetic identifiers and evidence references authored for it use the reserved
+`example.invalid` domain. Tests generate a fixture SSH key and signed commits
+and tag at runtime; each test writes discharge facts to a temporary evidence
+store. The package includes a single-repository US catalog consistency test.
+The module package contains its manifest and clause JSON; CI installs the
+package/module and checks validation, publication rights, applicability,
+catalog consistency, and corpus discharge. The module remains clause-only and
+sets `pack: false` when installed.
 
 ## Requirements Architecture
 
