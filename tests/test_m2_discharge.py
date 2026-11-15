@@ -9,7 +9,14 @@ import shutil
 import tempfile
 
 import pytest
-from conftest import PACKAGE_ROOT, REPO_ROOT, engine_tool, run
+from conftest import (
+    PACKAGE_ROOT,
+    REPO_ROOT,
+    clause_set_key,
+    engine_tool,
+    load_clause_sets,
+    run,
+)
 
 AS_OF = "2026-11-14T00:00:00Z"
 PART_11_CONTEXT = [
@@ -31,6 +38,18 @@ SETS = [
     ("us-fda", "21-cfr-820", "2026-11-12"),
     ("us-fda", "premarket-device-software", "2023-06-14"),
 ]
+M2_SET_KEYS = {
+    "us-fda/21-cfr-820@2026-11-12",
+    "us-fda/premarket-device-software@2023-06-14",
+}
+CORPUS_OUTPUT_REFS = {
+    "risk-management-records": ["risk/hazard.md"],
+    "software-requirements": ["spec/FR-003-m2-requirements.md"],
+    "software-architecture": ["architecture/device.md"],
+    "verification-records": ["verification/matrix.json"],
+    "release-record": ["evidence/release-verify.json"],
+    "anomaly-list": ["spec/AN-001-synthetic.md"],
+}
 
 
 def _json(*args: str, cwd: pathlib.Path | None = None) -> dict:
@@ -176,6 +195,62 @@ def _stage_module(destination: pathlib.Path) -> pathlib.Path:
     return destination
 
 
+def _m2_mapping_rows() -> list[dict[str, object]]:
+    """Read output ownership directly from PLAT-1575's normative table."""
+    spec = (REPO_ROOT / "spec" / "spec.md").read_text()
+    section = spec.split("### M2 Output Producer Mapping", 1)[1].split("### ", 1)[0]
+    rows = []
+    for line in section.splitlines():
+        if not line.strip().startswith("| `"):
+            continue
+        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
+        clause_ids = tuple(part.strip("`") for part in cells[0].split(", "))
+        if not clause_ids or not cells[1]:
+            continue
+        rows.append(
+            {
+                "clause_ids": clause_ids,
+                "output": cells[1].strip("`"),
+                "producer_or_owner": cells[3],
+            }
+        )
+    return rows
+
+
+def _expected_m2_lists() -> tuple[set[str], set[str]]:
+    """Classify clause rows using the PLAT-1575 mapping and corpus artifacts."""
+    mapping = _m2_mapping_rows()
+    mapping_by_pair = {
+        (clause_id, row["output"]): row["producer_or_owner"]
+        for row in mapping
+        for clause_id in row["clause_ids"]
+    }
+    m2_sets = [
+        clause_set
+        for clause_set in load_clause_sets()
+        if clause_set_key(clause_set) in M2_SET_KEYS
+    ]
+    all_clauses = {
+        clause["id"]: clause
+        for clause_set in m2_sets
+        for clause in clause_set["clauses"]
+    }
+    compliant = set()
+    for clause_id, clause in all_clauses.items():
+        outputs = clause["expectedOutputs"]
+        mapped_outputs = [mapping_by_pair[(clause_id, output)] for output in outputs]
+        has_producer = all(
+            "no producer" not in producer.casefold()
+            and "customer-provided" not in producer.casefold()
+            and "customer-owned" not in producer.casefold()
+            and "owner plat-" not in producer.casefold()
+            for producer in mapped_outputs
+        )
+        if has_producer and all(output in CORPUS_OUTPUT_REFS for output in outputs):
+            compliant.add(clause_id)
+    return compliant, set(all_clauses) - compliant
+
+
 def _record_fact(
     evidence_repo: pathlib.Path,
     binding: dict,
@@ -183,7 +258,7 @@ def _record_fact(
     evidence_refs: list[str],
     root: pathlib.Path,
     config: pathlib.Path,
-) -> None:
+) -> pathlib.Path:
     path = root / f"facts-{clause_id.replace('.', '-')}.json"
     path.write_text(
         json.dumps(
@@ -218,6 +293,7 @@ def _record_fact(
         str(config),
     )
     assert result.returncode == 0, result.stderr + result.stdout
+    return path
 
 
 @pytest.mark.trace("TC-082", "FR-007-AC-2", "FR-007-AC-3")
@@ -292,40 +368,33 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
         arch_ref = "architecture/device.md"
         risk_ref = "risk/hazard.md"
         matrix_ref = "verification/matrix.json"
-        evidence_by_set = {
-            "21-cfr-11": ("11.10(e)", [req_ref]),
-            "21-cfr-820": (
-                "820.10(c)",
-                [req_ref, arch_ref, risk_ref, matrix_ref],
-            ),
-            "premarket-device-software": (
-                "VI.A",
-                [risk_ref],
-            ),
+        direct_facts = {
+            ("21-cfr-11", "11.10(e)"): [req_ref],
+            ("21-cfr-820", "820.10(a)"): [release_ref, req_ref],
+            ("21-cfr-820", "820.10(c)"): [
+                req_ref,
+                arch_ref,
+                risk_ref,
+                matrix_ref,
+            ],
+            ("21-cfr-820", "820.45(b)"): [release_ref],
+            ("premarket-device-software", "VI.A"): [risk_ref],
+            ("premarket-device-software", "VI.C"): [risk_ref],
+            ("premarket-device-software", "VI.D"): [req_ref],
+            ("premarket-device-software", "VI.E"): [arch_ref],
+            ("premarket-device-software", "VI.H"): [matrix_ref],
+            ("premarket-device-software", "VI.H.enhanced"): [matrix_ref],
+            ("premarket-device-software", "VI.I"): [release_ref],
+            ("premarket-device-software", "VI.J"): ["spec/AN-001-synthetic.md"],
         }
-        for set_id, (clause, refs) in evidence_by_set.items():
+        facts_paths = {}
+        for (set_id, clause_id), refs in direct_facts.items():
             binding = bindings[set_id]
             clause_ids = {row["clauseId"] for row in binding["clauses"]}
-            assert clause in clause_ids, clause
-            _record_fact(evidence_repo, binding, clause, refs, root, config)
-
-        # The release verification is a producer output and supports the release rows.
-        _record_fact(
-            evidence_repo,
-            bindings["21-cfr-820"],
-            "820.10(a)",
-            [release_ref, req_ref],
-            root,
-            config,
-        )
-        _record_fact(
-            evidence_repo,
-            bindings["premarket-device-software"],
-            "VI.I",
-            [release_ref],
-            root,
-            config,
-        )
+            assert clause_id in clause_ids, clause_id
+            facts_paths[clause_id] = _record_fact(
+                evidence_repo, binding, clause_id, refs, root, config
+            )
 
         args = [
             engine_tool("quoin"),
@@ -374,28 +443,22 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
             for matrix in report["matrices"]
             for row in matrix["rows"]
         }
-        expected_compliant = {
-            "11.10(e)",
-            "820.10(a)",
-            "820.10(c)",
-            "VI.A",
-            "VI.I",
+        expected_compliant, expected_open = _expected_m2_lists()
+        m2_rows = {
+            clause_id: row
+            for clause_id, row in rows.items()
+            if clause_id in expected_compliant or clause_id in expected_open
         }
         assert {
             clause_id
-            for clause_id, row in rows.items()
+            for clause_id, row in m2_rows.items()
             if row["compliance"] == "compliant"
         } == expected_compliant
         assert {
             clause_id
-            for clause_id, row in rows.items()
+            for clause_id, row in m2_rows.items()
             if row["compliance"] == "undischarged"
-        } == {
-            clause_id
-            for clause_id, row in rows.items()
-            if clause_id not in expected_compliant
-            and row["applicability"] != "not_applicable"
-        }
+        } == expected_open
         assert rows["820.10(c)"]["compliance"] == "compliant", rows["820.10(c)"]
         assert rows["820.10(a)"]["compliance"] == "compliant"
         assert rows["VI.A"]["compliance"] == "compliant"
@@ -422,18 +485,35 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
             for matrix in json.loads(basic.stdout)["matrices"]
             for row in matrix["rows"]
         }
-        assert basic_rows["VI.F.enhanced"]["applicability"] == "not_applicable"
+        for clause_id in ["VI.F.enhanced", "VI.G.enhanced", "VI.H.enhanced"]:
+            assert basic_rows[clause_id]["applicability"] == "not_applicable"
 
-        missing = "evidence://example.invalid/evidence/missing.json"
-        ref = (project / missing.removeprefix("evidence://example.invalid/")).resolve()
-        assert not ref.is_file(), "missing-ref fixture unexpectedly exists"
-        with pytest.raises(AssertionError, match=r"820\.10\(c\).*does not resolve"):
-            for evidence_ref in [req_ref, arch_ref, risk_ref, matrix_ref, missing]:
-                path = (project / evidence_ref).resolve()
-                assert path.is_relative_to(project.resolve())
-                assert (
-                    path.is_file()
-                ), f"820.10(c): evidence ref does not resolve: {evidence_ref}"
+        facts_path = facts_paths["820.10(c)"]
+        facts = json.loads(facts_path.read_text())
+        facts[0]["evidenceRefs"][
+            -1
+        ] = "evidence://example.invalid/evidence/missing.json"
+        facts_path.write_text(json.dumps(facts))
+        binding_path = root / "binding-820-10(c).json"
+        invalid_record = run(
+            engine_tool("quoin"),
+            "evidence",
+            "record-discharge",
+            "--repo",
+            str(evidence_repo),
+            "--binding",
+            str(binding_path),
+            "--facts",
+            str(facts_path),
+            "--config-root",
+            str(config),
+        )
+        assert invalid_record.returncode == 0, (
+            invalid_record.stderr + invalid_record.stdout
+        )
+        rejected = run(*args)
+        assert rejected.returncode != 0, rejected.stdout
+        assert "820.10(c)" in rejected.stderr + rejected.stdout
 
         markdown = run(*[arg for arg in args if arg != "--json"])
         markdown_repeat = run(*[arg for arg in args if arg != "--json"])
