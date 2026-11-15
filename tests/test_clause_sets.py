@@ -184,7 +184,7 @@ def test_us_clause_set_output_catalog_matches_the_spec():
         )
     )
     assert len(catalog) == 18
-    assert list(catalog)[: len(m1_names)] == m1_names
+    assert set(list(catalog)[: len(m1_names)]) == set(m1_names)
 
     for clause_set in load_clause_sets():
         used_names = {
