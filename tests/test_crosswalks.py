@@ -28,6 +28,11 @@ CPRT_WORKBOOK_URL = (
     "SP800-53_SecurityRule_Crosswalk_2024.xlsx"
 )
 NIST_DESIGNATOR = re.compile(r"\b(?:ISO|IEC|ANSI|AAMI|IEEE|NEMA|ASTM|UL)\s*[0-9]", re.I)
+PREMARKET_DEVICE_SOFTWARE_KEY = "us-fda/premarket-device-software@2023-06-14"
+PART_820_KEY = "us-fda/21-cfr-820@2026-11-12"
+CLAUSE_DESIGNATOR = re.compile(
+    r"\b(?:VI\.[A-J](?:\.enhanced)?|820\.\d+(?:\([a-z0-9]+\))?)", re.I
+)
 
 
 def _source_sets() -> dict[str, dict]:
