@@ -181,7 +181,7 @@ def test_us_clause_set_output_catalog_matches_the_spec():
         for row in _spec_table("Part 11 Clause Table")
         for output in row[2].split(", ")
     }
-    assert len(catalog) == 18
+    assert len(catalog) == 25
     assert set(list(catalog)[:10]) <= m1_names
 
     for clause_set in load_clause_sets():
