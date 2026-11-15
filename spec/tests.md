@@ -190,9 +190,9 @@ evaluation tests.
 | TC-054 | `hipaa_role` values resolve only the applicable § 164.314(a)(2) clauses | Unit | P0 | FR-012-AC-3 | 🚧 Planned for PLAT-1613 |
 | TC-055 | An alternate addressable discharge without accepted-risk rationale and named approver is rejected | Integration | P0 | FR-012-AC-4 | 🚧 Planned for PLAT-1621 |
 | TC-056 | RMM shows the human addressable disposition rationale and approver and does not generate a decision | Integration | P0 | FR-012-AC-5 | 🚧 Planned for PLAT-1621 |
-| TC-057 | Each crosswalk row preserves CPRT provenance and targets a catalog control | Unit | P0 | FR-013-AC-1 | 🚧 Planned for PLAT-1616 |
-| TC-058 | Each included Security Rule standard has a CPRT-backed target and § 164.314(b) is absent | Unit | P0 | FR-013-AC-2 | 🚧 Planned for PLAT-1616 |
-| TC-059 | Unmapped source clauses remain explicit and unverified target IDs or normalization fail | Unit | P1 | FR-013-AC-3 | 🚧 Planned for PLAT-1616 |
+| TC-057 | The 274 source rows match the identifier-only workbook fixture with exact locators, direction, relation, and original rationale | Unit | P0 | FR-013-AC-1, FR-013-AC-3 | 🚧 Planned for PLAT-1616 |
+| TC-058 | Every included standard has a target, § 164.314(b) is absent, all targets resolve, and AC-999 fails with its crosswalk named | Unit | P0 | FR-013-AC-2 | 🚧 Planned for PLAT-1616 |
+| TC-059 | The 14 unmapped clauses remain explicit and every leading-zero normalization is recorded | Unit | P1 | FR-013-AC-3 | 🚧 Planned for PLAT-1616 |
 | TC-060 | The M2 premarket device-software set identifies its official FDA source and public rights basis | Unit | P0 | FR-015-AC-1 | ✅ Implemented in PLAT-1572 |
 | TC-061 | M2 premarket device-software clause IDs and outputs match the Section VI table | Unit | P0 | FR-015-AC-2 | ✅ Implemented in PLAT-1572 |
 | TC-062 | Each M2 premarket software clause has recommended force, an output, and its table-defined level | Unit | P0 | FR-015-AC-3 | ✅ Implemented in PLAT-1572 |

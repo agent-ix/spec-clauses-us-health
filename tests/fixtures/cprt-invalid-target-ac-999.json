@@ -1,0 +1,11 @@
+{
+  "sourceElementId": "164.308(a)(3)",
+  "target": {
+    "set": {
+      "authority": "nist",
+      "id": "sp800-53",
+      "version": "5.2.0"
+    },
+    "clause": "AC-999"
+  }
+}

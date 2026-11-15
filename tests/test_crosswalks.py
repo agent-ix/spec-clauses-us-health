@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import copy
+import csv
 import json
 import pathlib
 import re
@@ -26,9 +27,6 @@ CPRT_WORKBOOK_URL = (
     "https://csrc.nist.gov/csrc/media/Projects/olir/documents/submissions/"
     "SP800-53_SecurityRule_Crosswalk_2024.xlsx"
 )
-CPRT_WORKBOOK_SHA256 = (
-    "80ee1b51d5b48f394e35311a9a93006d2f9e530e35266c6f1f00eb212b776b95"
-)
 NIST_DESIGNATOR = re.compile(r"\b(?:ISO|IEC|ANSI|AAMI|IEEE|NEMA|ASTM|UL)\s*[0-9]", re.I)
 
 
@@ -50,24 +48,18 @@ def _hipaa_clause_set() -> dict:
     return matches[0]
 
 
-def _hipaa_expected_rows() -> list[tuple[str, str, str, str, int]]:
-    spec = (
-        REPO_ROOT
-        / "spec"
-        / "functional"
-        / "FR-013-hipaa-nist-crosswalk-source-and-target.md"
-    ).read_text()
-    rows = []
-    for line in spec.splitlines():
-        if not line.startswith("| `"):
-            continue
-        cells = [cell.strip().strip("`") for cell in line.strip("|").split("|")]
-        if len(cells) != 4:
-            continue
-        source, source_target, target, locator = cells
-        worksheet, row_number = locator.rsplit(":", 1)
-        rows.append((source, source_target, target, worksheet, int(row_number)))
-    return rows
+def _hipaa_expected_rows() -> list[tuple[str, str, str, int]]:
+    fixture = REPO_ROOT / "tests" / "fixtures" / "cprt-hipaa-nist-relationships.csv"
+    with fixture.open(newline="") as stream:
+        return [
+            (
+                row["reference_element"],
+                row["focal_element"],
+                row["worksheet"],
+                int(row["row"]),
+            )
+            for row in csv.DictReader(stream)
+        ]
 
 
 def _hipaa_expected_unmapped() -> list[str]:
@@ -77,9 +69,7 @@ def _hipaa_expected_unmapped() -> list[str]:
         / "functional"
         / "FR-013-hipaa-nist-crosswalk-source-and-target.md"
     ).read_text()
-    section = spec.split(
-        "The following clause IDs have no exact source relationship", 1
-    )[1].split("| HIPAA source element ID", 1)[0]
+    section = spec.split("## Explicitly unmapped source clauses", 1)[1]
     return re.findall(r"^- `([^`]+)`$", section, re.M)
 
 
@@ -88,15 +78,32 @@ def _normalized_nist_id(source_id: str) -> str:
     return re.sub(r"\((0+)(\d+)\)", r"(\2)", without_control_zeroes)
 
 
-def _hipaa_crosswalk_row(crosswalk: dict) -> tuple[str, str, str, str, int]:
+def _hipaa_crosswalk_row(crosswalk: dict) -> tuple[str, str, str, int]:
     provenance = crosswalk["provenance"]
     return (
         crosswalk["sourceElementId"],
         provenance["focalElement"],
-        crosswalk["target"]["clause"],
         provenance["worksheet"],
         provenance["row"],
     )
+
+
+def _unresolved_cprt_targets(
+    crosswalks: list[dict], target_clause_ids: set[str]
+) -> list[str]:
+    failures = []
+    for crosswalk in crosswalks:
+        target = crosswalk["target"]
+        target_set = target["set"]
+        target_key = (
+            f"{target_set['authority']}/{target_set['id']}@{target_set['version']}"
+        )
+        if target_key != NIST_KEY or target["clause"] not in target_clause_ids:
+            failures.append(
+                f"crosswalk {crosswalk['sourceElementId']} -> {target_key}#"
+                f"{target['clause']} references unknown target {target['clause']}"
+            )
+    return failures
 
 
 def _crosswalk_table_rows() -> list[tuple[str, str, str, str]]:
@@ -389,13 +396,13 @@ def test_nist_target_catalog_is_read_from_the_installed_module_not_a_copy() -> N
     ), "NIST clause data was copied into this repository"
 
 
-@pytest.mark.trace("FR-013-AC-1", "TC-057")
+@pytest.mark.trace("FR-013-AC-1", "FR-013-AC-3", "TC-057")
 def test_hipaa_crosswalks_match_the_exact_public_cprt_workbook_rows() -> None:
     """Bind each HIPAA mapping to the workbook row and its original direction.
 
     Assumptions:
-        The normative pair table records the official workbook's exact
-        identifier pairs and one-based worksheet row locators.
+        The identifier-only fixture was extracted directly from the official
+        workbook and records its focal/reference values and row locators.
     Criteria:
         The packaged crosswalk has exactly those rows and keeps the published
         NIST-focal to HIPAA-reference direction.
@@ -411,14 +418,29 @@ def test_hipaa_crosswalks_match_the_exact_public_cprt_workbook_rows() -> None:
         f"missing rows: {sorted(set(expected) - set(actual))}; "
         f"unexpected rows: {sorted(set(actual) - set(expected))}"
     )
+    expected_pairs = {
+        (source, _normalized_nist_id(focal)) for source, focal, _, _ in expected
+    }
+    actual_pairs = {
+        (item["sourceElementId"], item["target"]["clause"]) for item in crosswalks
+    }
+    assert actual_pairs == expected_pairs
     for crosswalk in crosswalks:
         assert set(crosswalk) <= {
             "sourceElementId",
             "target",
             "provenance",
             "normalization",
+            "relation",
+            "rationale",
         }
-        assert {"sourceElementId", "target", "provenance"} <= set(crosswalk)
+        assert {
+            "sourceElementId",
+            "target",
+            "provenance",
+            "relation",
+            "rationale",
+        } <= set(crosswalk)
         assert set(crosswalk["target"]) == {"set", "clause"}
         assert crosswalk["target"]["set"] == {
             "authority": "nist",
@@ -444,10 +466,8 @@ def test_hipaa_crosswalks_match_the_exact_public_cprt_workbook_rows() -> None:
             "version",
             "released",
             "url",
-            "sha256",
         }
         assert workbook["url"] == CPRT_WORKBOOK_URL
-        assert workbook["sha256"] == CPRT_WORKBOOK_SHA256
         assert workbook["id"] == "SP800-66R2-800-53R5.1.1"
         assert workbook["title"] == "SP-800-66-Rev-2-to-SP-800-53-Rev-5.1.1"
         assert workbook["version"] == "1.0.0"
@@ -455,6 +475,24 @@ def test_hipaa_crosswalks_match_the_exact_public_cprt_workbook_rows() -> None:
         assert provenance["focalElement"] == crosswalk["target"]["clause"] or (
             crosswalk.get("normalization", {}).get("from") == provenance["focalElement"]
         )
+        expected_relation = (
+            "informative"
+            if provenance["worksheet"] == "Relationships-AC"
+            else "partial"
+        )
+        assert crosswalk["relation"] == expected_relation
+        assert crosswalk["rationale"].strip()
+        assert not NIST_DESIGNATOR.search(crosswalk["rationale"])
+        if expected_relation == "informative":
+            assert crosswalk["rationale"] == (
+                "SP 800-66 Rev. 2 lists this control as related to the cited HIPAA "
+                "element; this is an informative reference, not an implementation claim."
+            )
+        else:
+            assert crosswalk["rationale"] == (
+                "SP 800-66 Rev. 2 maps this control to the cited HIPAA element; "
+                "this indicates partial correspondence, not full coverage or equivalence."
+            )
     assert not clause_set.get(
         "crosswalks"
     ), "parent-level source elements must not be represented as native clause refs"
@@ -484,6 +522,20 @@ def test_hipaa_cprt_crosswalks_cover_only_the_included_security_standards() -> N
         crosswalk["sourceElementId"].startswith("164.314(b)")
         for crosswalk in crosswalks
     ), "§ 164.314(b) must not be included"
+
+    installed_targets = _installed_nist_clause_ids()
+    assert _unresolved_cprt_targets(crosswalks, installed_targets) == []
+
+    invalid_fixture = json.loads(
+        (
+            REPO_ROOT / "tests" / "fixtures" / "cprt-invalid-target-ac-999.json"
+        ).read_text()
+    )
+    failures = _unresolved_cprt_targets([invalid_fixture], installed_targets)
+    assert len(failures) == 1
+    assert invalid_fixture["sourceElementId"] in failures[0]
+    assert "AC-999" in failures[0]
+    assert "crosswalk" in failures[0]
 
 
 @pytest.mark.trace("FR-013-AC-3", "TC-059")
