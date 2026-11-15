@@ -471,13 +471,13 @@ facts are recorded against artifact instances with a person's attestation.
 | `VI.H`, `VI.H.enhanced`, `820.10(c)` | `verification-records` | `record` | `quire matrix` / `quoin matrix` results and quire-rs retained verification evidence |
 | `VI.I`, `820.10(a)`, `820.45(b)` | `release-record` | `record` | Engineering-assurance `release-decision` and `release-verify`; `quoin release snapshot` |
 | `VI.J` | `anomaly-list` | `record` | Unresolved anomalies reported by `quoin anomaly report`. |
-| `820.10(b)(1)`, `820.35(c)` | `device-identification-record` | `record` | No producer on `origin/main`; customer-supplied device identity and UDI assignment records; owner: PLAT-1762 |
-| `820.10(b)(2)`, `820.10(d)` | `traceability-records` | `record` | No producer on `origin/main`; customer-supplied traceability procedures and device or batch records; owner: PLAT-1762 |
-| `820.10(b)(3)`, `820.35(a)` | `complaint-records` | `record` | No producer on `origin/main`; customer-supplied complaint intake, evaluation, investigation, and response records; owner: PLAT-1762 |
-| `820.10(b)(3)` | `regulatory-report-records` | `record` | No producer on `origin/main`; customer-supplied records of reports to regulatory authorities; owner: PLAT-1762 |
-| `820.10(b)(4)` | `advisory-notice-records` | `record` | No producer on `origin/main`; customer-supplied records of advisory notices and related actions; owner: PLAT-1762 |
-| `820.35(b)` | `service-records` | `record` | No producer on `origin/main`; customer-supplied device servicing records; owner: PLAT-1762 |
-| `820.45(a)`, `820.45(c)` | `labeling-inspection-records` | `record` | No producer on `origin/main`; customer-supplied labeling and packaging inspection records; owner: PLAT-1762 |
+| `820.10(b)(1)`, `820.35(c)` | `device-identification-record` | `record` | No producer on `origin/main`; customer-supplied device identity and UDI assignment records; owner PLAT-1762. |
+| `820.10(b)(2)`, `820.10(d)` | `traceability-records` | `record` | No producer on `origin/main`; customer-supplied traceability procedures and device or batch records; owner PLAT-1762. |
+| `820.10(b)(3)`, `820.35(a)` | `complaint-records` | `record` | No producer on `origin/main`; customer-supplied complaint intake, evaluation, investigation, and response records; owner PLAT-1762. |
+| `820.10(b)(3)` | `regulatory-report-records` | `record` | No producer on `origin/main`; customer-supplied records of reports to regulatory authorities; owner PLAT-1762. |
+| `820.10(b)(4)` | `advisory-notice-records` | `record` | No producer on `origin/main`; customer-supplied records of advisory notices and related actions; owner PLAT-1762. |
+| `820.35(b)` | `service-records` | `record` | No producer on `origin/main`; customer-supplied device servicing records; owner PLAT-1762. |
+| `820.45(a)`, `820.45(c)` | `labeling-inspection-records` | `record` | No producer on `origin/main`; customer-supplied labeling and packaging inspection records; owner PLAT-1762. |
 
 PLAT-1762 owns producer definition for the seven Part 820 record outputs with
 no current producer. Until that work produces an artifact capability, those
@@ -521,13 +521,13 @@ does not claim cross-repository enforcement.
 | `cybersecurity-test-results` | `record` | Results of security-focused testing against the device and its controls; owner: PLAT-1638. |
 | `vulnerability-management-plan` | `record` | Plan and procedures for monitoring, identifying, and addressing postmarket vulnerabilities; owner: PLAT-1656. |
 | `sbom` | `record` | SBOM records with component support status and end-of-support dates, from `quoin evidence record --adapter sbom` and `quoin soup report` (PLAT-1517/PLAT-1518). |
-| `device-identification-record` | `record` | Customer-supplied device identity and UDI assignment records; no producer on `origin/main`, owner: PLAT-1762. |
-| `traceability-records` | `record` | Customer-supplied traceability procedures and device or batch records; no producer on `origin/main`, owner: PLAT-1762. |
-| `complaint-records` | `record` | Customer-supplied complaint intake, evaluation, investigation, and response records; no producer on `origin/main`, owner: PLAT-1762. |
-| `regulatory-report-records` | `record` | Customer-supplied records of reports to regulatory authorities; no producer on `origin/main`, owner: PLAT-1762. |
-| `advisory-notice-records` | `record` | Customer-supplied records of advisory notices and related actions; no producer on `origin/main`, owner: PLAT-1762. |
-| `service-records` | `record` | Customer-supplied device servicing records; no producer on `origin/main`, owner: PLAT-1762. |
-| `labeling-inspection-records` | `record` | Customer-supplied labeling and packaging inspection records; no producer on `origin/main`, owner: PLAT-1762. |
+| `device-identification-record` | `record` | No producer on `origin/main`; customer-supplied device identity and UDI assignment records; owner PLAT-1762. |
+| `traceability-records` | `record` | No producer on `origin/main`; customer-supplied traceability procedures and device or batch records; owner PLAT-1762. |
+| `complaint-records` | `record` | No producer on `origin/main`; customer-supplied complaint intake, evaluation, investigation, and response records; owner PLAT-1762. |
+| `regulatory-report-records` | `record` | No producer on `origin/main`; customer-supplied records of reports to regulatory authorities; owner PLAT-1762. |
+| `advisory-notice-records` | `record` | No producer on `origin/main`; customer-supplied records of advisory notices and related actions; owner PLAT-1762. |
+| `service-records` | `record` | No producer on `origin/main`; customer-supplied device servicing records; owner PLAT-1762. |
+| `labeling-inspection-records` | `record` | No producer on `origin/main`; customer-supplied labeling and packaging inspection records; owner PLAT-1762. |
 | `software-description` | `document` | Customer-provided software function, input, output, and platform description; no toolchain producer. |
 | `software-design` | `document` | Customer-provided software design specification; no toolchain producer. |
 | `configuration-management-plan` | `document` | Customer-provided configuration-management and maintenance plan; no toolchain producer. |
