@@ -296,6 +296,23 @@ def _record_fact(
     return path
 
 
+def _resolve_fact_refs(repo: pathlib.Path, facts: list[dict]) -> None:
+    for fact in facts:
+        for reference in fact.get("evidenceRefs", []):
+            relative = (
+                reference.removeprefix("evidence://example.invalid/")
+                if reference.startswith("evidence://example.invalid/")
+                else reference
+            )
+            path = (repo / relative).resolve()
+            assert path.is_relative_to(
+                repo.resolve()
+            ), f"{fact['clauseId']}: evidence ref escapes the corpus: {reference}"
+            assert (
+                path.is_file()
+            ), f"{fact['clauseId']}: evidence ref does not resolve: {reference}"
+
+
 @pytest.mark.trace("TC-082", "FR-007-AC-2", "FR-007-AC-3")
 def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
     tmp_path: pathlib.Path,
@@ -511,9 +528,15 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
         assert invalid_record.returncode == 0, (
             invalid_record.stderr + invalid_record.stdout
         )
-        rejected = run(*args)
-        assert rejected.returncode != 0, rejected.stdout
-        assert "820.10(c)" in rejected.stderr + rejected.stdout
+        changed_report = run(*args)
+        assert changed_report.returncode == 0, (
+            changed_report.stderr + changed_report.stdout
+        )
+        assert "evidence/missing.json" in changed_report.stdout
+        with pytest.raises(
+            AssertionError, match=r"820\.10\(c\): evidence ref does not resolve"
+        ):
+            _resolve_fact_refs(project, facts)
 
         markdown = run(*[arg for arg in args if arg != "--json"])
         markdown_repeat = run(*[arg for arg in args if arg != "--json"])
