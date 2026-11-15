@@ -276,7 +276,12 @@ def _record_fact(
     return path
 
 
-@pytest.mark.trace("TC-082", "FR-007-AC-2", "FR-007-AC-3")
+@pytest.mark.trace("TC-082")
+@pytest.mark.trace("FR-019-AC-1")
+@pytest.mark.trace("FR-019-AC-2")
+@pytest.mark.trace("FR-019-AC-3")
+@pytest.mark.trace("FR-019-AC-4")
+@pytest.mark.trace("FR-019-AC-5")
 def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
     tmp_path: pathlib.Path,
 ):
