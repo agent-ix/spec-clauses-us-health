@@ -87,21 +87,6 @@ def _resolve_fact_refs(repo: pathlib.Path, facts: list[dict]) -> None:
             ), f"{fact['clauseId']}: evidence ref does not resolve: {reference}"
 
 
-def _assert_customer_owned_facts_are_delegated(facts: list[dict]) -> None:
-    """Keep the pack's customer-owned fixtures to delegated dispositions."""
-    for fact in facts:
-        clause_id = fact.get("clauseId")
-        if clause_id in CUSTOMER_OWNED:
-            delegated = (
-                fact.get("kind") == "disposition"
-                and fact.get("decision") == "delegated"
-            )
-            error = (
-                f"{clause_id}: customer-owned facts must use the delegated disposition"
-            )
-            assert delegated, error
-
-
 def _make_signed_corpus(repo: pathlib.Path, private_key: pathlib.Path) -> pathlib.Path:
     corpus = REPO_ROOT / "tests" / "corpus"
     shutil.copytree(corpus, repo, dirs_exist_ok=True)
@@ -179,6 +164,7 @@ def test_synthetic_corpus_validates():
 @pytest.mark.trace("TC-025", "FR-007-AC-2")
 @pytest.mark.trace("TC-026", "FR-007-AC-3")
 @pytest.mark.trace("TC-022", "FR-006-AC-2")
+@pytest.mark.trace("TC-023", "FR-006-AC-3")
 def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path):
     """Description: Produce signed synthetic evidence and discharge the Part 11 pack.
 
@@ -311,12 +297,26 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
                 }
             )
 
-        _assert_customer_owned_facts_are_delegated(facts)
-        _resolve_fact_refs(repo, facts)
-        procedure_fact = next(fact for fact in facts if fact["clauseId"] == "11.10(j)")
-        assert procedure_fact["approvalRef"] == (
-            f"evidence://example.invalid/{approval_path}"
+        customer_owned_facts = {
+            fact["clauseId"]: fact
+            for fact in facts
+            if fact["clauseId"] in CUSTOMER_OWNED
+        }
+        assert set(customer_owned_facts) == CUSTOMER_OWNED
+        for clause_id, fact in customer_owned_facts.items():
+            assert fact["kind"] == "disposition"
+            assert fact["decision"] == "delegated"
+            assert fact["rationale"].strip()
+            assert fact["approvalRef"] == (
+                f"evidence://example.invalid/{approval_path}"
+            )
+            assert clause_id in approval_record["approvedClauseIds"]
+            assert "evidenceRefs" not in fact
+        assert not any(
+            fact["kind"] == "direct" and fact["clauseId"] in CUSTOMER_OWNED
+            for fact in facts
         )
+        _resolve_fact_refs(repo, facts)
         resolved_approval = (repo / approval_path).resolve()
         assert resolved_approval.is_relative_to(repo.resolve())
         assert resolved_approval.is_file()
@@ -325,7 +325,6 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
         assert approval_record["personId"] == (
             "person://example.invalid/customer/quality-lead"
         )
-        assert "11.10(j)" in approval_record["approvedClauseIds"]
         facts_path = root / "facts.json"
         facts_path.write_text(json.dumps(facts))
         evidence_store = repo / "evidence-store"
@@ -344,6 +343,10 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
             str(config_root),
         )
         assert record.returncode == 0, record.stderr + record.stdout
+        recorded_clauses = {
+            line.split(maxsplit=1)[0] for line in record.stdout.splitlines()
+        }
+        assert recorded_clauses == {fact["clauseId"] for fact in facts}
 
         invalid_dispositions = [
             (
@@ -389,36 +392,6 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
             )
             assert rejected.returncode != 0, rejected.stdout
             assert missing_field in rejected.stderr + rejected.stdout
-
-        non_delegated_fixtures = [
-            {
-                "kind": "disposition",
-                "clauseId": "11.10(i)",
-                "decision": decision,
-                "owner": "customer@example.invalid",
-                "rationale": "Customer owns this fictional procedure obligation.",
-                "approvalRef": f"evidence://example.invalid/{approval_path}",
-                "attestation": attestation,
-            }
-            for decision in ("accepted_risk", "temporary_exception")
-        ]
-        non_delegated_fixtures.append(
-            {
-                "kind": "direct",
-                "clauseId": "11.10(i)",
-                "evidenceRefs": [refs["approval"]],
-                "attestation": attestation,
-            }
-        )
-        for invalid_fact in non_delegated_fixtures:
-            with pytest.raises(
-                AssertionError,
-                match=(
-                    r"11\.10\(i\): customer-owned facts must use "
-                    r"the delegated disposition"
-                ),
-            ):
-                _assert_customer_owned_facts_are_delegated([invalid_fact])
 
         args = [
             engine_tool("quoin"),
@@ -470,13 +443,13 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
         assert "11.30" in markdown.stdout
         assert "Not applicable" in markdown.stdout
         for clause_id in CUSTOMER_OWNED:
-            assert clause_id not in {
-                fact["clauseId"] for fact in facts if fact["kind"] == "direct"
-            }
             assert rows[clause_id]["compliance"] == "tailored"
-            tailoring = rows[clause_id]["tailoringDescription"]
-            assert "delegated" in tailoring
-            assert f"approval evidence://example.invalid/{approval_path}" in tailoring
+            assert rows[clause_id]["evidenceRefs"] == []
+            fact = customer_owned_facts[clause_id]
+            assert rows[clause_id]["tailoringDescription"] == (
+                f"delegated (approval {fact['approvalRef']})"
+            )
+            assert rows[clause_id]["tailoringRationale"] == fact["rationale"]
 
         missing_ref = "evidence://example.invalid/evidence/missing.json"
         with pytest.raises(
