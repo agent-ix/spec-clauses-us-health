@@ -2,12 +2,15 @@
 // Stage the Python package's module resources at the npm package root.
 import {
   cpSync,
+  chmodSync,
   existsSync,
   mkdirSync,
   readFileSync,
   renameSync,
+  rmdirSync,
   rmSync,
   statSync,
+  unlinkSync,
   writeFileSync,
 } from "node:fs";
 import { dirname, join } from "node:path";
@@ -20,7 +23,16 @@ const payload = ["manifest.yaml", "clauses"];
 function restoreOriginals() {
   const backupRoot = join(root, ".npm-stage-backup");
   const marker = join(backupRoot, "owned.json");
-  if (!existsSync(marker)) return;
+  if (!existsSync(marker)) {
+    if (existsSync(backupRoot)) {
+      try {
+        rmdirSync(backupRoot);
+      } catch (error) {
+        if (error.code !== "ENOTEMPTY" && error.code !== "EEXIST") throw error;
+      }
+    }
+    return;
+  }
   const { originals } = JSON.parse(readFileSync(marker, "utf8"));
 
   for (const item of payload) {
@@ -53,10 +65,24 @@ if (!existsSync(join(root, inner)) || !statSync(join(root, inner)).isDirectory()
 
 mkdirSync(backupRoot);
 const originals = payload.filter((item) => existsSync(join(root, item)));
-writeFileSync(
-  join(backupRoot, "owned.json"),
-  JSON.stringify({ version: 1, originals }),
-);
+try {
+  writeFileSync(
+    join(backupRoot, "owned.json"),
+    JSON.stringify({ version: 1, originals }),
+  );
+} catch (error) {
+  chmodSync(backupRoot, 0o700);
+  const marker = join(backupRoot, "owned.json");
+  if (existsSync(marker)) unlinkSync(marker);
+  try {
+    rmdirSync(backupRoot);
+  } catch (cleanupError) {
+    if (cleanupError.code !== "ENOTEMPTY" && cleanupError.code !== "EEXIST") {
+      throw cleanupError;
+    }
+  }
+  throw error;
+}
 try {
   for (const item of payload) {
     const target = join(root, item);

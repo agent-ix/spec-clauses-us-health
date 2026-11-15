@@ -316,3 +316,29 @@ def test_npm_pack_restores_preexisting_staging_paths(tmp_path):
     assert restored == original_files
     assert (clauses / "nested").is_dir()
     assert not (package / ".npm-stage-backup").exists()
+
+
+def test_clean_removes_only_empty_markerless_backup_directories(tmp_path):
+    package = tmp_path / "package"
+    scripts = package / "scripts"
+    scripts.mkdir(parents=True)
+    script = scripts / "stage-npm.mjs"
+    shutil.copy(REPO_ROOT / "scripts" / "stage-npm.mjs", script)
+    backup = package / ".npm-stage-backup"
+
+    backup.mkdir()
+    empty_cleanup = subprocess.run(
+        ["node", str(script), "--clean"], capture_output=True, text=True
+    )
+    assert empty_cleanup.returncode == 0, empty_cleanup.stderr
+    assert not backup.exists()
+
+    backup.mkdir()
+    unowned_file = backup / "keep.bin"
+    unowned_bytes = b"unowned backup data\x00\xff"
+    unowned_file.write_bytes(unowned_bytes)
+    nonempty_cleanup = subprocess.run(
+        ["node", str(script), "--clean"], capture_output=True, text=True
+    )
+    assert nonempty_cleanup.returncode == 0, nonempty_cleanup.stderr
+    assert unowned_file.read_bytes() == unowned_bytes
