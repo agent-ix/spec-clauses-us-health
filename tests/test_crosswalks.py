@@ -155,7 +155,9 @@ def test_cybersecurity_crosswalks_match_the_normative_table_exactly() -> None:
         ("sp800-53", "SA-8"),
     }
     assert all(crosswalk["relation"] == "informative" for crosswalk in b4_crosswalks)
-    assert all("only as context" in crosswalk["rationale"] for crosswalk in b4_crosswalks)
+    assert all(
+        "only as context" in crosswalk["rationale"] for crosswalk in b4_crosswalks
+    )
 
 
 @pytest.mark.trace("TC-048", "FR-011-AC-2")
