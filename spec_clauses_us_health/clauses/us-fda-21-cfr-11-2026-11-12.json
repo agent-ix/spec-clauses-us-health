@@ -1,0 +1,990 @@
+{
+  "schemaVersion": "clause-set-v1",
+  "authority": "us-fda",
+  "id": "21-cfr-11",
+  "title": "21 CFR Part 11 electronic records and electronic signatures",
+  "version": "2026-11-12",
+  "rights": {
+    "structure": "citation_only",
+    "text": "original",
+    "clearance_ref": null,
+    "licence": "Public domain: US federal regulation (17 U.S.C. 105)"
+  },
+  "source": {
+    "title": "21 CFR Part 11 Electronic Records; Electronic Signatures",
+    "identifier": "21 CFR Part 11",
+    "officialUrl": "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11"
+  },
+  "classificationDimensions": {
+    "system_type": {
+      "values": [
+        "closed",
+        "open"
+      ]
+    },
+    "electronic_signatures": {
+      "values": [
+        "used",
+        "not_used"
+      ]
+    },
+    "signature_basis": {
+      "values": [
+        "non_biometric",
+        "biometric"
+      ]
+    },
+    "signature_method": {
+      "values": [
+        "identification_code_password",
+        "other"
+      ]
+    },
+    "open_system_11_10_a_applicability": {
+      "values": [
+        "appropriate",
+        "not_appropriate"
+      ]
+    },
+    "open_system_11_10_b_applicability": {
+      "values": [
+        "appropriate",
+        "not_appropriate"
+      ]
+    },
+    "open_system_11_10_c_applicability": {
+      "values": [
+        "appropriate",
+        "not_appropriate"
+      ]
+    },
+    "open_system_11_10_d_applicability": {
+      "values": [
+        "appropriate",
+        "not_appropriate"
+      ]
+    },
+    "open_system_11_10_e_applicability": {
+      "values": [
+        "appropriate",
+        "not_appropriate"
+      ]
+    },
+    "open_system_11_10_f_applicability": {
+      "values": [
+        "appropriate",
+        "not_appropriate"
+      ]
+    },
+    "open_system_11_10_g_applicability": {
+      "values": [
+        "appropriate",
+        "not_appropriate"
+      ]
+    },
+    "open_system_11_10_h_applicability": {
+      "values": [
+        "appropriate",
+        "not_appropriate"
+      ]
+    },
+    "open_system_11_10_i_applicability": {
+      "values": [
+        "appropriate",
+        "not_appropriate"
+      ]
+    },
+    "open_system_11_10_j_applicability": {
+      "values": [
+        "appropriate",
+        "not_appropriate"
+      ]
+    },
+    "open_system_11_10_k_applicability": {
+      "values": [
+        "appropriate",
+        "not_appropriate"
+      ]
+    }
+  },
+  "outputCatalog": {
+    "system-validation": {
+      "kind": "record",
+      "description": "Validation evidence for the toolchain's intended use."
+    },
+    "verification-records": {
+      "kind": "record",
+      "description": "Test matrix and retained evidence."
+    },
+    "audit-trail": {
+      "kind": "record",
+      "description": "Git history of the record."
+    },
+    "access-control": {
+      "kind": "record",
+      "description": "Repository permission and branch-rule settings."
+    },
+    "written-procedure": {
+      "kind": "procedure",
+      "description": "Customer-owned written procedure."
+    },
+    "training-record": {
+      "kind": "procedure",
+      "description": "Customer-owned training record."
+    },
+    "signed-record": {
+      "kind": "record",
+      "description": "Signed commit or tag verified by `git verify-commit` or `git verify-tag`."
+    },
+    "signer-registry": {
+      "kind": "record",
+      "description": "Allowed-signers mapping from signing key to named person."
+    },
+    "signature-meaning": {
+      "kind": "record",
+      "description": "The `Signed-off-meaning:` trailer."
+    },
+    "approval-trail": {
+      "kind": "record",
+      "description": "Engineering-assurance approval-trail output."
+    },
+    "fda-certification-record": {
+      "kind": "record",
+      "description": "Evidence that the electronic-signature certification was submitted to FDA."
+    }
+  },
+  "clauses": [
+    {
+      "id": "11.10(a)",
+      "force": "mandatory",
+      "title": "System validation",
+      "text": "Validate systems so they perform reliably as intended and can reveal invalid or altered records.",
+      "subjects": [
+        "records"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "system-validation",
+        "verification-records"
+      ],
+      "applicability": {
+        "op": "any",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "system_type",
+            "value": "closed"
+          },
+          {
+            "op": "all",
+            "terms": [
+              {
+                "op": "eq",
+                "dimension": "system_type",
+                "value": "open"
+              },
+              {
+                "op": "eq",
+                "dimension": "open_system_11_10_a_applicability",
+                "value": "appropriate"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.10(b)",
+      "force": "mandatory",
+      "title": "Record-copy generation",
+      "text": "Produce accurate, complete copies in readable and electronic forms that support agency inspection, review, and copying.",
+      "subjects": [
+        "records"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "verification-records"
+      ],
+      "applicability": {
+        "op": "any",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "system_type",
+            "value": "closed"
+          },
+          {
+            "op": "all",
+            "terms": [
+              {
+                "op": "eq",
+                "dimension": "system_type",
+                "value": "open"
+              },
+              {
+                "op": "eq",
+                "dimension": "open_system_11_10_b_applicability",
+                "value": "appropriate"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.10(c)",
+      "force": "mandatory",
+      "title": "Record retrieval",
+      "text": "Protect records so they remain accurate and readily retrievable for the required retention period.",
+      "subjects": [
+        "records"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "audit-trail"
+      ],
+      "applicability": {
+        "op": "any",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "system_type",
+            "value": "closed"
+          },
+          {
+            "op": "all",
+            "terms": [
+              {
+                "op": "eq",
+                "dimension": "system_type",
+                "value": "open"
+              },
+              {
+                "op": "eq",
+                "dimension": "open_system_11_10_c_applicability",
+                "value": "appropriate"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.10(d)",
+      "force": "mandatory",
+      "title": "Authorized access",
+      "text": "Restrict system access to authorized individuals.",
+      "subjects": [
+        "records"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "access-control"
+      ],
+      "applicability": {
+        "op": "any",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "system_type",
+            "value": "closed"
+          },
+          {
+            "op": "all",
+            "terms": [
+              {
+                "op": "eq",
+                "dimension": "system_type",
+                "value": "open"
+              },
+              {
+                "op": "eq",
+                "dimension": "open_system_11_10_d_applicability",
+                "value": "appropriate"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.10(e)",
+      "force": "mandatory",
+      "title": "Time-stamped audit trail",
+      "text": "Maintain secure, system-generated trails that independently record the date and time of record creation, change, and deletion actions while keeping prior information visible. Retain the trail documentation for at least the record-retention period and make it available for agency review and copying.",
+      "subjects": [
+        "records"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "audit-trail"
+      ],
+      "applicability": {
+        "op": "any",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "system_type",
+            "value": "closed"
+          },
+          {
+            "op": "all",
+            "terms": [
+              {
+                "op": "eq",
+                "dimension": "system_type",
+                "value": "open"
+              },
+              {
+                "op": "eq",
+                "dimension": "open_system_11_10_e_applicability",
+                "value": "appropriate"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.10(f)",
+      "force": "mandatory",
+      "title": "Operational sequencing",
+      "text": "Use operational checks to enforce the permitted order of steps and events when appropriate.",
+      "subjects": [
+        "records"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "system-validation",
+        "written-procedure"
+      ],
+      "applicability": {
+        "op": "any",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "system_type",
+            "value": "closed"
+          },
+          {
+            "op": "all",
+            "terms": [
+              {
+                "op": "eq",
+                "dimension": "system_type",
+                "value": "open"
+              },
+              {
+                "op": "eq",
+                "dimension": "open_system_11_10_f_applicability",
+                "value": "appropriate"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.10(g)",
+      "force": "mandatory",
+      "title": "Authority checks",
+      "text": "Use authority checks to limit system actions to people authorized for the specific access, signing, input, alteration, or other operation.",
+      "subjects": [
+        "records"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "access-control"
+      ],
+      "applicability": {
+        "op": "any",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "system_type",
+            "value": "closed"
+          },
+          {
+            "op": "all",
+            "terms": [
+              {
+                "op": "eq",
+                "dimension": "system_type",
+                "value": "open"
+              },
+              {
+                "op": "eq",
+                "dimension": "open_system_11_10_g_applicability",
+                "value": "appropriate"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.10(h)",
+      "force": "mandatory",
+      "title": "Input-source checks",
+      "text": "Check devices such as terminals to validate the source of data inputs or operating instructions when appropriate.",
+      "subjects": [
+        "records"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "system-validation"
+      ],
+      "applicability": {
+        "op": "any",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "system_type",
+            "value": "closed"
+          },
+          {
+            "op": "all",
+            "terms": [
+              {
+                "op": "eq",
+                "dimension": "system_type",
+                "value": "open"
+              },
+              {
+                "op": "eq",
+                "dimension": "open_system_11_10_h_applicability",
+                "value": "appropriate"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.10(i)",
+      "force": "mandatory",
+      "title": "Staff qualifications",
+      "text": "Ensure people who develop, maintain, or use electronic-record or signature systems have suitable education, training, and experience for their assigned tasks.",
+      "subjects": [
+        "records"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "training-record"
+      ],
+      "applicability": {
+        "op": "any",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "system_type",
+            "value": "closed"
+          },
+          {
+            "op": "all",
+            "terms": [
+              {
+                "op": "eq",
+                "dimension": "system_type",
+                "value": "open"
+              },
+              {
+                "op": "eq",
+                "dimension": "open_system_11_10_i_applicability",
+                "value": "appropriate"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.10(j)",
+      "force": "mandatory",
+      "title": "Signature accountability",
+      "text": "Establish and follow written policies that make people responsible for actions initiated under their electronic signatures, to discourage record or signature falsification.",
+      "subjects": [
+        "records",
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "written-procedure"
+      ],
+      "applicability": {
+        "op": "any",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "system_type",
+            "value": "closed"
+          },
+          {
+            "op": "all",
+            "terms": [
+              {
+                "op": "eq",
+                "dimension": "system_type",
+                "value": "open"
+              },
+              {
+                "op": "eq",
+                "dimension": "open_system_11_10_j_applicability",
+                "value": "appropriate"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.10(k)",
+      "force": "mandatory",
+      "title": "System-documentation controls",
+      "text": "Control the distribution, access, and use of system documentation. Maintain time-ordered records of documentation development and changes.",
+      "subjects": [
+        "records"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "access-control",
+        "audit-trail"
+      ],
+      "applicability": {
+        "op": "any",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "system_type",
+            "value": "closed"
+          },
+          {
+            "op": "all",
+            "terms": [
+              {
+                "op": "eq",
+                "dimension": "system_type",
+                "value": "open"
+              },
+              {
+                "op": "eq",
+                "dimension": "open_system_11_10_k_applicability",
+                "value": "appropriate"
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.30",
+      "force": "mandatory",
+      "title": "Open-system safeguards",
+      "text": "For open systems, protect electronic records throughout transfer so their authenticity and integrity are maintained and confidentiality is protected when appropriate. Apply relevant closed-system controls and add measures such as encryption or suitable digital-signature methods when circumstances call for them.",
+      "subjects": [
+        "records",
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "signed-record",
+        "access-control"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "system_type",
+        "value": "open"
+      }
+    },
+    {
+      "id": "11.50(a)",
+      "force": "mandatory",
+      "title": "Signature details",
+      "text": "Show each signer’s printed name, signing date and time, and the meaning of the signature with the signed electronic record.",
+      "subjects": [
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "signed-record",
+        "signer-registry",
+        "signature-meaning"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "electronic_signatures",
+        "value": "used"
+      }
+    },
+    {
+      "id": "11.50(b)",
+      "force": "mandatory",
+      "title": "Human-readable signature details",
+      "text": "Apply record controls to the signature details and include them in human-readable presentations such as displays or printouts.",
+      "subjects": [
+        "records",
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "signed-record",
+        "audit-trail"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "electronic_signatures",
+        "value": "used"
+      }
+    },
+    {
+      "id": "11.70",
+      "force": "mandatory",
+      "title": "Signature-record connection",
+      "text": "Connect each electronic or handwritten signature to its electronic record so it cannot ordinarily be detached, copied, or transferred to falsify that record.",
+      "subjects": [
+        "records",
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "signed-record"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "electronic_signatures",
+        "value": "used"
+      }
+    },
+    {
+      "id": "11.100(a)",
+      "force": "mandatory",
+      "title": "Signer-specific signatures",
+      "text": "Make each electronic signature unique to one individual and prevent its reuse or reassignment to someone else.",
+      "subjects": [
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "signer-registry"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "electronic_signatures",
+        "value": "used"
+      }
+    },
+    {
+      "id": "11.100(b)",
+      "force": "mandatory",
+      "title": "Signer identity verification",
+      "text": "Verify an individual’s identity before establishing, assigning, certifying, or otherwise authorizing that person’s electronic signature or any part of it.",
+      "subjects": [
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "signer-registry",
+        "approval-trail"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "electronic_signatures",
+        "value": "used"
+      }
+    },
+    {
+      "id": "11.100(c)",
+      "force": "mandatory",
+      "title": "FDA signature certification",
+      "text": "Before or when electronic signatures are used, certify to FDA that signatures used on or after August 20, 1997 are intended to carry the legal effect of handwritten signatures. Submit the certification with a handwritten signature and provide further certification or testimony if FDA requests it.",
+      "subjects": [
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "fda-certification-record"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "electronic_signatures",
+        "value": "used"
+      }
+    },
+    {
+      "id": "11.200(a)",
+      "force": "mandatory",
+      "title": "Nonbiometric signature components",
+      "text": "Use at least two distinct identification components. A qualifying series within one continuous controlled-access period may use one signer-specific component after the first signing; signings outside such a period use all components. Restrict use to genuine owners and require collaboration by at least two people for another person’s attempted use.",
+      "subjects": [
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "signer-registry",
+        "access-control",
+        "written-procedure"
+      ],
+      "applicability": {
+        "op": "all",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "electronic_signatures",
+            "value": "used"
+          },
+          {
+            "op": "eq",
+            "dimension": "signature_basis",
+            "value": "non_biometric"
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.200(b)",
+      "force": "mandatory",
+      "title": "Biometric signature ownership",
+      "text": "Design biometric electronic signatures so that only their genuine owners can use them.",
+      "subjects": [
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "access-control",
+        "system-validation"
+      ],
+      "applicability": {
+        "op": "all",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "electronic_signatures",
+            "value": "used"
+          },
+          {
+            "op": "eq",
+            "dimension": "signature_basis",
+            "value": "biometric"
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.300(a)",
+      "force": "mandatory",
+      "title": "Unique code-password pairs",
+      "text": "Keep each identification-code and password combination unique to one individual.",
+      "subjects": [
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "signer-registry",
+        "access-control"
+      ],
+      "applicability": {
+        "op": "all",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "electronic_signatures",
+            "value": "used"
+          },
+          {
+            "op": "eq",
+            "dimension": "signature_basis",
+            "value": "non_biometric"
+          },
+          {
+            "op": "eq",
+            "dimension": "signature_method",
+            "value": "identification_code_password"
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.300(b)",
+      "force": "mandatory",
+      "title": "Code-password review",
+      "text": "Periodically check, recall, or revise issued identification codes and passwords.",
+      "subjects": [
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "written-procedure"
+      ],
+      "applicability": {
+        "op": "all",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "electronic_signatures",
+            "value": "used"
+          },
+          {
+            "op": "eq",
+            "dimension": "signature_basis",
+            "value": "non_biometric"
+          },
+          {
+            "op": "eq",
+            "dimension": "signature_method",
+            "value": "identification_code_password"
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.300(c)",
+      "force": "mandatory",
+      "title": "Lost credential response",
+      "text": "Use loss-management procedures to deactivate credentials that are lost, stolen, missing, or possibly compromised. Issue replacements under suitable, rigorous controls.",
+      "subjects": [
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "written-procedure"
+      ],
+      "applicability": {
+        "op": "all",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "electronic_signatures",
+            "value": "used"
+          },
+          {
+            "op": "eq",
+            "dimension": "signature_basis",
+            "value": "non_biometric"
+          },
+          {
+            "op": "eq",
+            "dimension": "signature_method",
+            "value": "identification_code_password"
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.300(d)",
+      "force": "mandatory",
+      "title": "Unauthorized-use response",
+      "text": "Use transaction controls to prevent unauthorized identification-code or password use and detect attempted misuse. Report each attempt immediately and urgently to the system-security unit and, when appropriate, organizational management.",
+      "subjects": [
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "access-control",
+        "written-procedure"
+      ],
+      "applicability": {
+        "op": "all",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "electronic_signatures",
+            "value": "used"
+          },
+          {
+            "op": "eq",
+            "dimension": "signature_basis",
+            "value": "non_biometric"
+          },
+          {
+            "op": "eq",
+            "dimension": "signature_method",
+            "value": "identification_code_password"
+          }
+        ]
+      }
+    },
+    {
+      "id": "11.300(e)",
+      "force": "mandatory",
+      "title": "Credential-device testing",
+      "text": "Initially and periodically test devices that carry or generate identification codes or passwords to confirm correct operation and detect unauthorized alteration.",
+      "subjects": [
+        "signatures"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "system-validation"
+      ],
+      "applicability": {
+        "op": "all",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "electronic_signatures",
+            "value": "used"
+          },
+          {
+            "op": "eq",
+            "dimension": "signature_basis",
+            "value": "non_biometric"
+          },
+          {
+            "op": "eq",
+            "dimension": "signature_method",
+            "value": "identification_code_password"
+          }
+        ]
+      }
+    }
+  ]
+}
