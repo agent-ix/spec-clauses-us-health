@@ -51,6 +51,7 @@ source-rights analysis records only the public source and its rights basis.
 | FR-003 | FR-003-AC-2 | TC-009 | 🚧 Planned for PLAT-1423 |
 | FR-003 | FR-003-AC-3 | TC-010 | 🚧 Planned for PLAT-1423 |
 | FR-003 | FR-003-AC-4 | TC-011 | 🚧 Planned for PLAT-1423 |
+| FR-003 | FR-003-AC-5 | TC-031 | 🚧 Planned for PLAT-1423 |
 | FR-004 | FR-004-AC-1 | TC-012 | 🚧 Planned for PLAT-1423 |
 | FR-004 | FR-004-AC-2 | TC-013 | 🚧 Planned for PLAT-1423 |
 | FR-004 | FR-004-AC-3 | TC-014 | 🚧 Planned for PLAT-1423 |
@@ -96,7 +97,7 @@ source-rights analysis records only the public source and its rights basis.
 | TC-015 | Section 11.300 binds only for a supplied identification-code/password method | Unit | P0 | FR-004-AC-4 | 🚧 Planned for PLAT-1423 |
 | TC-016 | An empty applicability context leaves every clause unresolved | Unit | P1 | FR-004-AC-5 | 🚧 Planned for PLAT-1423 |
 | TC-017 | Undeclared applicability dimensions or values are rejected | Unit | P1 | FR-004-AC-6 | 🚧 Planned for PLAT-1423 |
-| TC-018 | The US catalog contains its exact 17 output definitions and M1 entries | Unit | P0 | FR-005-AC-1 | 🚧 Planned for PLAT-1545 |
+| TC-018 | The US catalog contains its exact 18 output definitions and M1 entries | Unit | P0 | FR-005-AC-1 | 🚧 Planned for PLAT-1545 |
 | TC-019 | Conflicting kind or description for a reused output fails across US sets | Unit | P0 | FR-005-AC-2 | 🚧 Planned for PLAT-1545 |
 | TC-020 | A later US set reuses an output only with the catalog definition | Unit | P1 | FR-005-AC-3 | 🚧 Planned for PLAT-1545 |
 | TC-021 | Customer-owned clauses are exactly those whose outputs are all procedures | Unit | P0 | FR-006-AC-1 | 🚧 Planned for PLAT-1559 |
@@ -109,3 +110,4 @@ source-rights analysis records only the public source and its rights basis.
 | TC-028 | The source metadata identifies only the cited public eCFR and public-law basis | Unit | P1 | NFR-001-AC-2 | 🚧 Planned for PLAT-1549 |
 | TC-029 | Rights analysis confirms original summaries and excludes paywalled source text | Analysis | P1 | NFR-001-AC-3 | 🚧 Planned with source authoring |
 | TC-030 | The module schema contains no pack-level output catalog field | Unit | P1 | FR-005-AC-4 | 🚧 Planned for PLAT-1545 |
+| TC-031 | The certification-submission clause maps to the FDA certification record output | Unit | P1 | FR-003-AC-5 | 🚧 Planned for PLAT-1423 |

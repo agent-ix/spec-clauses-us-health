@@ -28,6 +28,7 @@ snapshot is a new version; `quire clauses diff` compares versions.
 | FR-003-AC-2 | The clause ID list equals the 25 IDs in the normative clause table; no 11.1–11.3 entries appear. | Test |
 | FR-003-AC-3 | Every listed clause is mandatory and names at least one catalog output; clause-set validation succeeds. | Test |
 | FR-003-AC-4 | A clause naming an output absent from its output catalog fails validation and identifies the clause. | Test |
+| FR-003-AC-5 | Clause `11.100(c)` names `fda-certification-record`, whose catalog kind is `record`. | Test |
 
 ## Dependencies
 

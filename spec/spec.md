@@ -67,8 +67,8 @@ or paraphrased.
 The pack uses `system_type` (`closed`, `open`),
 `electronic_signatures` (`used`, `not_used`), `signature_basis`
 (`non_biometric`, `biometric`), `signature_method`
-(`identification_code_password`, `other`), and
-For each § 11.10 paragraph, the pack also declares an unordered
+(`identification_code_password`, `other`). For each § 11.10 paragraph, the pack
+also declares an unordered
 `open_system_11_10_<letter>_applicability` dimension with values `appropriate`
 and `not_appropriate`. The signature method and each open-system applicability
 value are supplied by the user; the pack does not infer them. Section 11.10
@@ -106,7 +106,7 @@ catalog below. `all[...]` denotes the engine's `all` expression and each
 | `11.70` | `eq electronic_signatures used` | `signed-record` |
 | `11.100(a)` | `eq electronic_signatures used` | `signer-registry` |
 | `11.100(b)` | `eq electronic_signatures used` | `signer-registry`, `approval-trail` |
-| `11.100(c)` | `eq electronic_signatures used` | `written-procedure` |
+| `11.100(c)` | `eq electronic_signatures used` | `fda-certification-record` |
 | `11.200(a)` | `all[eq electronic_signatures used, eq signature_basis non_biometric]` | `signer-registry`, `access-control`, `written-procedure` |
 | `11.200(b)` | `all[eq electronic_signatures used, eq signature_basis biometric]` | `access-control`, `system-validation` |
 | `11.300(a)` | `all[eq electronic_signatures used, eq signature_basis non_biometric, eq signature_method identification_code_password]` | `signer-registry`, `access-control` |
@@ -133,6 +133,7 @@ does not claim cross-repository enforcement.
 | `signed-record` | `record` | Signed commit or tag verified by `git verify-commit` or `git verify-tag`. |
 | `signer-registry` | `record` | Allowed-signers mapping from signing key to named person. |
 | `signature-meaning` | `record` | The `Signed-off-meaning:` trailer. |
+| `fda-certification-record` | `record` | Evidence that the electronic-signature certification was submitted to FDA. |
 | `approval-trail` | `record` | Engineering-assurance approval-trail output. |
 | `access-control` | `record` | Repository permission and branch-rule settings. |
 | `system-validation` | `record` | Validation evidence for the toolchain's intended use. |
@@ -154,7 +155,7 @@ The customer discharges such a clause using a `disposition` fact whose decision
 is `delegated`, rationale is non-empty, and `approvalRef` names the customer's
 acceptance. A `direct` fact is not accepted for this case. The pack toolchain
 does not claim or generate a procedure output. M1 customer-owned clauses are
-`11.10(i)`, `11.10(j)`, `11.100(c)`, `11.300(b)`, and `11.300(c)`.
+`11.10(i)`, `11.10(j)`, `11.300(b)`, and `11.300(c)`.
 No customer-owned flag or other field is added to the clause-set schema.
 
 ### Reference Corpus and Delivery Architecture

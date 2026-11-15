@@ -23,7 +23,7 @@ create or verify a procedure on its behalf.
 
 | ID | Criteria | Verification |
 |----|----------|--------------|
-| FR-006-AC-1 | Every clause whose expected outputs are all kind `procedure` appears in the customer-owned table; the M1 IDs are 11.10(i), 11.10(j), 11.100(c), 11.300(b), and 11.300(c). | Test |
+| FR-006-AC-1 | Every clause whose expected outputs are all kind `procedure` appears in the customer-owned table; the M1 IDs are 11.10(i), 11.10(j), 11.300(b), and 11.300(c). | Test |
 | FR-006-AC-2 | Corpus discharge accepts these clauses only with decision `delegated`, a non-empty rationale, and an `approvalRef` naming customer acceptance. | Test |
 | FR-006-AC-3 | A `direct` fact for a customer-owned clause is rejected, and no procedure output is claimed by the toolchain. | Test |
 

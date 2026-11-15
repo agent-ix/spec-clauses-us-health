@@ -24,7 +24,7 @@ consistency is outside this requirement's enforceable scope.
 
 | ID | Criteria | Verification |
 |----|----------|--------------|
-| FR-005-AC-1 | A catalog test finds exactly the 17 names listed in `spec/spec.md`, with the stated kind and description; it confirms that the first nine entries are the M1 catalog entries. | Test |
+| FR-005-AC-1 | A catalog test finds exactly the 18 names listed in `spec/spec.md`, with the stated kind and description; it confirms that the first ten entries are the M1 catalog entries. | Test |
 | FR-005-AC-2 | A test over every US set in this repository fails when two declarations of one output name differ in kind or description. | Test |
 | FR-005-AC-3 | A fixture US set that reuses a catalog name with its declared kind and description passes the catalog test. | Test |
 | FR-005-AC-4 | The module schema defines no pack-level output catalog field. | Test |
