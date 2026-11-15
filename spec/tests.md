@@ -25,6 +25,10 @@ relationships:
     type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/FR-011"
     type: covers
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-012"
+    type: covers
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-013"
+    type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/NFR-001"
     type: covers
 ---
@@ -44,7 +48,8 @@ tests are authored with PLAT-1423. PLAT-1553 binds Part 11 outputs to producing
 capabilities and verifies the customer-owned table; corpus discharge cases
 remain with PLAT-1559. Licensing rights metadata is exercised by the PLAT-1549
 publish gate; source-rights analysis records only the public source and its
-rights basis.
+rights basis. PLAT-1613 authors HIPAA clause content, PLAT-1616 authors its
+NIST crosswalk, and PLAT-1621 delivers the addressable-disposition workflow.
 
 ## Functional Requirement Coverage
 
@@ -98,6 +103,15 @@ rights basis.
 | FR-011 | FR-011-AC-3 | TC-049 | 🚧 Planned for PLAT-1600 |
 | FR-011 | FR-011-AC-4 | TC-050 | 🚧 Planned for PLAT-1600 |
 | FR-011 | FR-011-AC-5 | TC-051 | 🚧 Planned for PLAT-1600 |
+| FR-012 | FR-012-AC-1 | TC-052 | 🚧 Planned for PLAT-1613 |
+| FR-012 | FR-012-AC-2 | TC-053 | 🚧 Planned for PLAT-1613 |
+| FR-012 | FR-012-AC-3 | TC-054 | 🚧 Planned for PLAT-1613 |
+| FR-012 | FR-012-AC-4 | TC-055 | 🚧 Planned for PLAT-1621 |
+| FR-012 | FR-012-AC-5 | TC-056 | 🚧 Planned for PLAT-1621 |
+| FR-012 | FR-012-AC-6 | TC-029 | 🚧 Planned with source authoring |
+| FR-013 | FR-013-AC-1 | TC-057 | 🚧 Planned for PLAT-1616 |
+| FR-013 | FR-013-AC-2 | TC-058 | 🚧 Planned for PLAT-1616 |
+| FR-013 | FR-013-AC-3 | TC-059 | 🚧 Planned for PLAT-1616 |
 
 ## Non-Functional Requirement Coverage
 
@@ -127,7 +141,7 @@ rights basis.
 | TC-015 | Section 11.300 binds only for a supplied identification-code/password method | Unit | P0 | FR-004-AC-4 | ✅ Implemented in PLAT-1423 |
 | TC-016 | An empty applicability context leaves every clause unresolved | Unit | P1 | FR-004-AC-5 | ✅ Implemented in PLAT-1423 |
 | TC-017 | Undeclared applicability dimensions or values are rejected | Unit | P1 | FR-004-AC-6 | ✅ Implemented in PLAT-1423 |
-| TC-018 | The US catalog contains its exact 25 output definitions and M1 entries | Unit | P0 | FR-005-AC-1 | 🚧 Planned for PLAT-1545 |
+| TC-018 | The US catalog contains its exact 28 output definitions and M1 entries | Unit | P0 | FR-005-AC-1 | 🚧 Planned for PLAT-1545 |
 | TC-019 | Conflicting kind or description for a reused output fails across US sets | Unit | P0 | FR-005-AC-2 | ✅ Helper and Part 11 catalog checked in PLAT-1553 |
 | TC-020 | A later US set reuses an output only with the catalog definition | Unit | P1 | FR-005-AC-3 | 🚧 Planned for PLAT-1545 |
 | TC-021 | Customer-owned clauses are exactly those whose outputs are all procedures | Unit | P0 | FR-006-AC-1 | ✅ Implemented in PLAT-1553 |
@@ -138,7 +152,7 @@ rights basis.
 | TC-026 | Test-time discharge facts use and clean up a temporary evidence store | Integration | P1 | FR-007-AC-3 | 🚧 Planned for PLAT-1559 |
 | TC-027 | Rights metadata passes the publication check for every US set | Integration | P0 | NFR-001-AC-1, NFR-001-M-1 | 🚧 Planned for PLAT-1549 |
 | TC-028 | The source metadata identifies only the cited public eCFR and public-law basis | Unit | P1 | NFR-001-AC-2 | 🚧 Planned for PLAT-1549 |
-| TC-029 | Rights analysis confirms original summaries and excludes paywalled source text | Analysis | P1 | NFR-001-AC-3 | 🚧 Planned with source authoring |
+| TC-029 | Rights analysis confirms original summaries and excludes paywalled source text | Analysis | P1 | NFR-001-AC-3, FR-012-AC-6 | 🚧 Planned with source authoring |
 | TC-030 | The module schema contains no pack-level output catalog field | Unit | P1 | FR-005-AC-4 | 🚧 Planned for PLAT-1545 |
 | TC-031 | The certification-submission clause maps to the FDA certification record output | Unit | P1 | FR-003-AC-5 | ✅ Implemented in PLAT-1423 |
 | TC-032 | The 524B set identity and source metadata match the current US Code source | Unit | P0 | FR-008-AC-1 | 🚧 Planned for PLAT-1595 |
@@ -161,3 +175,11 @@ rights basis.
 | TC-049 | Each cybersecurity clause resolves at least one NIST crosswalk target from the installed module | Integration | P0 | FR-011-AC-3 | 🚧 Planned for PLAT-1600 |
 | TC-050 | An unknown NIST target fails with that identifier in the diagnostic | Unit | P1 | FR-011-AC-4 | 🚧 Planned for PLAT-1600 |
 | TC-051 | Test dependencies install the published target module without copying its clause data | Inspection | P1 | FR-011-AC-5 | 🚧 Planned for PLAT-1600 |
+| TC-052 | The M4 set identity, dated eCFR source, and original-text rights metadata match the specification | Unit | P0 | FR-012-AC-1 | 🚧 Planned for PLAT-1613 |
+| TC-053 | Every table clause is present once with mandatory force, specified style, and catalog outputs | Unit | P0 | FR-012-AC-2 | 🚧 Planned for PLAT-1613 |
+| TC-054 | `hipaa_role` values resolve only the applicable § 164.314(a)(2) clauses | Unit | P0 | FR-012-AC-3 | 🚧 Planned for PLAT-1613 |
+| TC-055 | An alternate addressable discharge without accepted-risk rationale and named approver is rejected | Integration | P0 | FR-012-AC-4 | 🚧 Planned for PLAT-1621 |
+| TC-056 | RMM shows the human addressable disposition rationale and approver and does not generate a decision | Integration | P0 | FR-012-AC-5 | 🚧 Planned for PLAT-1621 |
+| TC-057 | Each crosswalk row preserves CPRT provenance and targets a catalog control | Unit | P0 | FR-013-AC-1 | 🚧 Planned for PLAT-1616 |
+| TC-058 | Each included Security Rule standard has a CPRT-backed target and § 164.314(b) is absent | Unit | P0 | FR-013-AC-2 | 🚧 Planned for PLAT-1616 |
+| TC-059 | Unmapped source clauses remain explicit and unverified target IDs or normalization fail | Unit | P1 | FR-013-AC-3 | 🚧 Planned for PLAT-1616 |
