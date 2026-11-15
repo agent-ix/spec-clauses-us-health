@@ -110,7 +110,7 @@ evaluation tests.
 | FR-012 | FR-012-AC-3 | TC-054 | 🚧 Planned for PLAT-1613 |
 | FR-012 | FR-012-AC-4 | TC-055 | 🚧 Planned for PLAT-1621 |
 | FR-012 | FR-012-AC-5 | TC-056 | 🚧 Planned for PLAT-1621 |
-| FR-012 | FR-012-AC-6 | TC-029 | 🚧 Planned with source authoring |
+| FR-012 | FR-012-AC-6 | TC-068 | 🚧 Planned for PLAT-1613 |
 | FR-013 | FR-013-AC-1 | TC-057 | 🚧 Planned for PLAT-1616 |
 | FR-013 | FR-013-AC-2 | TC-058 | 🚧 Planned for PLAT-1616 |
 | FR-013 | FR-013-AC-3 | TC-059 | 🚧 Planned for PLAT-1616 |
@@ -128,7 +128,7 @@ evaluation tests.
 | Non-Functional Req | Verification Method | Evidence/Test Cases | Status |
 |---|---|---|---|
 | NFR-001 | Test | TC-027, TC-028 | 🚧 Planned for PLAT-1549 |
-| NFR-001 | Analysis | TC-029 | 🚧 Planned with source authoring |
+| NFR-001 | Analysis | TC-029 (`reviews/plat-1572-source-rights-analysis.md`) | ✅ Recorded in PLAT-1572 |
 
 ## Test Case Summary
 
@@ -162,7 +162,7 @@ evaluation tests.
 | TC-026 | Test-time discharge facts use and clean up a temporary evidence store | Integration | P1 | FR-007-AC-3 | 🚧 Planned for PLAT-1559 |
 | TC-027 | Rights metadata passes the publication check for every US set | Integration | P0 | NFR-001-AC-1, NFR-001-M-1 | 🚧 Planned for PLAT-1549 |
 | TC-028 | The source metadata identifies only the cited public eCFR and public-law basis | Unit | P1 | NFR-001-AC-2 | 🚧 Planned for PLAT-1549 |
-| TC-029 | Rights analysis confirms original summaries and excludes paywalled source text | Analysis | P1 | NFR-001-AC-3, FR-012-AC-6 | 🚧 Planned with source authoring |
+| TC-029 | June 2023 FDA software guidance analysis confirms original summaries and the public-source rights basis | Analysis | P1 | NFR-001-AC-3 | ✅ Recorded in PLAT-1572 |
 | TC-030 | The module schema contains no pack-level output catalog field | Unit | P1 | FR-005-AC-4 | 🚧 Planned for PLAT-1545 |
 | TC-031 | The certification-submission clause maps to the FDA certification record output | Unit | P1 | FR-003-AC-5 | ✅ Implemented in PLAT-1423 |
 | TC-032 | The 524B set identity and source metadata match the current US Code source | Unit | P0 | FR-008-AC-1 | ✅ Implemented in PLAT-1595 |
@@ -201,3 +201,4 @@ evaluation tests.
 | TC-065 | Basic and enhanced levels bind the specified Section VI rows; omitted level leaves all rows unresolved | Unit | P0 | FR-016-AC-3, FR-016-AC-4 | ✅ Implemented in PLAT-1572 |
 | TC-066 | An undeclared documentation level leaves clauses unresolved with an explicit dimension diagnostic | Unit | P1 | FR-016-AC-5 | ✅ Implemented in PLAT-1572 |
 | TC-067 | The basic-level RMM marks an enhanced-only recommendation not applicable | Integration | P1 | FR-016-AC-3 | ✅ Implemented in PLAT-1572 |
+| TC-068 | HIPAA source-rights analysis confirms original summaries and excludes paywalled source text | Analysis | P1 | FR-012-AC-6 | 🚧 Planned for PLAT-1613 |
