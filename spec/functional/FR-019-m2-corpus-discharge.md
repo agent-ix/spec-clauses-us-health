@@ -36,8 +36,10 @@ unresolved work and reflect the declared applicability and output mappings.
   master specification.
 - When `documentation_level=basic`, the enhanced-only premarket
   device-software clauses SHALL render as `Not applicable`.
-- If a discharge fact references an evidence file absent from the corpus, the
-  discharge operation SHALL fail and identify the affected clause.
+- The pack-side evidence-reference resolver SHALL reject a discharge fact that
+  references an evidence file absent from the corpus and identify the affected
+  clause. The Quoin discharge CLI is not the component that rejects this
+  missing reference.
 - Repeated rendering with the same corpus inputs and context SHALL produce
   byte-identical Markdown.
 
@@ -48,7 +50,7 @@ unresolved work and reflect the declared applicability and output mappings.
 | FR-019-AC-1 | The M2 RMM lists the Part 11, Part 820, and premarket device-software set identities in byte order, and each `rowCount` equals its corresponding clause matrix row count. | Test |
 | FR-019-AC-2 | Every clause with a corpus artifact is `Compliant`, every clause without one is `Not compliant - undischarged`, and both lists equal the M2 producer mapping table. | Test |
 | FR-019-AC-3 | With `documentation_level=basic`, each enhanced-only premarket device-software clause renders as `Not applicable`. | Test |
-| FR-019-AC-4 | Changing a discharge fact's evidence reference to a missing corpus file makes the discharge operation fail and identify the affected clause. | Test |
+| FR-019-AC-4 | Changing a discharge fact's evidence reference to a missing corpus file makes the pack-side evidence-reference resolver reject the fact and identify the affected clause. | Test |
 | FR-019-AC-5 | Two runs over the same corpus inputs and context produce byte-identical Markdown. | Test |
 
 ## Dependencies
