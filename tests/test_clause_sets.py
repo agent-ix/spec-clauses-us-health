@@ -439,6 +439,7 @@ def test_part_11_manifest_and_source_metadata_match_the_spec():
         "version": "2026-11-12",
     }
 
+
 @pytest.mark.trace("TC-009", "FR-003-AC-2")
 def test_part_11_contains_exactly_the_specified_clause_ids():
     binding = evaluate_clause_set(PACKAGE_ROOT, PART_11_KEY)
@@ -571,13 +572,9 @@ def test_undeclared_applicability_dimensions_and_values_are_rejected(tmp_path):
     value_module = stage_clause_sets(tmp_path / "value", CLAUSES_DIR / PART_11_FILE)
     value_path = value_module / "clauses" / PART_11_FILE
     value_set = json.loads(value_path.read_text())
-    value_set["clauses"][0]["applicability"]["terms"][1]["terms"][1][
-        "value"
-    ] = "maybe"
+    value_set["clauses"][0]["applicability"]["terms"][1]["terms"][1]["value"] = "maybe"
     value_path.write_text(json.dumps(value_set))
-    unknown_value = _part_11_evaluate_error(
-        value_module
-    )
+    unknown_value = _part_11_evaluate_error(value_module)
     assert unknown_value.returncode != 0
 
 
