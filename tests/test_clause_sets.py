@@ -475,9 +475,13 @@ def test_fda_guidance_clause_ids_and_outputs_match_the_specification():
         row[0]: [output.strip("`") for output in row[2].split(", ")]
         for row in _spec_table("FDA Premarket Cybersecurity Guidance Clause Table")
     }
-    clauses = {entry["clauseId"]: entry for entry in json.loads(result.stdout)["clauses"]}
+    clauses = {
+        entry["clauseId"]: entry for entry in json.loads(result.stdout)["clauses"]
+    }
     assert set(clauses) == set(expected)
-    assert {key: clause["expectedOutputs"] for key, clause in clauses.items()} == expected
+    assert {
+        key: clause["expectedOutputs"] for key, clause in clauses.items()
+    } == expected
 
 
 @pytest.mark.trace("TC-039", "FR-009-AC-3")
@@ -486,7 +490,10 @@ def test_fda_guidance_clauses_are_recommended_and_use_declared_outputs():
         item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
     ]
     assert all(clause["force"] == "recommended" for clause in clause_set["clauses"])
-    assert all(clause["title"].strip() and clause["text"].strip() for clause in clause_set["clauses"])
+    assert all(
+        clause["title"].strip() and clause["text"].strip()
+        for clause in clause_set["clauses"]
+    )
     assert all(clause["expectedOutputs"] for clause in clause_set["clauses"])
     assert all(
         set(clause["expectedOutputs"]) <= set(clause_set["outputCatalog"])
@@ -504,7 +511,10 @@ def test_fda_guidance_applicability_uses_only_the_supplied_cyber_device_value():
     assert clause_set["classificationDimensions"] == {
         "cyber_device": {"values": ["yes", "no"]}
     }
-    ids = {row[0] for row in _spec_table("FDA Premarket Cybersecurity Guidance Clause Table")}
+    ids = {
+        row[0]
+        for row in _spec_table("FDA Premarket Cybersecurity Guidance Clause Table")
+    }
     gated_ids = {"VII.C.1", "VII.C.2", "VII.C.3"}
     for value, expected in (("yes", "binding"), ("no", "not_binding")):
         result = _fda_guidance_evaluate(PACKAGE_ROOT, f"cyber_device={value}")
@@ -514,10 +524,7 @@ def test_fda_guidance_applicability_uses_only_the_supplied_cyber_device_value():
         assert {key for key, outcome in outcomes.items() if outcome == expected} == (
             ids if value == "yes" else gated_ids
         )
-        assert all(
-            outcomes[clause_id] == "binding"
-            for clause_id in ids - gated_ids
-        )
+        assert all(outcomes[clause_id] == "binding" for clause_id in ids - gated_ids)
 
     missing = _fda_guidance_evaluate(PACKAGE_ROOT)
     assert missing.returncode == 0, missing.stderr + missing.stdout
@@ -537,15 +544,16 @@ def test_fda_guidance_source_rights_analysis_and_content_are_citation_only():
     clause_path = CLAUSES_DIR / FDA_GUIDANCE_FILE
     raw = clause_path.read_text()
     clause_set = json.loads(raw)
-    analysis = (REPO_ROOT / "reviews" / "plat-1596-source-rights-analysis.md").read_text()
+    analysis = (
+        REPO_ROOT / "reviews" / "plat-1596-source-rights-analysis.md"
+    ).read_text()
     assert clause_set["rights"]["structure"] == "citation_only"
     assert clause_set["rights"]["text"] == "original"
     assert clause_set["rights"]["clearance_ref"] is None
     assert "https://www.fda.gov/media/119933/download" in analysis
     assert "17 U.S.C. 105" in analysis
-    assert (
-        "no fda guidance text or paywalled standard text is reproduced"
-        in " ".join(analysis.lower().split())
+    assert "no fda guidance text or paywalled standard text is reproduced" in " ".join(
+        analysis.lower().split()
     )
     assert not re.search(r"\b(?:ISO|IEC|ANSI|AAMI|IEEE|NEMA|ASTM|UL)\s*[0-9]", raw)
 
