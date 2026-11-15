@@ -90,8 +90,8 @@
     {
       "id": "V.A.5",
       "force": "recommended",
-      "title": "V.A.5 Known vulnerability assessment",
-      "text": "Identify known vulnerabilities in the device and its software components, describe how they were found, and provide their risk assessments and applicable controls.",
+      "title": "V.A.5 Unresolved software anomalies assessment",
+      "text": "Assess unresolved software anomalies that could affect device safety or effectiveness, document their impact and risk, and explain how they are addressed or why they remain open.",
       "subjects": ["medical-devices", "software-components", "premarket-submissions"],
       "obligatedActors": [],
       "approvalRoles": [],

@@ -94,24 +94,6 @@ def _fdca_524b_evaluate_error(module_root: pathlib.Path, *context: str):
     )
 
 
-def _fda_guidance_evaluate(module_root: pathlib.Path, *context: str):
-    return run(
-        engine_tool("quire"),
-        "clauses",
-        "evaluate",
-        "--module",
-        str(module_root),
-        "--authority",
-        "us-fda",
-        "--set",
-        "premarket-cybersecurity",
-        "--version",
-        "2026-02-03",
-        "--json",
-        *[argument for entry in context for argument in ("--context", entry)],
-    )
-
-
 def _clause_outcomes(binding: dict) -> dict[str, str]:
     return {clause["clauseId"]: clause["outcome"] for clause in binding["clauses"]}
 
@@ -458,9 +440,8 @@ def test_fda_guidance_identity_and_source_match_the_current_guidance():
         "identifier": "FDA Guidance for Industry and FDA Staff, issued 2026-02-03",
         "officialUrl": "https://www.fda.gov/media/119933/download",
     }
-    result = _fda_guidance_evaluate(PACKAGE_ROOT)
-    assert result.returncode == 0, result.stderr + result.stdout
-    assert json.loads(result.stdout)["clauseSet"] == {
+    result = evaluate_clause_set(PACKAGE_ROOT, FDA_GUIDANCE_KEY)
+    assert result["clauseSet"] == {
         "authority": "us-fda",
         "id": "premarket-cybersecurity",
         "version": "2026-02-03",
@@ -469,15 +450,12 @@ def test_fda_guidance_identity_and_source_match_the_current_guidance():
 
 @pytest.mark.trace("TC-038", "FR-009-AC-2")
 def test_fda_guidance_clause_ids_and_outputs_match_the_specification():
-    result = _fda_guidance_evaluate(PACKAGE_ROOT)
-    assert result.returncode == 0, result.stderr + result.stdout
+    result = evaluate_clause_set(PACKAGE_ROOT, FDA_GUIDANCE_KEY)
     expected = {
         row[0]: [output.strip("`") for output in row[2].split(", ")]
         for row in _spec_table("FDA Premarket Cybersecurity Guidance Clause Table")
     }
-    clauses = {
-        entry["clauseId"]: entry for entry in json.loads(result.stdout)["clauses"]
-    }
+    clauses = {entry["clauseId"]: entry for entry in result["clauses"]}
     assert set(clauses) == set(expected)
     assert {
         key: clause["expectedOutputs"] for key, clause in clauses.items()
@@ -499,8 +477,8 @@ def test_fda_guidance_clauses_are_recommended_and_use_declared_outputs():
         set(clause["expectedOutputs"]) <= set(clause_set["outputCatalog"])
         for clause in clause_set["clauses"]
     )
-    result = _fda_guidance_evaluate(PACKAGE_ROOT)
-    assert result.returncode == 0, result.stderr + result.stdout
+    result = evaluate_clause_set(PACKAGE_ROOT, FDA_GUIDANCE_KEY)
+    assert result["clauses"]
 
 
 @pytest.mark.trace("TC-040", "FR-009-AC-4")
@@ -517,30 +495,30 @@ def test_fda_guidance_applicability_uses_only_the_supplied_cyber_device_value():
     }
     gated_ids = {"VII.C.1", "VII.C.2", "VII.C.3"}
     for value, expected in (("yes", "binding"), ("no", "not_binding")):
-        result = _fda_guidance_evaluate(PACKAGE_ROOT, f"cyber_device={value}")
-        assert result.returncode == 0, result.stderr + result.stdout
-        outcomes = _clause_outcomes(json.loads(result.stdout))
+        result = evaluate_clause_set(
+            PACKAGE_ROOT, FDA_GUIDANCE_KEY, f"cyber_device={value}"
+        )
+        outcomes = _clause_outcomes(result)
         assert set(outcomes) == ids
         assert {key for key, outcome in outcomes.items() if outcome == expected} == (
             ids if value == "yes" else gated_ids
         )
         assert all(outcomes[clause_id] == "binding" for clause_id in ids - gated_ids)
 
-    missing = _fda_guidance_evaluate(PACKAGE_ROOT)
-    assert missing.returncode == 0, missing.stderr + missing.stdout
-    missing_outcomes = _clause_outcomes(json.loads(missing.stdout))
+    missing = evaluate_clause_set(PACKAGE_ROOT, FDA_GUIDANCE_KEY)
+    missing_outcomes = _clause_outcomes(missing)
     assert {missing_outcomes[key] for key in gated_ids} == {"unresolved"}
     assert all(missing_outcomes[key] == "binding" for key in ids - gated_ids)
 
-    unrelated = _fda_guidance_evaluate(PACKAGE_ROOT, "product_has_network=yes")
-    assert unrelated.returncode == 0, unrelated.stderr + unrelated.stdout
-    unrelated_outcomes = _clause_outcomes(json.loads(unrelated.stdout))
+    unrelated = evaluate_clause_set(
+        PACKAGE_ROOT, FDA_GUIDANCE_KEY, "product_has_network=yes"
+    )
+    unrelated_outcomes = _clause_outcomes(unrelated)
     assert {unrelated_outcomes[key] for key in gated_ids} == {"unresolved"}
     assert all(unrelated_outcomes[key] == "binding" for key in ids - gated_ids)
 
 
-@pytest.mark.trace("TC-041", "FR-009-AC-5", "NFR-001-AC-4")
-def test_fda_guidance_source_rights_analysis_and_content_are_citation_only():
+def test_fda_guidance_rights_metadata_and_wording_are_citation_only():
     clause_path = CLAUSES_DIR / FDA_GUIDANCE_FILE
     raw = clause_path.read_text()
     clause_set = json.loads(raw)
@@ -556,6 +534,47 @@ def test_fda_guidance_source_rights_analysis_and_content_are_citation_only():
         analysis.lower().split()
     )
     assert not re.search(r"\b(?:ISO|IEC|ANSI|AAMI|IEEE|NEMA|ASTM|UL)\s*[0-9]", raw)
+
+
+@pytest.mark.trace("TC-047", "FR-009-AC-2")
+def test_fda_guidance_v_a_5_covers_unresolved_anomalies():
+    """Keep V.A.5 mapped to the FDA's unresolved-anomalies section.
+
+    Assumptions: The current FDA guidance table is the source for the set.
+    Criteria: V.A.5 describes unresolved software anomalies, not known
+    vulnerabilities.
+    """
+    (clause_set,) = [
+        item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
+    ]
+    clause = next(item for item in clause_set["clauses"] if item["id"] == "V.A.5")
+    assert "anomal" in clause["title"].lower()
+    assert "anomal" in clause["text"].lower()
+    assert "vulnerabilit" not in clause["title"].lower()
+    assert "known vulnerabilit" not in clause["text"].lower()
+
+
+@pytest.mark.trace("TC-048", "FR-010-AC-2")
+def test_fda_guidance_output_definitions_match_the_canonical_catalog():
+    """Use canonical catalog entries for each output declared by the FDA set.
+
+    Assumptions: The master output catalog is the canonical source.
+    Criteria: The clause set carries exactly the canonical definitions for its
+    referenced outputs.
+    """
+    (clause_set,) = [
+        item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
+    ]
+    catalog = {
+        name: {"kind": kind, "description": description}
+        for name, kind, description in _spec_table("US Health-Law Output Catalog")
+    }
+    used_names = {
+        name for clause in clause_set["clauses"] for name in clause["expectedOutputs"]
+    }
+    assert clause_set["outputCatalog"] == {
+        name: catalog[name] for name in sorted(used_names)
+    }
 
 
 @pytest.mark.trace("TC-042", "FR-009-AC-6")
