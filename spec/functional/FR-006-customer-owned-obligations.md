@@ -32,7 +32,7 @@ the engine accepts for other callers.
 | ID | Criteria | Verification |
 |----|----------|--------------|
 | FR-006-AC-1 | Every clause whose expected outputs are all kind `procedure` appears in the customer-owned table; the M1 IDs are 11.10(i), 11.10(j), 11.300(b), and 11.300(c). | Test |
-| FR-006-AC-2 | The reference-corpus facts for every discharged customer-owned clause use decision `delegated`, a non-empty rationale, and an `approvalRef` that resolves to a synthetic customer-acceptance record naming a person. The CLI records and the RMM preserves that disposition and reference. | Test |
+| FR-006-AC-2 | For every discharged customer-owned clause, the reference-corpus fact has decision `delegated`, a non-empty rationale, and an `approvalRef` that resolves to a synthetic customer-acceptance record naming a person. `quoin evidence record-discharge` records that fact, and the RMM preserves the delegated decision, rationale, and `approvalRef`. | Test |
 | FR-006-AC-3 | The reference-corpus facts contain no `direct` fact or evidence reference claiming a procedure was produced by the toolchain for a customer-owned clause. | Test |
 
 ## Dependencies
