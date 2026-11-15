@@ -28,64 +28,6 @@ from conftest import (
     stage_clause_sets,
 )
 
-US_OUTPUT_CATALOG = {
-    "audit-trail": (
-        "record",
-        "Git history and signed-approval history produced by the "
-        "`approval-trail` capability for the record.",
-    ),
-    "signed-record": (
-        "record",
-        "Signed commits and tags verified by the `signature-verify` capability.",
-    ),
-    "signer-registry": (
-        "record",
-        "Allowed-signers mapping from signing key to named person, read by the "
-        "`approval-trail` capability.",
-    ),
-    "signature-meaning": (
-        "record",
-        "The `Signed-off-meaning:` trailer verified by the `approval-verify` "
-        "capability.",
-    ),
-    "fda-certification-record": (
-        "record",
-        "Evidence that the electronic-signature certification was submitted to FDA.",
-    ),
-    "approval-trail": (
-        "record",
-        "Signed approval history for a record produced by the `approval-trail` "
-        "capability.",
-    ),
-    "access-control": ("record", "Repository permission and branch-rule settings."),
-    "system-validation": (
-        "record",
-        "Validation evidence for the toolchain's intended use.",
-    ),
-    "written-procedure": ("procedure", "Customer-owned written procedure."),
-    "training-record": ("procedure", "Customer-owned training record."),
-    "risk-management-records": (
-        "record",
-        "`spec-objects-safety` hazard, harm, risk-estimate, and residual-risk records.",
-    ),
-    "software-requirements": (
-        "record",
-        "Functional and non-functional requirements (FR/NFR).",
-    ),
-    "software-architecture": (
-        "record",
-        "`spec-objects-architecture` parts and connections.",
-    ),
-    "verification-records": ("record", "Test matrix and retained evidence."),
-    "soup-list": ("record", "Software of unknown provenance (SOUP) report."),
-    "security-risk-records": (
-        "record",
-        "`spec-objects-security` threat, risk, and control records.",
-    ),
-    "anomaly-list": ("record", "Unresolved-anomaly report."),
-    "release-record": ("record", "Engineering-assurance release decision."),
-}
-
 PART_11_FILE = "us-fda-21-cfr-11-2026-11-12.json"
 PART_11_KEY = "us-fda/21-cfr-11@2026-11-12"
 
@@ -229,38 +171,35 @@ def test_publish_check_rejects_a_licensed_synthetic_set(tmp_path):
 
 
 @pytest.mark.trace("TC-018", "FR-005-AC-1")
-def test_us_output_catalog_matches_the_spec_and_m1_prefix():
-    assert len(US_OUTPUT_CATALOG) == 18
-    assert list(US_OUTPUT_CATALOG)[:10] == [
-        "audit-trail",
-        "signed-record",
-        "signer-registry",
-        "signature-meaning",
-        "fda-certification-record",
-        "approval-trail",
-        "access-control",
-        "system-validation",
-        "written-procedure",
-        "training-record",
-    ]
-    actual = {
-        name: (kind, description)
-        for name, kind, description in _spec_table("US Health-Law Output Catalog")
-    }
-    assert actual == US_OUTPUT_CATALOG
-    (clause_set,) = load_clause_sets()
-    used_names = {
-        output
-        for clause in clause_set["clauses"]
-        for output in clause["expectedOutputs"]
-    }
-    canonical = {
+def test_us_clause_set_output_catalog_matches_the_spec():
+    catalog = {
         name: {"kind": kind, "description": description}
         for name, kind, description in _spec_table("US Health-Law Output Catalog")
     }
-    assert clause_set["outputCatalog"] == {
-        name: canonical[name] for name in sorted(used_names)
-    }
+    m1_names = list(
+        dict.fromkeys(
+            output.strip("`")
+            for row in _spec_table("Part 11 Clause Table")
+            for output in row[2].split(", ")
+        )
+    )
+    assert len(catalog) == 18
+    assert list(catalog)[: len(m1_names)] == m1_names
+
+    for clause_set in load_clause_sets():
+        used_names = {
+            output
+            for clause in clause_set["clauses"]
+            for output in clause["expectedOutputs"]
+        }
+        undeclared = sorted(used_names - catalog.keys())
+        assert not undeclared, (
+            f"{clause_set_key(clause_set)} references outputs absent from the "
+            f"normative catalog: {undeclared!r}"
+        )
+        assert clause_set["outputCatalog"] == {
+            name: catalog[name] for name in sorted(used_names)
+        }, f"{clause_set_key(clause_set)} output catalog differs from the spec"
 
 
 @pytest.mark.trace("TC-019", "FR-005-AC-2")
@@ -303,6 +242,7 @@ def test_no_pack_level_output_catalog_is_declared():
     assert "outputCatalog" not in manifest
 
 
+@pytest.mark.trace("TC-019", "FR-005-AC-2")
 def test_all_declared_sets_load_and_match_one_catalog():
     clause_sets = load_clause_sets()
     assert all(clause_set_key(item) for item in clause_sets)
