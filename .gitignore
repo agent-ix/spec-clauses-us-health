@@ -9,5 +9,6 @@ build/
 *.egg-info/
 node_modules/
 *.tgz
+.npm-stage-backup/
 target/
 *-target/

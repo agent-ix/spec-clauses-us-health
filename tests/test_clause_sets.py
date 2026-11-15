@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 import os
 import pathlib
+import shutil
 import subprocess
 import tarfile
 import tempfile
@@ -276,3 +277,42 @@ def test_clause_files_ship_in_wheel_and_npm_tarball():
         assert f"package/{relative}" in npm_files
     assert not (REPO_ROOT / "manifest.yaml").exists(), "postpack left staged files"
     assert not (REPO_ROOT / "clauses").exists(), "postpack left staged clauses"
+
+
+def test_npm_pack_restores_preexisting_staging_paths(tmp_path):
+    package = tmp_path / "package"
+    package.mkdir()
+    shutil.copy(REPO_ROOT / "package.json", package / "package.json")
+    shutil.copy(REPO_ROOT / "README.md", package / "README.md")
+    shutil.copy(REPO_ROOT / "LICENSE", package / "LICENSE")
+    shutil.copytree(REPO_ROOT / "scripts", package / "scripts")
+    shutil.copytree(PACKAGE_ROOT, package / PACKAGE_ROOT.name)
+
+    original_manifest = b"previous module manifest\n\x00\xff"
+    (package / "manifest.yaml").write_bytes(original_manifest)
+    clauses = package / "clauses"
+    (clauses / "nested").mkdir(parents=True)
+    original_files = {
+        "first.json": b"first clause bytes\x00",
+        "nested/second.json": b"second clause bytes\xff",
+    }
+    for relative_path, contents in original_files.items():
+        (clauses / relative_path).write_bytes(contents)
+
+    packed = subprocess.run(
+        ["npm", "pack", "--pack-destination", str(tmp_path)],
+        cwd=package,
+        capture_output=True,
+        text=True,
+        env={**os.environ, "npm_config_registry": "https://registry.npmjs.org/"},
+    )
+    assert packed.returncode == 0, packed.stderr
+    assert (package / "manifest.yaml").read_bytes() == original_manifest
+    restored = {
+        path.relative_to(clauses).as_posix(): path.read_bytes()
+        for path in clauses.rglob("*")
+        if path.is_file()
+    }
+    assert restored == original_files
+    assert (clauses / "nested").is_dir()
+    assert not (package / ".npm-stage-backup").exists()
