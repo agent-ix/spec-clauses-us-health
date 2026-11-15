@@ -8,12 +8,11 @@ type: FR
 ## Description
 
 The output catalog in `spec/spec.md` is the local convention for every US set
-in this repository. M4 adds `audit-logging`, `security-controls`, and
-`health-data-flows` to the existing 25 catalog entries. Because the engine
-stores an output catalog per set, each US set declares its used subset with the
-catalog's exact kind and description. The same names are offered to the EU pack
-for reuse, but cross-repository consistency is outside this requirement's
-enforceable scope.
+in this repository, including the M2 Part 820 and premarket device-software
+sets. Because the engine stores an output catalog per set, each US set declares
+its used subset with the catalog's exact kind and description. The same names
+are offered to the EU pack for reuse, but cross-repository consistency is
+outside this requirement's enforceable scope.
 
 ## Behavior
 
@@ -26,11 +25,11 @@ enforceable scope.
 
 | ID | Criteria | Verification |
 |----|----------|--------------|
-| FR-005-AC-1 | A catalog test finds exactly the 28 names listed in `spec/spec.md`, with the stated kind and description; it confirms that the first ten entries are the M1 catalog entries. | Test |
+| FR-005-AC-1 | A catalog test finds exactly the 38 names listed in `spec/spec.md`, with the stated kind and description; it confirms that the first ten entries are the M1 catalog entries. | Test |
 | FR-005-AC-2 | A test over every US set in this repository fails when two declarations of one output name differ in kind or description. | Test |
 | FR-005-AC-3 | A fixture US set that reuses a catalog name with its declared kind and description passes the catalog test. | Test |
 | FR-005-AC-4 | The module schema defines no pack-level output catalog field. | Test |
 
 ## Dependencies
 
-- Defines the catalog for later US sets; the EU pack may adopt the same names in its own specification.
+- Defines the catalog for later US sets, including M2; the EU pack may adopt the same names in its own specification.

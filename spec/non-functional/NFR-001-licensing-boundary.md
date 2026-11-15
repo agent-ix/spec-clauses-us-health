@@ -44,9 +44,11 @@ paraphrases protected expression and would inspect distribution files.
 | ID | Criteria | Verification |
 |----|----------|--------------|
 | NFR-001-AC-1 | Every published set declares `rights.text: original`, a non-blank public-source licence basis, and passes `quire publish-check`. | Test |
-| NFR-001-AC-2 | Every set's source metadata identifies its public legal or FDA source; Part 11 identifies the eCFR page, and the cybersecurity sets identify the US Code and current FDA guidance. | Test |
+| NFR-001-AC-2 | Every set's source metadata identifies its public legal or FDA source; Part 11 and the Part 820 set identify their eCFR pages, and each FDA guidance set identifies its official FDA guidance page. | Test |
 | NFR-001-AC-3 | Clause summaries use original expression and do not reproduce or paraphrase a paywalled standard; the verification record cites only the public source and rights basis. | Analysis |
-| NFR-001-AC-4 | The 524B and FDA guidance sets contain no name, number, or paraphrase of a paywalled consensus standard referenced by the FDA guidance. | Analysis |
+| NFR-001-AC-4 | The 524B and FDA cybersecurity guidance sets contain no name, number, or paraphrase of a paywalled consensus standard referenced by the guidance. | Analysis |
+| NFR-001-AC-5 | The Part 820 set contains no paraphrase of an incorporated requirement; the clause table identifies each IBR boundary, and set text does not name or restate the incorporated standard. | Analysis |
+| NFR-001-AC-6 | The June 2023 FDA device-software guidance set contains no name, number, or paraphrase of a consensus standard cited by the guidance; a declaration of conformity remains generic and names none. | Analysis |
 
 ## Dependencies
 
