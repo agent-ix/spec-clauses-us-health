@@ -245,7 +245,6 @@ def test_all_declared_sets_load_and_match_one_catalog():
     assert_output_catalog_consistent(clause_sets)
 
 
-@pytest.mark.trace("TC-182")
 def test_clause_files_ship_in_wheel_and_npm_tarball():
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
     shipped = [PACKAGE_ROOT / item for item in manifest["clause_sets"]]
