@@ -342,24 +342,23 @@ NIST mapping are authored in PLAT-1613 and PLAT-1616 respectively.
 
 ### NIST SP 800-66 Rev. 2 Crosswalk Plan
 
-The crosswalk source is NIST's CPRT dataset `SP800_66_2_0_0`, which includes
-the SP 800-66 Rev. 2 relationships to SP 800-53 Rev. 5.1.1. PLAT-1616 SHALL
-record source clause identifiers, CPRT source element identifiers, target
-control identifiers in `nist/sp800-53@5.2.0`, and any target normalization
-needed because the target catalog is 5.2.0. The crosswalk SHALL include at
-least one verified target control for each of the five standards (§§ 164.308,
-164.310, 164.312, 164.314(a), and 164.316), retain the CPRT relationship
-direction and source, and mark unmapped clauses explicitly rather than infer a
-match from similar wording. PLAT-1616 owns mapping contents; this specification
-sets the source, target, verification steps, and per-standard coverage floor.
+The crosswalk source is NIST CPRT's published SP 800-66 Rev. 2 to SP 800-53
+Rev. 5.1.1 workbook, framework identifier `SP800-66R2-800-53R5.1.1`, version
+`1.0.0`. The exact source-element-to-target pair table and one-based workbook
+row locators are normative in [FR-013](./functional/FR-013-hipaa-nist-crosswalk-source-and-target.md). The workbook does not expose CPRT internal relationship IDs. Its row locator, source element, target, workbook identity, and retained focal-to-reference direction identify each published relationship without inventing an ID. PLAT-1616 SHALL verify target control identifiers in the
+installed `nist/sp800-53@5.2.0` catalog and record any source-to-target
+normalization. The crosswalk SHALL include at least one verified target for
+each of §§ 164.308, 164.310, 164.312, 164.314(a), and 164.316, and SHALL mark
+unmapped source clauses explicitly rather than infer a match from similar
+wording.
 
 | Security Rule standard | Source in the crosswalk | Target version | Minimum coverage |
 |---|---|---|---|
-| `164.308` Administrative safeguards | NIST CPRT `SP800_66_2_0_0`, Security Rule elements and relationships | `nist/sp800-53@5.2.0` | At least one CPRT-backed target for each standard; preserve source element and relationship IDs |
-| `164.310` Physical safeguards | NIST CPRT `SP800_66_2_0_0` | `nist/sp800-53@5.2.0` | Same; list clauses with no CPRT mapping as unmapped |
-| `164.312` Technical safeguards | NIST CPRT `SP800_66_2_0_0` | `nist/sp800-53@5.2.0` | Same; verify each target exists in the pinned target catalog |
-| `164.314(a)` Organizational requirements | NIST CPRT `SP800_66_2_0_0` | `nist/sp800-53@5.2.0` | Same; do not extend mapping to excluded § 164.314(b) |
-| `164.316` Policies and procedures and documentation requirements | NIST CPRT `SP800_66_2_0_0` | `nist/sp800-53@5.2.0` | Same; retain exact source relationship provenance |
+| `164.308` Administrative safeguards | NIST CPRT published SP 800-66 Rev. 2 to SP 800-53 Rev. 5.1.1 workbook; exact pairs and row locators in FR-013 | `nist/sp800-53@5.2.0` | At least one source-backed target for each standard; retain worksheet/row provenance and source direction |
+| `164.310` Physical safeguards | Same workbook and FR-013 pair table | `nist/sp800-53@5.2.0` | Same; list source elements with no relationship as unmapped |
+| `164.312` Technical safeguards | Same workbook and FR-013 pair table | `nist/sp800-53@5.2.0` | Same; verify each target exists in the installed target catalog |
+| `164.314(a)` Organizational requirements | Same workbook and FR-013 pair table | `nist/sp800-53@5.2.0` | Same; do not extend mapping to excluded § 164.314(b) |
+| `164.316` Policies and procedures and documentation requirements | Same workbook and FR-013 pair table | `nist/sp800-53@5.2.0` | Same; retain exact workbook row provenance and source direction |
 
 ### M2 Part 820 Quality Management System Regulation Clause Table
 
