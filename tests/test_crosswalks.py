@@ -485,13 +485,15 @@ def test_hipaa_crosswalks_match_the_exact_public_cprt_workbook_rows() -> None:
         assert not NIST_DESIGNATOR.search(crosswalk["rationale"])
         if expected_relation == "informative":
             assert crosswalk["rationale"] == (
-                "SP 800-66 Rev. 2 lists this control as related to the cited HIPAA "
-                "element; this is an informative reference, not an implementation claim."
+                "SP 800-66 Rev. 2 lists this control as related to the cited "
+                "HIPAA element; this is an informative reference, not an "
+                "implementation claim."
             )
         else:
             assert crosswalk["rationale"] == (
                 "SP 800-66 Rev. 2 maps this control to the cited HIPAA element; "
-                "this indicates partial correspondence, not full coverage or equivalence."
+                "this indicates partial correspondence, not full coverage or "
+                "equivalence."
             )
     assert not clause_set.get(
         "crosswalks"
