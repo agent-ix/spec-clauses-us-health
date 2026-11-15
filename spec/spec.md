@@ -16,13 +16,12 @@ security_critical: false
 ## Purpose
 
 This specification defines the shared module and content conventions for the US
-Health-Law Compliance Pack. Its sets describe obligations in 21 CFR Part 11,
-45 CFR Part 164 Subpart C, section 524B of the FD&C Act, and current FDA
-premarket cybersecurity guidance as original, concise clause summaries linked
-to their public sources. The pack lets a project record evidence or a
-customer-owned disposition against each applicable clause and produce a
-requirements mapping matrix (RMM). It does not determine whether a customer is
-legally compliant.
+Health-Law Compliance Pack. Its sets describe obligations in 21 CFR Parts 11
+and 820, 45 CFR Part 164 Subpart C, section 524B of the FD&C Act, and FDA
+premarket guidance as original, concise clause summaries linked to public
+sources. The pack lets a project record evidence or a customer-owned disposition
+against each applicable clause and produce a requirements mapping matrix (RMM).
+It does not determine whether a customer is legally compliant.
 
 ## Scope
 
@@ -30,17 +29,19 @@ legally compliant.
 
 - Repository `agent-ix/spec-clauses-us-health`, Python package
   `spec_clauses_us_health`, and one quire module named by its package manifest.
-- The Part 11 and HIPAA Security Rule set identities, rights metadata, sources,
-  clause identifiers, force, classification dimensions, applicability
-  expressions, and expected outputs.
-- The section 524B and current FDA cybersecurity guidance set identities,
-  rights metadata, clause tables, applicability, expected outputs, and
-  crosswalk conventions.
+- The Part 11, Part 820, and HIPAA Security Rule set identities, rights
+  metadata, sources, clause identifiers, force, classification dimensions,
+  applicability expressions, and expected outputs.
+- The section 524B, FDA cybersecurity, and FDA device-software guidance set
+  identities, rights metadata, clause tables, applicability, expected outputs,
+  and crosswalk conventions.
 - A stable output catalog for all US Health-Law sets in this repository; the
   EU pack may adopt the names in its own specification.
 - Customer-owned obligations, the synthetic discharge corpus, and module
   packaging and CI boundaries.
 - Public source attribution and the rule against reproducing paywalled standards.
+- The Part 820 Quality Management System Regulation and FDA's June 2023
+  premarket device-software guidance, with original clause summaries.
 
 ### Out of Scope
 
@@ -49,8 +50,8 @@ legally compliant.
   implementation tickets.
 - Legal interpretation, legal advice, certification, or a claim that use of this
   pack establishes regulatory compliance.
-- Other US authorities and regulations, including 21 CFR Part 820; these
-  belong to later milestones.
+- Other US authorities and regulations not expressly named in the M1, M2, M3,
+  M4, or cybersecurity milestones; these belong to later milestones.
 - HIPAA Security Rule § 164.314(b), which applies specifically to group health
   plans and is outside the covered-entity/business-associate roles modeled here.
 - Licensed packs, text incorporated by reference, and any engine change.
@@ -64,6 +65,11 @@ M1 set is `us-fda/21-cfr-11@2026-11-12`; the M4 set is
 `us-hhs/45-cfr-164-subpart-c@2026-11-12`. Each version is the eCFR “up to date
 as of” date read for that snapshot. A later eCFR snapshot is a new set version,
 compared with `quire clauses diff`.
+
+The M2 sets are `us-fda/21-cfr-820@2026-11-12` and
+`us-fda/premarket-device-software@2023-06-14`. Their clause IDs and outputs
+are defined in the M2 tables below. The pack does not determine regulatory
+scope or infer product-specific applicability decisions.
 
 Each set carries `rights.structure: citation_only`, `rights.text: original`,
 `rights.clearance_ref: null`, plus an informational public-source
@@ -342,6 +348,90 @@ sets the source, target, verification steps, and per-standard coverage floor.
 | `164.314(a)` Organizational requirements | NIST CPRT `SP800_66_2_0_0` | `nist/sp800-53@5.2.0` | Same; do not extend mapping to excluded § 164.314(b) |
 | `164.316` Policies and procedures and documentation requirements | NIST CPRT `SP800_66_2_0_0` | `nist/sp800-53@5.2.0` | Same; retain exact source relationship provenance |
 
+### M2 Part 820 Quality Management System Regulation Clause Table
+
+The M2 Part 820 set is `us-fda/21-cfr-820@2026-11-12`, sourced from the eCFR
+snapshot for Title 21 up to date as of 2026-11-12. Only sections imposing an
+actionable manufacturer obligation are clauses. §§ 820.1, 820.3, and 820.7
+provide scope, definitions, and incorporation-by-reference information; §
+820.5 and §§ 820.20–820.30 are reserved. None is a clause. Clause summaries
+use original concise wording and do not restate incorporated requirements.
+
+All clauses have force `mandatory`. Applicability dimensions are human-supplied
+facts. The evaluator does not infer whether a statutory condition applies to a
+device or manufacturer. A missing dimension leaves that dependent clause
+unresolved; `not_applicable` leaves it not binding.
+
+| Clause ID | Applicability | Expected outputs | IBR relationship in source |
+|---|---|---|---|
+| `820.10(a)` | unconditional | `software-requirements`, `release-record` | yes |
+| `820.10(b)(1)` | unconditional | `device-identification-record` | yes |
+| `820.10(b)(2)` | `eq qmsr_traceability_applicability applies` | `written-procedure`, `traceability-records` | yes |
+| `820.10(b)(3)` | unconditional | `complaint-records`, `regulatory-report-records` | yes |
+| `820.10(b)(4)` | `eq qmsr_advisory_notice_applicability applies` | `written-procedure`, `advisory-notice-records` | yes |
+| `820.10(c)` | `eq qmsr_design_development_applicability applies` | `software-requirements`, `software-architecture`, `verification-records`, `risk-management-records` | yes |
+| `820.10(d)` | `eq qmsr_life_support_applicability applies` | `traceability-records` | yes |
+| `820.35(a)` | unconditional | `complaint-records` | yes |
+| `820.35(b)` | `eq qmsr_servicing_applicability applies` | `service-records` | yes |
+| `820.35(c)` | unconditional | `device-identification-record` | yes |
+| `820.45(a)` | unconditional | `written-procedure`, `labeling-inspection-records` | yes |
+| `820.45(b)` | unconditional | `release-record` | yes |
+| `820.45(c)` | unconditional | `written-procedure`, `labeling-inspection-records` | yes |
+
+The dimension declarations are `qmsr_traceability_applicability`,
+`qmsr_advisory_notice_applicability`,
+`qmsr_design_development_applicability`, `qmsr_life_support_applicability`,
+and `qmsr_servicing_applicability`; each has unordered values `applies` and
+`not_applicable`. A person selects each value. In particular, the class and
+device-category conditions in § 820.10(c) are not inferred from a `device_class`
+value. The table records every clause identifier, applicability condition,
+output, and incorporated-by-reference boundary required by PLAT-1569.
+
+### M2 FDA Premarket Device-Software Guidance Clause Table
+
+The M2 premarket set is `us-fda/premarket-device-software@2023-06-14`, sourced
+from FDA's *Content of Premarket Submissions for Device Software Functions*
+guidance issued June 14, 2023. The guidance is nonbinding and the set's clauses
+have force `recommended`. IDs refer to Sections VI.A–VI.J. Clause content uses
+original summaries; consensus standards are unnamed and are not represented as
+clause sources.
+
+`documentation_level` is an ordered dimension `[[basic], [enhanced]]` selected
+by a person. `at_least documentation_level basic` binds a baseline row at either
+level. `at_least documentation_level enhanced` binds only at the enhanced
+level. A missing value leaves every row unresolved. No set logic selects or
+infers a documentation level.
+
+| Clause ID | Documentation level | Applicability | Expected outputs |
+|---|---|---|---|
+| `VI.A` | basic and enhanced | `at_least documentation_level basic` | `risk-management-records` |
+| `VI.B` | basic and enhanced | `at_least documentation_level basic` | `software-description` |
+| `VI.C` | basic and enhanced | `at_least documentation_level basic` | `risk-management-records` |
+| `VI.D` | basic and enhanced | `at_least documentation_level basic` | `software-requirements` |
+| `VI.E` | basic and enhanced | `at_least documentation_level basic` | `software-architecture` |
+| `VI.F.enhanced` | enhanced | `at_least documentation_level enhanced` | `software-design` |
+| `VI.G` | basic and enhanced | `at_least documentation_level basic` | `written-procedure` |
+| `VI.G.enhanced` | enhanced | `at_least documentation_level enhanced` | `configuration-management-plan` |
+| `VI.H` | basic and enhanced | `at_least documentation_level basic` | `verification-records` |
+| `VI.H.enhanced` | enhanced | `at_least documentation_level enhanced` | `verification-records` |
+| `VI.I` | basic and enhanced | `at_least documentation_level basic` | `release-record` |
+| `VI.J` | basic and enhanced | `at_least documentation_level basic` | `anomaly-list` |
+
+These are the complete Section VI clause identifiers for PLAT-1572. The §
+VI.F software-design specification is an enhanced-only submission clause; the
+basic-level treatment is not a premarket-submission recommendation. Enhanced
+§ VI.G and VI.H rows state only the added documentation beyond their baseline
+rows. The table is the normative source for ids, force, level, and output names.
+
+### M2 Guidance-to-Part-820 Crosswalk Rule
+
+PLAT-1582 owns authored crosswalk rows. Each guidance clause in the M2
+premarket table SHALL crosswalk to at least one Part 820 clause in the M2
+Part 820 table. Each row records a relation and an original rationale. A
+crosswalk is an informative mapping and SHALL NOT claim legal equivalence.
+Targets not present in the Part 820 table are invalid. No mapping is inferred
+from similar wording.
+
 ### US Health-Law Output Catalog
 
 Every US set in this repository declares only the outputs it uses. When an
@@ -380,6 +470,16 @@ does not claim cross-repository enforcement.
 | `cybersecurity-test-results` | `record` | Results of security-focused testing against the device and its controls; owner: PLAT-1638. |
 | `vulnerability-management-plan` | `record` | Plan and procedures for monitoring, identifying, and addressing postmarket vulnerabilities; owner: PLAT-1656. |
 | `sbom` | `record` | SBOM records with component support status and end-of-support dates, from `quoin evidence record --adapter sbom` and `quoin soup report` (PLAT-1517/PLAT-1518). |
+| `device-identification-record` | `record` | Customer device identity and UDI assignment records. |
+| `traceability-records` | `record` | Customer traceability procedures and device or batch traceability records. |
+| `complaint-records` | `record` | Customer complaint intake, evaluation, investigation, and response records. |
+| `regulatory-report-records` | `record` | Customer records of reports to regulatory authorities. |
+| `advisory-notice-records` | `record` | Customer records of advisory notices and related actions. |
+| `service-records` | `record` | Customer records of device servicing activities. |
+| `labeling-inspection-records` | `record` | Customer records of labeling and packaging inspection and release checks. |
+| `software-description` | `document` | Customer description of device software functions, inputs, outputs, and platforms. |
+| `software-design` | `document` | Customer software design specification. |
+| `configuration-management-plan` | `document` | Customer configuration-management and maintenance plan. |
 
 ### Customer-Owned Obligations
 
@@ -416,8 +516,8 @@ sets `pack: false` when installed.
 ## Requirements Architecture
 
 The functional requirements define the module boundary, truthful rights,
-Part 11 and HIPAA Security Rule identifiers and outputs, section 524B and FDA
-guidance sets, applicability, the shared output catalog and crosswalks,
+Part 11, Part 820, FDA guidance, section 524B, and HIPAA Security Rule
+identifiers and outputs, applicability, the shared output catalog and crosswalks,
 customer-owned discharge, and the reference corpus. NFR-001 constrains the
 licensing boundary for every published file. The module uses existing
 `clause-set-v1`, `clause_sets`, clause evaluation, publication checking, and
@@ -447,6 +547,10 @@ discharge/RMM commands; no engine changes are in scope.
   Considerations and Content of Premarket Submissions*, issued February 3,
   2026: <https://www.fda.gov/media/119933/download>. This edition supersedes
   the June 27, 2025 final guidance.
+- Electronic Code of Federal Regulations, 21 CFR Part 820, Title 21 up to date
+  as of 2026-11-12: <https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820>.
+- FDA, *Content of Premarket Submissions for Device Software Functions*,
+  issued June 14, 2023: <https://www.fda.gov/regulatory-information/search-fda-guidance-documents/content-premarket-submissions-device-software-functions>.
 - Electronic Code of Federal Regulations, 45 CFR Part 164 Subpart C, Title 45
   up to date as of 2026-11-12:
   <https://www.ecfr.gov/on/2026-11-12/title-45/subtitle-A/subchapter-C/part-164/subpart-C>.
