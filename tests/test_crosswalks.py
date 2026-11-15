@@ -401,7 +401,7 @@ def test_hipaa_crosswalks_match_the_exact_public_cprt_workbook_rows() -> None:
         NIST-focal to HIPAA-reference direction.
     """
     clause_set = _hipaa_clause_set()
-    crosswalks = clause_set.get("crosswalks", [])
+    crosswalks = clause_set.get("cprtCrosswalks", [])
     expected = _hipaa_expected_rows()
     actual = [_hipaa_crosswalk_row(item) for item in crosswalks]
 
@@ -429,7 +429,7 @@ def test_hipaa_crosswalks_match_the_exact_public_cprt_workbook_rows() -> None:
 @pytest.mark.trace("FR-013-AC-2", "TC-058")
 def test_hipaa_cprt_crosswalks_cover_only_the_included_security_standards() -> None:
     """Check source-standard coverage and the excluded business-associate clause."""
-    crosswalks = _hipaa_clause_set().get("crosswalks", [])
+    crosswalks = _hipaa_clause_set().get("cprtCrosswalks", [])
     covered_standards = set()
     for crosswalk in crosswalks:
         source = crosswalk["sourceClause"]
@@ -455,7 +455,7 @@ def test_hipaa_cprt_crosswalks_cover_only_the_included_security_standards() -> N
 def test_hipaa_unmapped_clauses_targets_and_normalizations_are_explicit() -> None:
     """Reject inferred mappings, absent targets, and unrecorded normalization."""
     clause_set = _hipaa_clause_set()
-    crosswalks = clause_set.get("crosswalks", [])
+    crosswalks = clause_set.get("cprtCrosswalks", [])
     unmapped = clause_set.get("unmappedSourceClauses", [])
     expected_unmapped = _hipaa_expected_unmapped()
     hipaa_clause_ids = {clause["id"] for clause in clause_set["clauses"]}

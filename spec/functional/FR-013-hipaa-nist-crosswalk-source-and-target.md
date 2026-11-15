@@ -32,6 +32,10 @@ well-defined.
   5.2.0 target catalog;
   any target normalization from CPRT's 5.1.1 control identifier SHALL be
   recorded with its reason and source evidence.
+- Because some CPRT reference elements are parent-level identifiers rather
+  than clause IDs in this clause set, the module SHALL store these source
+  relationships as `cprtCrosswalks`; it SHALL NOT add synthetic clauses or map
+  parent-level source elements to child clauses.
 - The crosswalk SHALL include at least one CPRT-backed, verified target
   control for each included standard: §§ 164.308, 164.310, 164.312, 164.314(a),
   and 164.316. It SHALL NOT include § 164.314(b).
