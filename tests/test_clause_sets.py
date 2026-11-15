@@ -35,6 +35,8 @@ FDCA_524B_FILE = "us-congress-fdca-524b-2026-10-15.json"
 FDCA_524B_KEY = "us-congress/fdca-524b@2026-10-15"
 FDA_GUIDANCE_FILE = "us-fda-premarket-cybersecurity-2026-02-03.json"
 FDA_GUIDANCE_KEY = "us-fda/premarket-cybersecurity@2026-02-03"
+HIPAA_FILE = "us-hhs-45-cfr-164-subpart-c-2026-11-12.json"
+HIPAA_KEY = "us-hhs/45-cfr-164-subpart-c@2026-11-12"
 
 
 def _part_11_outcomes(binding: dict) -> dict[str, str]:
@@ -46,7 +48,7 @@ def _spec_table(section_title: str) -> list[list[str]]:
     section = spec.split(f"### {section_title}", 1)[1].split("### ", 1)[0]
     rows = []
     for line in section.splitlines():
-        if line.strip().startswith("| `") and line.count("|") == 4:
+        if line.strip().startswith("| `") and line.count("|") >= 4:
             cells = [cell.strip() for cell in line.strip("|").split("|")]
             rows.append(
                 [
@@ -116,6 +118,7 @@ def test_manifest_is_clause_only_and_lists_all_pack_sets():
         f"clauses/{PART_11_FILE}",
         f"clauses/{FDCA_524B_FILE}",
         f"clauses/{FDA_GUIDANCE_FILE}",
+        f"clauses/{HIPAA_FILE}",
     ]
     assert not {"object_types", "archetypes", "edges"}.intersection(manifest)
 
@@ -170,6 +173,131 @@ def test_local_quoin_install_has_no_object_or_artifact_contributions(tmp_path):
     ]
     assert catalog_module["objectTypes"] == []
     assert catalog_module["artifactTypes"] == []
+
+
+@pytest.mark.trace("TC-052", "FR-012-AC-1")
+def test_hipaa_set_identity_source_and_rights_match_the_dated_ecfr_snapshot():
+    clause_set = next(
+        item for item in load_clause_sets() if clause_set_key(item) == HIPAA_KEY
+    )
+    assert clause_set["schemaVersion"] == "clause-set-v1"
+    assert clause_set["rights"] == {
+        "structure": "citation_only",
+        "text": "original",
+        "clearance_ref": None,
+        "licence": "Public domain: US federal regulation (17 U.S.C. 105)",
+    }
+    assert clause_set["source"] == {
+        "title": (
+            "45 CFR Part 164 Subpart C, Security Standards for the Protection of "
+            "Electronic Protected Health Information"
+        ),
+        "identifier": "45 CFR Part 164 Subpart C",
+        "officialUrl": "https://www.ecfr.gov/on/2026-11-12/title-45/subtitle-A/subchapter-C/part-164/subpart-C",
+    }
+
+
+@pytest.mark.trace("TC-053", "FR-012-AC-2")
+def test_hipaa_clauses_match_the_normative_table_exactly():
+    clause_set = next(
+        item for item in load_clause_sets() if clause_set_key(item) == HIPAA_KEY
+    )
+    rows = _spec_table("HIPAA Security Rule Clause Table")
+    expected = {
+        row[0]: {
+            "style": row[2],
+            "outputs": [output.strip("`") for output in row[4].split(", ")],
+        }
+        for row in rows
+    }
+    clauses = {clause["id"]: clause for clause in clause_set["clauses"]}
+    assert len(clauses) == len(clause_set["clauses"]) == len(expected)
+    assert set(clauses) == set(expected)
+    for clause_id, clause in clauses.items():
+        assert clause["force"] == "mandatory"
+        assert clause["styles"]["implementation"] == expected[clause_id]["style"]
+        assert clause["expectedOutputs"] == expected[clause_id]["outputs"]
+        assert set(clause["expectedOutputs"]) <= set(clause_set["outputCatalog"])
+        assert clause["title"].strip() and clause["text"].strip()
+    assert not any(clause_id.startswith("164.314(b)") for clause_id in clauses)
+    assert clause_set["outputCatalog"] == {
+        "security-controls": {
+            "kind": "record",
+            "description": (
+                "`security.control` records; the clause set does not define a producer."
+            ),
+        },
+        "security-risk-records": {
+            "kind": "record",
+            "description": "`spec-objects-security` threat, risk, and control records.",
+        },
+        "written-procedure": {
+            "kind": "procedure",
+            "description": "Customer-owned written procedure.",
+        },
+        "audit-logging": {
+            "kind": "record",
+            "description": (
+                "`security.audit_event` records and associated retention evidence."
+            ),
+        },
+        "access-control": {
+            "kind": "record",
+            "description": "Repository permission and branch-rule settings.",
+        },
+        "audit-trail": {
+            "kind": "record",
+            "description": (
+                "Git history and signed-approval history produced by the "
+                "`approval-trail` capability for the record."
+            ),
+        },
+        "health-data-flows": {
+            "kind": "record",
+            "description": (
+                "Health-data flow records; PLAT-1756 in the Data-Flow Model project "
+                "owns the producer definition."
+            ),
+        },
+    }
+    evaluated = evaluate_clause_set(PACKAGE_ROOT, HIPAA_KEY)
+    assert set(_clause_outcomes(evaluated)) == set(expected)
+
+
+@pytest.mark.trace("TC-054", "FR-012-AC-3")
+def test_hipaa_role_only_gates_business_associate_contract_clauses():
+    clause_set = next(
+        item for item in load_clause_sets() if clause_set_key(item) == HIPAA_KEY
+    )
+    assert clause_set["classificationDimensions"] == {
+        "hipaa_role": {"values": ["covered_entity", "business_associate"]}
+    }
+    expected_ids = {row[0] for row in _spec_table("HIPAA Security Rule Clause Table")}
+    covered_entity = _clause_outcomes(
+        evaluate_clause_set(PACKAGE_ROOT, HIPAA_KEY, "hipaa_role=covered_entity")
+    )
+    business_associate = _clause_outcomes(
+        evaluate_clause_set(PACKAGE_ROOT, HIPAA_KEY, "hipaa_role=business_associate")
+    )
+    missing = _clause_outcomes(evaluate_clause_set(PACKAGE_ROOT, HIPAA_KEY))
+    ce_only = "164.314(a)(2)(ii)"
+    ba_only = "164.314(a)(2)(iii)"
+    both = expected_ids - {ce_only, ba_only}
+    assert (
+        set(covered_entity) == set(business_associate) == set(missing) == expected_ids
+    )
+    assert {
+        key for key, value in covered_entity.items() if value == "binding"
+    } == expected_ids - {ba_only}
+    assert {
+        key for key, value in business_associate.items() if value == "binding"
+    } == expected_ids - {ce_only}
+    assert {covered_entity[ba_only], business_associate[ce_only]} == {"not_binding"}
+    assert all(
+        covered_entity[key] == business_associate[key] == "binding" for key in both
+    )
+    assert missing[ce_only] == missing[ba_only] == "unresolved"
+    assert all(missing[key] == "binding" for key in both)
 
 
 def test_publish_check_accepts_all_declared_clause_sets():
@@ -709,6 +837,7 @@ def test_part_11_manifest_and_source_metadata_match_the_spec():
         f"clauses/{PART_11_FILE}",
         f"clauses/{FDCA_524B_FILE}",
         f"clauses/{FDA_GUIDANCE_FILE}",
+        f"clauses/{HIPAA_FILE}",
     ]
 
     clause_set = next(
