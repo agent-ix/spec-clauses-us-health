@@ -319,7 +319,7 @@
       "id": "11.10(e)",
       "force": "mandatory",
       "title": "Time-stamped audit trail",
-      "text": "Create secure, computer-generated, time-stamped records of actions that create, alter, or remove electronic records. Preserve earlier information and retain audit-trail documentation for at least the record-retention period.",
+      "text": "Maintain secure, system-generated trails that independently record the date and time of record creation, change, and deletion actions while keeping prior information visible. Retain the trail documentation for at least the record-retention period and make it available for agency review and copying.",
       "subjects": [
         "records"
       ],
@@ -919,7 +919,7 @@
       "id": "11.300(d)",
       "force": "mandatory",
       "title": "Unauthorized-use response",
-      "text": "Use transaction safeguards to prevent unauthorized code or password use and promptly alert the system-security unit—and, when appropriate, management—about attempted misuse.",
+      "text": "Use transaction controls to prevent unauthorized identification-code or password use and detect attempted misuse. Report each attempt immediately and urgently to the system-security unit and, when appropriate, organizational management.",
       "subjects": [
         "signatures"
       ],
