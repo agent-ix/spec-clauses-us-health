@@ -618,6 +618,6 @@ def test_single_set_rmm_marks_one_direct_fact_compliant(tmp_path):
     )
     assert result.returncode == 0, result.stderr + result.stdout
     output = result.stdout + result.stderr
-    assert "11.10(e)" in output or r"11\.10\(e\)" in output
+    assert "11.10(e)" in output or r"11\.10\(e\)" in output, output
     assert "Compliant" in output
     assert "Not compliant - undischarged" in output
