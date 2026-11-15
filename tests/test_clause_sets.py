@@ -473,9 +473,15 @@ def test_fda_guidance_clause_ids_and_outputs_match_the_specification():
     assert {
         key: clause["expectedOutputs"] for key, clause in clauses.items()
     } == expected
-    assert "anomal" in clauses["V.A.5"]["title"].lower()
-    assert "anomal" in clauses["V.A.5"]["text"].lower()
-    assert "known vulnerabilit" not in clauses["V.A.5"]["text"].lower()
+    (clause_set,) = [
+        item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
+    ]
+    section_v_a_5 = next(
+        clause for clause in clause_set["clauses"] if clause["id"] == "V.A.5"
+    )
+    assert "anomal" in section_v_a_5["title"].lower()
+    assert "anomal" in section_v_a_5["text"].lower()
+    assert "known vulnerabilit" not in section_v_a_5["text"].lower()
 
 
 @pytest.mark.trace("TC-039", "FR-009-AC-3")
