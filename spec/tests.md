@@ -88,16 +88,16 @@ NIST crosswalk, and PLAT-1621 delivers the addressable-disposition workflow.
 | FR-008 | FR-008-AC-3 | TC-034 | ✅ Implemented in PLAT-1595 |
 | FR-008 | FR-008-AC-4 | TC-035 | ✅ Implemented in PLAT-1595 |
 | FR-008 | FR-008-AC-5 | TC-036 | ✅ Implemented in PLAT-1595 |
-| FR-009 | FR-009-AC-1 | TC-037 | 🚧 Planned for PLAT-1596 |
-| FR-009 | FR-009-AC-2 | TC-038 | 🚧 Planned for PLAT-1596 |
-| FR-009 | FR-009-AC-3 | TC-039 | 🚧 Planned for PLAT-1596 |
-| FR-009 | FR-009-AC-4 | TC-040 | 🚧 Planned for PLAT-1596 |
-| FR-009 | FR-009-AC-5 | TC-041 | 🚧 Planned with source authoring |
-| FR-009 | FR-009-AC-6 | TC-042 | 🚧 Planned for PLAT-1596 |
+| FR-009 | FR-009-AC-1 | TC-037 | ✅ Implemented in PLAT-1596 |
+| FR-009 | FR-009-AC-2 | TC-038 | ✅ Implemented in PLAT-1596 |
+| FR-009 | FR-009-AC-3 | TC-039 | ✅ Implemented in PLAT-1596 |
+| FR-009 | FR-009-AC-4 | TC-040 | ✅ Implemented in PLAT-1596 |
+| FR-009 | FR-009-AC-5 | TC-041 | ✅ Implemented in PLAT-1596 |
+| FR-009 | FR-009-AC-6 | TC-042 | ✅ Implemented in PLAT-1596 |
 | FR-010 | FR-010-AC-1 | TC-043 | ✅ Implemented in PLAT-1595 |
 | FR-010 | FR-010-AC-2 | TC-044 | ✅ Implemented in PLAT-1595; includes future declared sets |
 | FR-010 | FR-010-AC-3 | TC-045 | 🚧 Planned with source authoring |
-| FR-010 | FR-010-AC-4 | TC-046 | 🚧 Planned for PLAT-1596 |
+| FR-010 | FR-010-AC-4 | TC-046 | ✅ Implemented in PLAT-1596 |
 | FR-011 | FR-011-AC-1 | TC-047 | 🚧 Planned for PLAT-1600 |
 | FR-011 | FR-011-AC-2 | TC-048 | 🚧 Planned for PLAT-1600 |
 | FR-011 | FR-011-AC-3 | TC-049 | 🚧 Planned for PLAT-1600 |
@@ -160,16 +160,16 @@ NIST crosswalk, and PLAT-1621 delivers the addressable-disposition workflow.
 | TC-034 | Cyber-device applicability binds, does not bind, or remains unresolved for the supplied value | Unit | P0 | FR-008-AC-3 | ✅ Implemented in PLAT-1595 |
 | TC-035 | Every 524B clause is mandatory and references only declared outputs | Unit | P0 | FR-008-AC-4 | ✅ Implemented in PLAT-1595 |
 | TC-036 | Cyber-device applicability reports undeclared values and is not inferred | Unit | P1 | FR-008-AC-5 | ✅ Implemented in PLAT-1595 |
-| TC-037 | The FDA guidance set uses the current guidance identity, date, and official source | Unit | P0 | FR-009-AC-1 | 🚧 Planned for PLAT-1596 |
-| TC-038 | The FDA guidance clause IDs exactly match the guidance table | Unit | P0 | FR-009-AC-2 | 🚧 Planned for PLAT-1596 |
-| TC-039 | Every FDA guidance clause is recommended and names a declared output | Unit | P0 | FR-009-AC-3 | 🚧 Planned for PLAT-1596 |
-| TC-040 | Section VII applicability follows the user-supplied cyber-device value | Unit | P0 | FR-009-AC-4 | 🚧 Planned for PLAT-1596 |
-| TC-041 | Rights analysis finds no paywalled consensus-standard names or paraphrases | Analysis | P0 | FR-009-AC-5, NFR-001-AC-4 | 🚧 Planned with source authoring |
-| TC-042 | The FDA clauses requiring an SBOM name the SBOM output with support status and end-of-support date | Unit | P0 | FR-009-AC-6 | 🚧 Planned for PLAT-1596 |
+| TC-037 | The FDA guidance set uses the current guidance identity, date, and official source | Unit | P0 | FR-009-AC-1 | ✅ Implemented in PLAT-1596 |
+| TC-038 | The FDA guidance clause IDs exactly match the guidance table | Unit | P0 | FR-009-AC-2 | ✅ Implemented in PLAT-1596 |
+| TC-039 | Every FDA guidance clause is recommended and names a declared output | Unit | P0 | FR-009-AC-3 | ✅ Implemented in PLAT-1596 |
+| TC-040 | Section VII applicability follows the user-supplied cyber-device value | Unit | P0 | FR-009-AC-4 | ✅ Implemented in PLAT-1596 |
+| TC-041 | Rights analysis finds no paywalled consensus-standard names or paraphrases | Analysis | P0 | FR-009-AC-5, NFR-001-AC-4 | ✅ Implemented in PLAT-1596 |
+| TC-042 | The FDA clauses requiring an SBOM name the SBOM output with support status and end-of-support date | Unit | P0 | FR-009-AC-6 | ✅ Implemented in PLAT-1596 |
 | TC-043 | Every cybersecurity clause output resolves to a row in the master catalog | Unit | P0 | FR-010-AC-1 | ✅ Implemented in PLAT-1595 |
 | TC-044 | Cybersecurity set outputs match catalog kind and description across all sets | Unit | P0 | FR-010-AC-2 | ✅ Implemented in PLAT-1595; includes future declared sets |
 | TC-045 | Each new cybersecurity catalog row names its producer or owning ticket | Inspection | P1 | FR-010-AC-3 | 🚧 Planned with source authoring |
-| TC-046 | The guidance uses the dedicated SBOM output and declares no generic SOUP output for SBOM clauses | Unit | P1 | FR-010-AC-4 | 🚧 Planned for PLAT-1596 |
+| TC-046 | The guidance uses the dedicated SBOM output and declares no generic SOUP output for SBOM clauses | Unit | P1 | FR-010-AC-4 | ✅ Implemented in PLAT-1596 |
 | TC-047 | The crosswalk table contains source, target key, target ID, and a supported relation value | Inspection | P1 | FR-011-AC-1 | 🚧 Planned for PLAT-1600 |
 | TC-048 | Each 524B clause crosswalks to an FDA guidance clause | Unit | P0 | FR-011-AC-2 | 🚧 Planned for PLAT-1600 |
 | TC-049 | Each cybersecurity clause resolves at least one NIST crosswalk target from the installed module | Integration | P0 | FR-011-AC-3 | 🚧 Planned for PLAT-1600 |

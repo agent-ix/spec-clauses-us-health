@@ -1,0 +1,183 @@
+{
+  "schemaVersion": "clause-set-v1",
+  "authority": "us-fda",
+  "id": "premarket-cybersecurity",
+  "title": "Cybersecurity in Medical Devices: Quality Management System Considerations and Content of Premarket Submissions",
+  "version": "2026-02-03",
+  "rights": {
+    "structure": "citation_only",
+    "text": "original",
+    "clearance_ref": null,
+    "licence": "Public domain: U.S. Government guidance (17 U.S.C. 105)"
+  },
+  "source": {
+    "title": "Cybersecurity in Medical Devices: Quality Management System Considerations and Content of Premarket Submissions",
+    "identifier": "FDA Guidance for Industry and FDA Staff, issued 2026-02-03",
+    "officialUrl": "https://www.fda.gov/media/119933/download"
+  },
+  "classificationDimensions": {
+    "cyber_device": {
+      "values": [
+        "yes",
+        "no"
+      ]
+    }
+  },
+  "outputCatalog": {
+    "threat-model": {
+      "kind": "record",
+      "description": "Product threat model and trust-boundary analysis; owner: PLAT-1546."
+    },
+    "security-risk-assessment": {
+      "kind": "record",
+      "description": "Assessment of cybersecurity risks to the device and related systems; owner: PLAT-1622."
+    },
+    "sbom": {
+      "kind": "record",
+      "description": "SBOM records with component support status and end-of-support dates, from `quoin evidence record --adapter sbom` and `quoin soup report` (PLAT-1517/PLAT-1518)."
+    },
+    "vulnerability-assessment": {
+      "kind": "record",
+      "description": "Assessment of identified vulnerabilities and unresolved software anomalies; owner: PLAT-1619."
+    },
+    "security-architecture-views": {
+      "kind": "record",
+      "description": "Views describing security-relevant device architecture and data flows; owner: PLAT-1532."
+    },
+    "cybersecurity-test-results": {
+      "kind": "record",
+      "description": "Results of security-focused testing against the device and its controls; owner: PLAT-1638."
+    },
+    "vulnerability-management-plan": {
+      "kind": "record",
+      "description": "Plan and procedures for monitoring, identifying, and addressing postmarket vulnerabilities; owner: PLAT-1656."
+    }
+  },
+  "clauses": [
+    {
+      "id": "V.A.1",
+      "force": "recommended",
+      "title": "V.A.1 Threat model",
+      "text": "Document a product threat model that describes the system, assets, trust boundaries, and relevant cybersecurity threats.",
+      "subjects": ["medical-devices", "premarket-submissions"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["threat-model"]
+    },
+    {
+      "id": "V.A.2",
+      "force": "recommended",
+      "title": "V.A.2 Cybersecurity risk assessment",
+      "text": "Assess cybersecurity risks to the device and related systems, including identified risks, controls, residual risks, and the rationale for risk decisions.",
+      "subjects": ["medical-devices", "premarket-submissions"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["security-risk-assessment"]
+    },
+    {
+      "id": "V.A.4",
+      "force": "recommended",
+      "title": "V.A.4 Software bill of materials",
+      "text": "Provide a machine-readable software bill of materials and, for each component, its support status and end-of-support date; if unavailable, explain why it cannot be included.",
+      "subjects": ["medical-devices", "software-components", "premarket-submissions"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["sbom"]
+    },
+    {
+      "id": "V.A.5",
+      "force": "recommended",
+      "title": "V.A.5 Known vulnerability assessment",
+      "text": "Identify known vulnerabilities in the device and its software components, describe how they were found, and provide their risk assessments and applicable controls.",
+      "subjects": ["medical-devices", "software-components", "premarket-submissions"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["vulnerability-assessment"]
+    },
+    {
+      "id": "V.B.2",
+      "force": "recommended",
+      "title": "V.B.2 Security architecture views",
+      "text": "Provide security architecture views that explain the device and related systems, their security-relevant interactions, and how identified risks are addressed.",
+      "subjects": ["medical-devices", "premarket-submissions"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["security-architecture-views"]
+    },
+    {
+      "id": "V.C",
+      "force": "recommended",
+      "title": "V.C Cybersecurity testing",
+      "text": "Provide the cybersecurity requirements and acceptance criteria and document testing that demonstrates the security controls were implemented and tested effectively.",
+      "subjects": ["medical-devices", "premarket-submissions"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["cybersecurity-test-results"]
+    },
+    {
+      "id": "VI.B",
+      "force": "recommended",
+      "title": "VI.B Cybersecurity management plan",
+      "text": "Describe how postmarket vulnerabilities will be monitored, identified, addressed, and communicated, including responsible roles, update timelines, and coordinated disclosure procedures.",
+      "subjects": ["medical-devices", "postmarket-security"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["vulnerability-management-plan"]
+    },
+    {
+      "id": "VII.C.1",
+      "force": "recommended",
+      "title": "VII.C.1 Plans and procedures",
+      "text": "Provide a plan to monitor, identify, and address postmarket vulnerabilities and exploits in a reasonable time, including coordinated vulnerability disclosure and related procedures.",
+      "subjects": ["cyber-devices", "postmarket-security"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["vulnerability-management-plan", "vulnerability-assessment"],
+      "applicability": {
+        "op": "eq",
+        "dimension": "cyber_device",
+        "value": "yes"
+      }
+    },
+    {
+      "id": "VII.C.2",
+      "force": "recommended",
+      "title": "VII.C.2 Cybersecurity processes and procedures",
+      "text": "Document the processes used to design, develop, and maintain cybersecurity for the device and related systems, including their risks and controls.",
+      "subjects": ["cyber-devices", "cybersecurity-requirements"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["security-risk-assessment", "security-architecture-views", "cybersecurity-test-results"],
+      "applicability": {
+        "op": "eq",
+        "dimension": "cyber_device",
+        "value": "yes"
+      }
+    },
+    {
+      "id": "VII.C.3",
+      "force": "recommended",
+      "title": "VII.C.3 Software bill of materials",
+      "text": "Provide a software bill of materials for the cyber device and include component support status and end-of-support dates.",
+      "subjects": ["cyber-devices", "software-components"],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": ["sbom"],
+      "applicability": {
+        "op": "eq",
+        "dimension": "cyber_device",
+        "value": "yes"
+      }
+    }
+  ]
+}
