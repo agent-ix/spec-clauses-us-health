@@ -9,7 +9,12 @@ from pathlib import Path
 
 import pytest
 import yaml
-from conftest import assert_output_catalog_consistent, clause_set_key, load_clause_sets
+from conftest import (
+    assert_output_catalog_consistent,
+    clause_set_key,
+    engine_tool,
+    load_clause_sets,
+)
 
 PART_820_KEY = "us-fda/21-cfr-820@2026-11-12"
 PREMARKET_KEY = "us-fda/premarket-device-software@2023-06-14"
@@ -45,7 +50,10 @@ COMMAND_EVIDENCE = {
 def _installed_module_manifests() -> dict[str, tuple[Path, dict]]:
     """Load manifests from the modules that the installed Quoin resolves."""
     result = subprocess.run(
-        ["quoin", "module", "list"], check=True, capture_output=True, text=True
+        [engine_tool("quoin"), "module", "list"],
+        check=True,
+        capture_output=True,
+        text=True,
     )
     installed = json.loads(result.stdout)
     manifests = {}
@@ -75,7 +83,10 @@ def _declared_composition(manifest: dict) -> set[str]:
 def _assert_command_exists(command: tuple[str, ...]) -> None:
     """Require each mapped producer command to appear in its installed CLI help."""
     result = subprocess.run(
-        [*command, "--help"], check=True, capture_output=True, text=True
+        [engine_tool(command[0]), *command[1:], "--help"],
+        check=True,
+        capture_output=True,
+        text=True,
     )
     assert (
         command[-1] in result.stdout
