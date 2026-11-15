@@ -48,7 +48,7 @@ section 524B.
 | FR-009-AC-3 | Every clause is recommended and names at least one output declared with the catalog definition. | Test |
 | FR-009-AC-4 | The section VII.C clauses bind for `cyber_device=yes`, are not binding for `no`, and remain unresolved when the value is absent; general recommendation clauses remain applicable. | Test |
 | FR-009-AC-5 | No set text or metadata names or paraphrases a paywalled consensus standard; the source-rights analysis records only the public FDA citation and rights basis. | Analysis |
-| FR-009-AC-6 | `V.A.4` and `VII.C.3` reference `sbom`, whose output definition includes per-component support status and end-of-support dates. | Test |
+| FR-009-AC-6 | `V.A.4` and `VII.C.3` reference `sbom`, whose output definition records each component's lifecycle state and end-of-support date. | Test |
 
 ## Dependencies
 
