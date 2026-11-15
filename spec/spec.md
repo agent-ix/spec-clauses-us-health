@@ -250,28 +250,28 @@ covered by either value.
 
 | Clause ID | Type | Style | Applicability | Expected outputs |
 |---|---|---|---|---|
-| `164.308(a)(1)` | Standard | required | both roles | `security-controls`, `security-risk-records`, `written-procedure` |
+| `164.308(a)(1)(i)` | Standard | required | both roles | `security-controls`, `security-risk-records`, `written-procedure` |
 | `164.308(a)(1)(ii)(A)` | Implementation specification | required | both roles | `security-risk-records` |
 | `164.308(a)(1)(ii)(B)` | Implementation specification | required | both roles | `security-controls`, `security-risk-records` |
 | `164.308(a)(1)(ii)(C)` | Implementation specification | required | both roles | `written-procedure` |
 | `164.308(a)(1)(ii)(D)` | Implementation specification | required | both roles | `audit-logging` |
 | `164.308(a)(2)` | Standard | required | both roles | `security-controls` |
-| `164.308(a)(3)` | Standard | required | both roles | `security-controls`, `written-procedure` |
+| `164.308(a)(3)(i)` | Standard | required | both roles | `security-controls`, `written-procedure` |
 | `164.308(a)(3)(ii)(A)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
 | `164.308(a)(3)(ii)(B)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
 | `164.308(a)(3)(ii)(C)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
-| `164.308(a)(4)` | Standard | required | both roles | `access-control`, `security-controls` |
+| `164.308(a)(4)(i)` | Standard | required | both roles | `access-control`, `security-controls` |
 | `164.308(a)(4)(ii)(A)` | Implementation specification | required | both roles | `access-control` |
 | `164.308(a)(4)(ii)(B)` | Implementation specification | addressable | both roles | `access-control`, `written-procedure` |
 | `164.308(a)(4)(ii)(C)` | Implementation specification | addressable | both roles | `access-control`, `written-procedure` |
-| `164.308(a)(5)` | Standard | required | both roles | `security-controls`, `written-procedure` |
+| `164.308(a)(5)(i)` | Standard | required | both roles | `security-controls`, `written-procedure` |
 | `164.308(a)(5)(ii)(A)` | Implementation specification | addressable | both roles | `written-procedure` |
 | `164.308(a)(5)(ii)(B)` | Implementation specification | addressable | both roles | `security-controls` |
 | `164.308(a)(5)(ii)(C)` | Implementation specification | addressable | both roles | `audit-logging`, `security-controls` |
 | `164.308(a)(5)(ii)(D)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
-| `164.308(a)(6)` | Standard | required | both roles | `security-controls`, `written-procedure` |
+| `164.308(a)(6)(i)` | Standard | required | both roles | `security-controls`, `written-procedure` |
 | `164.308(a)(6)(ii)` | Implementation specification | required | both roles | `audit-logging`, `written-procedure` |
-| `164.308(a)(7)` | Standard | required | both roles | `security-controls`, `written-procedure` |
+| `164.308(a)(7)(i)` | Standard | required | both roles | `security-controls`, `written-procedure` |
 | `164.308(a)(7)(ii)(A)` | Implementation specification | required | both roles | `security-controls` |
 | `164.308(a)(7)(ii)(B)` | Implementation specification | required | both roles | `security-controls` |
 | `164.308(a)(7)(ii)(C)` | Implementation specification | required | both roles | `security-controls` |
