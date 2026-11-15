@@ -49,7 +49,7 @@ titles and summaries use original concise wording from public eCFR citations.
 | ID | Criteria | Verification |
 |---|---|---|
 | FR-012-AC-1 | The M4 set identity and source metadata match `us-hhs/45-cfr-164-subpart-c@2026-11-12` and the official eCFR snapshot; source rights metadata records public US federal regulation and original text. | Test |
-| FR-012-AC-2 | The set clause ID list exactly matches every row in the normative HIPAA Security Rule table; every clause has force `mandatory`, an expected output in its output catalog, and the specified style. | Test |
+| FR-012-AC-2 | The set clause ID list exactly matches every row in the normative HIPAA Security Rule table, including standards `164.308(a)(1)(i)`, `164.308(a)(3)(i)`, `164.308(a)(4)(i)`, `164.308(a)(5)(i)`, `164.308(a)(6)(i)`, and `164.308(a)(7)(i)`; every clause has force `mandatory`, an expected output in its output catalog, and the specified style. | Test |
 | FR-012-AC-3 | The set declares exactly `covered_entity` and `business_associate` as `hipaa_role` values; § 164.314(a)(2)(ii) resolves only for covered entities, § 164.314(a)(2)(iii) only for business associates, and (a)(2)(i) plus both-role clauses apply to both roles. | Test |
 | FR-012-AC-4 | A direct fact can discharge an addressable clause as implemented as written; an alternate discharge without a human `accepted_risk`, non-empty rationale, and named `approvalRef` is rejected. | Test |
 | FR-012-AC-5 | For an addressable clause with an accepted-risk disposition, the generated RMM exposes its rationale and approver in tailoring columns; missing disposition remains unresolved, and no evaluation path generates a disposition. | Test |
