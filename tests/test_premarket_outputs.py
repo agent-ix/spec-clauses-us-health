@@ -99,7 +99,7 @@ def test_m2_record_outputs_name_a_producer_or_owner_ticket():
 
             if definition["kind"] == "record":
                 if "No producer on `origin/main`" in mapping:
-                    assert "owner: PLAT-1762" in mapping, output
+                    assert "owner PLAT-1762" in mapping, output
                     assert "PLAT-1762" in description, output
                 else:
                     assert (
