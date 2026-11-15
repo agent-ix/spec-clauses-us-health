@@ -136,18 +136,18 @@ summaries use original wording. The user supplies `cyber_device` as `yes` or
 `no`, recording an assessment of the definition in 21 U.S.C. § 360n-2(c); the
 pack never derives this value. Every clause has force `mandatory` and applies
 only when `cyber_device=yes`. With the value absent, applicability is
-unresolved; with `no`, each clause is not binding. Section 524B(b)(4) is cited
-as a reserved provision but is not a clause until a regulation establishes an
-additional requirement.
+unresolved; with `no`, each clause is not binding. Section 524B(b)(4) requires
+compliance with additional cybersecurity requirements established by regulation.
 
 | Clause ID | Applicability | Expected outputs |
 |---|---|---|
 | `524B(a)` | `eq cyber_device yes` | `security-risk-records`, `soup-list` |
-| `524B(b)(1)` | `eq cyber_device yes` | `vulnerability-management-plan`, `vulnerability-assessment`, `sbom` |
+| `524B(b)(1)` | `eq cyber_device yes` | `vulnerability-management-plan`, `vulnerability-assessment` |
 | `524B(b)(2)` | `eq cyber_device yes` | `security-risk-records`, `vulnerability-management-plan` |
 | `524B(b)(2)(A)` | `eq cyber_device yes` | `security-risk-records`, `vulnerability-management-plan` |
 | `524B(b)(2)(B)` | `eq cyber_device yes` | `security-risk-records`, `vulnerability-management-plan` |
-| `524B(b)(3)` | `eq cyber_device yes` | `soup-list` |
+| `524B(b)(3)` | `eq cyber_device yes` | `sbom` |
+| `524B(b)(4)` | `eq cyber_device yes` | `security-risk-records` |
 
 ### FDA Premarket Cybersecurity Guidance Clause Table
 

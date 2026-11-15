@@ -32,8 +32,8 @@ whether the statutory definition is met.
   `yes` and `no`.
 - The user SHALL provide `cyber_device` as `yes` or `no`.
 - The set SHALL NOT infer the value from other product facts.
-- The set SHALL cite section 524B(b)(4) as reserved source material without
-  creating a clause for requirements that no regulation has established.
+- The set SHALL represent section 524B(b)(4) as an active obligation to comply
+  with additional cybersecurity requirements established through regulation.
 - Clause summaries SHALL use original wording and identify their statutory
   paragraph in source metadata.
 
@@ -42,10 +42,10 @@ whether the statutory definition is met.
 | ID | Criteria | Verification |
 |----|----------|--------------|
 | FR-008-AC-1 | The set identity and source metadata identify 21 U.S.C. § 360n-2, with version `2026-10-15` and the official US Code URL. | Test |
-| FR-008-AC-2 | The set contains exactly `524B(a)`, `524B(b)(1)`, `524B(b)(2)`, `524B(b)(2)(A)`, `524B(b)(2)(B)`, and `524B(b)(3)`; it contains no clause for 524B(b)(4). | Test |
+| FR-008-AC-2 | The set contains exactly `524B(a)`, `524B(b)(1)`, `524B(b)(2)`, `524B(b)(2)(A)`, `524B(b)(2)(B)`, `524B(b)(3)`, and `524B(b)(4)`. | Test |
 | FR-008-AC-3 | With `cyber_device=yes`, every listed clause is binding; with `no`, every listed clause is not binding; with no value, every listed clause is unresolved. | Test |
 | FR-008-AC-4 | Every clause is mandatory, names at least one declared output, and conforms to the existing clause-set schema. | Test |
-| FR-008-AC-5 | The set does not infer `cyber_device` from any other dimension and rejects an undeclared value. | Test |
+| FR-008-AC-5 | The set does not infer `cyber_device` from any other dimension. An undeclared value produces an unresolved outcome with an `unknown_value` reason naming `cyber_device`. | Test |
 
 ## Dependencies
 

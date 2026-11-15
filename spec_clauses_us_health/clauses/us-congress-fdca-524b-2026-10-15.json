@@ -1,0 +1,202 @@
+{
+  "schemaVersion": "clause-set-v1",
+  "authority": "us-congress",
+  "id": "fdca-524b",
+  "title": "Federal Food, Drug, and Cosmetic Act section 524B cybersecurity requirements",
+  "version": "2026-10-15",
+  "rights": {
+    "structure": "citation_only",
+    "text": "original",
+    "clearance_ref": null,
+    "licence": "Public domain: US statute (17 U.S.C. 105)"
+  },
+  "source": {
+    "title": "FD&C Act section 524B, Ensuring cybersecurity of devices",
+    "identifier": "21 U.S.C. § 360n-2",
+    "officialUrl": "https://uscode.house.gov/us/usc/119-124/t21/s360n-2/"
+  },
+  "classificationDimensions": {
+    "cyber_device": {
+      "values": [
+        "yes",
+        "no"
+      ]
+    }
+  },
+  "outputCatalog": {
+    "security-risk-records": {
+      "kind": "record",
+      "description": "`spec-objects-security` threat, risk, and control records."
+    },
+    "soup-list": {
+      "kind": "record",
+      "description": "Software of unknown provenance (SOUP) report."
+    },
+    "vulnerability-management-plan": {
+      "kind": "record",
+      "description": "Plan and procedures for monitoring, identifying, and addressing postmarket vulnerabilities; owner: PLAT-1656."
+    },
+    "vulnerability-assessment": {
+      "kind": "record",
+      "description": "Assessment of identified vulnerabilities and unresolved software anomalies; owner: PLAT-1619."
+    },
+    "sbom": {
+      "kind": "record",
+      "description": "SBOM records with component support status and end-of-support dates, from `quoin evidence record --adapter sbom` and `quoin soup report` (PLAT-1517/PLAT-1518)."
+    }
+  },
+  "clauses": [
+    {
+      "id": "524B(a)",
+      "force": "mandatory",
+      "title": "§ 524B(a) Premarket submission cybersecurity information",
+      "text": "For a covered submission concerning a cyber device, provide the information FDA requires to show that the device meets the cybersecurity requirements in subsection (b).",
+      "subjects": [
+        "cyber-devices",
+        "premarket-submissions"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "security-risk-records",
+        "soup-list"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "cyber_device",
+        "value": "yes"
+      }
+    },
+    {
+      "id": "524B(b)(1)",
+      "force": "mandatory",
+      "title": "§ 524B(b)(1) Postmarket vulnerability management",
+      "text": "Submit a plan for monitoring, identifying, and addressing postmarket cybersecurity vulnerabilities and exploits within a reasonable time, including coordinated vulnerability disclosure and related procedures.",
+      "subjects": [
+        "cyber-devices",
+        "postmarket-security"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "vulnerability-management-plan",
+        "vulnerability-assessment"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "cyber_device",
+        "value": "yes"
+      }
+    },
+    {
+      "id": "524B(b)(2)",
+      "force": "mandatory",
+      "title": "§ 524B(b)(2) Cybersecurity processes and updates",
+      "text": "Design, develop, and maintain processes and procedures that provide reasonable assurance that the device and related systems are cybersecure, and make postmarket updates and patches available to address the vulnerabilities described in subparagraphs (A) and (B).",
+      "subjects": [
+        "cyber-devices",
+        "postmarket-security"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "security-risk-records",
+        "vulnerability-management-plan"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "cyber_device",
+        "value": "yes"
+      }
+    },
+    {
+      "id": "524B(b)(2)(A)",
+      "force": "mandatory",
+      "title": "§ 524B(b)(2)(A) Regular-cycle updates",
+      "text": "Provide device and related-system updates and patches on a reasonably justified regular cycle to address known vulnerabilities that are unacceptable.",
+      "subjects": [
+        "cyber-devices",
+        "postmarket-security"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "security-risk-records",
+        "vulnerability-management-plan"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "cyber_device",
+        "value": "yes"
+      }
+    },
+    {
+      "id": "524B(b)(2)(B)",
+      "force": "mandatory",
+      "title": "§ 524B(b)(2)(B) Critical-vulnerability updates",
+      "text": "Provide out-of-cycle updates and patches as soon as possible for critical vulnerabilities that could cause uncontrolled risks.",
+      "subjects": [
+        "cyber-devices",
+        "postmarket-security"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "security-risk-records",
+        "vulnerability-management-plan"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "cyber_device",
+        "value": "yes"
+      }
+    },
+    {
+      "id": "524B(b)(3)",
+      "force": "mandatory",
+      "title": "§ 524B(b)(3) Software bill of materials",
+      "text": "Provide FDA a software bill of materials covering commercial, open-source, and off-the-shelf components in the cyber device.",
+      "subjects": [
+        "cyber-devices",
+        "software-components"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "sbom"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "cyber_device",
+        "value": "yes"
+      }
+    },
+    {
+      "id": "524B(b)(4)",
+      "force": "mandatory",
+      "title": "§ 524B(b)(4) Additional cybersecurity requirements",
+      "text": "Comply with additional cybersecurity requirements established through regulation to demonstrate reasonable assurance that the device and related systems are cybersecure.",
+      "subjects": [
+        "cyber-devices",
+        "cybersecurity-requirements"
+      ],
+      "obligatedActors": [],
+      "approvalRoles": [],
+      "styles": {},
+      "expectedOutputs": [
+        "security-risk-records"
+      ],
+      "applicability": {
+        "op": "eq",
+        "dimension": "cyber_device",
+        "value": "yes"
+      }
+    }
+  ]
+}

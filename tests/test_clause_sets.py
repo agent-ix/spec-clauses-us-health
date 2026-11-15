@@ -30,6 +30,8 @@ from conftest import (
 
 PART_11_FILE = "us-fda-21-cfr-11-2026-11-12.json"
 PART_11_KEY = "us-fda/21-cfr-11@2026-11-12"
+FDCA_524B_FILE = "us-congress-fdca-524b-2026-10-15.json"
+FDCA_524B_KEY = "us-congress/fdca-524b@2026-10-15"
 
 
 def _part_11_outcomes(binding: dict) -> dict[str, str]:
@@ -71,6 +73,28 @@ def _part_11_evaluate_error(module_root: pathlib.Path, *context: str):
     )
 
 
+def _fdca_524b_evaluate_error(module_root: pathlib.Path, *context: str):
+    return run(
+        engine_tool("quire"),
+        "clauses",
+        "evaluate",
+        "--module",
+        str(module_root),
+        "--authority",
+        "us-congress",
+        "--set",
+        "fdca-524b",
+        "--version",
+        "2026-10-15",
+        "--json",
+        *[argument for entry in context for argument in ("--context", entry)],
+    )
+
+
+def _clause_outcomes(binding: dict) -> dict[str, str]:
+    return {clause["clauseId"]: clause["outcome"] for clause in binding["clauses"]}
+
+
 def _synthetic_set(key: str, output_catalog: dict) -> dict:
     authority, remainder = key.split("/")
     set_id, version = remainder.split("@")
@@ -83,9 +107,12 @@ def _synthetic_set(key: str, output_catalog: dict) -> dict:
 
 
 @pytest.mark.trace("TC-002", "FR-001-AC-2")
-def test_manifest_is_clause_only_and_lists_the_part_11_set():
+def test_manifest_is_clause_only_and_lists_all_public_law_sets():
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
-    assert manifest["clause_sets"] == [f"clauses/{PART_11_FILE}"]
+    assert manifest["clause_sets"] == [
+        f"clauses/{PART_11_FILE}",
+        f"clauses/{FDCA_524B_FILE}",
+    ]
     assert not {"object_types", "archetypes", "edges"}.intersection(manifest)
 
 
@@ -141,7 +168,7 @@ def test_local_quoin_install_has_no_object_or_artifact_contributions(tmp_path):
     assert catalog_module["artifactTypes"] == []
 
 
-def test_publish_check_accepts_the_empty_scaffold():
+def test_publish_check_accepts_all_declared_clause_sets():
     result = run(engine_tool("quire"), "publish-check", "--module", str(PACKAGE_ROOT))
     assert result.returncode == 0, result.stderr + result.stdout
 
@@ -170,7 +197,7 @@ def test_publish_check_rejects_a_licensed_synthetic_set(tmp_path):
     assert result.returncode == 2, result.stderr + result.stdout
 
 
-@pytest.mark.trace("TC-018", "FR-005-AC-1")
+@pytest.mark.trace("TC-018", "FR-005-AC-1", "TC-043", "FR-010-AC-1")
 def test_us_clause_set_output_catalog_matches_the_spec():
     catalog = {
         name: {"kind": kind, "description": description}
@@ -200,7 +227,7 @@ def test_us_clause_set_output_catalog_matches_the_spec():
         }, f"{clause_set_key(clause_set)} output catalog differs from the spec"
 
 
-@pytest.mark.trace("TC-019", "FR-005-AC-2")
+@pytest.mark.trace("TC-019", "FR-005-AC-2", "TC-044", "FR-010-AC-2")
 def test_catalog_consistency_error_names_both_conflicting_sets():
     sets = [
         _synthetic_set(
@@ -240,11 +267,151 @@ def test_no_pack_level_output_catalog_is_declared():
     assert "outputCatalog" not in manifest
 
 
-@pytest.mark.trace("TC-019", "FR-005-AC-2")
+@pytest.mark.trace("TC-019", "FR-005-AC-2", "TC-044", "FR-010-AC-2")
 def test_all_declared_sets_load_and_match_one_catalog():
     clause_sets = load_clause_sets()
     assert all(clause_set_key(item) for item in clause_sets)
     assert_output_catalog_consistent(clause_sets)
+
+
+@pytest.mark.trace("TC-032", "FR-008-AC-1")
+def test_fdca_524b_identity_and_source_match_the_current_us_code():
+    """Verify the 524B key, version, and official statute source.
+
+    Assumptions: The source version is the US Code release point in force on
+    2026-10-15.
+    Criteria: The key and source metadata match the declared source.
+    """
+    manifest = yaml.safe_load(MANIFEST_PATH.read_text())
+    assert f"clauses/{FDCA_524B_FILE}" in manifest["clause_sets"]
+
+    clause_set = next(
+        item for item in load_clause_sets() if clause_set_key(item) == FDCA_524B_KEY
+    )
+    assert clause_set["source"] == {
+        "title": "FD&C Act section 524B, Ensuring cybersecurity of devices",
+        "identifier": "21 U.S.C. § 360n-2",
+        "officialUrl": ("https://uscode.house.gov/us/usc/119-124/t21/s360n-2/"),
+    }
+    assert clause_set["version"] == "2026-10-15"
+    result = _fdca_524b_evaluate_error(PACKAGE_ROOT)
+    assert result.returncode == 0, result.stderr + result.stdout
+    assert json.loads(result.stdout)["clauseSet"] == {
+        "authority": "us-congress",
+        "id": "fdca-524b",
+        "version": "2026-10-15",
+    }
+
+
+@pytest.mark.trace("TC-033", "FR-008-AC-2")
+def test_fdca_524b_contains_exactly_the_specified_clause_ids_and_outputs():
+    """Compare the loaded 524B clause IDs and outputs with the spec table.
+
+    Assumptions: The table in `spec.md` is the source of truth.
+    Criteria: The set contains exactly the active clauses and output mappings
+    listed in the specification, including paragraph (b)(4).
+    """
+    binding = _fdca_524b_evaluate_error(PACKAGE_ROOT)
+    assert binding.returncode == 0, binding.stderr + binding.stdout
+
+    expected = {
+        row[0]: [output.strip("`") for output in row[2].split(", ")]
+        for row in _spec_table("Section 524B Clause Table")
+    }
+    clauses = {
+        entry["clauseId"]: entry for entry in json.loads(binding.stdout)["clauses"]
+    }
+    assert set(clauses) == set(expected)
+    assert "524B(b)(4)" in clauses
+    assert {
+        clause_id: clause["expectedOutputs"] for clause_id, clause in clauses.items()
+    } == expected
+
+
+@pytest.mark.trace("TC-034", "FR-008-AC-3")
+def test_fdca_524b_applicability_uses_only_the_user_supplied_classification():
+    """Evaluate statutory clauses only from the supplied cyber-device value.
+
+    Assumptions: The caller supplies `cyber_device` as yes or no.
+    Criteria: Yes binds, no does not bind, and an absent value remains unresolved.
+    """
+    (clause_set,) = [
+        item for item in load_clause_sets() if clause_set_key(item) == FDCA_524B_KEY
+    ]
+    assert clause_set["classificationDimensions"] == {
+        "cyber_device": {"values": ["yes", "no"]}
+    }
+
+    expected_ids = {row[0] for row in _spec_table("Section 524B Clause Table")}
+    yes = _fdca_524b_evaluate_error(PACKAGE_ROOT, "cyber_device=yes")
+    no = _fdca_524b_evaluate_error(PACKAGE_ROOT, "cyber_device=no")
+    missing = _fdca_524b_evaluate_error(PACKAGE_ROOT)
+    assert yes.returncode == 0, yes.stderr + yes.stdout
+    assert no.returncode == 0, no.stderr + no.stdout
+    assert missing.returncode == 0, missing.stderr + missing.stdout
+    assert _clause_outcomes(json.loads(yes.stdout)) == {
+        clause_id: "binding" for clause_id in expected_ids
+    }
+    assert _clause_outcomes(json.loads(no.stdout)) == {
+        clause_id: "not_binding" for clause_id in expected_ids
+    }
+    assert _clause_outcomes(json.loads(missing.stdout)) == {
+        clause_id: "unresolved" for clause_id in expected_ids
+    }
+
+
+@pytest.mark.trace("TC-035", "FR-008-AC-4")
+def test_fdca_524b_clauses_are_mandatory_and_use_declared_outputs():
+    """Validate every 524B clause's required fields and output declarations.
+
+    Assumptions: Quire validates the declared clause-set schema on evaluation.
+    Criteria: Each clause is mandatory, has text and outputs, and loads.
+    """
+    clause_set = next(
+        item for item in load_clause_sets() if clause_set_key(item) == FDCA_524B_KEY
+    )
+    assert all(clause["force"] == "mandatory" for clause in clause_set["clauses"])
+    assert all(clause["expectedOutputs"] for clause in clause_set["clauses"])
+    assert all(clause["text"].strip() for clause in clause_set["clauses"])
+    assert all(clause["title"].strip() for clause in clause_set["clauses"])
+    assert all(
+        set(clause["expectedOutputs"]) <= set(clause_set["outputCatalog"])
+        for clause in clause_set["clauses"]
+    )
+    evaluated = _fdca_524b_evaluate_error(PACKAGE_ROOT)
+    assert evaluated.returncode == 0, evaluated.stderr + evaluated.stdout
+
+
+@pytest.mark.trace("TC-036", "FR-008-AC-5")
+def test_fdca_524b_does_not_infer_classification_and_reports_unknown_value(tmp_path):
+    """Keep cyber-device classification caller-owned and reject unknown values.
+
+    Assumptions: Unrelated context is not a declared classification dimension.
+    Criteria: Unrelated facts do not resolve applicability, and an unknown
+    cyber-device value produces an unresolved outcome with an unknown-value reason.
+    """
+    dimension_module = stage_clause_sets(
+        tmp_path / "dimension", CLAUSES_DIR / FDCA_524B_FILE
+    )
+    extra_fact = _fdca_524b_evaluate_error(
+        dimension_module, "unrelated_product_fact=yes"
+    )
+    assert extra_fact.returncode == 0, extra_fact.stderr + extra_fact.stdout
+    assert set(_clause_outcomes(json.loads(extra_fact.stdout)).values()) == {
+        "unresolved"
+    }
+
+    unknown_value = _fdca_524b_evaluate_error(PACKAGE_ROOT, "cyber_device=maybe")
+    assert unknown_value.returncode == 0, unknown_value.stderr + unknown_value.stdout
+    unknown_binding = json.loads(unknown_value.stdout)
+    assert set(_clause_outcomes(unknown_binding).values()) == {"unresolved"}
+    assert all(
+        any(
+            reason["code"] == "unknown_value" and reason["dimension"] == "cyber_device"
+            for reason in clause["reasons"]
+        )
+        for clause in unknown_binding["clauses"]
+    )
 
 
 def test_clause_files_ship_in_wheel_and_npm_tarball():
@@ -378,9 +545,14 @@ def test_part_11_manifest_and_source_metadata_match_the_spec():
     Criteria: Manifest, set key, source citation, and rights match that definition.
     """
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
-    assert manifest["clause_sets"] == [f"clauses/{PART_11_FILE}"]
+    assert manifest["clause_sets"] == [
+        f"clauses/{PART_11_FILE}",
+        f"clauses/{FDCA_524B_FILE}",
+    ]
 
-    (clause_set,) = load_clause_sets()
+    clause_set = next(
+        item for item in load_clause_sets() if clause_set_key(item) == PART_11_KEY
+    )
     assert clause_set_key(clause_set) == PART_11_KEY
     assert clause_set["rights"] == {
         "structure": "citation_only",
@@ -423,7 +595,9 @@ def test_part_11_clauses_are_mandatory_nonempty_and_loadable():
     Assumptions: The Part 11 set contains the 25 normative table entries.
     Criteria: Every entry is mandatory, nonempty, has outputs, and evaluates.
     """
-    (clause_set,) = load_clause_sets()
+    clause_set = next(
+        item for item in load_clause_sets() if clause_set_key(item) == PART_11_KEY
+    )
     assert len(clause_set["clauses"]) == 25
     assert all(clause["force"] == "mandatory" for clause in clause_set["clauses"])
     assert all(clause["text"].strip() for clause in clause_set["clauses"])
@@ -596,7 +770,9 @@ def test_certification_clause_uses_the_fda_record_output():
     Assumptions: The output catalog identifies FDA certification evidence as a record.
     Criteria: § 11.100(c) declares the FDA certification record output.
     """
-    (clause_set,) = load_clause_sets()
+    clause_set = next(
+        item for item in load_clause_sets() if clause_set_key(item) == PART_11_KEY
+    )
     clause = next(
         entry for entry in clause_set["clauses"] if entry["id"] == "11.100(c)"
     )
