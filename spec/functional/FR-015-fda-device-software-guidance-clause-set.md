@@ -41,7 +41,7 @@ be original concise summaries of the guidance.
 | FR-015-AC-2 | The set contains exactly the clause identifiers in the M2 FDA Premarket Device-Software Guidance Clause Table, covering Sections VI.A through VI.J and the listed enhanced-level rows. | Test |
 | FR-015-AC-3 | Every clause has force `recommended`, non-empty original text, at least one output in its declared catalog, and the level-specific applicability expression in the table. | Test |
 | FR-015-AC-4 | The set declares exactly the ordered `documentation_level` values `basic` and `enhanced`, and no other value. | Test |
-| FR-015-AC-5 | `quire validate --scope . --module <spec-artifacts-iso-module-root> 'spec/**/*.md'` and `quire publish-check --module <pkg>` both exit 0. | Test |
+| FR-015-AC-5 | `quire validate --scope . --module <spec-artifacts-iso-module-root> --module <spec-artifacts-process-module-root> 'spec/**/*.md'` and `quire publish-check --module <pkg>` both exit 0. | Test |
 
 ## Dependencies
 
