@@ -84,9 +84,13 @@ def test_npm_pack_dry_run_restores_staged_module_paths() -> None:
         npm runs prepack and postpack for a dry-run package.
 
     Criteria:
-        Packaging exits successfully and leaves no staged root module paths.
+        Packaging exits successfully and leaves no staged root module paths;
+        package metadata keeps public access without overriding npm's registry.
 
     """
+    package_metadata = json.loads((REPO_ROOT / "package.json").read_text())
+    assert package_metadata["publishConfig"] == {"access": "public"}
+
     result = subprocess.run(
         ["npm", "pack", "--dry-run", "--json"],
         cwd=REPO_ROOT,
