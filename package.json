@@ -19,7 +19,7 @@
     "url": "git+https://github.com/agent-ix/spec-clauses-us-health.git"
   },
   "devDependencies": {
-    "@agent-ix/quire-cli": "0.44.0",
+    "@agent-ix/quire-cli": "0.45.0",
     "@agent-ix/quoin": "0.35.0"
   }
 }

@@ -66,6 +66,21 @@ def _resolve_fact_refs(repo: pathlib.Path, facts: list[dict]) -> None:
             ), f"{fact['clauseId']}: evidence ref does not resolve: {reference}"
 
 
+def _assert_customer_owned_facts_are_delegated(facts: list[dict]) -> None:
+    """Keep the pack's customer-owned fixtures to delegated dispositions."""
+    for fact in facts:
+        clause_id = fact.get("clauseId")
+        if clause_id in CUSTOMER_OWNED:
+            delegated = (
+                fact.get("kind") == "disposition"
+                and fact.get("decision") == "delegated"
+            )
+            error = (
+                f"{clause_id}: customer-owned facts must use the delegated disposition"
+            )
+            assert delegated, error
+
+
 def _make_signed_corpus(repo: pathlib.Path, private_key: pathlib.Path) -> pathlib.Path:
     corpus = REPO_ROOT / "tests" / "corpus"
     shutil.copytree(corpus, repo, dirs_exist_ok=True)
@@ -299,6 +314,7 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
                 }
             )
 
+        _assert_customer_owned_facts_are_delegated(facts)
         _resolve_fact_refs(repo, facts)
         facts_path = root / "facts.json"
         facts_path.write_text(json.dumps(facts))
@@ -363,6 +379,36 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
             )
             assert rejected.returncode != 0, rejected.stdout
             assert missing_field in rejected.stderr + rejected.stdout
+
+        non_delegated_fixtures = [
+            {
+                "kind": "disposition",
+                "clauseId": "11.10(i)",
+                "decision": decision,
+                "owner": "customer@example.invalid",
+                "rationale": "Customer owns this fictional procedure obligation.",
+                "approvalRef": f"evidence://example.invalid/{refs['approval']}",
+                "attestation": attestation,
+            }
+            for decision in ("accepted_risk", "temporary_exception")
+        ]
+        non_delegated_fixtures.append(
+            {
+                "kind": "direct",
+                "clauseId": "11.10(i)",
+                "evidenceRefs": [refs["approval"]],
+                "attestation": attestation,
+            }
+        )
+        for invalid_fact in non_delegated_fixtures:
+            with pytest.raises(
+                AssertionError,
+                match=(
+                    r"11\.10\(i\): customer-owned facts must use "
+                    r"the delegated disposition"
+                ),
+            ):
+                _assert_customer_owned_facts_are_delegated([invalid_fact])
 
         args = [
             engine_tool("quoin"),
