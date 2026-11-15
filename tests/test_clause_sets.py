@@ -29,21 +29,34 @@ from conftest import (
 )
 
 US_OUTPUT_CATALOG = {
-    "audit-trail": ("record", "Git history of the record."),
+    "audit-trail": (
+        "record",
+        "Git history and signed-approval history produced by the "
+        "`approval-trail` capability for the record.",
+    ),
     "signed-record": (
         "record",
-        "Signed commit or tag verified by `git verify-commit` or `git verify-tag`.",
+        "Signed commits and tags verified by the `signature-verify` capability.",
     ),
     "signer-registry": (
         "record",
-        "Allowed-signers mapping from signing key to named person.",
+        "Allowed-signers mapping from signing key to named person, read by the "
+        "`approval-trail` capability.",
     ),
-    "signature-meaning": ("record", "The `Signed-off-meaning:` trailer."),
+    "signature-meaning": (
+        "record",
+        "The `Signed-off-meaning:` trailer verified by the `approval-verify` "
+        "capability.",
+    ),
     "fda-certification-record": (
         "record",
         "Evidence that the electronic-signature certification was submitted to FDA.",
     ),
-    "approval-trail": ("record", "Engineering-assurance approval-trail output."),
+    "approval-trail": (
+        "record",
+        "Signed approval history for a record produced by the `approval-trail` "
+        "capability.",
+    ),
     "access-control": ("record", "Repository permission and branch-rule settings."),
     "system-validation": (
         "record",
