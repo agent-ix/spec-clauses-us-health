@@ -338,9 +338,7 @@ def test_markerless_backup_refuses_unowned_data_and_allows_retry(tmp_path):
     unowned_file = backup / "keep.bin"
     unowned_bytes = b"unowned backup data\x00\xff"
     unowned_file.write_bytes(unowned_bytes)
-    prepack = subprocess.run(
-        ["node", str(script)], capture_output=True, text=True
-    )
+    prepack = subprocess.run(["node", str(script)], capture_output=True, text=True)
     assert prepack.returncode != 0
     assert "inspect and remove the unowned data" in prepack.stderr
     assert "run --clean" not in prepack.stderr
