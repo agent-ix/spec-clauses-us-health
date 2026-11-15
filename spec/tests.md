@@ -17,6 +17,14 @@ relationships:
     type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/FR-007"
     type: covers
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-008"
+    type: covers
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-009"
+    type: covers
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-010"
+    type: covers
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-011"
+    type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/NFR-001"
     type: covers
 ---
@@ -24,8 +32,8 @@ relationships:
 
 ## Overview
 
-This matrix defines the planned verification cases for the Part 11 module and
-its discharge corpus. Each acceptance criterion maps to a concrete test case.
+This matrix defines the planned verification cases for the US health-law
+module and its discharge corpus. Each acceptance criterion maps to a concrete test case.
 Cases move from planned to implemented when their implementation tickets add
 executable tests and criterion trace tags. This document records the test plan;
 Quire's computed matrix and source trace tags remain the evidence of
@@ -70,6 +78,26 @@ rights basis.
 | FR-007 | FR-007-AC-1 | TC-024 | 🚧 Planned for PLAT-1559 |
 | FR-007 | FR-007-AC-2 | TC-025 | 🚧 Planned for PLAT-1559 |
 | FR-007 | FR-007-AC-3 | TC-026 | ✅ Single-set path in PLAT-1423; corpus extension in PLAT-1559 |
+| FR-008 | FR-008-AC-1 | TC-032 | 🚧 Planned for PLAT-1595 |
+| FR-008 | FR-008-AC-2 | TC-033 | 🚧 Planned for PLAT-1595 |
+| FR-008 | FR-008-AC-3 | TC-034 | 🚧 Planned for PLAT-1595 |
+| FR-008 | FR-008-AC-4 | TC-035 | 🚧 Planned for PLAT-1595 |
+| FR-008 | FR-008-AC-5 | TC-036 | 🚧 Planned for PLAT-1595 |
+| FR-009 | FR-009-AC-1 | TC-037 | 🚧 Planned for PLAT-1596 |
+| FR-009 | FR-009-AC-2 | TC-038 | 🚧 Planned for PLAT-1596 |
+| FR-009 | FR-009-AC-3 | TC-039 | 🚧 Planned for PLAT-1596 |
+| FR-009 | FR-009-AC-4 | TC-040 | 🚧 Planned for PLAT-1596 |
+| FR-009 | FR-009-AC-5 | TC-041 | 🚧 Planned with source authoring |
+| FR-009 | FR-009-AC-6 | TC-042 | 🚧 Planned for PLAT-1596 |
+| FR-010 | FR-010-AC-1 | TC-043 | 🚧 Planned for PLAT-1545 |
+| FR-010 | FR-010-AC-2 | TC-044 | 🚧 Planned for PLAT-1595 and PLAT-1596 |
+| FR-010 | FR-010-AC-3 | TC-045 | 🚧 Planned with source authoring |
+| FR-010 | FR-010-AC-4 | TC-046 | 🚧 Planned for PLAT-1596 |
+| FR-011 | FR-011-AC-1 | TC-047 | 🚧 Planned for PLAT-1600 |
+| FR-011 | FR-011-AC-2 | TC-048 | 🚧 Planned for PLAT-1600 |
+| FR-011 | FR-011-AC-3 | TC-049 | 🚧 Planned for PLAT-1600 |
+| FR-011 | FR-011-AC-4 | TC-050 | 🚧 Planned for PLAT-1600 |
+| FR-011 | FR-011-AC-5 | TC-051 | 🚧 Planned for PLAT-1600 |
 
 ## Non-Functional Requirement Coverage
 
@@ -99,7 +127,7 @@ rights basis.
 | TC-015 | Section 11.300 binds only for a supplied identification-code/password method | Unit | P0 | FR-004-AC-4 | ✅ Implemented in PLAT-1423 |
 | TC-016 | An empty applicability context leaves every clause unresolved | Unit | P1 | FR-004-AC-5 | ✅ Implemented in PLAT-1423 |
 | TC-017 | Undeclared applicability dimensions or values are rejected | Unit | P1 | FR-004-AC-6 | ✅ Implemented in PLAT-1423 |
-| TC-018 | The US catalog contains its exact 18 output definitions and M1 entries | Unit | P0 | FR-005-AC-1 | 🚧 Planned for PLAT-1545 |
+| TC-018 | The US catalog contains its exact 25 output definitions and M1 entries | Unit | P0 | FR-005-AC-1 | 🚧 Planned for PLAT-1545 |
 | TC-019 | Conflicting kind or description for a reused output fails across US sets | Unit | P0 | FR-005-AC-2 | ✅ Helper and Part 11 catalog checked in PLAT-1553 |
 | TC-020 | A later US set reuses an output only with the catalog definition | Unit | P1 | FR-005-AC-3 | 🚧 Planned for PLAT-1545 |
 | TC-021 | Customer-owned clauses are exactly those whose outputs are all procedures | Unit | P0 | FR-006-AC-1 | ✅ Implemented in PLAT-1553 |
@@ -113,3 +141,23 @@ rights basis.
 | TC-029 | Rights analysis confirms original summaries and excludes paywalled source text | Analysis | P1 | NFR-001-AC-3 | 🚧 Planned with source authoring |
 | TC-030 | The module schema contains no pack-level output catalog field | Unit | P1 | FR-005-AC-4 | 🚧 Planned for PLAT-1545 |
 | TC-031 | The certification-submission clause maps to the FDA certification record output | Unit | P1 | FR-003-AC-5 | ✅ Implemented in PLAT-1423 |
+| TC-032 | The 524B set identity and source metadata match the current US Code source | Unit | P0 | FR-008-AC-1 | 🚧 Planned for PLAT-1595 |
+| TC-033 | The 524B clause IDs exactly match the statutory table | Unit | P0 | FR-008-AC-2 | 🚧 Planned for PLAT-1595 |
+| TC-034 | Cyber-device applicability binds, does not bind, or remains unresolved for the supplied value | Unit | P0 | FR-008-AC-3 | 🚧 Planned for PLAT-1595 |
+| TC-035 | Every 524B clause is mandatory and references only declared outputs | Unit | P0 | FR-008-AC-4 | 🚧 Planned for PLAT-1595 |
+| TC-036 | Cyber-device applicability rejects undeclared values and is not inferred | Unit | P1 | FR-008-AC-5 | 🚧 Planned for PLAT-1595 |
+| TC-037 | The FDA guidance set uses the current guidance identity, date, and official source | Unit | P0 | FR-009-AC-1 | 🚧 Planned for PLAT-1596 |
+| TC-038 | The FDA guidance clause IDs exactly match the guidance table | Unit | P0 | FR-009-AC-2 | 🚧 Planned for PLAT-1596 |
+| TC-039 | Every FDA guidance clause is recommended and names a declared output | Unit | P0 | FR-009-AC-3 | 🚧 Planned for PLAT-1596 |
+| TC-040 | Section VII applicability follows the user-supplied cyber-device value | Unit | P0 | FR-009-AC-4 | 🚧 Planned for PLAT-1596 |
+| TC-041 | Rights analysis finds no paywalled consensus-standard names or paraphrases | Analysis | P0 | FR-009-AC-5, NFR-001-AC-4 | 🚧 Planned with source authoring |
+| TC-042 | The FDA clauses requiring an SBOM name the SBOM output with support status and end-of-support date | Unit | P0 | FR-009-AC-6 | 🚧 Planned for PLAT-1596 |
+| TC-043 | Every cybersecurity clause output resolves to a row in the master catalog | Unit | P0 | FR-010-AC-1 | 🚧 Planned for PLAT-1545 |
+| TC-044 | Cybersecurity set outputs match catalog kind and description across all sets | Unit | P0 | FR-010-AC-2 | 🚧 Planned for PLAT-1595 and PLAT-1596 |
+| TC-045 | Each new cybersecurity catalog row names its producer or owning ticket | Inspection | P1 | FR-010-AC-3 | 🚧 Planned with source authoring |
+| TC-046 | The guidance uses the dedicated SBOM output and declares no generic SOUP output for SBOM clauses | Unit | P1 | FR-010-AC-4 | 🚧 Planned for PLAT-1596 |
+| TC-047 | The crosswalk table contains source, target key, target ID, and a supported relation value | Inspection | P1 | FR-011-AC-1 | 🚧 Planned for PLAT-1600 |
+| TC-048 | Each 524B clause crosswalks to an FDA guidance clause | Unit | P0 | FR-011-AC-2 | 🚧 Planned for PLAT-1600 |
+| TC-049 | Each cybersecurity clause resolves at least one NIST crosswalk target from the installed module | Integration | P0 | FR-011-AC-3 | 🚧 Planned for PLAT-1600 |
+| TC-050 | An unknown NIST target fails with that identifier in the diagnostic | Unit | P1 | FR-011-AC-4 | 🚧 Planned for PLAT-1600 |
+| TC-051 | Test dependencies install the published target module without copying its clause data | Inspection | P1 | FR-011-AC-5 | 🚧 Planned for PLAT-1600 |

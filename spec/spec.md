@@ -138,7 +138,7 @@ additional requirement.
 | Clause ID | Applicability | Expected outputs |
 |---|---|---|
 | `524B(a)` | `eq cyber_device yes` | `security-risk-records`, `soup-list` |
-| `524B(b)(1)` | `eq cyber_device yes` | `vulnerability-management-plan`, `vulnerability-assessment` |
+| `524B(b)(1)` | `eq cyber_device yes` | `vulnerability-management-plan`, `vulnerability-assessment`, `sbom` |
 | `524B(b)(2)` | `eq cyber_device yes` | `security-risk-records`, `vulnerability-management-plan` |
 | `524B(b)(2)(A)` | `eq cyber_device yes` | `security-risk-records`, `vulnerability-management-plan` |
 | `524B(b)(2)(B)` | `eq cyber_device yes` | `security-risk-records`, `vulnerability-management-plan` |
@@ -156,14 +156,14 @@ the user supplies the same `cyber_device` value; the pack does not infer it.
 |---|---|---|
 | `V.A.1` | Always | `threat-model` |
 | `V.A.2` | Always | `security-risk-assessment` |
-| `V.A.4` | Always | `soup-list` |
+| `V.A.4` | Always | `sbom` |
 | `V.A.5` | Always | `vulnerability-assessment` |
 | `V.B.2` | Always | `security-architecture-views` |
 | `V.C` | Always | `cybersecurity-test-results` |
 | `VI.B` | Always | `vulnerability-management-plan` |
 | `VII.C.1` | `eq cyber_device yes` | `vulnerability-management-plan`, `vulnerability-assessment` |
 | `VII.C.2` | `eq cyber_device yes` | `security-risk-assessment`, `security-architecture-views`, `cybersecurity-test-results` |
-| `VII.C.3` | `eq cyber_device yes` | `soup-list` |
+| `VII.C.3` | `eq cyber_device yes` | `sbom` |
 
 ### Cybersecurity Crosswalk Plan
 
@@ -176,46 +176,49 @@ out of scope. Each 524B clause has at least one guidance target. Each crosswalk
 target in the NIST set must resolve. A missing NIST target fails validation and
 identifies the unknown identifier. Crosswalks are informative mappings; they do
 not claim that a device is compliant, that one clause is equivalent to another,
-or that a control satisfies a legal obligation.
+or that a control satisfies a legal obligation. Each relation value uses the
+`ClauseSet` enum: `equivalent`, `partial`, or `informative`. Every mapping in
+this plan is `informative`: it points readers to related guidance or controls
+and makes no equivalence or partial-coverage claim.
 
 | Source clause | Target set key | Target ID | Relation |
 |---|---|---|---|
-| `524B(a)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.1` | `mapped_to` |
-| `524B(a)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `mapped_to` |
-| `524B(a)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.3` | `mapped_to` |
-| `524B(b)(1)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.1` | `mapped_to` |
-| `524B(b)(2)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `mapped_to` |
-| `524B(b)(2)(A)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `mapped_to` |
-| `524B(b)(2)(B)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `mapped_to` |
-| `524B(b)(3)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.3` | `mapped_to` |
-| `524B(a)` | `nist/sp800-53@5.2.0` | `RA-3` | `mapped_to` |
-| `524B(b)(1)` | `nist/sp800-53@5.2.0` | `RA-5` | `mapped_to` |
-| `524B(b)(1)` | `nist/sp800-53@5.2.0` | `SI-5` | `mapped_to` |
-| `524B(b)(2)` | `nist/sp800-53@5.2.0` | `SA-3` | `mapped_to` |
-| `524B(b)(2)` | `nist/sp800-53@5.2.0` | `SA-8` | `mapped_to` |
-| `524B(b)(2)(A)` | `nist/sp800-53@5.2.0` | `SA-3` | `mapped_to` |
-| `524B(b)(2)(A)` | `nist/sp800-53@5.2.0` | `SA-8` | `mapped_to` |
-| `524B(b)(2)(B)` | `nist/sp800-53@5.2.0` | `SI-2` | `mapped_to` |
-| `524B(b)(3)` | `nist/sp800-53@5.2.0` | `CM-8` | `mapped_to` |
-| `524B(b)(3)` | `nist/sp800-53@5.2.0` | `SR-4` | `mapped_to` |
-| `V.A.1` | `nist/sp800-53@5.2.0` | `RA-3` | `mapped_to` |
-| `V.A.2` | `nist/sp800-53@5.2.0` | `RA-3` | `mapped_to` |
-| `V.A.2` | `nist/sp800-53@5.2.0` | `RA-5` | `mapped_to` |
-| `V.A.4` | `nist/sp800-53@5.2.0` | `CM-8` | `mapped_to` |
-| `V.A.4` | `nist/sp800-53@5.2.0` | `SR-4` | `mapped_to` |
-| `V.A.5` | `nist/sp800-53@5.2.0` | `RA-5` | `mapped_to` |
-| `V.A.5` | `nist/sp800-53@5.2.0` | `SI-2` | `mapped_to` |
-| `V.B.2` | `nist/sp800-53@5.2.0` | `SA-8` | `mapped_to` |
-| `V.B.2` | `nist/sp800-53@5.2.0` | `SA-11` | `mapped_to` |
-| `V.C` | `nist/sp800-53@5.2.0` | `CA-8` | `mapped_to` |
-| `V.C` | `nist/sp800-53@5.2.0` | `SA-11` | `mapped_to` |
-| `VI.B` | `nist/sp800-53@5.2.0` | `SR-2` | `mapped_to` |
-| `VII.C.1` | `nist/sp800-53@5.2.0` | `RA-5` | `mapped_to` |
-| `VII.C.1` | `nist/sp800-53@5.2.0` | `SI-5` | `mapped_to` |
-| `VII.C.2` | `nist/sp800-53@5.2.0` | `SA-3` | `mapped_to` |
-| `VII.C.2` | `nist/sp800-53@5.2.0` | `SA-8` | `mapped_to` |
-| `VII.C.3` | `nist/sp800-53@5.2.0` | `CM-8` | `mapped_to` |
-| `VII.C.3` | `nist/sp800-53@5.2.0` | `SR-4` | `mapped_to` |
+| `524B(a)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.1` | `informative` |
+| `524B(a)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `informative` |
+| `524B(a)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.3` | `informative` |
+| `524B(b)(1)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.1` | `informative` |
+| `524B(b)(2)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `informative` |
+| `524B(b)(2)(A)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `informative` |
+| `524B(b)(2)(B)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `informative` |
+| `524B(b)(3)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.3` | `informative` |
+| `524B(a)` | `nist/sp800-53@5.2.0` | `RA-3` | `informative` |
+| `524B(b)(1)` | `nist/sp800-53@5.2.0` | `RA-5` | `informative` |
+| `524B(b)(1)` | `nist/sp800-53@5.2.0` | `SI-5` | `informative` |
+| `524B(b)(2)` | `nist/sp800-53@5.2.0` | `SA-3` | `informative` |
+| `524B(b)(2)` | `nist/sp800-53@5.2.0` | `SA-8` | `informative` |
+| `524B(b)(2)(A)` | `nist/sp800-53@5.2.0` | `SA-3` | `informative` |
+| `524B(b)(2)(A)` | `nist/sp800-53@5.2.0` | `SA-8` | `informative` |
+| `524B(b)(2)(B)` | `nist/sp800-53@5.2.0` | `SI-2` | `informative` |
+| `524B(b)(3)` | `nist/sp800-53@5.2.0` | `CM-8` | `informative` |
+| `524B(b)(3)` | `nist/sp800-53@5.2.0` | `SR-4` | `informative` |
+| `V.A.1` | `nist/sp800-53@5.2.0` | `RA-3` | `informative` |
+| `V.A.2` | `nist/sp800-53@5.2.0` | `RA-3` | `informative` |
+| `V.A.2` | `nist/sp800-53@5.2.0` | `RA-5` | `informative` |
+| `V.A.4` | `nist/sp800-53@5.2.0` | `CM-8` | `informative` |
+| `V.A.4` | `nist/sp800-53@5.2.0` | `SR-4` | `informative` |
+| `V.A.5` | `nist/sp800-53@5.2.0` | `RA-5` | `informative` |
+| `V.A.5` | `nist/sp800-53@5.2.0` | `SI-2` | `informative` |
+| `V.B.2` | `nist/sp800-53@5.2.0` | `SA-8` | `informative` |
+| `V.B.2` | `nist/sp800-53@5.2.0` | `SA-11` | `informative` |
+| `V.C` | `nist/sp800-53@5.2.0` | `CA-8` | `informative` |
+| `V.C` | `nist/sp800-53@5.2.0` | `SA-11` | `informative` |
+| `VI.B` | `nist/sp800-53@5.2.0` | `SR-2` | `informative` |
+| `VII.C.1` | `nist/sp800-53@5.2.0` | `RA-5` | `informative` |
+| `VII.C.1` | `nist/sp800-53@5.2.0` | `SI-5` | `informative` |
+| `VII.C.2` | `nist/sp800-53@5.2.0` | `SA-3` | `informative` |
+| `VII.C.2` | `nist/sp800-53@5.2.0` | `SA-8` | `informative` |
+| `VII.C.3` | `nist/sp800-53@5.2.0` | `CM-8` | `informative` |
+| `VII.C.3` | `nist/sp800-53@5.2.0` | `SR-4` | `informative` |
 
 ### US Health-Law Output Catalog
 
@@ -251,6 +254,7 @@ does not claim cross-repository enforcement.
 | `vulnerability-assessment` | `record` | Assessment of identified vulnerabilities and unresolved software anomalies; owner: PLAT-1619. |
 | `cybersecurity-test-results` | `record` | Results of security-focused testing against the device and its controls; owner: PLAT-1638. |
 | `vulnerability-management-plan` | `record` | Plan and procedures for monitoring, identifying, and addressing postmarket vulnerabilities; owner: PLAT-1656. |
+| `sbom` | `record` | SBOM records with component support status and end-of-support dates, from `quoin evidence record --adapter sbom` and `quoin soup report` (PLAT-1517/PLAT-1518). |
 
 ### Customer-Owned Obligations
 

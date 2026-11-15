@@ -21,6 +21,10 @@ supporting FDA recommendations, and relevant public NIST controls.
   guidance set.
 - Every section 524B and FDA guidance clause SHALL crosswalk to at least one
   target in `nist/sp800-53@5.2.0`.
+- Each relation SHALL use the `ClauseSet` enum value `equivalent`, `partial`,
+  or `informative`. These crosswalks SHALL use `informative` because they
+  identify related guidance or controls without claiming equivalence or
+  coverage.
 - The integration test SHALL load the target set from the installed
   `spec-objects-security` module as a test dependency.
 - The pack SHALL NOT copy the target set's clauses or identifier catalog.
@@ -31,7 +35,7 @@ supporting FDA recommendations, and relevant public NIST controls.
 
 | ID | Criteria | Verification |
 |----|----------|--------------|
-| FR-011-AC-1 | The master specification contains a crosswalk table with source clause, target set key, target ID, and relation. | Inspection |
+| FR-011-AC-1 | The master specification contains a crosswalk table with source clause, target set key, target ID, and a supported relation (`equivalent`, `partial`, or `informative`); every relation in this plan is `informative`. | Inspection |
 | FR-011-AC-2 | Every 524B clause crosswalks to at least one FDA guidance clause. | Test |
 | FR-011-AC-3 | Every section 524B and FDA guidance clause has at least one target in the NIST set; every target resolves when `spec-objects-security` is installed. | Test |
 | FR-011-AC-4 | A fixture containing an unknown NIST target fails and identifies that target ID. | Test |
