@@ -71,9 +71,9 @@ PLAT-1582 authors the exact M2 guidance-to-Part-820 crosswalks and their
 resolution tests. PLAT-1588 exercises M2 discharge outcomes against the
 synthetic reference corpus.
 
-TC-001 is retired after M1: the one-set M1 manifest is preserved in Git history
-at `b678d5d`, while the current manifest includes later US sets. Do not assert
-the historical M1 manifest shape against the expanded current module.
+TC-001 is retired after M1: it covered the initial one-set manifest, whose
+shape was superseded as later US sets were added. Do not assert the historical
+M1 manifest shape against the expanded current module.
 PLAT-1608 exercises the M3 cybersecurity discharge outcomes against that
 corpus.
 PLAT-1621 exercises M4 addressable dispositions and unresolved outputs against

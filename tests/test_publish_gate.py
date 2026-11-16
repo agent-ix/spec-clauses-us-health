@@ -55,20 +55,30 @@ def test_publish_check_accepts_the_real_module() -> None:
 
 
 @pytest.mark.trace("TC-027", "NFR-001-M-1")
-def test_pack_rights_metadata_check_rejects_a_blank_public_source_basis() -> None:
-    """The pack metadata check names a set whose public-source basis is blank.
+@pytest.mark.parametrize(
+    ("basis", "remove_key"),
+    [(None, True), ("  ", False)],
+    ids=["missing", "blank"],
+)
+def test_pack_rights_metadata_check_rejects_missing_or_blank_public_source_basis(
+    basis: str | None, remove_key: bool
+) -> None:
+    """The pack metadata check names a set without a public-source basis.
 
     Assumptions:
         Clause-set rights fields are structured metadata, not authored prose.
 
     Criteria:
-        The pack assertion rejects a blank rights.licence and identifies its set.
+        The pack assertion rejects a missing or blank rights.licence and names its set.
         Quire separately refuses sets whose rights.text is restricted.
 
     Trace: NFR-001-M-1
     """
     clause_sets = load_clause_sets()
-    clause_sets[0]["rights"]["licence"] = "  "
+    if remove_key:
+        clause_sets[0]["rights"].pop("licence")
+    else:
+        clause_sets[0]["rights"]["licence"] = basis
     set_key = clause_set_key(clause_sets[0])
 
     with pytest.raises(AssertionError, match=set_key) as error:
