@@ -57,3 +57,17 @@ Reviewed the frozen PR #30 diff against PLAT-1621 AC1–6, FR-021-AC1/2, FR-012-
 | FND-003 | fixed | Verified at 0a7419b; missing decision and missing approvalRef facts are submitted to record-discharge and rejected. After excerpt: `assert rejected.returncode != 0, rejected.stdout` |
 | FND-004 | fixed | Verified at 0a7419b; evaluator binding is asserted to contain no disposition or decision fields. After excerpt: `assert all("decision" not in clause and "disposition" not in clause for clause in binding["clauses"])` |
 | FND-005 | still-open | Quoin 0.35.0 accepts and renders the test's `delegated` disposition for `164.308(a)(5)(ii)(A)`, whose clause style is addressable. FR-012 Behavior and AC4 require `accepted_risk` for any non-direct addressable discharge; FR-173-AC-13 only covers malformed or missing scope-exclusion fields and does not authorize this pack-level exception. Route the conformance gap to the Quoin engine owner; the test-only assertions do not address it. |
+
+
+## New findings (disposition pass 2)
+
+| ID | Severity | Summary | Refs |
+| --- | --- | --- | --- |
+| FND-006 | high | TC-084 assigns `accepted_risk` to `164.308(a)(5)(ii)(A)`, whose only expected output is `written-procedure` (kind `procedure`), although FR-006 classifies every all-procedure clause as customer-owned and requires each discharged customer-owned clause to use `delegated`. The accepted-risk example therefore violates FR-006-AC-1/2. | tests/test_m4_discharge.py:44, 220-230, 302-319; spec/spec.md:503-504, 536-549; spec/functional/FR-006-customer-owned-obligations.md:20-25, 34-36; spec_clauses_us_health/clauses/us-hhs-45-cfr-164-subpart-c-2026-11-12.json:324-337 |
+
+## Dispositions — round 2
+
+| FND | outcome | after_excerpt | reason |
+| --- | --- | --- | --- |
+| FND-005 | fixed | `"decision": "accepted_risk"` | - |
+| FND-006 | still-open | - | The clause has only the `written-procedure` expected output; the pack output catalog classifies that as kind `procedure`. FR-006-AC-1 therefore makes it customer-owned and FR-006-AC-2 requires `delegated` for its discharged corpus fact. TC-084 currently sends it through the accepted-risk addressable loop, contrary to the requirement. |
