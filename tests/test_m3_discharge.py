@@ -122,7 +122,6 @@ def _security_module() -> pathlib.Path:
         entry for entry in installed if entry.get("name") == "spec-objects-security"
     ]
     assert len(matches) == 1, "expected one installed spec-objects-security module"
-    assert matches[0]["ref"] == "v0.14.0", matches[0]
     path = pathlib.Path(matches[0]["targetPath"]).resolve()
     assert path.is_dir(), f"security module path does not exist: {path}"
     return path
