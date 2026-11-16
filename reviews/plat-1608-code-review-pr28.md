@@ -9,11 +9,11 @@ review_set: subset
 
 ## Summary
 
-Disposition pass at PR #28 head 67373e6 verified both initial findings fixed. The shared staging helper now serves M2 and M3, and VULN-M3-001 validates under released spec-objects-security v0.14.0; the PLAT-1619-owned vulnerability-assessment clauses remain open without discharge facts.
+Disposition pass at PR #28 head b7ed2da confirms all findings fixed. M2/M3 share one pack staging helper, VULN-M3-001 validates while PLAT-1619 outputs remain open without facts, and the original PR #27 review is preserved separately from SR-037.
 
 ## Verdict
 
-**PASS** — both findings are fixed. Focused M2/M3 discharge tests pass with v0.14.0, and hosted CI is green at the reviewed head.
+**PASS** — all three findings are fixed, focused checks pass, hosted CI is green, and the historical PR #27 review is retained at its original path.
 
 ## Findings
 
@@ -77,12 +77,22 @@ bindings:
 ```
 
 
+## New findings (disposition pass 1)
+
+| ID | Severity | Summary | Refs |
+| --- | --- | --- | --- |
+| FND-003 | medium | SR-037 replaces the existing PR #27 review artifact at the same path, removing that record. | reviews/plat-1608-code-review.md:1 |
+
+At head b7ed2da, SR-20261104139908 remains at `reviews/plat-1608-code-review.md`, while SR-037 is stored at `reviews/plat-1608-code-review-pr28.md`.
+
 ## Dispositions
 
 | FND | outcome | reason |
 | --- | --- | --- |
 | FND-001 | fixed | Both M2 and M3 now call the shared `tests/conftest.py::stage_clause_sets`; no test-local `_stage_module` remains. |
 | FND-002 | fixed | `VULN-M3-001.md` is included and passes `quire validate` through the focused M3 test; `V.A.5` and `VII.C.1` are asserted open and no facts are recorded for those PLAT-1619-owned outputs. |
+| FND-003 | still-open: preserve both reviews | At head 67373e6 the PR #27 artifact was overwritten; a later commit restored it and placed SR-037 at a separate path. |
+| FND-003 | fixed | At head b7ed2da the PR #27 artifact remains intact at reviews/plat-1608-code-review.md and SR-037 exists at reviews/plat-1608-code-review-pr28.md. |
 
 ~~~yaml
 dispositions:
@@ -92,4 +102,11 @@ dispositions:
   - fnd: FND-002
     outcome: fixed
     after_excerpt: "type: vulnerability\nobject: vulnerability\nseverity: high"
+  - fnd: FND-003
+    outcome: still-open
+    reason: "The PR #27 review artifact was overwritten at head 67373e6."
+  - fnd: FND-003
+    outcome: fixed
+    after_excerpt: "id: SR-037\nscope: \"agent-ix/spec-clauses-us-health; PR #28; tests/test_m3_discharge.py, tests/corpus/, .github/workflows/ci.yml; FR-020; FR-019\""
+    reason: "Head b7ed2da restores SR-20261104139908 to its original PR #27 path and adds SR-037 at reviews/plat-1608-code-review-pr28.md."
 ~~~
