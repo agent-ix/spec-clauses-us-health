@@ -35,6 +35,8 @@ relationships:
     type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/FR-019"
     type: covers
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-020"
+    type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/FR-017"
     type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/NFR-001"
@@ -66,6 +68,8 @@ do not generate evidence facts.
 PLAT-1582 authors the exact M2 guidance-to-Part-820 crosswalks and their
 resolution tests. PLAT-1588 exercises M2 discharge outcomes against the
 synthetic reference corpus.
+PLAT-1608 exercises the M3 cybersecurity discharge outcomes against that
+corpus.
 
 ## Functional Requirement Coverage
 
@@ -155,6 +159,12 @@ synthetic reference corpus.
 | FR-019 | FR-019-AC-3 | TC-082 | ✅ Implemented in PLAT-1588 |
 | FR-019 | FR-019-AC-4 | TC-082 | ✅ Implemented in PLAT-1588 |
 | FR-019 | FR-019-AC-5 | TC-082 | ✅ Implemented in PLAT-1588 |
+| FR-019 | FR-019-AC-4 | TC-083 | 🚧 Planned for PLAT-1608 |
+| FR-019 | FR-019-AC-5 | TC-083 | 🚧 Planned for PLAT-1608 |
+| FR-020 | FR-020-AC-1 | TC-083 | 🚧 Planned for PLAT-1608 |
+| FR-020 | FR-020-AC-2 | TC-083 | 🚧 Planned for PLAT-1608 |
+| FR-020 | FR-020-AC-3 | TC-083 | 🚧 Planned for PLAT-1608 |
+| FR-020 | FR-020-AC-4 | TC-083 | 🚧 Planned for PLAT-1608 |
 
 ## Non-Functional Requirement Coverage
 
@@ -249,3 +259,4 @@ synthetic reference corpus.
 | TC-080 | `test_crosswalk_requires_relation_and_nonblank_rationale`: each mapping has supported relation and one-sentence original rationale without designators | Unit | P1 | FR-017-AC-3 | ✅ Implemented in PLAT-1582 |
 | TC-081 | `test_crosswalk_is_informative_and_does_not_claim_equivalence`: all mappings remain informative | Unit | P1 | FR-017-AC-4 | ✅ Implemented in PLAT-1582 |
 | TC-082 | M2 RMM includes three ordered sets with matching row counts, mapped outcomes, basic-level applicability, pack-side missing-reference rejection naming the clause, and deterministic Markdown | Integration | P0 | FR-019-AC-1, FR-019-AC-2, FR-019-AC-3, FR-019-AC-4, FR-019-AC-5 | ✅ Implemented in PLAT-1588 |
+| TC-083 | M3 RMM includes the cybersecurity sets, ingested SBOM evidence, mapped open work, and cyber-device applicability; it also exercises the inherited missing-reference and deterministic-rendering contracts | Integration | P0 | FR-020-AC-1, FR-020-AC-2, FR-020-AC-3, FR-020-AC-4, FR-019-AC-4, FR-019-AC-5 | 🚧 Planned for PLAT-1608 |
