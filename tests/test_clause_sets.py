@@ -11,6 +11,7 @@ import subprocess
 import tarfile
 import tempfile
 import zipfile
+from urllib.parse import urlparse
 
 import pytest
 import yaml
@@ -146,8 +147,19 @@ def test_quire_validates_the_module():
     assert result.returncode == 0, result.stderr + result.stdout
 
 
-@pytest.mark.trace("TC-002", "FR-001-AC-2")
+@pytest.mark.trace("TC-002", "FR-001-AC-2", "TC-003", "FR-001-AC-3")
 def test_local_quoin_install_has_no_object_or_artifact_contributions(tmp_path):
+    """A local Quoin install reports the clause-only module shape.
+
+    Assumptions:
+        The module is installed into a fresh config root from this worktree.
+
+    Criteria:
+        The installed module is a path source with pack false and no object or
+        artifact type contributions.
+
+    Trace: FR-001-AC-2, FR-001-AC-3
+    """
     home = tmp_path / "home"
     config_root = tmp_path / "config"
     home.mkdir()
@@ -169,6 +181,7 @@ def test_local_quoin_install_has_no_object_or_artifact_contributions(tmp_path):
     ]
     assert len(found) == 1
     assert found[0]["source"]["type"] == "path"
+    assert found[0]["pack"] is False
     catalog_after = run(engine_tool("quoin"), "catalog", "list", "--json", env=env)
     assert catalog_after.returncode == 0, catalog_after.stderr + catalog_after.stdout
     catalog_modules = json.loads(catalog_after.stdout)["modules"]
@@ -179,6 +192,65 @@ def test_local_quoin_install_has_no_object_or_artifact_contributions(tmp_path):
     ]
     assert catalog_module["objectTypes"] == []
     assert catalog_module["artifactTypes"] == []
+
+
+@pytest.mark.trace("TC-028", "NFR-001-AC-2")
+def test_every_declared_set_identifies_its_official_public_source():
+    """Every manifest entry has source metadata for its official public source.
+
+    Assumptions:
+        The repository manifest selects all currently published US sets.
+
+    Criteria:
+        Every selected set maps to its expected official eCFR, US Code, or FDA URL.
+
+    Trace: NFR-001-AC-2
+    """
+    expected_sources = {
+        PART_11_KEY: (
+            "eCFR",
+            "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11",
+        ),
+        PART_820_KEY: (
+            "eCFR",
+            "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820",
+        ),
+        FDCA_524B_KEY: (
+            "US Code",
+            "https://uscode.house.gov/us/usc/119-124/t21/s360n-2/",
+        ),
+        FDA_GUIDANCE_KEY: ("FDA guidance", "https://www.fda.gov/media/119933/download"),
+        PREMARKET_SOFTWARE_KEY: (
+            "FDA guidance",
+            "https://www.fda.gov/regulatory-information/search-fda-guidance-"
+            "documents/content-premarket-submissions-device-software-functions",
+        ),
+        HIPAA_KEY: (
+            "eCFR",
+            "https://www.ecfr.gov/on/2026-11-12/title-45/subtitle-A/"
+            "subchapter-C/part-164/subpart-C",
+        ),
+    }
+    actual_sources = {}
+    for clause_set in load_clause_sets():
+        key = clause_set_key(clause_set)
+        source = clause_set.get("source")
+        assert isinstance(source, dict), f"{key}: source metadata is missing"
+        official_url = source.get("officialUrl")
+        assert isinstance(official_url, str), f"{key}: official URL is missing"
+        parsed_url = urlparse(official_url)
+        assert parsed_url.scheme == "https", f"{key}: official URL is not HTTPS"
+        if parsed_url.hostname == "www.ecfr.gov":
+            source_kind = "eCFR"
+        elif parsed_url.hostname == "uscode.house.gov":
+            source_kind = "US Code"
+        elif parsed_url.hostname == "www.fda.gov":
+            source_kind = "FDA guidance"
+        else:
+            source_kind = f"unexpected host {parsed_url.hostname}"
+        actual_sources[key] = (source_kind, official_url)
+
+    assert actual_sources == expected_sources
 
 
 @pytest.mark.trace("TC-052", "FR-012-AC-1")

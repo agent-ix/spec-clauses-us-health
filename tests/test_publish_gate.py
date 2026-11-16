@@ -9,10 +9,30 @@ import shutil
 import subprocess
 
 import pytest
-from conftest import MANIFEST_PATH, PACKAGE_ROOT, REPO_ROOT, engine_tool
+from conftest import (
+    MANIFEST_PATH,
+    PACKAGE_ROOT,
+    REPO_ROOT,
+    clause_set_key,
+    engine_tool,
+    load_clause_sets,
+)
 
 
-@pytest.mark.trace("TC-006", "FR-002-AC-2", "TC-027", "NFR-001-AC-1")
+def _assert_pack_rights_metadata(clause_sets: list[dict]) -> None:
+    """Require original text and a non-blank public-source basis per set."""
+    for clause_set in clause_sets:
+        key = clause_set_key(clause_set)
+        rights = clause_set.get("rights")
+        assert isinstance(rights, dict), f"{key}: rights metadata is missing"
+        assert rights.get("text") == "original", f"{key}: rights.text is not original"
+        licence = rights.get("licence")
+        assert (
+            isinstance(licence, str) and licence.strip()
+        ), f"{key}: rights.licence public-source basis is missing or blank"
+
+
+@pytest.mark.trace("TC-006", "FR-002-AC-2", "TC-027", "NFR-001-AC-1", "NFR-001-M-1")
 def test_publish_check_accepts_the_real_module() -> None:
     """The real module publishes only when each declared set passes rights checks.
 
@@ -22,8 +42,9 @@ def test_publish_check_accepts_the_real_module() -> None:
     Criteria:
         quire publish-check exits successfully on the complete module.
 
-    Trace: FR-002-AC-2, NFR-001-AC-1
+    Trace: FR-002-AC-2, NFR-001-AC-1, NFR-001-M-1
     """
+    _assert_pack_rights_metadata(load_clause_sets())
     result = subprocess.run(
         [engine_tool("quire"), "publish-check", "--module", str(PACKAGE_ROOT)],
         capture_output=True,
@@ -31,6 +52,38 @@ def test_publish_check_accepts_the_real_module() -> None:
         check=False,
     )
     assert result.returncode == 0, result.stderr + result.stdout
+
+
+@pytest.mark.trace("TC-027", "NFR-001-M-1")
+@pytest.mark.parametrize(
+    ("basis", "remove_key"),
+    [(None, True), ("  ", False)],
+    ids=["missing", "blank"],
+)
+def test_pack_rights_metadata_check_rejects_missing_or_blank_public_source_basis(
+    basis: str | None, remove_key: bool
+) -> None:
+    """The pack metadata check names a set without a public-source basis.
+
+    Assumptions:
+        Clause-set rights fields are structured metadata, not authored prose.
+
+    Criteria:
+        The pack assertion rejects a missing or blank rights.licence and names its set.
+        Quire separately refuses sets whose rights.text is restricted.
+
+    Trace: NFR-001-M-1
+    """
+    clause_sets = load_clause_sets()
+    if remove_key:
+        clause_sets[0]["rights"].pop("licence")
+    else:
+        clause_sets[0]["rights"]["licence"] = basis
+    set_key = clause_set_key(clause_sets[0])
+
+    with pytest.raises(AssertionError, match=set_key) as error:
+        _assert_pack_rights_metadata(clause_sets)
+    assert "rights.licence" in str(error.value)
 
 
 @pytest.mark.trace("TC-007", "FR-002-AC-3")
