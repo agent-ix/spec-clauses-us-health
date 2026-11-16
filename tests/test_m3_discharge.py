@@ -120,14 +120,19 @@ def _master_no_producer_outputs() -> set[str]:
         cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
         name = cells[0].strip("`")
         description = cells[2].casefold()
-        if "no producer on `origin/main`" in description or "owner: plat-" in description:
+        if (
+            "no producer on `origin/main`" in description
+            or "owner: plat-" in description
+        ):
             outputs.add(name)
     return outputs
 
 
 def _security_module() -> pathlib.Path:
     installed = _json(engine_tool("quoin"), "module", "list")["plugins"]
-    matches = [entry for entry in installed if entry.get("name") == "spec-objects-security"]
+    matches = [
+        entry for entry in installed if entry.get("name") == "spec-objects-security"
+    ]
     assert len(matches) == 1, "expected one installed spec-objects-security module"
     path = pathlib.Path(matches[0]["targetPath"]).resolve()
     assert path.is_dir(), f"security module path does not exist: {path}"
@@ -169,7 +174,8 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
         "# Synthetic evidence suites\n\n"
         "| ID | Name | Tool | Kind | Obligations |\n"
         "|---|---|---|---|---|\n"
-        "| M3-SBOM | Synthetic component inventory | synthetic-syft | Static | 524B(b)(3), V.A.4, VII.C.3 |\n"
+        "| M3-SBOM | Synthetic component inventory | synthetic-syft | Static | "
+        "524B(b)(3), V.A.4, VII.C.3 |\n"
     )
 
     module = _stage_module(root / "pack-module")
@@ -305,9 +311,14 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
         "pkg:npm/tls-helper@4.5.6",
         "pkg:generic/device-agent@0.8.0",
     }
-    assert next(
-        row for row in parsed_soup["rows"] if row["purl"] == "pkg:npm/tls-helper@4.5.6"
-    )["support_status"]["value"] == "unsupported"
+    assert (
+        next(
+            row
+            for row in parsed_soup["rows"]
+            if row["purl"] == "pkg:npm/tls-helper@4.5.6"
+        )["support_status"]["value"]
+        == "unsupported"
+    )
 
     shared_security_refs = [
         "spec/security/THREAT-M3-001.md",
@@ -367,9 +378,7 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
         assert index[key]["rowCount"] == len(clause_set["clauses"])
 
     rows = {
-        row["clauseId"]: row
-        for matrix in report["matrices"]
-        for row in matrix["rows"]
+        row["clauseId"]: row for matrix in report["matrices"] for row in matrix["rows"]
     }
     output_catalog = {
         name: definition
@@ -411,7 +420,9 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
 
     for clause_id, facts_path in facts.items():
         changed = json.loads(facts_path.read_text())
-        changed[0]["evidenceRefs"][0] = "evidence://example.invalid/evidence/missing.json"
+        changed[0]["evidenceRefs"][
+            0
+        ] = "evidence://example.invalid/evidence/missing.json"
         with pytest.raises(
             AssertionError,
             match=re.escape(f"{clause_id}: evidence ref does not resolve"),
@@ -422,7 +433,9 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
     markdown = run(*markdown_args)
     markdown_repeat = run(*markdown_args)
     assert markdown.returncode == 0, markdown.stderr + markdown.stdout
-    assert markdown_repeat.returncode == 0, markdown_repeat.stderr + markdown_repeat.stdout
+    assert markdown_repeat.returncode == 0, (
+        markdown_repeat.stderr + markdown_repeat.stdout
+    )
     assert markdown.stdout.encode() == markdown_repeat.stdout.encode()
     assert "us-congress/fdca-524b@2026-10-15" in markdown.stdout
     assert "us-fda/premarket-cybersecurity@2026-02-03" in markdown.stdout
