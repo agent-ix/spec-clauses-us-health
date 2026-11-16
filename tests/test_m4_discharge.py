@@ -41,10 +41,10 @@ ACCESS_CONTROL = "164.308(a)(4)(ii)(A)"
 CLASSIFICATION = "164.308(a)(1)(i)"
 ALTERNATIVE = "164.308(a)(3)(ii)(B)"
 NOT_REASONABLE = "164.308(a)(3)(ii)(C)"
+TRAINING_ALTERNATIVE = "164.308(a)(5)(ii)(A)"
 UNDECIDED = "164.308(a)(4)(ii)(B)"
 CUSTOMER_OWNED = {
     "164.308(a)(1)(ii)(C)",
-    "164.308(a)(5)(ii)(A)",
     "164.308(b)",
     "164.308(b)(3)",
     "164.314(a)(1)",
@@ -155,6 +155,7 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
     assert set(addressable_approval["approvedClauseIds"]) == {
         ALTERNATIVE,
         NOT_REASONABLE,
+        TRAINING_ALTERNATIVE,
     }
     assert (
         procedure_approval_record["personName"] == "Synthetic Customer Privacy Officer"
@@ -211,6 +212,18 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
             "rationale": (
                 "Not reasonable and appropriate: the synthetic deployment has no "
                 "removable media path."
+            ),
+            "approvalRef": approval_ref,
+            "attestation": attestation,
+        },
+        {
+            "kind": "disposition",
+            "clauseId": TRAINING_ALTERNATIVE,
+            "decision": "accepted_risk",
+            "owner": "customer@example.invalid",
+            "rationale": (
+                "Alternative measure: synthetic security-awareness records are "
+                "reviewed quarterly."
             ),
             "approvalRef": approval_ref,
             "attestation": attestation,
@@ -286,7 +299,7 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
     }
     for clause_id in [DIRECT, AUDIT_LOGGING, ACCESS_CONTROL, CLASSIFICATION]:
         assert rows[clause_id]["compliance"] == "compliant"
-    for clause_id in [ALTERNATIVE, NOT_REASONABLE]:
+    for clause_id in [ALTERNATIVE, NOT_REASONABLE, TRAINING_ALTERNATIVE]:
         assert rows[clause_id]["compliance"] == "tailored"
         assert (
             rows[clause_id]["tailoringDescription"]
@@ -301,6 +314,9 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
     assert next(fact for fact in facts if fact["clauseId"] == NOT_REASONABLE)[
         "rationale"
     ].startswith("Not reasonable and appropriate:")
+    assert next(
+        fact for fact in facts if fact["clauseId"] == TRAINING_ALTERNATIVE
+    )["rationale"].startswith("Alternative measure:")
     assert rows[UNDECIDED]["compliance"] == "undischarged"
     for clause_id in CUSTOMER_OWNED:
         fact = next(item for item in facts if item["clauseId"] == clause_id)

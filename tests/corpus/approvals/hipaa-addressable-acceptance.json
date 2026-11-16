@@ -5,7 +5,8 @@
   "personName": "Synthetic Customer Security Officer",
   "approvedClauseIds": [
     "164.308(a)(3)(ii)(B)",
-    "164.308(a)(3)(ii)(C)"
+    "164.308(a)(3)(ii)(C)",
+    "164.308(a)(5)(ii)(A)"
   ],
   "approvedAt": "2026-11-14T00:00:00Z",
   "rationale": "Synthetic human approval of the documented addressable dispositions."
