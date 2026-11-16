@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import pathlib
 import re
 import shutil
@@ -129,7 +130,11 @@ def _master_no_producer_outputs() -> set[str]:
 
 
 def _security_module() -> pathlib.Path:
-    installed = _json(engine_tool("quoin"), "module", "list")["plugins"]
+    args = [engine_tool("quoin"), "module", "list"]
+    config_root = os.environ.get("IX_CONFIG_ROOT")
+    if config_root:
+        args.extend(["--config-root", config_root])
+    installed = _json(*args)["plugins"]
     matches = [
         entry for entry in installed if entry.get("name") == "spec-objects-security"
     ]
