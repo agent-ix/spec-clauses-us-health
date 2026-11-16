@@ -1,0 +1,18 @@
+{
+  "suite": "M3-SYNTHETIC-SECURITY-TESTS",
+  "tested_at": "2026-11-14T00:00:00Z",
+  "results": [
+    {
+      "test_id": "SEC-001",
+      "name": "dependency inventory is complete",
+      "status": "passed",
+      "evidence": "tests/corpus/evidence/m3-sbom.cdx.json"
+    },
+    {
+      "test_id": "SEC-002",
+      "name": "unsupported component is reported",
+      "status": "passed",
+      "evidence": "tests/corpus/evidence/m3-soup-support.json"
+    }
+  ]
+}

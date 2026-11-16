@@ -18,6 +18,7 @@ from conftest import (
     m2_mapping_rows,
     resolve_fact_refs,
     run,
+    stage_clause_sets,
 )
 
 AS_OF = "2026-11-14T00:00:00Z"
@@ -178,25 +179,6 @@ def _release_evidence(repo: pathlib.Path, root: pathlib.Path) -> str:
     return out
 
 
-def _stage_module(destination: pathlib.Path) -> pathlib.Path:
-    clauses = destination / "clauses"
-    clauses.mkdir(parents=True)
-    names = [
-        "us-fda-21-cfr-11-2026-11-12.json",
-        "us-fda-21-cfr-820-2026-11-12.json",
-        "us-fda-premarket-device-software-2023-06-14.json",
-    ]
-    entries = []
-    for name in names:
-        shutil.copyfile(PACKAGE_ROOT / "clauses" / name, clauses / name)
-        entries.append(f"  - clauses/{name}")
-    (destination / "manifest.yaml").write_text(
-        "manifest_version: 1.0.0\nname: spec_clauses_us_health\nversion: 0.1.0\n"
-        "clause_sets:\n" + "\n".join(entries) + "\n"
-    )
-    return destination
-
-
 def _expected_m2_lists() -> tuple[set[str], set[str]]:
     """Classify clause rows using the PLAT-1575 mapping and corpus artifacts."""
     mapping = m2_mapping_rows()
@@ -314,7 +296,19 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
             _write(project, name, content)
 
         release_ref = _release_evidence(project, root)
-        module = _stage_module(root / "m2-module")
+        module = stage_clause_sets(
+            root,
+            *[
+                PACKAGE_ROOT / "clauses" / name
+                for name in [
+                    "us-fda-21-cfr-11-2026-11-12.json",
+                    "us-fda-21-cfr-820-2026-11-12.json",
+                    "us-fda-premarket-device-software-2023-06-14.json",
+                ]
+            ],
+            module_name="spec_clauses_us_health",
+            module_version="0.1.0",
+        )
         config = root / "quoin-config"
         installed = run(
             engine_tool("quoin"),
