@@ -8,9 +8,10 @@ type: FR
 ## Description
 
 A non-addressable clause whose expected outputs are all `procedure` outputs
-belongs to the customer. An addressable clause remains the manufacturer's
-responsibility and is not customer-owned, even when all of its expected outputs
-are `procedure`; its alternate outcomes follow
+belongs in the customer-owned table. An addressable clause is excluded from
+that table even when all of its expected outputs are `procedure`; for the HIPAA
+Security Rule, its alternate outcomes follow the applicable covered-entity and
+business-associate roles and decision policy in
 [FR-012](./FR-012-hipaa-security-rule-clause-set.md). The pack's
 reference-corpus facts record the customer's disposition without claiming to
 create or verify a procedure on its behalf. Quoin's
