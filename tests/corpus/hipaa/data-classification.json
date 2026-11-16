@@ -1,0 +1,7 @@
+{
+  "recordId": "classification://example.invalid/hipaa/synthetic-phi",
+  "recordType": "data-classification",
+  "classification": "synthetic-phi",
+  "owner": "person://example.invalid/customer/privacy-lead",
+  "handling": "restricted synthetic test data"
+}

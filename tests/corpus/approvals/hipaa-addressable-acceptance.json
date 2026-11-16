@@ -1,0 +1,12 @@
+{
+  "recordId": "approval://example.invalid/hipaa/addressable-acceptance",
+  "recordType": "person-approval",
+  "personId": "person://example.invalid/customer/security-officer",
+  "personName": "Synthetic Customer Security Officer",
+  "approvedClauseIds": [
+    "164.308(a)(3)(ii)(B)",
+    "164.308(a)(3)(ii)(C)"
+  ],
+  "approvedAt": "2026-11-14T00:00:00Z",
+  "rationale": "Synthetic human approval of the documented addressable dispositions."
+}
