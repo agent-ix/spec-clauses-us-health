@@ -1,0 +1,7 @@
+{
+  "recordId": "access://example.invalid/hipaa/role-permission",
+  "recordType": "access-control",
+  "role": "clinical-reviewer",
+  "permissions": ["read:synthetic-phi", "write:review-note"],
+  "approvedBy": "person://example.invalid/customer/security-lead"
+}

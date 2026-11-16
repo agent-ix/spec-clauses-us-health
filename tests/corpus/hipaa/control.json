@@ -1,0 +1,8 @@
+{
+  "recordId": "control://example.invalid/hipaa/access-review",
+  "recordType": "security.control",
+  "name": "Synthetic access review",
+  "owner": "person://example.invalid/customer/security-lead",
+  "status": "implemented",
+  "reviewedAt": "2026-11-14T00:00:00Z"
+}

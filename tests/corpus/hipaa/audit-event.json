@@ -1,0 +1,9 @@
+{
+  "recordId": "audit-event://example.invalid/hipaa/login-001",
+  "recordType": "security.audit_event",
+  "event": "synthetic covered-entity workforce login",
+  "occurredAt": "2026-11-14T00:00:00Z",
+  "actor": "person://example.invalid/customer/workforce-001",
+  "outcome": "success",
+  "source": "synthetic reference corpus"
+}

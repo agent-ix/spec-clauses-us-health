@@ -1,0 +1,5 @@
+Customer-owned written procedure placeholder.
+
+This file identifies a customer-owned procedure. It is not evidence of
+implementation and does not discharge any clause. A named customer approver
+records delegated ownership in the synthetic discharge facts.

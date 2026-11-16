@@ -101,11 +101,11 @@ the same reference corpus.
 | FR-005 | FR-005-AC-2 | TC-019 | ✅ Implemented in PLAT-1553 |
 | FR-005 | FR-005-AC-3 | TC-020 | 🚧 Planned for PLAT-1545 |
 | FR-005 | FR-005-AC-4 | TC-030 | 🚧 Planned for PLAT-1545 |
-| FR-006 | FR-006-AC-1 | TC-021 | 🚧 Planned for PLAT-1621 |
+| FR-006 | FR-006-AC-1 | TC-021 | ✅ Implemented in PLAT-1621 |
 | FR-006 | FR-006-AC-2 | TC-022 | ✅ Implemented in PLAT-1559 |
 | FR-006 | FR-006-AC-3 | TC-023 | ✅ Implemented in PLAT-1559 |
-| FR-006 | FR-006-AC-2 | TC-084 | 🚧 Planned for PLAT-1621 |
-| FR-006 | FR-006-AC-3 | TC-084 | 🚧 Planned for PLAT-1621 |
+| FR-006 | FR-006-AC-2 | TC-084 | ✅ Implemented in PLAT-1621 |
+| FR-006 | FR-006-AC-3 | TC-084 | ✅ Implemented in PLAT-1621 |
 | FR-007 | FR-007-AC-1 | TC-024 | 🚧 Planned for PLAT-1559 |
 | FR-007 | FR-007-AC-2 | TC-025 | 🚧 Planned for PLAT-1559 |
 | FR-007 | FR-007-AC-3 | TC-026 | ✅ Single-set path in PLAT-1423; corpus extension in PLAT-1559 |
@@ -132,8 +132,8 @@ the same reference corpus.
 | FR-012 | FR-012-AC-1 | TC-052 | 🚧 Planned for PLAT-1613 |
 | FR-012 | FR-012-AC-2 | TC-053 | 🚧 Planned for PLAT-1613 |
 | FR-012 | FR-012-AC-3 | TC-054 | 🚧 Planned for PLAT-1613 |
-| FR-012 | FR-012-AC-4 | TC-055, TC-084 | 🚧 Planned for PLAT-1621 |
-| FR-012 | FR-012-AC-5 | TC-056, TC-084 | 🚧 Planned for PLAT-1621 |
+| FR-012 | FR-012-AC-4 | TC-055, TC-084 | ✅ Implemented in PLAT-1621 |
+| FR-012 | FR-012-AC-5 | TC-056, TC-084 | ✅ Implemented in PLAT-1621 |
 | FR-012 | FR-012-AC-6 | TC-068 | 🚧 Planned for PLAT-1613 |
 | FR-013 | FR-013-AC-1 | TC-057 | 🚧 Planned for PLAT-1616 |
 | FR-013 | FR-013-AC-2 | TC-058 | 🚧 Planned for PLAT-1616 |
@@ -165,16 +165,16 @@ the same reference corpus.
 | FR-019 | FR-019-AC-3 | TC-082 | ✅ Implemented in PLAT-1588 |
 | FR-019 | FR-019-AC-4 | TC-082 | ✅ Implemented in PLAT-1588 |
 | FR-019 | FR-019-AC-5 | TC-082 | ✅ Implemented in PLAT-1588 |
-| FR-019 | FR-019-AC-4 | TC-084 | 🚧 Planned for PLAT-1621 |
-| FR-019 | FR-019-AC-5 | TC-084 | 🚧 Planned for PLAT-1621 |
+| FR-019 | FR-019-AC-4 | TC-084 | ✅ Implemented in PLAT-1621 |
+| FR-019 | FR-019-AC-5 | TC-084 | ✅ Implemented in PLAT-1621 |
 | FR-019 | FR-019-AC-4 | TC-083 | 🚧 Planned for PLAT-1608 |
 | FR-019 | FR-019-AC-5 | TC-083 | 🚧 Planned for PLAT-1608 |
 | FR-020 | FR-020-AC-1 | TC-083 | 🚧 Planned for PLAT-1608 |
 | FR-020 | FR-020-AC-2 | TC-083 | 🚧 Planned for PLAT-1608 |
 | FR-020 | FR-020-AC-3 | TC-083 | 🚧 Planned for PLAT-1608 |
 | FR-020 | FR-020-AC-4 | TC-083 | 🚧 Planned for PLAT-1608 |
-| FR-021 | FR-021-AC-1 | TC-084 | 🚧 Planned for PLAT-1621 |
-| FR-021 | FR-021-AC-2 | TC-084 | 🚧 Planned for PLAT-1621 |
+| FR-021 | FR-021-AC-1 | TC-084 | ✅ Implemented in PLAT-1621 |
+| FR-021 | FR-021-AC-2 | TC-084 | ✅ Implemented in PLAT-1621 |
 
 ## Non-Functional Requirement Coverage
 
@@ -207,7 +207,7 @@ the same reference corpus.
 | TC-018 | The US catalog contains its exact 28 output definitions and M1 entries | Unit | P0 | FR-005-AC-1 | 🚧 Planned for PLAT-1545 |
 | TC-019 | Conflicting kind or description for a reused output fails across US sets | Unit | P0 | FR-005-AC-2 | ✅ Helper and Part 11 catalog checked in PLAT-1553 |
 | TC-020 | A later US set reuses an output only with the catalog definition | Unit | P1 | FR-005-AC-3 | 🚧 Planned for PLAT-1545 |
-| TC-021 | Customer-owned clauses are non-addressable clauses whose outputs are all procedures; the table excludes an addressable fixture even when all of its outputs are procedures | Unit | P0 | FR-006-AC-1 | 🚧 Planned for PLAT-1621 |
+| TC-021 | Customer-owned clauses are non-addressable clauses whose outputs are all procedures; the table excludes an addressable fixture even when all of its outputs are procedures | Unit | P0 | FR-006-AC-1 | ✅ Implemented in PLAT-1621 |
 | TC-022 | The non-addressable customer-owned corpus fact has a delegated decision, non-empty rationale, and person-naming customer-acceptance approvalRef; the CLI records it and the RMM preserves all three values | Integration | P0 | FR-006-AC-2 | ✅ Implemented in PLAT-1559 |
 | TC-023 | The non-addressable customer-owned corpus has no direct fact and the RMM claims no toolchain-produced procedure | Integration | P0 | FR-006-AC-3 | ✅ Implemented in PLAT-1559 |
 | TC-024 | The synthetic corpus validates against the discharge input contract | Integration | P1 | FR-007-AC-1 | 🚧 Planned for PLAT-1559 |
@@ -241,8 +241,8 @@ the same reference corpus.
 | TC-052 | The M4 set identity, dated eCFR source, and original-text rights metadata match the specification | Unit | P0 | FR-012-AC-1 | 🚧 Planned for PLAT-1613 |
 | TC-053 | Every table clause is present once with mandatory force, specified style, and catalog outputs | Unit | P0 | FR-012-AC-2 | 🚧 Planned for PLAT-1613 |
 | TC-054 | `hipaa_role` values resolve only the applicable § 164.314(a)(2) clauses | Unit | P0 | FR-012-AC-3 | 🚧 Planned for PLAT-1613 |
-| TC-055 | The pack reference-corpus alternate addressable fact uses a human `accepted_risk` disposition, non-empty rationale, and named approver; the generic record parser is not required to reject decisions based on pack-specific clause style | Integration | P0 | FR-012-AC-4 | 🚧 Planned for PLAT-1621 |
-| TC-056 | RMM preserves the human addressable `accepted_risk` decision and shows its rationale and approver in tailoring columns; missing disposition remains unresolved and evaluation does not generate a decision | Integration | P0 | FR-012-AC-5 | 🚧 Planned for PLAT-1621 |
+| TC-055 | The pack reference-corpus alternate addressable fact uses a human `accepted_risk` disposition, non-empty rationale, and named approver; the generic record parser is not required to reject decisions based on pack-specific clause style | Integration | P0 | FR-012-AC-4 | ✅ Implemented in PLAT-1621 |
+| TC-056 | RMM preserves the human addressable `accepted_risk` decision and shows its rationale and approver in tailoring columns; missing disposition remains unresolved and evaluation does not generate a decision | Integration | P0 | FR-012-AC-5 | ✅ Implemented in PLAT-1621 |
 | TC-057 | The 274 source rows match the identifier-only workbook fixture with exact locators, direction, relation, and original rationale | Unit | P0 | FR-013-AC-1, FR-013-AC-3 | 🚧 Planned for PLAT-1616 |
 | TC-058 | Every included standard has a target, § 164.314(b) is absent, all targets resolve, and AC-999 fails with its crosswalk named | Unit | P0 | FR-013-AC-2 | 🚧 Planned for PLAT-1616 |
 | TC-059 | The 14 unmapped clauses remain explicit and every leading-zero normalization is recorded | Unit | P1 | FR-013-AC-3 | 🚧 Planned for PLAT-1616 |
@@ -270,4 +270,4 @@ the same reference corpus.
 | TC-081 | `test_crosswalk_is_informative_and_does_not_claim_equivalence`: all mappings remain informative | Unit | P1 | FR-017-AC-4 | ✅ Implemented in PLAT-1582 |
 | TC-082 | M2 RMM includes three ordered sets with matching row counts, mapped outcomes, basic-level applicability, pack-side missing-reference rejection naming the clause, and deterministic Markdown | Integration | P0 | FR-019-AC-1, FR-019-AC-2, FR-019-AC-3, FR-019-AC-4, FR-019-AC-5 | ✅ Implemented in PLAT-1588 |
 | TC-083 | M3 RMM includes the cybersecurity sets, ingested SBOM evidence, mapped open work, and cyber-device applicability; it also exercises the inherited missing-reference and deterministic-rendering contracts | Integration | P0 | FR-020-AC-1, FR-020-AC-2, FR-020-AC-3, FR-020-AC-4, FR-019-AC-4, FR-019-AC-5 | 🚧 Planned for PLAT-1608 |
-| TC-084 | M4 RMM index and open `health-data-flows`; direct addressable outcome plus alternative and not-reasonable `accepted_risk` outcomes with decision, rationale, and approver preserved; no-decision rows remain `Not compliant - undischarged`; Quoin refuses an empty-rationale report; delegated non-addressable customer-owned facts; missing-reference rejection names the clause; repeated Markdown is byte-identical | Integration | P0 | FR-021-AC-1, FR-021-AC-2, FR-012-AC-4, FR-012-AC-5, FR-006-AC-2, FR-006-AC-3, FR-019-AC-4, FR-019-AC-5 | 🚧 Planned for PLAT-1621 |
+| TC-084 | M4 RMM index and open `health-data-flows`; direct addressable outcome plus alternative and not-reasonable `accepted_risk` outcomes with decision, rationale, and approver preserved; no-decision rows remain `Not compliant - undischarged`; Quoin refuses an empty-rationale report; delegated non-addressable customer-owned facts; missing-reference rejection names the clause; repeated Markdown is byte-identical | Integration | P0 | FR-021-AC-1, FR-021-AC-2, FR-012-AC-4, FR-012-AC-5, FR-006-AC-2, FR-006-AC-3, FR-019-AC-4, FR-019-AC-5 | ✅ Implemented in PLAT-1621 |

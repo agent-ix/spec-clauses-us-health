@@ -1,0 +1,21 @@
+{
+  "recordId": "approval://example.invalid/hipaa/customer-procedure-acceptance",
+  "recordType": "person-approval",
+  "personId": "person://example.invalid/customer/privacy-officer",
+  "personName": "Synthetic Customer Privacy Officer",
+  "approvedClauseIds": [
+    "164.308(a)(1)(ii)(C)",
+    "164.308(b)",
+    "164.308(b)(3)",
+    "164.314(a)(1)",
+    "164.314(a)(2)(i)",
+    "164.314(a)(2)(ii)",
+    "164.316(a)",
+    "164.316(b)(1)",
+    "164.316(b)(2)(i)",
+    "164.316(b)(2)(ii)",
+    "164.316(b)(2)(iii)"
+  ],
+  "approvedAt": "2026-11-14T00:00:00Z",
+  "rationale": "Synthetic customer acceptance of responsibility for written procedures."
+}
