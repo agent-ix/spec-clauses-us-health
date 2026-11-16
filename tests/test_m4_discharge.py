@@ -13,7 +13,6 @@ from conftest import (
     REPO_ROOT,
     clause_set_key,
     engine_tool,
-    load_clause_sets,
     resolve_fact_refs,
     run,
     stage_clause_sets,
@@ -119,6 +118,12 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
         "2026-11-12",
         "--json",
         *sum((["--context", item] for item in CONTEXT), []),
+    )
+    assert "dispositions" not in binding
+    assert "facts" not in binding
+    assert all(
+        "decision" not in clause and "disposition" not in clause
+        for clause in binding["clauses"]
     )
     binding_path = root / "binding.json"
     binding_path.write_text(json.dumps(binding))
@@ -269,10 +274,12 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
     report = json.loads(first.stdout)
     indexes = {clause_set_key(entry["clauseSet"]): entry for entry in report["index"]}
     assert M4_KEY in indexes
-    m4_clause_set = next(
-        item for item in load_clause_sets() if clause_set_key(item) == M4_KEY
+    m4_matrix = next(
+        matrix
+        for matrix in report["matrices"]
+        if clause_set_key(matrix["clauseSet"]) == M4_KEY
     )
-    assert indexes[M4_KEY]["rowCount"] == len(m4_clause_set["clauses"])
+    assert indexes[M4_KEY]["rowCount"] == len(m4_matrix["rows"])
     rows = {
         row["clauseId"]: row for matrix in report["matrices"] for row in matrix["rows"]
     }
@@ -298,6 +305,9 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
         fact = next(item for item in facts if item["clauseId"] == clause_id)
         assert rows[clause_id]["compliance"] == "tailored"
         assert rows[clause_id]["tailoringRationale"] == fact["rationale"]
+        assert rows[clause_id]["tailoringDescription"] == (
+            f"delegated (approval {procedure_approval})"
+        )
         assert rows[clause_id]["evidenceRefs"] == []
 
     health_data_flow_clause_ids = {
@@ -317,7 +327,6 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
 
     markdown_args = [arg for arg in args if arg != "--json"]
     markdown = run(*markdown_args)
-    markdown_repeat = run(*markdown_args)
     assert markdown.returncode == 0, markdown.stderr + markdown.stdout
     assert markdown_repeat.returncode == 0, (
         markdown_repeat.stderr + markdown_repeat.stdout
@@ -335,6 +344,32 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
             [{**facts[0], "evidenceRefs": [missing_ref]}],
         )
     assert missing_ref in str(error.value)
+
+    rejected_facts = [
+        {**facts[4], "decision": "delegated"},
+        {key: value for key, value in facts[4].items() if key != "approvalRef"},
+    ]
+    for index, invalid_fact in enumerate(rejected_facts):
+        invalid_facts_path = root / f"invalid-addressable-facts-{index}.json"
+        invalid_facts_path.write_text(json.dumps([invalid_fact]))
+        invalid_store = root / f"invalid-addressable-store-{index}"
+        invalid_store.mkdir()
+        rejected = run(
+            engine_tool("quoin"),
+            "evidence",
+            "record-discharge",
+            "--repo",
+            str(invalid_store),
+            "--binding",
+            str(binding_path),
+            "--facts",
+            str(invalid_facts_path),
+            "--config-root",
+            str(config),
+        )
+        assert rejected.returncode != 0, rejected.stdout
+        if index == 1:
+            assert "approvalRef" in rejected.stderr + rejected.stdout
 
     stored_alternative = next(
         path
