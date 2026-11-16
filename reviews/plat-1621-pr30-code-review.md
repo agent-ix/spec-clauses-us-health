@@ -41,3 +41,19 @@ Reviewed the frozen PR #30 diff against PLAT-1621 AC1–6, FR-021-AC1/2, FR-012-
 | FND-002 | medium | Customer-owned rows are not asserted to preserve `delegated` and their `approvalRef` in the RMM tailoring description. | tests/test_m4_discharge.py:297-301 |
 | FND-003 | medium | The negative addressable case empties only `rationale`; it does not verify rejection when `accepted_risk` or the named `approvalRef` is missing. | tests/test_m4_discharge.py:341-349 |
 | FND-004 | medium | The evaluator binding is saved without checking that evaluation generated no disposition; the test supplies its own separate facts list. | tests/test_m4_discharge.py:82-127, 156-225 |
+
+## New findings (disposition pass 1)
+
+| ID | Severity | Summary | Refs |
+| --- | --- | --- | --- |
+| FND-005 | high | TC-084 discharges addressable clause `164.308(a)(5)(ii)(A)` with `delegated`, although FR-012 requires any non-direct addressable discharge to use human `accepted_risk`; Quoin 0.35.0 accepts the nonconforming disposition. | tests/test_m4_discharge.py:220-229, 305-312; spec_clauses_us_health/clauses/us-hhs-45-cfr-164-subpart-c-2026-11-12.json:324-338 |
+
+## Dispositions
+
+| FND | outcome | reason |
+| --- | --- | --- |
+| FND-001 | fixed | Verified at 0a7419b; the index is now compared with the emitted matrix rows. After excerpt: `assert indexes[M4_KEY]["rowCount"] == len(m4_matrix["rows"])` |
+| FND-002 | fixed | Verified at 0a7419b; delegated decision and approval reference are asserted in the RMM tailoring description. After excerpt: `f"delegated (approval {procedure_approval})"` |
+| FND-003 | fixed | Verified at 0a7419b; missing decision and missing approvalRef facts are submitted to record-discharge and rejected. After excerpt: `assert rejected.returncode != 0, rejected.stdout` |
+| FND-004 | fixed | Verified at 0a7419b; evaluator binding is asserted to contain no disposition or decision fields. After excerpt: `assert all("decision" not in clause and "disposition" not in clause for clause in binding["clauses"])` |
+| FND-005 | still-open | Quoin 0.35.0 accepts and renders the test's `delegated` disposition for `164.308(a)(5)(ii)(A)`, whose clause style is addressable. FR-012 Behavior and AC4 require `accepted_risk` for any non-direct addressable discharge; FR-173-AC-13 only covers malformed or missing scope-exclusion fields and does not authorize this pack-level exception. Route the conformance gap to the Quoin engine owner; the test-only assertions do not address it. |
