@@ -19,9 +19,7 @@ from conftest import (
 )
 
 
-@pytest.mark.trace(
-    "TC-006", "FR-002-AC-2", "TC-027", "NFR-001-AC-1", "NFR-001-M-1"
-)
+@pytest.mark.trace("TC-006", "FR-002-AC-2", "TC-027", "NFR-001-AC-1", "NFR-001-M-1")
 def test_publish_check_accepts_the_real_module() -> None:
     """The real module publishes only when each declared set passes rights checks.
 
@@ -62,9 +60,7 @@ def test_publish_check_rejects_original_text_without_public_source_basis(
     clause_set = json.loads(set_path.read_text())
     clause_set["rights"]["licence"] = " "
     set_path.write_text(json.dumps(clause_set))
-    set_key = (
-        f"{clause_set['authority']}/{clause_set['id']}@{clause_set['version']}"
-    )
+    set_key = f"{clause_set['authority']}/{clause_set['id']}@{clause_set['version']}"
 
     result = subprocess.run(
         [engine_tool("quire"), "publish-check", "--module", str(staged)],
