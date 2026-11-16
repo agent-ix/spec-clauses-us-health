@@ -351,7 +351,7 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
     assert missing_ref in str(error.value)
 
     rejected_facts = [
-        {**facts[4], "decision": "delegated"},
+        {key: value for key, value in facts[4].items() if key != "decision"},
         {key: value for key, value in facts[4].items() if key != "approvalRef"},
     ]
     for index, invalid_fact in enumerate(rejected_facts):
