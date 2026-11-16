@@ -9,10 +9,19 @@ import shutil
 import subprocess
 
 import pytest
-from conftest import MANIFEST_PATH, PACKAGE_ROOT, REPO_ROOT, engine_tool
+import yaml
+from conftest import (
+    MANIFEST_PATH,
+    PACKAGE_ROOT,
+    REPO_ROOT,
+    engine_tool,
+    stage_clause_sets,
+)
 
 
-@pytest.mark.trace("TC-006", "FR-002-AC-2", "TC-027", "NFR-001-AC-1")
+@pytest.mark.trace(
+    "TC-006", "FR-002-AC-2", "TC-027", "NFR-001-AC-1", "NFR-001-M-1"
+)
 def test_publish_check_accepts_the_real_module() -> None:
     """The real module publishes only when each declared set passes rights checks.
 
@@ -22,7 +31,7 @@ def test_publish_check_accepts_the_real_module() -> None:
     Criteria:
         quire publish-check exits successfully on the complete module.
 
-    Trace: FR-002-AC-2, NFR-001-AC-1
+    Trace: FR-002-AC-2, NFR-001-AC-1, NFR-001-M-1
     """
     result = subprocess.run(
         [engine_tool("quire"), "publish-check", "--module", str(PACKAGE_ROOT)],
@@ -31,6 +40,40 @@ def test_publish_check_accepts_the_real_module() -> None:
         check=False,
     )
     assert result.returncode == 0, result.stderr + result.stdout
+
+
+@pytest.mark.trace("TC-027", "NFR-001-M-1")
+def test_publish_check_rejects_original_text_without_public_source_basis(
+    tmp_path: pathlib.Path,
+) -> None:
+    """Original text without a public-source basis is not publishable.
+
+    Assumptions:
+        The valid Part 11 set is staged with only its rights basis removed.
+
+    Criteria:
+        Quire exits 2 and reports the affected set key.
+
+    Trace: NFR-001-M-1
+    """
+    relative_path = yaml.safe_load(MANIFEST_PATH.read_text())["clause_sets"][0]
+    staged = stage_clause_sets(tmp_path, PACKAGE_ROOT / relative_path)
+    set_path = staged / "clauses" / pathlib.Path(relative_path).name
+    clause_set = json.loads(set_path.read_text())
+    clause_set["rights"]["licence"] = " "
+    set_path.write_text(json.dumps(clause_set))
+    set_key = (
+        f"{clause_set['authority']}/{clause_set['id']}@{clause_set['version']}"
+    )
+
+    result = subprocess.run(
+        [engine_tool("quire"), "publish-check", "--module", str(staged)],
+        capture_output=True,
+        text=True,
+        check=False,
+    )
+    assert result.returncode == 2, result.stderr + result.stdout
+    assert set_key in result.stderr + result.stdout
 
 
 @pytest.mark.trace("TC-007", "FR-002-AC-3")

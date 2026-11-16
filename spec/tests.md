@@ -70,6 +70,10 @@ do not generate evidence facts.
 PLAT-1582 authors the exact M2 guidance-to-Part-820 crosswalks and their
 resolution tests. PLAT-1588 exercises M2 discharge outcomes against the
 synthetic reference corpus.
+
+TC-001 is retired after M1: the one-set M1 manifest is preserved in Git history
+at `b678d5d`, while the current manifest includes later US sets. Do not assert
+the historical M1 manifest shape against the expanded current module.
 PLAT-1608 exercises the M3 cybersecurity discharge outcomes against that
 corpus.
 PLAT-1621 exercises M4 addressable dispositions and unresolved outputs against
@@ -79,9 +83,8 @@ the same reference corpus.
 
 | Functional Req | Acceptance Criteria | Test Cases | Status |
 |---|---|---|---|
-| FR-001 | FR-001-AC-1 | TC-001 | 🚧 Planned for PLAT-1545 |
-| FR-001 | FR-001-AC-2 | TC-002 | 🚧 Planned for PLAT-1545 |
-| FR-001 | FR-001-AC-3 | TC-003 | 🚧 Planned for PLAT-1545 |
+| FR-001 | FR-001-AC-2 | TC-002 | ✅ Implemented in PLAT-1545 |
+| FR-001 | FR-001-AC-3 | TC-003 | ✅ Implemented in PLAT-1545 |
 | FR-001 | FR-001-AC-4 | TC-004 | 🚧 Planned for PLAT-1545 |
 | FR-002 | FR-002-AC-1 | TC-005 | ✅ Implemented in PLAT-1423 |
 | FR-002 | FR-002-AC-2 | TC-006 | ✅ Implemented in PLAT-1423 |
@@ -180,16 +183,15 @@ the same reference corpus.
 
 | Non-Functional Req | Verification Method | Evidence/Test Cases | Status |
 |---|---|---|---|
-| NFR-001 | Test | TC-027, TC-028 | 🚧 Planned for PLAT-1549 |
+| NFR-001 | Test | TC-027, TC-028 | ✅ Implemented in PLAT-1549 |
 | NFR-001 | Analysis | TC-029 (`reviews/plat-1572-source-rights-analysis.md`) | ✅ Recorded in PLAT-1572 |
 
 ## Test Case Summary
 
 | Test ID | Title | Type | Priority | Traces To | Status |
 |---|---|---|---|---|---|
-| TC-001 | The M1 manifest lists only the Part 11 set at the selected version | Unit | P0 | FR-001-AC-1 | 🚧 Planned for PLAT-1545 |
-| TC-002 | The installed module contains only clause-set contributions | Unit | P0 | FR-001-AC-2 | 🚧 Planned for PLAT-1545 |
-| TC-003 | Local installation succeeds and reports `pack: false` | Integration | P0 | FR-001-AC-3 | 🚧 Planned for PLAT-1545 |
+| TC-002 | The installed module contains only clause-set contributions | Unit | P0 | FR-001-AC-2 | ✅ Implemented in PLAT-1545 |
+| TC-003 | Local installation succeeds and reports `pack: false` | Integration | P0 | FR-001-AC-3 | ✅ Implemented in PLAT-1545 |
 | TC-004 | The specification corpus validates with the declared artifact module | Integration | P1 | FR-001-AC-4 | 🚧 Planned for PLAT-1545 |
 | TC-005 | The Part 11 set carries its exact rights values and a non-blank public-source basis | Unit | P0 | FR-002-AC-1 | ✅ Implemented in PLAT-1423 |
 | TC-006 | Publish-check accepts the Part 11 module with original-text rights | Integration | P0 | FR-002-AC-2 | ✅ Implemented in PLAT-1423 |
@@ -213,8 +215,8 @@ the same reference corpus.
 | TC-024 | The synthetic corpus validates against the discharge input contract | Integration | P1 | FR-007-AC-1 | 🚧 Planned for PLAT-1559 |
 | TC-025 | Test-time fixture signing creates and verifies a signed commit and tag, then removes the temporary key | Integration | P1 | FR-007-AC-2 | 🚧 Planned for PLAT-1559 |
 | TC-026 | Test-time discharge facts use and clean up a temporary evidence store | Integration | P1 | FR-007-AC-3 | 🚧 Planned for PLAT-1559 |
-| TC-027 | Rights metadata passes the publication check for every US set | Integration | P0 | NFR-001-AC-1, NFR-001-M-1 | 🚧 Planned for PLAT-1549 |
-| TC-028 | The source metadata identifies only the cited public eCFR and public-law basis | Unit | P1 | NFR-001-AC-2 | 🚧 Planned for PLAT-1549 |
+| TC-027 | Rights metadata passes publication check for every US set and missing source basis is refused | Integration | P0 | NFR-001-AC-1, NFR-001-M-1 | ✅ Implemented in PLAT-1549 |
+| TC-028 | Structured source metadata identifies the official public source for every declared set | Unit | P1 | NFR-001-AC-2 | ✅ Implemented in PLAT-1549 |
 | TC-029 | June 2023 FDA software guidance analysis confirms original summaries and the public-source rights basis | Analysis | P1 | NFR-001-AC-3 | ✅ Recorded in PLAT-1572 |
 | TC-030 | The module schema contains no pack-level output catalog field | Unit | P1 | FR-005-AC-4 | 🚧 Planned for PLAT-1545 |
 | TC-031 | The certification-submission clause maps to the FDA certification record output | Unit | P1 | FR-003-AC-5 | ✅ Implemented in PLAT-1423 |
