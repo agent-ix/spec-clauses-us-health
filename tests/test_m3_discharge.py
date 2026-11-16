@@ -306,7 +306,7 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
     }
     assert next(
         row for row in parsed_soup["rows"] if row["purl"] == "pkg:npm/tls-helper@4.5.6"
-    )["support_status"] == "unsupported"
+    )["support_status"]["value"] == "unsupported"
 
     shared_security_refs = [
         "spec/security/THREAT-M3-001.md",
