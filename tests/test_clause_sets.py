@@ -11,6 +11,7 @@ import subprocess
 import tarfile
 import tempfile
 import zipfile
+from urllib.parse import urlparse
 
 import pytest
 import yaml
@@ -207,20 +208,27 @@ def test_every_declared_set_identifies_its_official_public_source():
     """
     expected_sources = {
         PART_11_KEY: (
-            "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11"
+            "eCFR",
+            "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-A/part-11",
         ),
         PART_820_KEY: (
-            "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820"
+            "eCFR",
+            "https://www.ecfr.gov/current/title-21/chapter-I/subchapter-H/part-820",
         ),
-        FDCA_524B_KEY: "https://uscode.house.gov/us/usc/119-124/t21/s360n-2/",
-        FDA_GUIDANCE_KEY: "https://www.fda.gov/media/119933/download",
+        FDCA_524B_KEY: (
+            "US Code",
+            "https://uscode.house.gov/us/usc/119-124/t21/s360n-2/",
+        ),
+        FDA_GUIDANCE_KEY: ("FDA guidance", "https://www.fda.gov/media/119933/download"),
         PREMARKET_SOFTWARE_KEY: (
+            "FDA guidance",
             "https://www.fda.gov/regulatory-information/search-fda-guidance-"
-            "documents/content-premarket-submissions-device-software-functions"
+            "documents/content-premarket-submissions-device-software-functions",
         ),
         HIPAA_KEY: (
+            "eCFR",
             "https://www.ecfr.gov/on/2026-11-12/title-45/subtitle-A/"
-            "subchapter-C/part-164/subpart-C"
+            "subchapter-C/part-164/subpart-C",
         ),
     }
     actual_sources = {}
@@ -228,7 +236,19 @@ def test_every_declared_set_identifies_its_official_public_source():
         key = clause_set_key(clause_set)
         source = clause_set.get("source")
         assert isinstance(source, dict), f"{key}: source metadata is missing"
-        actual_sources[key] = source.get("officialUrl")
+        official_url = source.get("officialUrl")
+        assert isinstance(official_url, str), f"{key}: official URL is missing"
+        parsed_url = urlparse(official_url)
+        assert parsed_url.scheme == "https", f"{key}: official URL is not HTTPS"
+        if parsed_url.hostname == "www.ecfr.gov":
+            source_kind = "eCFR"
+        elif parsed_url.hostname == "uscode.house.gov":
+            source_kind = "US Code"
+        elif parsed_url.hostname == "www.fda.gov":
+            source_kind = "FDA guidance"
+        else:
+            source_kind = f"unexpected host {parsed_url.hostname}"
+        actual_sources[key] = (source_kind, official_url)
 
     assert actual_sources == expected_sources
 

@@ -23,7 +23,7 @@ metadata records that basis without including the regulation's prose.
 
 | ID | Criteria | Verification |
 |----|----------|--------------|
-| FR-002-AC-1 | The Part 11 set has `structure: citation_only`, `text: original`, `clearance_ref: null`, and a non-blank licence string identifying public-domain US federal regulation. | Test |
+| FR-002-AC-1 | The Part 11 set has `structure: citation_only`, `text: original`, `clearance_ref: null`, and a non-blank licence string identifying public-domain US federal regulation; the pack metadata test rejects a missing or blank `rights.licence` basis. | Test |
 | FR-002-AC-2 | `quire publish-check --module <pkg>` exits 0. | Test |
 | FR-002-AC-3 | A fixture copy changed to `rights.text: licensed` makes publish-check exit 2 and identify the set by authority, ID, and version. | Test |
 

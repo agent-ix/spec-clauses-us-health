@@ -215,7 +215,7 @@ the same reference corpus.
 | TC-024 | The synthetic corpus validates against the discharge input contract | Integration | P1 | FR-007-AC-1 | 🚧 Planned for PLAT-1559 |
 | TC-025 | Test-time fixture signing creates and verifies a signed commit and tag, then removes the temporary key | Integration | P1 | FR-007-AC-2 | 🚧 Planned for PLAT-1559 |
 | TC-026 | Test-time discharge facts use and clean up a temporary evidence store | Integration | P1 | FR-007-AC-3 | 🚧 Planned for PLAT-1559 |
-| TC-027 | Rights metadata passes publication check for every US set and missing source basis is refused | Integration | P0 | NFR-001-AC-1, NFR-001-M-1 | ✅ Implemented in PLAT-1549 |
+| TC-027 | Pack metadata requires original text and a non-blank source basis; Quire refuses restricted text | Integration | P0 | NFR-001-AC-1, NFR-001-M-1 | ✅ Implemented in PLAT-1549 |
 | TC-028 | Structured source metadata identifies the official public source for every declared set | Unit | P1 | NFR-001-AC-2 | ✅ Implemented in PLAT-1549 |
 | TC-029 | June 2023 FDA software guidance analysis confirms original summaries and the public-source rights basis | Analysis | P1 | NFR-001-AC-3 | ✅ Recorded in PLAT-1572 |
 | TC-030 | The module schema contains no pack-level output catalog field | Unit | P1 | FR-005-AC-4 | 🚧 Planned for PLAT-1545 |

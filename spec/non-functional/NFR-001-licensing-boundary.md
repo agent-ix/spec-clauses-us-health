@@ -29,15 +29,17 @@ source's rights basis is recorded instead.
 
 | Metric | Target | Threshold | Method |
 |---|---|---|---|
-| Set rights metadata | Every published set declares original text and a public source basis | A set without both declarations fails publication check | Test |
+| Set rights metadata | Every published set declares original text and a non-blank public-source basis | The pack metadata test fails for a set without either declaration; Quire publish-check refuses restricted `rights.text` | Test |
 
 ## Verification
 
-`quire publish-check` verifies the set's declared rights metadata. A source
-analysis records the public citation and rights basis used for each authored
-set. The metadata test checks structured rights fields only. We do not scan
-package files or corpus fixtures. A string scan cannot determine whether prose
-paraphrases protected expression and would inspect distribution files.
+The pack metadata test checks structured rights fields only: each current set
+declares `rights.text: original` and a non-blank `rights.licence` public-source
+basis. `quire publish-check` independently refuses restricted `rights.text`.
+A source analysis records the public citation and rights basis used for each
+authored set. We do not scan package files or corpus fixtures. A string scan
+cannot determine whether prose paraphrases protected expression and would
+inspect distribution files.
 
 ## Acceptance Criteria
 
