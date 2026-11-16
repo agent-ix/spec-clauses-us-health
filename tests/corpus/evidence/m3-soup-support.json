@@ -1,0 +1,20 @@
+[
+  {
+    "purl": "pkg:npm/core-utils@1.2.3",
+    "support_status": "supported",
+    "end_of_support": "2027-11-14",
+    "source": "https://example.invalid/support/core-utils"
+  },
+  {
+    "purl": "pkg:npm/tls-helper@4.5.6",
+    "support_status": "unsupported",
+    "end_of_support": "2026-01-01",
+    "source": "https://example.invalid/support/tls-helper"
+  },
+  {
+    "purl": "pkg:generic/device-agent@0.8.0",
+    "support_status": "supported",
+    "end_of_support": "2027-12-31",
+    "source": "https://example.invalid/support/device-agent"
+  }
+]

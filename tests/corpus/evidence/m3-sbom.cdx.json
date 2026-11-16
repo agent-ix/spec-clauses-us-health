@@ -1,0 +1,28 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.5",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2026-11-14T00:00:00Z"
+  },
+  "components": [
+    {
+      "type": "library",
+      "name": "core-utils",
+      "version": "1.2.3",
+      "purl": "pkg:npm/core-utils@1.2.3"
+    },
+    {
+      "type": "library",
+      "name": "tls-helper",
+      "version": "4.5.6",
+      "purl": "pkg:npm/tls-helper@4.5.6"
+    },
+    {
+      "type": "application",
+      "name": "device-agent",
+      "version": "0.8.0",
+      "purl": "pkg:generic/device-agent@0.8.0"
+    }
+  ]
+}
