@@ -101,7 +101,7 @@ the same reference corpus.
 | FR-005 | FR-005-AC-2 | TC-019 | ✅ Implemented in PLAT-1553 |
 | FR-005 | FR-005-AC-3 | TC-020 | 🚧 Planned for PLAT-1545 |
 | FR-005 | FR-005-AC-4 | TC-030 | 🚧 Planned for PLAT-1545 |
-| FR-006 | FR-006-AC-1 | TC-021 | 🚧 Planned for PLAT-1621 |
+| FR-006 | FR-006-AC-1 | TC-021 | ✅ Implemented in PLAT-1621 |
 | FR-006 | FR-006-AC-2 | TC-022 | ✅ Implemented in PLAT-1559 |
 | FR-006 | FR-006-AC-3 | TC-023 | ✅ Implemented in PLAT-1559 |
 | FR-006 | FR-006-AC-2 | TC-084 | ✅ Implemented in PLAT-1621 |
@@ -207,7 +207,7 @@ the same reference corpus.
 | TC-018 | The US catalog contains its exact 28 output definitions and M1 entries | Unit | P0 | FR-005-AC-1 | 🚧 Planned for PLAT-1545 |
 | TC-019 | Conflicting kind or description for a reused output fails across US sets | Unit | P0 | FR-005-AC-2 | ✅ Helper and Part 11 catalog checked in PLAT-1553 |
 | TC-020 | A later US set reuses an output only with the catalog definition | Unit | P1 | FR-005-AC-3 | 🚧 Planned for PLAT-1545 |
-| TC-021 | Customer-owned clauses are non-addressable clauses whose outputs are all procedures; the table excludes an addressable fixture even when all of its outputs are procedures | Unit | P0 | FR-006-AC-1 | 🚧 Planned for PLAT-1621 |
+| TC-021 | Customer-owned clauses are non-addressable clauses whose outputs are all procedures; the table excludes an addressable fixture even when all of its outputs are procedures | Unit | P0 | FR-006-AC-1 | ✅ Implemented in PLAT-1621 |
 | TC-022 | The non-addressable customer-owned corpus fact has a delegated decision, non-empty rationale, and person-naming customer-acceptance approvalRef; the CLI records it and the RMM preserves all three values | Integration | P0 | FR-006-AC-2 | ✅ Implemented in PLAT-1559 |
 | TC-023 | The non-addressable customer-owned corpus has no direct fact and the RMM claims no toolchain-produced procedure | Integration | P0 | FR-006-AC-3 | ✅ Implemented in PLAT-1559 |
 | TC-024 | The synthetic corpus validates against the discharge input contract | Integration | P1 | FR-007-AC-1 | 🚧 Planned for PLAT-1559 |

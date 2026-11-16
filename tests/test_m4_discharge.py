@@ -50,18 +50,64 @@ CUSTOMER_OWNED = {
     "164.314(a)(1)",
     "164.314(a)(2)(i)",
     "164.314(a)(2)(ii)",
+    "164.314(a)(2)(iii)",
     "164.316(a)",
     "164.316(b)(1)",
     "164.316(b)(2)(i)",
     "164.316(b)(2)(ii)",
     "164.316(b)(2)(iii)",
 }
+CUSTOMER_OWNED_IN_COVERED_ENTITY = CUSTOMER_OWNED - {"164.314(a)(2)(iii)"}
 
 
 def _json(*args: str) -> dict:
     result = run(*args)
     assert result.returncode == 0, result.stderr + result.stdout
     return json.loads(result.stdout)
+
+
+@pytest.mark.trace("TC-021")
+@pytest.mark.trace("FR-006-AC-1")
+def test_customer_owned_procedure_sets_exclude_addressable_clauses() -> None:
+    """Classify procedure-only clauses as delegated only when non-addressable."""
+    clause_sets = load_clause_sets()
+    part11 = next(item for item in clause_sets if item["id"] == "21-cfr-11")
+    part11_procedures = {
+        clause["id"]
+        for clause in part11["clauses"]
+        if clause["styles"].get("implementation") != "addressable"
+        and all(
+            part11["outputCatalog"][output]["kind"] == "procedure"
+            for output in clause["expectedOutputs"]
+        )
+    }
+    assert part11_procedures == {
+        "11.10(i)",
+        "11.10(j)",
+        "11.300(b)",
+        "11.300(c)",
+    }
+
+    m4 = next(item for item in clause_sets if clause_set_key(item) == M4_KEY)
+    m4_procedures = {
+        clause["id"]
+        for clause in m4["clauses"]
+        if clause["styles"].get("implementation") != "addressable"
+        and all(
+            m4["outputCatalog"][output]["kind"] == "procedure"
+            for output in clause["expectedOutputs"]
+        )
+    }
+    assert CUSTOMER_OWNED == m4_procedures
+    training_clause = next(
+        clause for clause in m4["clauses"] if clause["id"] == TRAINING_ALTERNATIVE
+    )
+    assert training_clause["styles"]["implementation"] == "addressable"
+    assert all(
+        m4["outputCatalog"][output]["kind"] == "procedure"
+        for output in training_clause["expectedOutputs"]
+    )
+    assert TRAINING_ALTERNATIVE not in CUSTOMER_OWNED
 
 
 @pytest.mark.trace("TC-084")
@@ -230,7 +276,7 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
         },
     ]
     procedure_approval = f"evidence://example.invalid/{refs['procedure_approval']}"
-    for clause_id in sorted(CUSTOMER_OWNED):
+    for clause_id in sorted(CUSTOMER_OWNED_IN_COVERED_ENTITY):
         facts.append(
             {
                 "kind": "disposition",
@@ -318,7 +364,7 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
         "rationale"
     ].startswith("Alternative measure:")
     assert rows[UNDECIDED]["compliance"] == "undischarged"
-    for clause_id in CUSTOMER_OWNED:
+    for clause_id in CUSTOMER_OWNED_IN_COVERED_ENTITY:
         fact = next(item for item in facts if item["clauseId"] == clause_id)
         assert rows[clause_id]["compliance"] == "tailored"
         assert rows[clause_id]["tailoringRationale"] == fact["rationale"]
