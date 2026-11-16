@@ -314,9 +314,9 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
     assert next(fact for fact in facts if fact["clauseId"] == NOT_REASONABLE)[
         "rationale"
     ].startswith("Not reasonable and appropriate:")
-    assert next(
-        fact for fact in facts if fact["clauseId"] == TRAINING_ALTERNATIVE
-    )["rationale"].startswith("Alternative measure:")
+    assert next(fact for fact in facts if fact["clauseId"] == TRAINING_ALTERNATIVE)[
+        "rationale"
+    ].startswith("Alternative measure:")
     assert rows[UNDECIDED]["compliance"] == "undischarged"
     for clause_id in CUSTOMER_OWNED:
         fact = next(item for item in facts if item["clauseId"] == clause_id)
