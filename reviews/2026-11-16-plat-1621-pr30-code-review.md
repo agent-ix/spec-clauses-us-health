@@ -89,3 +89,15 @@ Verified at PR #30 head `7473d9aeb35e4ba3d7f77c3d8f3f3e115d137011`, rebased on m
 - `FR-173-AC-13` in Quoin main is unchanged.
 - Review of the current diff found no additional code findings.
 - The refreshed `reviews/plat-1621-pr30-code-review.md` in the PR still ends with round 2 and `FND-006 still-open`; this scratch artifact contains the round 3 resolution and must replace the stale committed copy before merge.
+
+
+## Round 4 scope and verification
+
+Reviewed the new fix commit `f411413cc6a8d4006ee2666abb80bb068899b569` at current PR head. It changes only `tests/test_m3_discharge.py` by removing the exact installed-module ref assertion from `_security_module`; the behavior checks remain. No exact `v0.14.0` or `spec-objects-security@vN` pin remains in code or package configuration. The test still resolves the installed module by name, runs Quire validation and the `threat-has-control` relation query, and asserts the expected threat id, covered state, linked control id, and `mitigates` verb; the focused test passed.
+
+All earlier code-review findings FND-001 through FND-006 retain their latest `fixed` outcome. No new code findings were introduced. The prior artifact freshness issue is resolved by the current dated artifact `reviews/2026-11-16-plat-1621-pr30-code-review.md`, which carries the round 3 FND-006 disposition; the nondated `reviews/plat-1621-pr30-code-review.md` remains as preserved history. The current artifact includes this round 4 delta review.
+
+- `locked-build.sh ... python -m pytest -q tests/test_m3_discharge.py`: passed (1 test).
+- `locked-build.sh ... python -m black --check tests/test_m3_discharge.py`: passed.
+- `locked-build.sh ... python -m ruff check tests/test_m3_discharge.py`: passed.
+- `FR-173-AC-13` remains unchanged in Quoin main.
