@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import pathlib
+import re
 import shutil
 
 import pytest
@@ -413,7 +414,7 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
         changed[0]["evidenceRefs"][0] = "evidence://example.invalid/evidence/missing.json"
         with pytest.raises(
             AssertionError,
-            match=rf"{clause_id}: evidence ref does not resolve",
+            match=re.escape(f"{clause_id}: evidence ref does not resolve"),
         ):
             resolve_fact_refs(project, changed)
 
