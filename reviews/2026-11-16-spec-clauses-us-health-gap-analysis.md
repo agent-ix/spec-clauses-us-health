@@ -35,3 +35,13 @@ This repository-driven audit checked the spec, computed Quoin Test Matrix, tagge
 - Coverage totals: 97 criteria; Quire coverage reports 0 untracked symbols and 15 diagnostics (trace-id-outside-marker, criterion-tagged-outside-row, one unmatched trace-target archetype, and one universal-criterion diagnostic).
 - Untraced user-facing behaviors: 0; source stubs: 0; test stubs: 0. This repository's executable surface is its test suite and small test helpers; no production application source is present.
 - Semantic review: skipped.
+
+
+## Dispositions
+
+| FND | outcome | reason |
+| --- | --- | --- |
+| FND-001 | deferred | Planner ruling assigns the missing M1 manifest coverage to PLAT-1545, the US health-law module scaffold ticket. This criterion is outside PLAT-1621. |
+| FND-002 | deferred | Planner ruling assigns the missing install/module-list coverage to PLAT-1545, the US health-law module scaffold ticket. This criterion is outside PLAT-1621. |
+| FND-003 | deferred | Planner ruling assigns the remaining source-metadata coverage to PLAT-1549's publish-gate work. This criterion is outside PLAT-1621. |
+| FND-004 | deferred | Planner ruling assigns the remaining rights-metadata publication-check coverage to PLAT-1549. This metric is outside PLAT-1621. |
