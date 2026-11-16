@@ -37,6 +37,8 @@ relationships:
     type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/FR-020"
     type: covers
+  - target: "ix://agent-ix/spec-clauses-us-health/FR-021"
+    type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/FR-017"
     type: covers
   - target: "ix://agent-ix/spec-clauses-us-health/NFR-001"
@@ -70,6 +72,8 @@ resolution tests. PLAT-1588 exercises M2 discharge outcomes against the
 synthetic reference corpus.
 PLAT-1608 exercises the M3 cybersecurity discharge outcomes against that
 corpus.
+PLAT-1621 exercises M4 addressable dispositions and unresolved outputs against
+the same reference corpus.
 
 ## Functional Requirement Coverage
 
@@ -100,6 +104,8 @@ corpus.
 | FR-006 | FR-006-AC-1 | TC-021 | ✅ Implemented in PLAT-1553 |
 | FR-006 | FR-006-AC-2 | TC-022 | ✅ Implemented in PLAT-1559 |
 | FR-006 | FR-006-AC-3 | TC-023 | ✅ Implemented in PLAT-1559 |
+| FR-006 | FR-006-AC-2 | TC-084 | 🚧 Planned for PLAT-1621 |
+| FR-006 | FR-006-AC-3 | TC-084 | 🚧 Planned for PLAT-1621 |
 | FR-007 | FR-007-AC-1 | TC-024 | 🚧 Planned for PLAT-1559 |
 | FR-007 | FR-007-AC-2 | TC-025 | 🚧 Planned for PLAT-1559 |
 | FR-007 | FR-007-AC-3 | TC-026 | ✅ Single-set path in PLAT-1423; corpus extension in PLAT-1559 |
@@ -126,8 +132,8 @@ corpus.
 | FR-012 | FR-012-AC-1 | TC-052 | 🚧 Planned for PLAT-1613 |
 | FR-012 | FR-012-AC-2 | TC-053 | 🚧 Planned for PLAT-1613 |
 | FR-012 | FR-012-AC-3 | TC-054 | 🚧 Planned for PLAT-1613 |
-| FR-012 | FR-012-AC-4 | TC-055 | 🚧 Planned for PLAT-1621 |
-| FR-012 | FR-012-AC-5 | TC-056 | 🚧 Planned for PLAT-1621 |
+| FR-012 | FR-012-AC-4 | TC-055, TC-084 | 🚧 Planned for PLAT-1621 |
+| FR-012 | FR-012-AC-5 | TC-056, TC-084 | 🚧 Planned for PLAT-1621 |
 | FR-012 | FR-012-AC-6 | TC-068 | 🚧 Planned for PLAT-1613 |
 | FR-013 | FR-013-AC-1 | TC-057 | 🚧 Planned for PLAT-1616 |
 | FR-013 | FR-013-AC-2 | TC-058 | 🚧 Planned for PLAT-1616 |
@@ -159,12 +165,16 @@ corpus.
 | FR-019 | FR-019-AC-3 | TC-082 | ✅ Implemented in PLAT-1588 |
 | FR-019 | FR-019-AC-4 | TC-082 | ✅ Implemented in PLAT-1588 |
 | FR-019 | FR-019-AC-5 | TC-082 | ✅ Implemented in PLAT-1588 |
+| FR-019 | FR-019-AC-4 | TC-084 | 🚧 Planned for PLAT-1621 |
+| FR-019 | FR-019-AC-5 | TC-084 | 🚧 Planned for PLAT-1621 |
 | FR-019 | FR-019-AC-4 | TC-083 | 🚧 Planned for PLAT-1608 |
 | FR-019 | FR-019-AC-5 | TC-083 | 🚧 Planned for PLAT-1608 |
 | FR-020 | FR-020-AC-1 | TC-083 | 🚧 Planned for PLAT-1608 |
 | FR-020 | FR-020-AC-2 | TC-083 | 🚧 Planned for PLAT-1608 |
 | FR-020 | FR-020-AC-3 | TC-083 | 🚧 Planned for PLAT-1608 |
 | FR-020 | FR-020-AC-4 | TC-083 | 🚧 Planned for PLAT-1608 |
+| FR-021 | FR-021-AC-1 | TC-084 | 🚧 Planned for PLAT-1621 |
+| FR-021 | FR-021-AC-2 | TC-084 | 🚧 Planned for PLAT-1621 |
 
 ## Non-Functional Requirement Coverage
 
@@ -260,3 +270,4 @@ corpus.
 | TC-081 | `test_crosswalk_is_informative_and_does_not_claim_equivalence`: all mappings remain informative | Unit | P1 | FR-017-AC-4 | ✅ Implemented in PLAT-1582 |
 | TC-082 | M2 RMM includes three ordered sets with matching row counts, mapped outcomes, basic-level applicability, pack-side missing-reference rejection naming the clause, and deterministic Markdown | Integration | P0 | FR-019-AC-1, FR-019-AC-2, FR-019-AC-3, FR-019-AC-4, FR-019-AC-5 | ✅ Implemented in PLAT-1588 |
 | TC-083 | M3 RMM includes the cybersecurity sets, ingested SBOM evidence, mapped open work, and cyber-device applicability; it also exercises the inherited missing-reference and deterministic-rendering contracts | Integration | P0 | FR-020-AC-1, FR-020-AC-2, FR-020-AC-3, FR-020-AC-4, FR-019-AC-4, FR-019-AC-5 | 🚧 Planned for PLAT-1608 |
+| TC-084 | M4 RMM index and open `health-data-flows`; direct, alternative, and not-reasonable addressable outcomes with named approval; no-decision rows remain `Not compliant - undischarged`; Quoin refuses an empty-rationale report; delegated customer-owned facts; missing-reference rejection names the clause; repeated Markdown is byte-identical | Integration | P0 | FR-021-AC-1, FR-021-AC-2, FR-012-AC-4, FR-012-AC-5, FR-006-AC-2, FR-006-AC-3, FR-019-AC-4, FR-019-AC-5 | 🚧 Planned for PLAT-1621 |
