@@ -13,6 +13,7 @@ from conftest import (
     REPO_ROOT,
     clause_set_key,
     engine_tool,
+    load_clause_sets,
     resolve_fact_refs,
     run,
     stage_clause_sets,
@@ -310,6 +311,9 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
         )
         assert rows[clause_id]["evidenceRefs"] == []
 
+    m4_clause_set = next(
+        item for item in load_clause_sets() if clause_set_key(item) == M4_KEY
+    )
     health_data_flow_clause_ids = {
         clause["id"]
         for clause in m4_clause_set["clauses"]
@@ -327,6 +331,7 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
 
     markdown_args = [arg for arg in args if arg != "--json"]
     markdown = run(*markdown_args)
+    markdown_repeat = run(*markdown_args)
     assert markdown.returncode == 0, markdown.stderr + markdown.stdout
     assert markdown_repeat.returncode == 0, (
         markdown_repeat.stderr + markdown_repeat.stdout
