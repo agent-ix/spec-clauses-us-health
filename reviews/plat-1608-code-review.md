@@ -1,95 +1,77 @@
 ---
-id: SR-20261104139908
-title: Code review - PLAT-1608 M3 discharge specification
+id: SR-037
+title: "Code review — PLAT-1608 M3 discharge implementation"
 type: SpecReview
 analysis: code-review
-scope: "agent-ix/spec-clauses-us-health; PR #27; FR-020 and spec/tests.md"
+scope: "agent-ix/spec-clauses-us-health; PR #28; tests/test_m3_discharge.py, tests/corpus/, .github/workflows/ci.yml; FR-020; FR-019"
 review_set: subset
 ---
 
 ## Summary
 
-FR-020 and TC-083 cover the planned M3 behavior, but two generic RMM contracts are duplicated from FR-019 and the SBOM-only condition is not tested negatively. Verdict: FAIL.
+Reviewed PR #28 at 90ad07b against PLAT-1608 AC1–6, FR-020-AC1..4, inherited FR-019-AC4/5, and the changed test, corpus and CI paths. The implementation covers the tested discharge paths, but duplicates an existing helper and omits a required vulnerability object.
+
+## Verdict
+
+**FAIL** — the added staging helper duplicates existing code (P0 under the code-review rubric); the required vulnerability document is also missing.
 
 ## Findings
 
 | ID | Severity | Summary | Refs |
 | --- | --- | --- | --- |
-| FND-001 | high | FR-020-AC-5 duplicates the shared resolver contract in FR-019-AC-4. | FR-020-AC-5, FR-019-AC-4 |
-| FND-002 | high | FR-020-AC-6 repeats the shared deterministic-rendering contract in FR-019-AC-5. | FR-020-AC-6, FR-019-AC-5 |
-| FND-003 | medium | The SBOM-only compliance statement lacks a negative criterion. | FR-020 |
+| FND-001 | high | `_stage_module` duplicates existing pack staging helpers in the same test suite. | tests/test_m3_discharge.py:51 |
+| FND-002 | medium | The corpus adds no vulnerability document despite the ticket's explicit scope. | tests/corpus/security/ |
 
 ## Review coverage
 
-Reviewed the complete diff: new FR-020 and TC-083/coverage additions in spec/tests.md. Compared all six PLAT-1608 ACs with FR-020-AC-1..6. The corrected Linear AC1 uses the current FR-009 key, us-fda/premarket-cybersecurity@2026-02-03. Reviewed FR-007..FR-011, FR-019, the cybersecurity output catalog, producer table, and clause set identities. Quire matrix reports FR-020-AC-1..6 untagged, consistent with TC-083 marked Planned. No applicable AssuranceProfile is present under spec/. No hashes, digests, pins, local tool paths, or copied artifacts were introduced.
+Checked PLAT-1608 AC1–6 against the Linear issue, FR-020-AC1..4, FR-019-AC4/5, and TC-083. Confirmed the assertion for exact FDA set key `us-fda/premarket-cybersecurity@2026-02-03`; no-producer rows are derived from the master catalog and compared to the M3 open list; SBOM evidence is ingested through Quoin, SOUP is promoted/reported, frontmatter `mitigates` produces the `threat-has-control` covered result, warning posture is not suppressed, missing refs go through `resolve_fact_refs`, and deterministic Markdown is asserted. The CI change installs released `spec-objects-security@v0.14.0` using its supported GitHub source; no vendored files or checksum pins were added. The test is tagged for all FR-020 criteria and inherited FR-019-AC4/5. `quire matrix --strict` recognized these bindings; it also reported pre-existing unrelated untagged criteria. The focused test failed locally because the current environment's default security module is v0.13.0 while the PR asserts v0.14.0; hosted CI at the frozen head is green, so this is recorded as an environment mismatch, not a PR finding. No applicable AssuranceProfile was found under `spec/`.
 
-## Findings data
++++ [reviewer data]
 
-~~~yaml
+```yaml
 clean: false
 scope:
-  - {id: FR-020, path: spec/functional/FR-020-m3-cybersecurity-corpus-discharge.md, role: examined, excerpt: "When the reference corpus contains cybersecurity evidence, the pack SHALL render outcomes for the M3 section 524B and FDA cybersecurity guidance sets alongside the earlier sets. The RMM SHALL reflect recorded evidence, applicability, and the producer mapping defined in the master specification."}
-  - {id: FR-020-AC-1, path: spec/functional/FR-020-m3-cybersecurity-corpus-discharge.md, role: examined, excerpt: "The M3 RMM lists us-congress/fdca-524b@2026-10-15 and us-fda/premarket-cybersecurity@2026-02-03 alongside the earlier sets in byte order, and each rowCount equals its corresponding clause matrix row count."}
-  - {id: FR-020-AC-2, path: spec/functional/FR-020-m3-cybersecurity-corpus-discharge.md, role: examined, excerpt: "524B(b)(3) renders as Compliant with a discharge fact citing evidence produced from the ingested SBOM."}
-  - {id: FR-020-AC-3, path: spec/functional/FR-020-m3-cybersecurity-corpus-discharge.md, role: examined, excerpt: "M3 clauses whose expected output has no producer on origin/main render as Not compliant - undischarged, and the open-clause list equals the no-producer rows authored by PLAT-1593 and recorded in the master specification."}
-  - {id: FR-020-AC-4, path: spec/functional/FR-020-m3-cybersecurity-corpus-discharge.md, role: examined, excerpt: "With cyber_device=no, every section 524B clause renders as Not applicable."}
-  - {id: FR-020-AC-5, path: spec/functional/FR-020-m3-cybersecurity-corpus-discharge.md, role: examined, excerpt: "Changing a discharge fact's evidence reference to a missing corpus file makes the pack-side evidence-reference resolver reject the fact and identify the affected clause."}
-  - {id: FR-020-AC-6, path: spec/functional/FR-020-m3-cybersecurity-corpus-discharge.md, role: examined, excerpt: "Two runs over the same corpus inputs and context produce byte-identical Markdown."}
-  - {id: TC-083, path: spec/tests.md, role: examined, excerpt: "M3 RMM includes the cybersecurity sets, ingested SBOM evidence, mapped open work, cyber-device applicability, pack-side missing-reference rejection naming the clause, and deterministic Markdown"}
+  - {id: PLAT-1608-AC-1, path: Linear PLAT-1608, role: examined, excerpt: "The pack RMM index lists us-congress/fdca-524b@… and the current us-fda/premarket-cybersecurity@2026-02-03 set alongside the earlier sets, and each rowCount equals its matrix."}
+  - {id: PLAT-1608-AC-2, path: Linear PLAT-1608, role: examined, excerpt: "524B(b)(3) shows Compliant, with a fact citing ingested SBOM evidence."}
+  - {id: PLAT-1608-AC-3, path: Linear PLAT-1608, role: examined, excerpt: "No-producer elements show Not compliant - undischarged; the open list equals PLAT-1593's no-producer mapping rows."}
+  - {id: PLAT-1608-AC-4, path: Linear PLAT-1608, role: examined, excerpt: "With cyber_device=no, every 524B row shows Not applicable."}
+  - {id: PLAT-1608-AC-5, path: Linear PLAT-1608, role: examined, excerpt: "A broken evidence ref fails resolution and names the clause."}
+  - {id: PLAT-1608-AC-6, path: Linear PLAT-1608, role: examined, excerpt: "Two runs over the same inputs give byte-identical Markdown."}
+  - {id: FR-020-AC-1, path: spec/functional/FR-020-m3-cybersecurity-corpus-discharge.md, role: examined, excerpt: "The M3 RMM lists the 524B and current FDA cybersecurity sets alongside earlier sets in byte order with matching row counts."}
+  - {id: FR-020-AC-2, path: spec/functional/FR-020-m3-cybersecurity-corpus-discharge.md, role: examined, excerpt: "524B(b)(3) renders as Compliant with a discharge fact citing ingested SBOM evidence."}
+  - {id: FR-020-AC-3, path: spec/functional/FR-020-m3-cybersecurity-corpus-discharge.md, role: examined, excerpt: "No-producer M3 clauses remain undischarged and equal the PLAT-1593 mapping."}
+  - {id: FR-020-AC-4, path: spec/functional/FR-020-m3-cybersecurity-corpus-discharge.md, role: examined, excerpt: "cyber_device=no renders every 524B row Not applicable."}
+  - {id: FR-019-AC-4, path: spec/functional/FR-019-m2-corpus-discharge.md, role: examined, excerpt: "A missing corpus ref is rejected by the pack-side resolver and identifies the affected clause."}
+  - {id: FR-019-AC-5, path: spec/functional/FR-019-m2-corpus-discharge.md, role: examined, excerpt: "Two runs over the same corpus inputs and context produce byte-identical Markdown."}
+  - {id: TC-083, path: spec/tests.md, role: examined, excerpt: "M3 corpus discharge integration test verifies evidence, mapping, applicability, missing refs and deterministic output."}
 findings:
   - fnd: FND-001
     severity: high
     confidence: high
     method: code-review
     check: other
-    artifact_id: FR-020-AC-5
-    related_ids: [FR-019-AC-4]
-    path: spec/functional/FR-020-m3-cybersecurity-corpus-discharge.md
-    lines: "55"
-    excerpt: "FR-020-AC-5: Changing a discharge fact's evidence reference to a missing corpus file makes the pack-side evidence-reference resolver reject the fact and identify the affected clause."
-    finding: "FR-020-AC-5 restates the generic resolver contract already owned by FR-019-AC-4, creating two normative owners for one shared behavior."
+    artifact_id: PLAT-1608
+    related_ids: [TC-083]
+    path: tests/test_m3_discharge.py
+    lines: "51-66"
+    excerpt: "Corpus additions and a test that records facts for both M3 sets and renders the pack RMM under cyber_device=yes."
+    finding: "The added _stage_module duplicates the same temporary pack staging behavior already implemented by _stage_module in tests/test_m2_discharge.py (lines 181-197); tests/conftest.py also has the shared stage_clause_sets helper. Search found both existing implementations. Consolidate staging into one helper that supports the selected pack name and full manifest."
   - fnd: FND-002
-    severity: high
-    confidence: high
-    method: code-review
-    check: other
-    artifact_id: FR-020-AC-6
-    related_ids: [FR-019-AC-5]
-    path: spec/functional/FR-020-m3-cybersecurity-corpus-discharge.md
-    lines: "56"
-    excerpt: "FR-020-AC-6: Two runs over the same corpus inputs and context produce byte-identical Markdown."
-    finding: "FR-020-AC-6 repeats the generic deterministic-rendering contract from FR-019-AC-5, creating two normative owners for one shared behavior."
-  - fnd: FND-003
     severity: medium
     confidence: high
     method: code-review
-    check: soundness
-    artifact_id: FR-020
-    related_ids: [FR-020-AC-2]
-    path: spec/functional/FR-020-m3-cybersecurity-corpus-discharge.md
-    lines: "31-32"
-    excerpt: "The 524B(b)(3) clause SHALL render as Compliant only when its discharge fact cites evidence produced from the ingested SBOM."
-    finding: "The behavior says SBOM evidence is necessary for compliance, but the criterion checks only the positive SBOM-backed case. There is no failing evidence for the exclusive condition."
-bindings: []
-~~~
-
-## Dispositions
-
-| FND | outcome | reason |
-| --- | --- | --- |
-| FND-001 | fixed | FR-020 now extends FR-019 and TC-083 traces the M3 integration case to the shared FR-019-AC-4 contract; FR-020 no longer restates it. |
-| FND-002 | fixed | FR-020 now extends FR-019 and TC-083 traces the M3 integration case to the shared FR-019-AC-5 contract; FR-020 no longer restates it. |
-| FND-003 | fixed | The behavior now requires an SBOM-backed fact without asserting exclusivity. |
-
-~~~yaml
-dispositions:
-  - fnd: FND-001
-    outcome: fixed
-    after_excerpt: "Dependencies extend the shared evidence-reference and deterministic-rendering contracts in FR-019."
-  - fnd: FND-002
-    outcome: fixed
-    after_excerpt: "Dependencies extend the shared evidence-reference and deterministic-rendering contracts in FR-019."
-  - fnd: FND-003
-    outcome: fixed
-    after_excerpt: "The 524B(b)(3) clause SHALL have a discharge fact that cites evidence produced from the ingested SBOM."
-~~~
+    check: coverage
+    artifact_id: PLAT-1608
+    related_ids: []
+    path: tests/corpus/security/
+    lines: "-"
+    excerpt: "Corpus additions include threat/trust_boundary/control/vulnerability documents with threat-has-control satisfied."
+    finding: "The ticket's explicit corpus scope requires threat, trust_boundary, control, and vulnerability documents, but the PR adds only THREAT-M3-001, RISK-M3-001, CTRL-M3-001, and BOUNDARY-M3-001. No vulnerability document exists in the corpus, leaving that requested object unrepresented."
+bindings:
+  - {test_id: test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence, ac_id: FR-020-AC-1, trace: correct}
+  - {test_id: test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence, ac_id: FR-020-AC-2, trace: correct}
+  - {test_id: test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence, ac_id: FR-020-AC-3, trace: correct}
+  - {test_id: test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence, ac_id: FR-020-AC-4, trace: correct}
+  - {test_id: test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence, ac_id: FR-019-AC-4, trace: correct}
+  - {test_id: test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence, ac_id: FR-019-AC-5, trace: correct}
+```

@@ -113,16 +113,23 @@ def evaluate_clause_set(module_root: pathlib.Path, key: str, *context: str) -> d
     return json.loads(result.stdout)
 
 
-def stage_clause_sets(tmp_path: pathlib.Path, *files: pathlib.Path) -> pathlib.Path:
-    """Create an isolated clause-only module from supplied set files."""
+def stage_clause_sets(
+    tmp_path: pathlib.Path,
+    *files: pathlib.Path,
+    module_name: str = "staged-clause-sets",
+    module_version: str = "0.0.1",
+) -> pathlib.Path:
+    """Create an isolated clause module from supplied set files."""
     root = tmp_path / "staged-module"
     clauses_dir = root / "clauses"
     clauses_dir.mkdir(parents=True)
     for path in files:
         shutil.copy(path, clauses_dir / path.name)
-    entries = "".join(f"- clauses/{path.name}\n" for path in files)
+    entries = "".join(f"  - clauses/{path.name}\n" for path in files)
     (root / "manifest.yaml").write_text(
-        "manifest_version: 1.0.0\nname: staged-clause-sets\nversion: 0.0.1\n"
+        "manifest_version: 1.0.0\n"
+        f"name: {module_name}\n"
+        f"version: {module_version}\n"
         f"clause_sets:\n{entries}"
     )
     return root

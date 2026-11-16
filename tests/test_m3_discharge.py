@@ -18,6 +18,7 @@ from conftest import (
     load_clause_sets,
     resolve_fact_refs,
     run,
+    stage_clause_sets,
 )
 
 AS_OF = "2026-11-14T00:00:00Z"
@@ -46,24 +47,6 @@ def _json(*args: str) -> dict:
     result = run(*args)
     assert result.returncode == 0, result.stderr + result.stdout
     return json.loads(result.stdout)
-
-
-def _stage_module(destination: pathlib.Path) -> pathlib.Path:
-    """Stage all in-repository sets so the test exercises the complete pack."""
-    manifest = yaml.safe_load((PACKAGE_ROOT / "manifest.yaml").read_text())
-    destination.mkdir()
-    entries = []
-    for relative in manifest["clause_sets"]:
-        source = PACKAGE_ROOT / relative
-        target = destination / relative
-        target.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source, target)
-        entries.append(f"  - {relative}")
-    (destination / "manifest.yaml").write_text(
-        "manifest_version: 1.0.0\nname: spec_clauses_us_health\nversion: 0.1.0\n"
-        "clause_sets:\n" + "\n".join(entries) + "\n"
-    )
-    return destination
 
 
 def _record_fact(
@@ -184,7 +167,13 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
         "524B(b)(3), V.A.4, VII.C.3 |\n"
     )
 
-    module = _stage_module(root / "pack-module")
+    pack_manifest = yaml.safe_load((PACKAGE_ROOT / "manifest.yaml").read_text())
+    module = stage_clause_sets(
+        root,
+        *(PACKAGE_ROOT / relative for relative in pack_manifest["clause_sets"]),
+        module_name="spec_clauses_us_health",
+        module_version="0.1.0",
+    )
     config = root / "quoin-config"
     installed = run(
         engine_tool("quoin"),
@@ -219,6 +208,18 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
         bindings[set_id] = _json(*args)
 
     security_module = _security_module()
+    security_documents = sorted((project / "spec/security").glob("*.md"))
+    validated = run(
+        engine_tool("quire"),
+        "validate",
+        "--scope",
+        str(project),
+        "--module",
+        str(security_module),
+        *(str(document) for document in security_documents),
+    )
+    assert validated.returncode == 0, validated.stderr + validated.stdout
+    assert any(document.name == "VULN-M3-001.md" for document in security_documents)
     relations = _json(
         engine_tool("quire"),
         "relations",
@@ -418,6 +419,7 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
         if rows[clause_id]["compliance"] == "undischarged"
     }
     assert actual_open == expected_open
+    assert {"V.A.5", "VII.C.1"}.issubset(actual_open)
     assert rows["524B(b)(3)"]["compliance"] == "compliant"
     assert rows["524B(a)"]["compliance"] == "compliant"
     assert rows["524B(b)(4)"]["compliance"] == "compliant"
