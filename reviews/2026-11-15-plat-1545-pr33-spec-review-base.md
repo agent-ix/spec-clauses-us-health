@@ -21,3 +21,10 @@ Reviewed the changed requirements and test-plan rows for ID integrity, verifiabi
 | --- | --- | --- | --- |
 | FND-001 | high | `spec/tests.md` records commit `b678d5d` as the fixed historical revision for the old one-set manifest. The base checklist prohibits recorded/reviewed revisions in requirements and test plans; remove the hash reference. | spec/tests.md:74-75 |
 | FND-002 | high | TC-001 is removed from the matrix while FR-001-AC-1 remains an active Test criterion describing the obsolete one-set M1 state; `quire matrix --strict` confirms no test is bound. Rewrite the criterion for the current manifest and bind a test, or retire the criterion. | spec/functional/FR-001-pack-module-and-home.md:27; spec/tests.md:74-90 |
+
+## Dispositions
+
+| FND | outcome | after_excerpt | reason |
+| --- | --- | --- | --- |
+| FND-001 | fixed | `TC-001 is retired after M1: it covered the initial one-set manifest, whose shape was superseded as later US sets were added. Do not assert the historical M1 manifest shape against the expanded current module.` | - |
+| FND-002 | fixed | `The M1 module initially contained only the Part 11 set. Later milestones added further US sets, superseding that initial manifest shape.` | - |

@@ -32,3 +32,10 @@ Audited the current spec-to-matrix-to-test chain and the repository's executable
 - Reverse gap: no user-facing production surface exists in this repository; executable behavior is the test suite and packaging helpers. No new unowned behavior or source/test stubs were found in the changed code.
 - Semantic review: not run.
 - Plan completion: not assessed.
+
+## Dispositions
+
+| FND | outcome | after_excerpt | reason |
+| --- | --- | --- | --- |
+| FND-001 | fixed | `The M1 module initially contained only the Part 11 set. Later milestones added further US sets, superseding that initial manifest shape.` | - |
+| FND-002 | fixed | `**PASS** — the current Quoin Test Matrix has no untagged criteria. The four earlier findings are resolved: FR-001-AC-1 was retired after its M1-only manifest scope became historical, and FR-001-AC-3, NFR-001-AC-2, and NFR-001-M-1 now have tagged tests.` | - |
