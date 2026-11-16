@@ -533,12 +533,15 @@ does not claim cross-repository enforcement.
 
 ### Customer-Owned Obligations
 
-A clause is customer-owned when every expected output has kind `procedure`.
-The customer discharges such a clause using a `disposition` fact whose decision
-is `delegated`, rationale is non-empty, and `approvalRef` names the customer's
-acceptance. A `direct` fact is not accepted for this case. The pack toolchain
-does not claim or generate a procedure output. The M1 customer-owned clause
-table is:
+For the Part 11 M1 table, a non-addressable clause is customer-owned when every
+expected output has kind `procedure`, as specified by
+[FR-006](./functional/FR-006-customer-owned-obligations.md). Addressable
+clauses are excluded even when all expected outputs have kind `procedure`.
+The customer discharges a listed clause using a `disposition` fact whose
+decision is `delegated`, rationale is non-empty, and `approvalRef` names the
+customer's acceptance. A `direct` fact is not accepted for this case. The pack
+toolchain does not claim or generate a procedure output. The M1
+customer-owned clause table is:
 
 | Clause ID | Expected outputs |
 |---|---|
@@ -547,8 +550,8 @@ table is:
 | `11.300(b)` | `written-procedure` |
 | `11.300(c)` | `written-procedure` |
 
-This table contains exactly the clauses whose expected outputs are all kind
-`procedure` in the Part 11 clause table above. No customer-owned flag or other
+This table contains exactly the non-addressable Part 11 M1 clauses whose
+expected outputs are all kind `procedure`. No customer-owned flag or other
 field is added to the clause-set schema.
 
 ### Reference Corpus and Delivery Architecture

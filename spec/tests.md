@@ -101,7 +101,7 @@ the same reference corpus.
 | FR-005 | FR-005-AC-2 | TC-019 | ✅ Implemented in PLAT-1553 |
 | FR-005 | FR-005-AC-3 | TC-020 | 🚧 Planned for PLAT-1545 |
 | FR-005 | FR-005-AC-4 | TC-030 | 🚧 Planned for PLAT-1545 |
-| FR-006 | FR-006-AC-1 | TC-021 | ✅ Implemented in PLAT-1553 |
+| FR-006 | FR-006-AC-1 | TC-021 | 🚧 Planned for PLAT-1621 |
 | FR-006 | FR-006-AC-2 | TC-022 | ✅ Implemented in PLAT-1559 |
 | FR-006 | FR-006-AC-3 | TC-023 | ✅ Implemented in PLAT-1559 |
 | FR-006 | FR-006-AC-2 | TC-084 | 🚧 Planned for PLAT-1621 |
@@ -207,9 +207,9 @@ the same reference corpus.
 | TC-018 | The US catalog contains its exact 28 output definitions and M1 entries | Unit | P0 | FR-005-AC-1 | 🚧 Planned for PLAT-1545 |
 | TC-019 | Conflicting kind or description for a reused output fails across US sets | Unit | P0 | FR-005-AC-2 | ✅ Helper and Part 11 catalog checked in PLAT-1553 |
 | TC-020 | A later US set reuses an output only with the catalog definition | Unit | P1 | FR-005-AC-3 | 🚧 Planned for PLAT-1545 |
-| TC-021 | Customer-owned clauses are exactly those whose outputs are all procedures | Unit | P0 | FR-006-AC-1 | ✅ Implemented in PLAT-1553 |
-| TC-022 | The customer-owned corpus fact has a delegated decision, non-empty rationale, and person-naming customer-acceptance approvalRef; the CLI records it and the RMM preserves all three values | Integration | P0 | FR-006-AC-2 | ✅ Implemented in PLAT-1559 |
-| TC-023 | The customer-owned corpus has no direct fact and the RMM claims no toolchain-produced procedure | Integration | P0 | FR-006-AC-3 | ✅ Implemented in PLAT-1559 |
+| TC-021 | Customer-owned clauses are non-addressable clauses whose outputs are all procedures; the table excludes an addressable fixture even when all of its outputs are procedures | Unit | P0 | FR-006-AC-1 | 🚧 Planned for PLAT-1621 |
+| TC-022 | The non-addressable customer-owned corpus fact has a delegated decision, non-empty rationale, and person-naming customer-acceptance approvalRef; the CLI records it and the RMM preserves all three values | Integration | P0 | FR-006-AC-2 | ✅ Implemented in PLAT-1559 |
+| TC-023 | The non-addressable customer-owned corpus has no direct fact and the RMM claims no toolchain-produced procedure | Integration | P0 | FR-006-AC-3 | ✅ Implemented in PLAT-1559 |
 | TC-024 | The synthetic corpus validates against the discharge input contract | Integration | P1 | FR-007-AC-1 | 🚧 Planned for PLAT-1559 |
 | TC-025 | Test-time fixture signing creates and verifies a signed commit and tag, then removes the temporary key | Integration | P1 | FR-007-AC-2 | 🚧 Planned for PLAT-1559 |
 | TC-026 | Test-time discharge facts use and clean up a temporary evidence store | Integration | P1 | FR-007-AC-3 | 🚧 Planned for PLAT-1559 |
@@ -270,4 +270,4 @@ the same reference corpus.
 | TC-081 | `test_crosswalk_is_informative_and_does_not_claim_equivalence`: all mappings remain informative | Unit | P1 | FR-017-AC-4 | ✅ Implemented in PLAT-1582 |
 | TC-082 | M2 RMM includes three ordered sets with matching row counts, mapped outcomes, basic-level applicability, pack-side missing-reference rejection naming the clause, and deterministic Markdown | Integration | P0 | FR-019-AC-1, FR-019-AC-2, FR-019-AC-3, FR-019-AC-4, FR-019-AC-5 | ✅ Implemented in PLAT-1588 |
 | TC-083 | M3 RMM includes the cybersecurity sets, ingested SBOM evidence, mapped open work, and cyber-device applicability; it also exercises the inherited missing-reference and deterministic-rendering contracts | Integration | P0 | FR-020-AC-1, FR-020-AC-2, FR-020-AC-3, FR-020-AC-4, FR-019-AC-4, FR-019-AC-5 | 🚧 Planned for PLAT-1608 |
-| TC-084 | M4 RMM index and open `health-data-flows`; direct addressable outcome plus alternative and not-reasonable `accepted_risk` outcomes with decision, rationale, and approver preserved; no-decision rows remain `Not compliant - undischarged`; Quoin refuses an empty-rationale report; delegated customer-owned facts; missing-reference rejection names the clause; repeated Markdown is byte-identical | Integration | P0 | FR-021-AC-1, FR-021-AC-2, FR-012-AC-4, FR-012-AC-5, FR-006-AC-2, FR-006-AC-3, FR-019-AC-4, FR-019-AC-5 | 🚧 Planned for PLAT-1621 |
+| TC-084 | M4 RMM index and open `health-data-flows`; direct addressable outcome plus alternative and not-reasonable `accepted_risk` outcomes with decision, rationale, and approver preserved; no-decision rows remain `Not compliant - undischarged`; Quoin refuses an empty-rationale report; delegated non-addressable customer-owned facts; missing-reference rejection names the clause; repeated Markdown is byte-identical | Integration | P0 | FR-021-AC-1, FR-021-AC-2, FR-012-AC-4, FR-012-AC-5, FR-006-AC-2, FR-006-AC-3, FR-019-AC-4, FR-019-AC-5 | 🚧 Planned for PLAT-1621 |
