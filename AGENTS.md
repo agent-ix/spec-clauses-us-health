@@ -6,11 +6,15 @@ reference corpus in their separately scoped tickets.
 ## Specification commands
 
 ```bash
-quire validate --scope . --module "$QUIRE_SPEC_ARTIFACTS_ISO_MODULE" "spec/**/*.md"
+quire validate --scope . \
+  --module "$QUIRE_SPEC_ARTIFACTS_ISO_MODULE" \
+  --module "$QUIRE_SPEC_ARTIFACTS_PROCESS_MODULE" \
+  "spec/**/*.md"
 ```
 
-Set `QUIRE_SPEC_ARTIFACTS_ISO_MODULE` to the installed `spec-artifacts-iso`
-module directory before running the command.
+Set `QUIRE_SPEC_ARTIFACTS_ISO_MODULE` and
+`QUIRE_SPEC_ARTIFACTS_PROCESS_MODULE` to the installed `spec-artifacts-iso`
+and `spec-artifacts-process` module directories before running the command.
 
 Use the installed Quire schema and templates when authoring additional spec
 artifacts. Clause descriptions must be original wording. Public law may be
