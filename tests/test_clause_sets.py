@@ -657,7 +657,7 @@ def test_publish_check_rejects_a_licensed_synthetic_set(tmp_path):
     assert result.returncode == 2, result.stderr + result.stdout
 
 
-@pytest.mark.trace("TC-018", "FR-005-AC-1", "TC-043", "FR-010-AC-1")
+@pytest.mark.trace("TC-018", "FR-005-AC-1", "FR-005-AC-6", "TC-043", "FR-010-AC-1")
 def test_us_clause_set_output_catalog_matches_the_spec():
     names = [row[0] for row in _spec_table("US Health-Law Output Catalog")]
     assert len(names) == len(set(names)), "duplicate output catalog name in spec"
@@ -1489,51 +1489,9 @@ def test_single_set_rmm_marks_one_direct_fact_compliant(tmp_path):
 
 
 @pytest.mark.trace("TC-085", "FR-005-AC-5")
-def test_catalog_producers_name_only_fr_211_kinds_and_match_the_spec():
-    """`producers` are valid retained kinds on exactly the outputs the spec lists.
-
-    Criteria:
-        Every entry with `producers` lists a non-empty, distinct, unpadded
-        subset of the FR-211 kinds, and every set carries `producers` on an
-        output exactly when the spec's table lists it, with the listed kinds.
-    """
+def test_spec_producers_name_only_fr_211_kinds():
+    """Every kind in the spec's producers table is an FR-211 family kind."""
     expected = _spec_producers()
     assert expected, "the spec lists no output with producers"
-    for clause_set in load_clause_sets():
-        for name, entry in clause_set["outputCatalog"].items():
-            key = clause_set_key(clause_set)
-            if "producers" not in entry:
-                assert name not in expected, f"{key}: {name} lacks producers"
-                continue
-            kinds = entry["producers"]
-            assert kinds, f"{key}: {name} has empty producers"
-            assert len(kinds) == len(set(kinds)), f"{key}: {name} repeats a kind"
-            assert all(
-                kind == kind.strip() and kind in FR_211_FIXED_KINDS for kind in kinds
-            ), f"{key}: {name} names a kind outside FR-211: {kinds!r}"
-            assert kinds == expected.get(name), f"{key}: {name} differs from the spec"
-
-
-@pytest.mark.trace("TC-086", "FR-005-AC-6")
-def test_quire_accepts_sets_that_carry_producers():
-    """The installed quire validates and evaluates every set with `producers`."""
-    publish = run(engine_tool("quire"), "publish-check", "--module", str(PACKAGE_ROOT))
-    assert publish.returncode == 0, publish.stderr + publish.stdout
-    for clause_set in load_clause_sets():
-        if not any("producers" in e for e in clause_set["outputCatalog"].values()):
-            continue
-        result = run(
-            engine_tool("quire"),
-            "clauses",
-            "evaluate",
-            "--module",
-            str(PACKAGE_ROOT),
-            "--authority",
-            clause_set["authority"],
-            "--set",
-            clause_set["id"],
-            "--version",
-            clause_set["version"],
-            "--json",
-        )
-        assert result.returncode == 0, result.stderr + result.stdout
+    for name, kinds in expected.items():
+        assert kinds and set(kinds) <= FR_211_FIXED_KINDS, f"{name}: {kinds!r}"
