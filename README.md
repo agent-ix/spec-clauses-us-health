@@ -50,6 +50,15 @@ quoin module install github:agent-ix/spec-clauses-us-health//spec_clauses_us_hea
 
 Check it with `quoin module list`.
 
+Several commands in the tables below are `engineering-assurance` commands.
+That CLI is a native binary and is not part of the npm toolchain. Install it
+with Cargo:
+
+```sh
+cargo install --git https://github.com/agent-ix/engineering-assurance \
+  --locked --features full --bin engineering-assurance
+```
+
 ## Use it
 
 1. Declare your context, for example `system_type=closed`. Applicability is
@@ -133,6 +142,12 @@ not declare `cyber_device`.
 engineering-assurance command or capability. "You supply" lists everything
 else: records you author, documents, procedures and settings. The tool never
 fills these in.
+
+Records you author in the shipped record types (requirements, architecture,
+security risk, hazard, data-flow and baseline records) are yours. They are
+checked against their schema with `quire validate`, which does not judge their
+content. "Nothing" under "Tool produces" means no command writes a report for
+that clause. It does not mean nothing checks your records.
 
 ### 21 CFR Part 11
 
