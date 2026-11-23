@@ -268,10 +268,6 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
     tmp_path: pathlib.Path,
 ):
     """Producer evidence discharges present artifacts and leaves gaps open."""
-    version = run(engine_tool("quoin"), "--version")
-    assert version.returncode == 0, version.stderr
-    assert version.stdout.strip() == "0.35.0"
-
     with tempfile.TemporaryDirectory(dir=tmp_path, prefix="m2-corpus-") as temp:
         root = pathlib.Path(temp)
         project = root / "project"

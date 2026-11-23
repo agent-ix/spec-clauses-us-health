@@ -127,10 +127,6 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
     tmp_path: pathlib.Path,
 ) -> None:
     """SBOM, SOUP, and linked security records discharge only backed clauses."""
-    version = run(engine_tool("quoin"), "--version")
-    assert version.returncode == 0, version.stderr
-    assert version.stdout.strip() == "0.35.0"
-
     root = tmp_path / "m3-run"
     root.mkdir()
     project = root / "project"

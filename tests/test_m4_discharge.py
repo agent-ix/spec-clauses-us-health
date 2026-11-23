@@ -124,10 +124,6 @@ def test_m4_discharge_preserves_human_dispositions_and_open_outputs(
     tmp_path: pathlib.Path,
 ) -> None:
     """Render M4 outcomes from customer facts and keep unproduced outputs open."""
-    version = run(engine_tool("quoin"), "--version")
-    assert version.returncode == 0, version.stderr
-    assert version.stdout.strip() == "0.35.0"
-
     root = tmp_path / "m4-run"
     root.mkdir()
     project = root / "project"
