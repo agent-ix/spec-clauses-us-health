@@ -176,7 +176,7 @@ the same reference corpus.
 | FR-020 | FR-020-AC-2 | TC-083 | 🚧 Planned for PLAT-1608 |
 | FR-020 | FR-020-AC-3 | TC-083 | 🚧 Planned for PLAT-1608 |
 | FR-020 | FR-020-AC-4 | TC-083 | 🚧 Planned for PLAT-1608 |
-| FR-020 | FR-020-AC-5 | TC-083 | 🚧 Planned for PLAT-1608 |
+| FR-020 | FR-020-AC-5 | TC-083 | ✅ Implemented |
 | FR-021 | FR-021-AC-1 | TC-084 | ✅ Implemented in PLAT-1621 |
 | FR-021 | FR-021-AC-2 | TC-084 | ✅ Implemented in PLAT-1621 |
 

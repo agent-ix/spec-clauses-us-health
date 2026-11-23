@@ -120,6 +120,7 @@ def _security_module() -> pathlib.Path:
 @pytest.mark.trace("FR-020-AC-2")
 @pytest.mark.trace("FR-020-AC-3")
 @pytest.mark.trace("FR-020-AC-4")
+@pytest.mark.trace("FR-020-AC-5")
 @pytest.mark.trace("FR-019-AC-4")
 @pytest.mark.trace("FR-019-AC-5")
 def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
@@ -336,7 +337,7 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
     threat_model_text = (project / threat_model_ref).read_text()
     assert "## THREATMODEL-M3-001" in threat_model_text
     assert (
-        "| CONN-M3-001 | none | BOUNDARY-M3-001 (semi_trusted) | "
+        "| CONN-M3-001 | CLASS-M3-001 (personal) | BOUNDARY-M3-001 (semi_trusted) | "
         "THREAT-M3-001 (tampering) | CTRL-M3-001 (not stated) | "
         "RISK-M3-001: not_accepted, reviewer@example.invalid |"
     ) in threat_model_text

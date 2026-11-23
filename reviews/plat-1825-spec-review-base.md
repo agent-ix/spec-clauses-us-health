@@ -28,3 +28,11 @@ Design judgements:
 | FND-001 | medium | FR-008-AC-3 and the master prose say that with `cyber_device` absent every 524B clause is unresolved. Measured with quire 0.52.0: `cyber_device` absent plus `additional_cybersecurity_regulation=none_issued` makes `524B(b)(4)` `not_binding`, because `all` resolves false on the known term. The spec states an outcome the engine does not produce, and no test covers that combination. State this case in AC-3 and spec.md, and add it to the TC-034 test. | spec/functional/FR-008-fdca-section-524b-clause-set.md:51 |
 | FND-002 | medium | FR-010-AC-3 allows two classes: a named installed producer command, or a customer-provided document. The 524B set's catalog also holds `security-risk-records` (person-authored spec-objects-security records) and `soup-list`, which fit neither class. Add a third class, records the customer authors in a named module, or name `quoin soup report` for `soup-list`. The test must then partition the whole catalog (code-review FND-001). | spec/functional/FR-010-cybersecurity-output-catalog.md:47 |
 | FND-003 | low | New status cells read "Implemented in PLAT-1825": ticket narration in a public spec table. The convention predates this PR across tests.md; prefer a bare "Implemented" for the rows this PR writes. | spec/tests.md:128,236 |
+
+## Dispositions
+
+| FND | outcome | reason |
+| --- | --- | --- |
+| FND-001 | fixed | Verified at e8f7e3b1. Stating the engine's behaviour is the right call: if no regulation exists there is no (b)(4) obligation, whether or not the device is a cyber device. A test now covers the case. After excerpt: `With cyber_device absent, 524B(b)(4) is not binding for additional_cybersecurity_regulation=none_issued and the other clauses stay unresolved.` |
+| FND-002 | fixed | Verified at e8f7e3b1. AC-3 now defines three exclusive classes, and soup-list names `quoin soup report` (the only US set using soup-list is 524B). After excerpt: `Every cybersecurity catalog row is in exactly one class: it names a producer command that exists in its installed CLI, it names the module whose records the customer authors, or it is a customer-provided document.` |
+| FND-003 | fixed | Verified at e8f7e3b1. After excerpt: `| FR-010 | FR-010-AC-3 | TC-045 | ✅ Implemented |` |

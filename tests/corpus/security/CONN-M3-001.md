@@ -6,6 +6,8 @@ object: connection
 relationships:
   - target: BOUNDARY-M3-001
     type: crosses
+  - target: CLASS-M3-001
+    type: carries
 ---
 # [CONN-M3-001] Remote client to device service connection
 
