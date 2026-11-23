@@ -27,3 +27,10 @@ Ticket: PLAT-1824. Reviewed `git diff origin/main...HEAD` at 8e804c81 (two commi
 | --- | --- | --- | --- |
 | FND-001 | medium | `assert len(catalog) == 39` pins the size of the spec's own catalog table, which the test itself parsed; it protects nothing and was bumped 38→39 by this PR. Delete it; the per-set equality loop is the functional check. | tests/test_clause_sets.py:638 |
 | FND-002 | low | The FR-012-AC-7 test also asserts the `health-data-flows` description substring (an FR-021/FR-005 concern already pinned exactly by the normative-table test) and two negative mappings AC-7 does not state. Delete the substring assertion and name the two negative clauses in AC-7. | tests/test_clause_sets.py:357-361 |
+
+## Dispositions
+
+| FND | outcome | reason |
+| --- | --- | --- |
+| FND-001 | fixed | Verified at 7871610; the `len(catalog) == 39` line is deleted and the per-set catalog equality loop remains. After excerpt: `assert set(list(catalog)[:10]) <= m1_names` |
+| FND-002 | fixed | Verified at 7871610; the health-data-flows substring assertion is deleted and AC-7 now states both negative mappings. After excerpt: `assert {i for i, names in outputs.items() if "ephi-access-control" in names} == ephi` |

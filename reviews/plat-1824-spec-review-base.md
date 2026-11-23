@@ -25,3 +25,14 @@ Ticket: PLAT-1824. The split is honest: the repository outputs `access-control` 
 | FND-004 | low | The `ephi-access-control` description names objects as "`spec-objects-security` `role`, ..." while sibling outputs and the corpus use `security.role`-style names. Use `security.role`, `security.permission`, `security.auth_flow`, `security.mfa_method`, `security.session_config`. | spec/spec.md:523 |
 | FND-005 | low | Ticket narration remains in public spec prose in the paragraph this PR rewrote ("authored in PLAT-1613 and PLAT-1616") and in FR-012 Dependencies (PLAT-1613/1616/1621). Delete those sentences. | spec/spec.md:347-348; spec/functional/FR-012-hipaa-security-rule-clause-set.md:74-75 |
 | FND-006 | low | Audit gap: § 164.308(a)(3)(ii)(C) termination procedures and § 164.308(a)(5)(ii)(D) password management govern ePHI access but map to `security-controls`/`written-procedure` only; spec-objects-security has `password_policy`. Consider adding `ephi-access-control` (and `password_policy` to its description). | spec/spec.md:281, 290 |
+
+## Dispositions
+
+| FND | outcome | reason |
+| --- | --- | --- |
+| FND-001 | fixed | Verified at 7871610. After excerpt: "Physical-access clause § 164.310(a)(2)(iii) uses `security-controls` and `written-procedure`, and encryption clause § 164.312(a)(2)(iv) uses `security-controls` only" |
+| FND-002 | fixed | Verified at 7871610. After excerpt: "A catalog test finds exactly the names listed in `spec/spec.md`" |
+| FND-003 | fixed | Verified at 7871610; statement binds to the table and AC-7 lists all eleven clauses, asserted as an exact set. After excerpt: "SHALL list `ephi-access-control` for exactly the clauses in the normative table that show it" |
+| FND-004 | fixed | Verified at 7871610 in spec, JSON and test. After excerpt: "`security.role`, `security.permission`, `security.auth_flow`, `security.mfa_method`, `security.password_policy` and `security.session_config`" |
+| FND-005 | fixed | Verified at 7871610; PLAT-1613/1616/1621 sentences removed from spec.md and FR-012. After excerpt: "The table specifies the required clause and output design." |
+| FND-006 | fixed | Verified at 7871610; both clauses now list `ephi-access-control` in table and JSON, and `security.password_policy` (present in spec-objects-security origin/main) is named. After excerpt: "| `164.308(a)(5)(ii)(D)` | ... | `ephi-access-control`, `security-controls`, `written-procedure` |" |
