@@ -40,17 +40,13 @@
       "kind": "record",
       "description": "`security.audit_event` records and associated retention evidence."
     },
-    "access-control": {
-      "kind": "record",
-      "description": "Repository permission and branch-rule settings."
-    },
-    "audit-trail": {
-      "kind": "record",
-      "description": "Git history and signed-approval history produced by the `approval-trail` capability for the record."
-    },
     "health-data-flows": {
       "kind": "record",
-      "description": "Health-data flow records; PLAT-1756 in the Data-Flow Model project owns the producer definition."
+      "description": "Health-data flow projection produced by `quire relations --health-data-flows` from the declared architecture model."
+    },
+    "ephi-access-control": {
+      "kind": "record",
+      "description": "Access-control records for the ePHI system: `spec-objects-security` `security.role`, `security.permission`, `security.auth_flow`, `security.mfa_method`, `security.password_policy` and `security.session_config` records the customer authors, or customer-supplied evidence; the clause set defines no producer."
     }
   },
   "clauses": [
@@ -227,6 +223,7 @@
         "implementation": "addressable"
       },
       "expectedOutputs": [
+        "ephi-access-control",
         "security-controls",
         "written-procedure"
       ]
@@ -245,7 +242,7 @@
         "implementation": "required"
       },
       "expectedOutputs": [
-        "access-control",
+        "ephi-access-control",
         "security-controls"
       ]
     },
@@ -263,7 +260,7 @@
         "implementation": "required"
       },
       "expectedOutputs": [
-        "access-control"
+        "ephi-access-control"
       ]
     },
     {
@@ -280,7 +277,7 @@
         "implementation": "addressable"
       },
       "expectedOutputs": [
-        "access-control",
+        "ephi-access-control",
         "written-procedure"
       ]
     },
@@ -298,7 +295,7 @@
         "implementation": "addressable"
       },
       "expectedOutputs": [
-        "access-control",
+        "ephi-access-control",
         "written-procedure"
       ]
     },
@@ -386,6 +383,7 @@
         "implementation": "addressable"
       },
       "expectedOutputs": [
+        "ephi-access-control",
         "security-controls",
         "written-procedure"
       ]
@@ -649,8 +647,8 @@
         "implementation": "addressable"
       },
       "expectedOutputs": [
-        "access-control",
-        "security-controls"
+        "security-controls",
+        "written-procedure"
       ]
     },
     {
@@ -808,7 +806,7 @@
         "implementation": "required"
       },
       "expectedOutputs": [
-        "access-control",
+        "ephi-access-control",
         "security-controls"
       ]
     },
@@ -826,7 +824,7 @@
         "implementation": "required"
       },
       "expectedOutputs": [
-        "access-control"
+        "ephi-access-control"
       ]
     },
     {
@@ -843,7 +841,7 @@
         "implementation": "required"
       },
       "expectedOutputs": [
-        "access-control",
+        "ephi-access-control",
         "written-procedure"
       ]
     },
@@ -861,7 +859,7 @@
         "implementation": "addressable"
       },
       "expectedOutputs": [
-        "access-control",
+        "ephi-access-control",
         "security-controls"
       ]
     },
@@ -879,7 +877,6 @@
         "implementation": "addressable"
       },
       "expectedOutputs": [
-        "access-control",
         "security-controls"
       ]
     },
@@ -897,8 +894,7 @@
         "implementation": "required"
       },
       "expectedOutputs": [
-        "audit-logging",
-        "audit-trail"
+        "audit-logging"
       ]
     },
     {
@@ -949,7 +945,7 @@
         "implementation": "required"
       },
       "expectedOutputs": [
-        "access-control",
+        "ephi-access-control",
         "security-controls"
       ]
     },

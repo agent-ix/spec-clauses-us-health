@@ -25,18 +25,18 @@ FR-019.
 - The M4 discharge RMM SHALL list
   `us-hhs/45-cfr-164-subpart-c@2026-11-12` alongside the earlier declared sets,
   and its `rowCount` SHALL equal the set's clause matrix row count.
-- While no producer for `health-data-flows` is available on `origin/main`, the
-  M4 RMM SHALL keep each clause requiring that output as
+- While the reference corpus records no fact for `health-data-flows`, the M4
+  RMM SHALL keep each clause requiring that output as
   `Not compliant - undischarged` and SHALL NOT claim toolchain-generated
-  evidence for the output. The output's owner remains PLAT-1756 in the master
-  specification.
+  evidence for the output. The output's producer is
+  `quire relations --health-data-flows`; the RMM does not run it.
 
 ## Acceptance Criteria
 
 | ID | Criteria | Verification |
 |----|----------|--------------|
 | FR-021-AC-1 | The M4 RMM index includes `us-hhs/45-cfr-164-subpart-c@2026-11-12` alongside the earlier declared sets, and its `rowCount` equals the M4 clause matrix row count. | Test |
-| FR-021-AC-2 | While `health-data-flows` has no producer on `origin/main`, each M4 clause requiring it is `Not compliant - undischarged`, and the RMM claims no toolchain-generated evidence for that output. | Test |
+| FR-021-AC-2 | While the reference corpus records no `health-data-flows` fact, each M4 clause requiring it is `Not compliant - undischarged`, and the RMM claims no toolchain-generated evidence for that output. | Test |
 
 ## Dependencies
 
