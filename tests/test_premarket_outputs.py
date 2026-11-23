@@ -217,9 +217,9 @@ def test_m2_record_outputs_name_producers_that_exist(tmp_path):
             assert f"--doc {kind}" in mapping or kind in mapping, output
             assert kind in dossier_kinds, f"{output}: no {kind} dossier kind"
     assert set(M2_DOSSIER_KINDS) <= set(MODULE_EVIDENCE) | set(COMMAND_EVIDENCE)
-    assert "quoin dossier generate" in rows["risk-management-records"][
-        "producer_or_owner"
-    ]
+    assert (
+        "quoin dossier generate" in rows["risk-management-records"]["producer_or_owner"]
+    )
 
 
 @pytest.mark.trace("TC-076", "FR-018-AC-2")
