@@ -65,6 +65,30 @@ def _spec_table(section_title: str) -> list[list[str]]:
     return rows
 
 
+# Retained evidence-store kinds a catalog `producers` entry may name (quoin FR-211).
+FR_211_FIXED_KINDS = {"run", "scan", "mock-inspection", "analysis-report", "scenario"}
+
+
+def _spec_producers() -> dict[str, list[str]]:
+    """Read the "US Output Producers" table: output name to its producer kinds."""
+    return {
+        name: [kind.strip("`") for kind in cell.split(", ")]
+        for name, cell, _evidence in _spec_table("US Output Producers")
+    }
+
+
+def _canonical_catalog() -> dict[str, dict]:
+    """The spec's catalog rows with their `producers` where the spec lists them."""
+    producers = _spec_producers()
+    catalog = {}
+    for name, kind, description in _spec_table("US Health-Law Output Catalog"):
+        entry = {"kind": kind, "description": description}
+        if name in producers:
+            entry["producers"] = producers[name]
+        catalog[name] = entry
+    return catalog
+
+
 def _part_11_evaluate_error(module_root: pathlib.Path, *context: str):
     return run(
         engine_tool("quire"),
@@ -635,11 +659,9 @@ def test_publish_check_rejects_a_licensed_synthetic_set(tmp_path):
 
 @pytest.mark.trace("TC-018", "FR-005-AC-1", "TC-043", "FR-010-AC-1")
 def test_us_clause_set_output_catalog_matches_the_spec():
-    catalog_rows = _spec_table("US Health-Law Output Catalog")
-    catalog = {}
-    for name, kind, description in catalog_rows:
-        assert name not in catalog, f"duplicate output catalog name in spec: {name}"
-        catalog[name] = {"kind": kind, "description": description}
+    names = [row[0] for row in _spec_table("US Health-Law Output Catalog")]
+    assert len(names) == len(set(names)), "duplicate output catalog name in spec"
+    catalog = _canonical_catalog()
     m1_names = {
         output.strip("`")
         for row in _spec_table("Part 11 Clause Table")
@@ -708,10 +730,7 @@ def test_all_declared_sets_load_and_match_one_catalog():
     clause_sets = load_clause_sets()
     assert all(clause_set_key(item) for item in clause_sets)
     assert_output_catalog_consistent(clause_sets)
-    catalog = {
-        name: {"kind": kind, "description": description}
-        for name, kind, description in _spec_table("US Health-Law Output Catalog")
-    }
+    catalog = _canonical_catalog()
     for clause_set in clause_sets:
         used_names = {
             name
@@ -1467,3 +1486,54 @@ def test_single_set_rmm_marks_one_direct_fact_compliant(tmp_path):
     output = result.stdout + result.stderr
     assert r"11.10\(e\) | Applicable | Compliant" in output
     assert r"11.10\(a\) | Applicable | Not compliant - undischarged" in output
+
+
+@pytest.mark.trace("TC-085", "FR-005-AC-5")
+def test_catalog_producers_name_only_fr_211_kinds_and_match_the_spec():
+    """`producers` are valid retained kinds on exactly the outputs the spec lists.
+
+    Criteria:
+        Every entry with `producers` lists a non-empty, distinct, unpadded
+        subset of the FR-211 kinds, and every set carries `producers` on an
+        output exactly when the spec's table lists it, with the listed kinds.
+    """
+    expected = _spec_producers()
+    assert expected, "the spec lists no output with producers"
+    for clause_set in load_clause_sets():
+        for name, entry in clause_set["outputCatalog"].items():
+            key = clause_set_key(clause_set)
+            if "producers" not in entry:
+                assert name not in expected, f"{key}: {name} lacks producers"
+                continue
+            kinds = entry["producers"]
+            assert kinds, f"{key}: {name} has empty producers"
+            assert len(kinds) == len(set(kinds)), f"{key}: {name} repeats a kind"
+            assert all(
+                kind == kind.strip() and kind in FR_211_FIXED_KINDS for kind in kinds
+            ), f"{key}: {name} names a kind outside FR-211: {kinds!r}"
+            assert kinds == expected.get(name), f"{key}: {name} differs from the spec"
+
+
+@pytest.mark.trace("TC-086", "FR-005-AC-6")
+def test_quire_accepts_sets_that_carry_producers():
+    """The installed quire validates and evaluates every set with `producers`."""
+    publish = run(engine_tool("quire"), "publish-check", "--module", str(PACKAGE_ROOT))
+    assert publish.returncode == 0, publish.stderr + publish.stdout
+    for clause_set in load_clause_sets():
+        if not any("producers" in e for e in clause_set["outputCatalog"].values()):
+            continue
+        result = run(
+            engine_tool("quire"),
+            "clauses",
+            "evaluate",
+            "--module",
+            str(PACKAGE_ROOT),
+            "--authority",
+            clause_set["authority"],
+            "--set",
+            clause_set["id"],
+            "--version",
+            clause_set["version"],
+            "--json",
+        )
+        assert result.returncode == 0, result.stderr + result.stdout

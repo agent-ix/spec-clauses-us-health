@@ -44,11 +44,13 @@
     },
     "vulnerability-assessment": {
       "kind": "record",
-      "description": "Unresolved anomalies reported by `quoin anomaly report` and vulnerability findings recorded with `quoin evidence record --adapter osv-scanner`; the assessment of each is authored by a person."
+      "description": "Unresolved anomalies reported by `quoin anomaly report` and vulnerability findings recorded with `quoin evidence record --adapter osv-scanner`; the assessment of each is authored by a person.",
+      "producers": ["scan"]
     },
     "sbom": {
       "kind": "record",
-      "description": "CycloneDX or SPDX SBOM recorded with `quoin evidence record --adapter sbom`, with component support status and end-of-support dates from `quoin soup report`. The customer generates the SBOM, for example with Syft run through the engineering-assurance `producer-execute` command."
+      "description": "CycloneDX or SPDX SBOM recorded with `quoin evidence record --adapter sbom`, with component support status and end-of-support dates from `quoin soup report`. The customer generates the SBOM, for example with Syft run through the engineering-assurance `producer-execute` command.",
+      "producers": ["run"]
     },
     "additional-cybersecurity-requirement-records": {
       "kind": "document",

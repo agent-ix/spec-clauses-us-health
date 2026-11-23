@@ -86,7 +86,8 @@
     },
     "verification-records": {
       "kind": "record",
-      "description": "`quire matrix` / `quoin matrix` results and `quoin evidence record`."
+      "description": "`quire matrix` / `quoin matrix` results and `quoin evidence record`.",
+      "producers": ["run"]
     },
     "risk-management-records": {
       "kind": "record",
