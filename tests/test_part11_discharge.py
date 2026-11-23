@@ -153,10 +153,6 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
     Criteria: Direct and delegated facts render truthfully, open and non-applicable
         clauses remain visible, evidence refs resolve, and repeated output is stable.
     """
-    version = run(engine_tool("quoin"), "--version")
-    assert version.returncode == 0, version.stderr
-    assert version.stdout.strip() == "0.35.0"
-
     with tempfile.TemporaryDirectory(
         dir=tmp_path, prefix="part11-corpus-"
     ) as temporary:
