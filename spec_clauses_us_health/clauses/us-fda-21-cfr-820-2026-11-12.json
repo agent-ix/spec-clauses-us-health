@@ -57,7 +57,7 @@
       "description": "Release evidence snapshot produced by `quoin release snapshot`."
     },
     "device-identification-record": {
-      "kind": "document",
+      "kind": "record",
       "description": "Customer-provided device identity and UDI assignment records; no toolchain producer."
     },
     "written-procedure": {
@@ -65,19 +65,19 @@
       "description": "Customer-owned written procedure."
     },
     "traceability-records": {
-      "kind": "document",
+      "kind": "record",
       "description": "Customer-provided traceability procedures and device or batch records; no toolchain producer."
     },
     "complaint-records": {
-      "kind": "document",
+      "kind": "record",
       "description": "Customer-provided complaint intake, evaluation, investigation, and response records; no toolchain producer."
     },
     "regulatory-report-records": {
-      "kind": "document",
+      "kind": "record",
       "description": "Customer-provided records of reports to regulatory authorities; no toolchain producer."
     },
     "advisory-notice-records": {
-      "kind": "document",
+      "kind": "record",
       "description": "Customer-provided records of advisory notices and related actions; no toolchain producer."
     },
     "software-architecture": {
@@ -93,11 +93,11 @@
       "description": "`spec-objects-safety` `hazard` and `failure_mode` artifacts; `quoin risk-summary`."
     },
     "service-records": {
-      "kind": "document",
+      "kind": "record",
       "description": "Customer-provided device servicing records; no toolchain producer."
     },
     "labeling-inspection-records": {
-      "kind": "document",
+      "kind": "record",
       "description": "Customer-provided labeling and packaging inspection records; no toolchain producer."
     }
   },

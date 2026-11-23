@@ -50,4 +50,3 @@ be original concise summaries of the guidance.
   rights.
 - Uses [FR-005](./FR-005-pack-wide-output-catalog.md) output definitions and
   the existing clause-set model.
-- Clause content is authored in PLAT-1572.

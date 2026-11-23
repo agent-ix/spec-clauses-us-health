@@ -1,4 +1,4 @@
-"""M2 clause outputs are connected to producers or tracked owners."""
+"""M2 clause outputs are connected to producers or marked customer-provided."""
 
 from __future__ import annotations
 
@@ -171,6 +171,8 @@ M2_CUSTOMER_DOCUMENTS = {
     "software-description",
     "software-design",
     "configuration-management-plan",
+}
+M2_CUSTOMER_RECORDS = {
     "device-identification-record",
     "traceability-records",
     "complaint-records",
@@ -194,6 +196,7 @@ def test_every_m2_output_is_in_exactly_one_class():
     """Each M2 output is a produced record or a customer document or procedure."""
     classes = [
         set(MODULE_EVIDENCE) | set(COMMAND_EVIDENCE),
+        M2_CUSTOMER_RECORDS,
         M2_CUSTOMER_DOCUMENTS,
         M2_CUSTOMER_PROCEDURES,
     ]
@@ -214,12 +217,10 @@ def test_m2_record_outputs_name_producers_that_exist(tmp_path):
         assert definition["description"].rstrip(".") in mapping, output
         _assert_producer_source_evidence(output, mapping)
         for kind in M2_DOSSIER_KINDS.get(output, ()):
-            assert f"--doc {kind}" in mapping or kind in mapping, output
+            assert f"--doc {kind}" in mapping, output
             assert kind in dossier_kinds, f"{output}: no {kind} dossier kind"
-    assert set(M2_DOSSIER_KINDS) <= set(MODULE_EVIDENCE) | set(COMMAND_EVIDENCE)
-    assert (
-        "quoin dossier generate" in rows["risk-management-records"]["producer_or_owner"]
-    )
+    for output in M2_DOSSIER_KINDS:
+        assert "quoin dossier generate" in rows[output]["producer_or_owner"], output
 
 
 @pytest.mark.trace("TC-076", "FR-018-AC-2")
@@ -229,6 +230,11 @@ def test_m2_outputs_without_a_producer_are_customer_provided():
     rows = {row["output"]: row for row in m2_mapping_rows()}
     for output in M2_CUSTOMER_DOCUMENTS:
         assert catalog[output]["kind"] == rows[output]["kind"] == "document", output
+        assert catalog[output]["description"].startswith("Customer-provided"), output
+        assert "no toolchain producer" in catalog[output]["description"], output
+        assert "Customer-provided" in rows[output]["producer_or_owner"], output
+    for output in M2_CUSTOMER_RECORDS:
+        assert catalog[output]["kind"] == rows[output]["kind"] == "record", output
         assert catalog[output]["description"].startswith("Customer-provided"), output
         assert "no toolchain producer" in catalog[output]["description"], output
         assert "Customer-provided" in rows[output]["producer_or_owner"], output

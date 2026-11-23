@@ -24,15 +24,19 @@ that a clause is satisfied.
 - The master specification SHALL contain an output mapping table covering each
   unique `(clause ID, output name)` pair in the M2 premarket and Part 820 clause
   tables.
-- Every output of kind `record` in either M2 set SHALL name the installed
-  command or module artifact types that produce it. Each named command SHALL
-  exist, and each named `quoin dossier generate` document kind SHALL be a kind
-  the installed `quoin` registers.
-- An output that has no producer SHALL be kind `document` or `procedure`, SHALL
-  be identified as customer-provided or customer-owned, and SHALL NOT imply
-  that the toolchain creates it. No mapping row names a ticket as owner.
-- Documentation level is a person's decision. The `documentation-level-decision`
-  output is a customer document; no command assigns or infers the level.
+- Every produced `record` output in either M2 set SHALL name the installed
+  commands or module artifact types that produce it.
+- Each command a mapping row names SHALL exist in the installed CLI, and each
+  `quoin dossier generate` document kind it names SHALL be a kind the installed
+  `quoin` registers.
+- The mapping table SHALL identify an output with no producer as
+  customer-provided or customer-owned and SHALL NOT imply that the toolchain
+  creates it. Its kind
+  describes what the output is (`record`, `document`, or `procedure`), not
+  whether a tool produces it.
+- No mapping row or output description SHALL name a ticket as owner.
+- The `documentation-level-decision` output SHALL be a customer document, and
+  no command SHALL assign or infer the documentation level.
 - The mapping table is descriptive. No test or script SHALL generate evidence
   facts from an `outputCatalog` entry. A fact cites an artifact instance and
   carries a person's attestation under the discharge requirements.
@@ -42,7 +46,9 @@ that a clause is satisfied.
 | ID | Criteria | Verification |
 |---|---|---|
 | FR-018-AC-1 | The output mapping table contains each unique `(clause ID, output name)` pair in the normative M2 Part 820 and premarket tables exactly once, with no missing or extra pair. | Test |
-| FR-018-AC-2 | Each M2 output is in exactly one class: a `record` produced by installed commands or module artifact types that exist, an authored `record` naming its module, or a customer-provided `document` or `procedure` with no producer; no M2 description names a ticket as owner. | Test |
+| FR-018-AC-2 | Each M2 output is in exactly one class: a produced `record`, a customer-provided `record`, a customer-provided `document`, or a customer-owned `procedure`; the last three state that no toolchain producer exists. | Test |
+| FR-018-AC-4 | Each command a produced record's mapping row names exists in the installed CLI, and each named `quoin dossier generate` kind is registered by the installed `quoin`. | Test |
+| FR-018-AC-5 | No M2 mapping row or output description names a ticket as owner, and `documentation-level-decision` is a customer document. | Test |
 | FR-018-AC-3 | The output catalog definitions for names shared across the M2, Part 11, and other US sets have identical kind and description. | Test |
 
 ## Dependencies

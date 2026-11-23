@@ -163,6 +163,8 @@ the same reference corpus.
 | FR-018 | FR-018-AC-1 | TC-075 | ✅ Implemented in PLAT-1575 |
 | FR-018 | FR-018-AC-2 | TC-076 | ✅ Implemented in PLAT-1575 |
 | FR-018 | FR-018-AC-3 | TC-077 | ✅ Implemented in PLAT-1575 |
+| FR-018 | FR-018-AC-4 | TC-076 | ✅ Implemented in PLAT-1826 |
+| FR-018 | FR-018-AC-5 | TC-076 | ✅ Implemented in PLAT-1826 |
 | FR-019 | FR-019-AC-1 | TC-082 | ✅ Implemented in PLAT-1588 |
 | FR-019 | FR-019-AC-2 | TC-082 | ✅ Implemented in PLAT-1588 |
 | FR-019 | FR-019-AC-3 | TC-082 | ✅ Implemented in PLAT-1588 |
@@ -265,7 +267,7 @@ the same reference corpus.
 | TC-073 | `test_part820_spec_validates_and_module_passes_publish_check`: a nonzero validation or publish-check exit fails acceptance | Integration | P1 | FR-014-AC-5 | ✅ Implemented in PLAT-1569 |
 | TC-074 | `test_part820_human_dimensions_control_only_their_dependent_clauses`: each declared dimension binds, excludes, or remains unresolved as supplied; `device_class=class_II` does not resolve a missing Part 820 dimension | Unit | P0 | FR-016-AC-1, FR-016-AC-2 | ✅ Implemented in PLAT-1569 |
 | TC-075 | Every unique M2 clause and expected-output pair appears once in the producer mapping table | Unit | P0 | FR-018-AC-1 | ✅ Implemented in PLAT-1575 |
-| TC-076 | Every M2 output is a produced record whose module entries, CLI commands and dossier kinds resolve in installed sources, or a customer-provided document or procedure; no output names an owner ticket | Unit | P0 | FR-018-AC-2 | ✅ Implemented in PLAT-1575 |
+| TC-076 | Every M2 output is a produced record whose module entries, CLI commands and dossier kinds resolve in installed sources, or a customer-provided record, document or procedure; no output names an owner ticket | Unit | P0 | FR-018-AC-2, FR-018-AC-4, FR-018-AC-5 | ✅ Implemented in PLAT-1575 |
 | TC-077 | Shared output names retain the same kind and description in every US set | Unit | P0 | FR-018-AC-3 | ✅ Implemented in PLAT-1575 |
 | TC-078 | `test_premarket_crosswalk_pairs_match_the_m2_table_and_resolve`: source-target pairs equal the M2 table and all declared targets resolve | Unit | P0 | FR-017-AC-1 | ✅ Implemented in PLAT-1582 |
 | TC-079 | `test_crosswalk_unknown_source_or_target_fails_with_identifier`: invalid source and target fixtures fail with their identifier | Unit | P0 | FR-017-AC-2 | ✅ Implemented in PLAT-1582 |
