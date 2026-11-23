@@ -29,8 +29,10 @@ All six sources are US federal law or US Government guidance.
 
 Each clause carries an identifier, a force (mandatory or recommended), an
 applicability rule over context you declare, and the named outputs that would
-back it. Crosswalks link the cybersecurity sets to each other and to NIST
-SP 800-53 where the specification defines them.
+back it. Crosswalks are informative links to related clauses: 524B to the
+FDA cybersecurity guidance and to NIST SP 800-53, the FDA cybersecurity
+guidance to NIST SP 800-53, the device-software guidance to Part 820, and the
+HIPAA Security Rule to NIST SP 800-53.
 
 ## Install
 
@@ -56,9 +58,13 @@ Check it with `quoin module list`.
 2. Evaluate a clause set to get a binding report with
    `quire clauses evaluate --module <installed module path> --authority <a> --set <s> --version <v> --json --context key=value`.
 3. Record your discharge facts with `quoin evidence record-discharge`. A fact is
-   either direct (evidence references plus an attestation by a named person) or
-   a disposition (`delegated`, `accepted_risk` or `temporary_exception`, with an
-   owner, a rationale and an approval reference).
+   either direct (evidence references plus an attestation) or a disposition.
+   A disposition has a `decision` (`delegated`, `accepted_risk` or
+   `temporary_exception`), an `owner`, a `rationale` and an `approvalRef`.
+   Every fact, direct or disposition, needs an `attestation` object
+   (`attestedBy`, `authority`, `attestedAt`, `expiresAt`). A
+   `temporary_exception` also needs `decisionExpiresAt`, no later than the
+   attestation's `expiresAt`.
 4. Render the matrix for every set with `quoin discharge --rmm --pack`.
 
 ### Example
@@ -90,16 +96,33 @@ quoin discharge --rmm --pack spec_clauses_us_health --repo . \
   --context system_type=closed --context electronic_signatures=not_used
 ```
 
-Trimmed output:
+Trimmed output (the other sets' matrices and most rows are left out; the rest
+is verbatim, including the Markdown escaping):
 
 ```text
 # Requirements mapping matrix: us-fda/21-cfr-11@2026-11-12
 
-| Req# | Applicability | Compliance | Evidence |
-| 11.10(a) | Applicable | Compliant | evidence/matrix.json |
-| 11.10(b) | Applicable | Not compliant - undischarged: no discharge fact | - |
-| 11.30    | Not applicable | Not applicable | - |
+| Req# | Applicability | Compliance | Evidence | Tailoring Description | Tailoring Rationale |
+| --- | --- | --- | --- | --- | --- |
+| 11.10\(a\) | Applicable | Compliant | evidence/matrix.json | - | - |
+| 11.10\(b\) | Applicable | Not compliant - undischarged: no discharge fact | - | - | - |
+| 11.30 | Not applicable | Not applicable | - | Not applicable per binding derivation | no reason given by the binding report |
 ```
+
+A disposition goes in the same facts file. This one, for a temporary
+exception, was accepted by `record-discharge`:
+
+```json
+{"kind": "disposition", "clauseId": "11.10(c)", "decision": "temporary_exception",
+ "owner": "qa@example.com", "rationale": "Audit trail export is delivered next quarter.",
+ "approvalRef": "evidence/approval.json", "decisionExpiresAt": "2027-02-01T00:00:00Z",
+ "attestation": {"attestedBy": "qa@example.com", "authority": "quality-lead",
+                 "attestedAt": "2026-11-14T00:00:00Z", "expiresAt": "2027-11-14T00:00:00Z"}}
+```
+
+It renders as `Tailored`, with the decision and approval reference in the
+Tailoring Description column and the rationale in the Tailoring Rationale
+column.
 
 The same run lists the 524B clauses as `Unresolved` because the context did
 not declare `cyber_device`.
@@ -146,7 +169,8 @@ Context: `cyber_device`, `additional_cybersecurity_regulation`.
 
 ### FDA premarket cybersecurity guidance
 
-Context: `cyber_device`.
+Context: `cyber_device`. It affects only VII.C.1 to VII.C.3; the other clauses
+do not depend on it.
 
 | Clauses | Tool produces | You supply | Limits |
 | --- | --- | --- | --- |
@@ -165,7 +189,8 @@ the tool never assigns it.
 
 ### HIPAA Security Rule
 
-Context: `hipaa_role` (`covered_entity` or `business_associate`). Required
+Context: `hipaa_role` (`covered_entity` or `business_associate`). It affects only
+164.314(a)(2)(ii) and (iii); the rest of the set does not depend on it. Required
 and addressable implementation specifications are handled separately; an
 addressable one can be met directly, by an alternative measure, or by a
 recorded decision that it is not reasonable and appropriate.
@@ -182,11 +207,23 @@ recorded decision that it is not reasonable and appropriate.
 - It never assigns risk scores, safety or security classes, documentation
   levels or acceptability. People accept risk, choose levels and approve.
 - It never decides compliance. A clause state is a report of the evidence you
-  recorded:
-  - **Compliant**: a direct fact with evidence references is recorded.
-  - **Tailored**: a recorded disposition (delegated, accepted risk or
-    temporary exception) with a named owner and rationale.
-  - **Undischarged**: nothing recorded yet.
+  recorded, as of the `--as-of` time you give. The matrix prints these states:
+  - **Compliant**: a direct fact is recorded and its attestation is current at
+    `--as-of`.
+  - **Tailored**: a disposition is recorded with an owner, rationale and
+    approval reference, and its attestation is current.
+  - **Not compliant - undischarged: no discharge fact**: nothing is recorded
+    for the clause.
+  - **Not compliant - attestation not current**: a fact exists but its
+    attestation has expired (for example "discharge fact is expired") or is not yet
+    in force at `--as-of`. A `temporary_exception` past its end date prints
+    **Not compliant - temporary exception expired**.
+  - **Undetermined**: a context value the clause depends on is not declared.
+    The applicability column shows Unresolved.
+  - **Not applicable**: the declared context excludes the clause.
+
+  "Not compliant" only means nothing current is recorded for that clause. It
+  is not a finding that you fail the regulation.
 - Customer-owned clauses, where every expected output is a procedure, need
   your own written procedures. The pack records that you own them, not that
   they exist or are adequate.
@@ -196,7 +233,7 @@ recorded decision that it is not reasonable and appropriate.
 
 - **Evidence checks are shallow.** `quoin discharge` shows a clause as
   compliant when a direct fact with evidence references and an attestation is
-  recorded. In the run above, a reference to a file that does not exist was
+  recorded. In a test run on the current release, a reference to a file that does not exist was
   accepted the same way. Check that your evidence is real and sufficient;
   the matrix does not do it for you.
 - **Customer-supplied records stay undischarged.** Quoin has no
