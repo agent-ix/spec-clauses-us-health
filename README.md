@@ -51,11 +51,12 @@ quoin module install github:agent-ix/spec-clauses-us-health//spec_clauses_us_hea
 Check it with `quoin module list`.
 
 Several commands in the tables below are `engineering-assurance` commands.
-That CLI is a native binary and is not part of the npm toolchain. On Linux
-x86-64, download the latest release binary and put it on your `PATH`:
+That CLI is a native binary and is not part of the npm toolchain.
+On Linux x86-64, download the latest release binary and put it on your `PATH`:
 
 ```sh
-gh release download -R agent-ix/engineering-assurance -p engineering-assurance
+curl -fsSL -o engineering-assurance \
+  https://github.com/agent-ix/engineering-assurance/releases/latest/download/engineering-assurance
 chmod +x engineering-assurance
 mv engineering-assurance ~/.local/bin/
 ```
