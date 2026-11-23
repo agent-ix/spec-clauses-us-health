@@ -319,27 +319,46 @@ def test_hipaa_clauses_match_the_normative_table_exactly():
                 "`security.audit_event` records and associated retention evidence."
             ),
         },
-        "access-control": {
-            "kind": "record",
-            "description": "Repository permission and branch-rule settings.",
-        },
-        "audit-trail": {
-            "kind": "record",
-            "description": (
-                "Git history and signed-approval history produced by the "
-                "`approval-trail` capability for the record."
-            ),
-        },
         "health-data-flows": {
             "kind": "record",
             "description": (
-                "Health-data flow records; PLAT-1756 in the Data-Flow Model project "
-                "owns the producer definition."
+                "Health-data flow projection produced by "
+                "`quire relations --health-data-flows` from the declared "
+                "architecture model."
+            ),
+        },
+        "ephi-access-control": {
+            "kind": "record",
+            "description": (
+                "Access-control records for the ePHI system: `spec-objects-security` "
+                "`role`, `permission`, `auth_flow`, `mfa_method` and "
+                "`session_config` records the customer authors, or customer-supplied "
+                "evidence; the clause set defines no producer."
             ),
         },
     }
     evaluated = evaluate_clause_set(PACKAGE_ROOT, HIPAA_KEY)
     assert set(_clause_outcomes(evaluated)) == set(expected)
+
+
+@pytest.mark.trace("FR-012-AC-7")
+def test_hipaa_access_and_audit_clauses_map_to_the_ephi_system_not_the_repository():
+    clause_set = next(
+        item for item in load_clause_sets() if clause_set_key(item) == HIPAA_KEY
+    )
+    outputs = {c["id"]: c["expectedOutputs"] for c in clause_set["clauses"]}
+    assert not any(
+        {"access-control", "audit-trail"} & set(names) for names in outputs.values()
+    )
+    assert not {"access-control", "audit-trail"} & set(clause_set["outputCatalog"])
+    assert outputs["164.312(b)"] == ["audit-logging"]
+    for clause_id in ("164.312(a)(1)", "164.312(a)(2)(i)", "164.312(d)"):
+        assert "ephi-access-control" in outputs[clause_id]
+    assert "ephi-access-control" not in outputs["164.310(a)(2)(iii)"]
+    assert outputs["164.312(a)(2)(iv)"] == ["security-controls"]
+    assert "quire relations --health-data-flows" in (
+        clause_set["outputCatalog"]["health-data-flows"]["description"]
+    )
 
 
 @pytest.mark.trace("TC-054", "FR-012-AC-3")
@@ -616,7 +635,7 @@ def test_us_clause_set_output_catalog_matches_the_spec():
         for row in _spec_table("Part 11 Clause Table")
         for output in row[2].split(", ")
     }
-    assert len(catalog) == 38
+    assert len(catalog) == 39
     assert set(list(catalog)[:10]) <= m1_names
 
     for clause_set in load_clause_sets():
