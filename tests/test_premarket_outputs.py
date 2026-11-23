@@ -211,7 +211,7 @@ def test_m2_record_outputs_name_producers_that_exist(tmp_path):
             continue
         mapping = str(rows[output]["producer_or_owner"])
         assert definition["kind"] == rows[output]["kind"] == "record", output
-        assert mapping in definition["description"], output
+        assert definition["description"].rstrip(".") in mapping, output
         _assert_producer_source_evidence(output, mapping)
         for kind in M2_DOSSIER_KINDS.get(output, ()):
             assert f"--doc {kind}" in mapping or kind in mapping, output

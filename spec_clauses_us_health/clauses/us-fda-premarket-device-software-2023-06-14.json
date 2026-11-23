@@ -24,7 +24,7 @@
   "outputCatalog": {
     "risk-management-records": {
       "kind": "record",
-      "description": "`spec-objects-safety` `hazard` and `failure_mode` artifacts; `quoin risk-summary`; rendered by `quoin dossier generate --doc risk-management`."
+      "description": "`spec-objects-safety` `hazard` and `failure_mode` artifacts; `quoin risk-summary`."
     },
     "documentation-level-decision": {
       "kind": "document",
@@ -36,11 +36,11 @@
     },
     "software-requirements": {
       "kind": "record",
-      "description": "Requirements authored with the `spec-artifacts-iso` StR, FR, and NFR archetypes; rendered as the SRS by `quoin dossier generate --doc srs`."
+      "description": "Requirements authored with the `spec-artifacts-iso` StR, FR, and NFR archetypes."
     },
     "software-architecture": {
       "kind": "record",
-      "description": "`spec-objects-architecture` `part`, `port`, `connection`, and `allocation` artifacts; ADR artifacts from `spec-artifacts-process`; rendered by `quoin dossier generate --doc architecture`."
+      "description": "`spec-objects-architecture` `part`, `port`, `connection`, and `allocation` artifacts; ADR artifacts from `spec-artifacts-process`."
     },
     "software-design": {
       "kind": "document",
@@ -56,15 +56,15 @@
     },
     "verification-records": {
       "kind": "record",
-      "description": "`quire matrix` / `quoin matrix` results and `quoin evidence record`; rendered by `quoin dossier generate --doc verification-report` and `--doc trace-matrix`."
+      "description": "`quire matrix` / `quoin matrix` results and `quoin evidence record`."
     },
     "release-record": {
       "kind": "record",
-      "description": "Release evidence snapshot produced by `quoin release snapshot`; rendered by `quoin dossier generate --doc release-record`."
+      "description": "Release evidence snapshot produced by `quoin release snapshot`."
     },
     "anomaly-list": {
       "kind": "record",
-      "description": "Unresolved anomalies reported by `quoin anomaly report`; rendered by `quoin dossier generate --doc anomalies`."
+      "description": "Unresolved anomalies reported by `quoin anomaly report`."
     }
   },
   "clauses": [

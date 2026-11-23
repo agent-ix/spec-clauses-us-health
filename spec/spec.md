@@ -518,14 +518,14 @@ does not claim cross-repository enforcement.
 | `system-validation` | `record` | Validation evidence for the toolchain's intended use. |
 | `written-procedure` | `procedure` | Customer-owned written procedure. |
 | `training-record` | `procedure` | Customer-owned training record. |
-| `risk-management-records` | `record` | `spec-objects-safety` `hazard` and `failure_mode` artifacts; `quoin risk-summary`; rendered by `quoin dossier generate --doc risk-management`. |
-| `software-requirements` | `record` | Requirements authored with the `spec-artifacts-iso` StR, FR, and NFR archetypes; rendered as the SRS by `quoin dossier generate --doc srs`. |
-| `software-architecture` | `record` | `spec-objects-architecture` `part`, `port`, `connection`, and `allocation` artifacts; ADR artifacts from `spec-artifacts-process`; rendered by `quoin dossier generate --doc architecture`. |
-| `verification-records` | `record` | `quire matrix` / `quoin matrix` results and `quoin evidence record`; rendered by `quoin dossier generate --doc verification-report` and `--doc trace-matrix`. |
+| `risk-management-records` | `record` | `spec-objects-safety` `hazard` and `failure_mode` artifacts; `quoin risk-summary`. |
+| `software-requirements` | `record` | Requirements authored with the `spec-artifacts-iso` StR, FR, and NFR archetypes. |
+| `software-architecture` | `record` | `spec-objects-architecture` `part`, `port`, `connection`, and `allocation` artifacts; ADR artifacts from `spec-artifacts-process`. |
+| `verification-records` | `record` | `quire matrix` / `quoin matrix` results and `quoin evidence record`. |
 | `soup-list` | `record` | Software of unknown provenance (SOUP) report produced by `quoin soup report`. |
 | `security-risk-records` | `record` | `spec-objects-security` threat, risk, and control records. |
-| `anomaly-list` | `record` | Unresolved anomalies reported by `quoin anomaly report`; rendered by `quoin dossier generate --doc anomalies`. |
-| `release-record` | `record` | Release evidence snapshot produced by `quoin release snapshot`; rendered by `quoin dossier generate --doc release-record`. |
+| `anomaly-list` | `record` | Unresolved anomalies reported by `quoin anomaly report`. |
+| `release-record` | `record` | Release evidence snapshot produced by `quoin release snapshot`. |
 | `audit-logging` | `record` | `security.audit_event` records and associated retention evidence. |
 | `security-controls` | `record` | `security.control` records; the clause set does not define a producer. |
 | `health-data-flows` | `record` | Health-data flow projection produced by `quire relations --health-data-flows` from the declared architecture model. |
