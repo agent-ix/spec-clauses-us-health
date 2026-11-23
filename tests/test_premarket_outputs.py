@@ -191,3 +191,106 @@ def test_m2_record_outputs_name_a_producer_or_owner_ticket():
 def test_shared_output_catalog_definitions_are_identical_across_us_sets():
     """Reused outputs keep the same kind and description throughout the module."""
     assert_output_catalog_consistent(load_clause_sets())
+
+
+M3_KEYS = {
+    "us-congress/fdca-524b@2026-10-15",
+    "us-fda/premarket-cybersecurity@2026-02-03",
+}
+
+# Producer commands each cybersecurity record output names, with the help
+# tokens (flags, adapter names) the description relies on.
+CYBERSECURITY_PRODUCERS = {
+    "threat-model": [(("quoin", "dossier", "generate"), ["--doc"])],
+    "vulnerability-assessment": [
+        (("quoin", "anomaly", "report"), []),
+        (("quoin", "evidence", "record"), ["osv-scanner"]),
+    ],
+    "security-architecture-views": [(("quire", "relations"), ["--flow"])],
+    "cybersecurity-test-results": [
+        (
+            ("quoin", "evidence", "record"),
+            ["sarif", "osv-scanner", "cargo-deny", "junit"],
+        )
+    ],
+    "sbom": [
+        (("quoin", "evidence", "record"), ["sbom"]),
+        (("quoin", "soup", "report"), []),
+    ],
+}
+CYBERSECURITY_CUSTOMER_DOCUMENTS = {
+    "security-risk-assessment",
+    "vulnerability-management-plan",
+    "additional-cybersecurity-requirement-records",
+}
+
+
+def _m3_output_catalog() -> dict[str, dict]:
+    catalog: dict[str, dict] = {}
+    for clause_set in load_clause_sets():
+        if clause_set_key(clause_set) in M3_KEYS:
+            catalog.update(clause_set["outputCatalog"])
+    return catalog
+
+
+@pytest.mark.trace("FR-010-AC-3")
+def test_cybersecurity_record_outputs_name_commands_that_exist():
+    """Each cybersecurity record output names real, installed producer commands."""
+    catalog = _m3_output_catalog()
+    for output, producers in CYBERSECURITY_PRODUCERS.items():
+        description = catalog[output]["description"]
+        assert catalog[output]["kind"] == "record", output
+        for command, tokens in producers:
+            assert (
+                " ".join(command) in description or " ".join(command[:2]) in description
+            ), f"{output}: description omits {' '.join(command)!r}"
+            _assert_command_exists(command)
+            help_text = subprocess.run(
+                [engine_tool(command[0]), *command[1:], "--help"],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout
+            for token in tokens:
+                assert token in help_text, f"{output}: {command} help lacks {token}"
+                if token.startswith("--"):
+                    continue
+                assert token in description, f"{output}: description omits {token}"
+
+
+@pytest.mark.trace("FR-010-AC-3")
+def test_cybersecurity_outputs_without_a_producer_are_customer_documents():
+    """Plans and assessments the toolchain cannot produce are customer-provided."""
+    catalog = _m3_output_catalog()
+    assert CYBERSECURITY_CUSTOMER_DOCUMENTS <= set(catalog)
+    for output in CYBERSECURITY_CUSTOMER_DOCUMENTS:
+        assert catalog[output]["kind"] == "document", output
+        assert catalog[output]["description"].startswith("Customer-provided"), output
+        assert "no toolchain producer" in catalog[output]["description"], output
+
+
+@pytest.mark.trace("FR-010-AC-3")
+def test_cybersecurity_outputs_name_no_owner_ticket():
+    """No cybersecurity output points at a ticket as its owner."""
+    for output, definition in _m3_output_catalog().items():
+        assert "PLAT-" not in definition["description"], output
+        assert "owner" not in definition["description"].casefold(), output
+
+
+@pytest.mark.trace("FR-010-AC-3")
+def test_threat_model_dossier_kind_is_registered(tmp_path):
+    """The installed quoin registers the `threat-model` dossier document kind."""
+    result = subprocess.run(
+        [
+            engine_tool("quoin"),
+            "dossier",
+            "generate",
+            "--doc",
+            "no-such-kind",
+            "--out",
+            str(tmp_path),
+        ],
+        capture_output=True,
+        text=True,
+    )
+    assert "threat-model" in result.stdout + result.stderr

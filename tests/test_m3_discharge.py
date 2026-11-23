@@ -30,7 +30,10 @@ M2_CONTEXT = [
     "qmsr_life_support_applicability=applies",
     "qmsr_servicing_applicability=applies",
 ]
-M3_CONTEXT = ["cyber_device=yes"]
+M3_CONTEXT = [
+    "cyber_device=yes",
+    "additional_cybersecurity_regulation=none_issued",
+]
 M3_KEYS = {
     "us-congress/fdca-524b@2026-10-15",
     "us-fda/premarket-cybersecurity@2026-02-03",
@@ -91,25 +94,6 @@ def _record_fact(
     assert recorded.returncode == 0, recorded.stderr + recorded.stdout
     resolve_fact_refs(repo, facts)
     return facts_path
-
-
-def _master_no_producer_outputs() -> set[str]:
-    """Read no-producer ownership from the normative output catalog."""
-    spec = (REPO_ROOT / "spec" / "spec.md").read_text()
-    section = spec.split("### US Health-Law Output Catalog", 1)[1].split("### ", 1)[0]
-    outputs = set()
-    for line in section.splitlines():
-        if not line.strip().startswith("| `"):
-            continue
-        cells = [cell.strip() for cell in line.strip().strip("|").split("|")]
-        name = cells[0].strip("`")
-        description = cells[2].casefold()
-        if (
-            "no producer on `origin/main`" in description
-            or "owner: plat-" in description
-        ):
-            outputs.add(name)
-    return outputs
 
 
 def _security_module() -> pathlib.Path:
@@ -336,7 +320,6 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
     for clause_id, set_id, refs in [
         ("524B(a)", "fdca-524b", shared_security_refs + [report_ref]),
         ("524B(b)(3)", "fdca-524b", [sbom_run, report_ref]),
-        ("524B(b)(4)", "fdca-524b", shared_security_refs),
         ("V.A.4", "premarket-cybersecurity", [sbom_run, report_ref]),
         ("VII.C.3", "premarket-cybersecurity", [sbom_run, report_ref]),
     ]:
@@ -393,13 +376,6 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
         if clause_set_key(clause_set) == key
         for name, definition in clause_set["outputCatalog"].items()
     }
-    master_unproduced = _master_no_producer_outputs()
-    m3_unproduced = master_unproduced.intersection(output_catalog)
-    assert m3_unproduced == {
-        name
-        for name, definition in output_catalog.items()
-        if "owner: PLAT-" in definition["description"]
-    }
     clauses = {
         clause["id"]: clause
         for key in M3_KEYS
@@ -407,21 +383,28 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
         if clause_set_key(clause_set) == key
         for clause in clause_set["clauses"]
     }
-    expected_open = {
+    assert not any(
+        "owner" in definition["description"].casefold()
+        for definition in output_catalog.values()
+    )
+    not_applicable = {
         clause_id
-        for clause_id, clause in clauses.items()
-        if set(clause["expectedOutputs"]).intersection(m3_unproduced)
+        for clause_id in clauses
+        if rows[clause_id]["applicability"] == "not_applicable"
     }
+    assert not_applicable == {"524B(b)(4)"}
+    expected_open = set(clauses) - set(facts) - not_applicable
     actual_open = {
         clause_id
         for clause_id in clauses
         if rows[clause_id]["compliance"] == "undischarged"
     }
     assert actual_open == expected_open
-    assert {"V.A.5", "VII.C.1"}.issubset(actual_open)
+    assert {"V.A.5", "VII.C.1", "VI.B"}.issubset(actual_open)
+    assert "524B(b)(4)" not in facts
+    assert rows["524B(b)(4)"]["compliance"] != "compliant"
     assert rows["524B(b)(3)"]["compliance"] == "compliant"
     assert rows["524B(a)"]["compliance"] == "compliant"
-    assert rows["524B(b)(4)"]["compliance"] == "compliant"
     assert rows["V.A.4"]["compliance"] == "compliant"
     assert rows["VII.C.3"]["compliance"] == "compliant"
 
