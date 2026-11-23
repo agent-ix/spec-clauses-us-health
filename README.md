@@ -215,8 +215,8 @@ recorded decision that it is not reasonable and appropriate.
   - **Not compliant - undischarged: no discharge fact**: nothing is recorded
     for the clause.
   - **Not compliant - attestation not current**: a fact exists but its
-    attestation has expired (for example "discharge fact is expired") or is not yet
-    in force at `--as-of`. A `temporary_exception` past its end date prints
+    attestation has expired at `--as-of` (the matrix says "discharge fact is
+    expired"). A `temporary_exception` past its end date prints
     **Not compliant - temporary exception expired**.
   - **Undetermined**: a context value the clause depends on is not declared.
     The applicability column shows Unresolved.
