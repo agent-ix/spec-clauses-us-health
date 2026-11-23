@@ -568,12 +568,6 @@ analysis-report, scenario, experiment or operational record.
 | `vulnerability-assessment` | `scan` | `quoin evidence record --adapter osv-scanner` scan record. |
 | `cybersecurity-test-results` | `run`, `scan` | `junit` run records and `sarif`, `osv-scanner` or `cargo-deny` scan records. |
 
-Every other output omits `producers`: generated documents and reports
-(`quoin soup report`, `quoin anomaly report`, `quoin release snapshot`,
-`quoin risk-summary`, `quoin dossier generate`, `quire relations`) and records
-or documents the customer supplies. Omission means the output is not
-machine-produced into the evidence store.
-
 ### Customer-Owned Obligations
 
 For the Part 11 M1 table, a non-addressable clause is customer-owned when every

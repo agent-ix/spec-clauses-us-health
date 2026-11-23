@@ -20,17 +20,12 @@ outside this requirement's enforceable scope.
 - A pack test SHALL compare each output's kind and description across all US
   sets in this repository and fail on any conflict.
 - The module SHALL NOT add a pack-level catalog field to the engine schema.
-- The module SHALL carry `producers` in each set's catalog entry for an output
-  whose evidence is a retained record in the quoin evidence store: a non-empty list of
-  distinct retained kinds as defined by quoin FR-211 (`run`, `scan`,
-  `mock-inspection`, `analysis-report`, `scenario`, or an experiment or
-  operational record's `subject.kind`). Quoin resolves an `evidenceRefs` entry
-  against this list. `verification-records`, `sbom`, `vulnerability-assessment`
-  and `cybersecurity-test-results` carry it, as the "US Output Producers"
-  table in [the master specification](../spec.md) states.
-- The module SHALL NOT carry `producers` on an output that a tool renders or
-  reports (a generated document, snapshot or report) or that the customer
-  supplies.
+- The module SHALL list `producers` in each set's catalog entry for the outputs
+  the "US Output Producers" table in [the master specification](../spec.md)
+  names, with the retained kinds that table gives. Quoin resolves an
+  `evidenceRefs` entry against this list (quoin FR-211). This module uses only
+  the family kinds `run`, `scan`, `mock-inspection`, `analysis-report` and
+  `scenario`; it names no experiment or operational `subject.kind`.
 
 ## Acceptance Criteria
 
@@ -40,8 +35,8 @@ outside this requirement's enforceable scope.
 | FR-005-AC-2 | A test over every US set in this repository fails when two declarations of one output name differ in kind or description. | Test |
 | FR-005-AC-3 | A fixture US set that reuses a catalog name with its declared kind and description passes the catalog test. | Test |
 | FR-005-AC-4 | The module schema defines no pack-level output catalog field. | Test |
-| FR-005-AC-5 | Each catalog entry that carries `producers` lists only distinct, unpadded kinds from the quoin FR-211 set, and exactly the outputs in the "US Output Producers" table carry it with the listed kinds in every set that declares them. | Test |
-| FR-005-AC-6 | The installed `quire` validates and evaluates every set with `producers` present. | Test |
+| FR-005-AC-5 | Each `producers` entry in a US set's catalog lists only distinct, unpadded kinds from `run`, `scan`, `mock-inspection`, `analysis-report` and `scenario`. | Test |
+| FR-005-AC-6 | Each set's catalog entry for an output in the "US Output Producers" table carries the `producers` that table lists. | Test |
 
 ## Dependencies
 
