@@ -17,15 +17,24 @@ sets.
 ## Behavior
 
 - The US catalog SHALL contain the cybersecurity output rows in
-  [the master specification](../spec.md), each with a producer capability or
-  owning project ticket.
+  [the master specification](../spec.md), each naming a producer command that
+  exists in the installed toolchain or identifying the output as
+  customer-provided with no toolchain producer.
 - The two new sets SHALL declare the kind and description from the shared
   catalog for every output they use.
 - The SBOM SHALL use a dedicated `sbom` output so lifecycle fields are explicit
   and do not change the meaning of the existing general-purpose `soup-list`.
 - Each SBOM component SHALL include its support status and end-of-support date.
-- The `sbom` producer SHALL use `quoin evidence record --adapter sbom` and
-  `quoin soup report` for the component lifecycle fields (PLAT-1517/PLAT-1518).
+- The `sbom` output SHALL name `quoin evidence record --adapter sbom` and
+  `quoin soup report` for the component lifecycle fields. The customer runs the
+  SBOM generator.
+- The `threat-model` output SHALL name `quoin dossier generate --doc
+  threat-model`; the `cybersecurity-test-results` output SHALL name the
+  `sarif`, `osv-scanner`, `cargo-deny`, and `junit` evidence adapters.
+- The postmarket vulnerability-management plan, the security risk assessment,
+  and the evidence for requirements FDA establishes by regulation under
+  `524B(b)(4)` SHALL be customer-provided documents; the toolchain has no
+  producer for them.
 - The catalog check SHALL compare names, kinds, and descriptions across every
   US set and fail on a conflicting declaration.
 
@@ -35,7 +44,7 @@ sets.
 |----|----------|--------------|
 | FR-010-AC-1 | Every cybersecurity output referenced by the 524B or FDA guidance tables has a row in the master catalog with its declared kind and description. | Test |
 | FR-010-AC-2 | Every cybersecurity set output matches the catalog's kind and description; a conflict fails and names the output and set. | Test |
-| FR-010-AC-3 | The catalog identifies a producer capability or owning ticket for every new row. | Inspection |
+| FR-010-AC-3 | Every cybersecurity catalog row names a producer command that exists in its installed CLI or is a customer-provided document; no row names an owner ticket. | Test |
 | FR-010-AC-4 | The guidance clauses V.A.4 and VII.C.3 use the dedicated `sbom` output, with support status and end-of-support date for every component; they do not use `soup-list` for the SBOM. | Test |
 
 ## Dependencies

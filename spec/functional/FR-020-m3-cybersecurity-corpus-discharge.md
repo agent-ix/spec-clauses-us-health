@@ -32,11 +32,13 @@ applicability, and the producer mapping defined in the master specification.
   byte order, and each set's row count SHALL equal its clause matrix row count.
 - The 524B(b)(3) clause SHALL have a discharge fact that cites evidence
   produced from the ingested SBOM.
-- An M3 clause whose expected output has no producer on `origin/main` SHALL
-  remain `Not compliant - undischarged`. The M3 open-clause list SHALL equal
-  clauses whose expected outputs map to no-producer rows authored by PLAT-1593
-  and recorded in the master specification. The toolchain SHALL NOT generate
-  evidence for those rows.
+- An M3 clause with no recorded discharge fact SHALL remain
+  `Not compliant - undischarged`, including every clause whose expected output
+  is customer-provided with no toolchain producer. The toolchain SHALL NOT
+  generate evidence for those outputs.
+- The reference corpus SHALL NOT discharge `524B(b)(4)`. With
+  `additional_cybersecurity_regulation=none_issued` it SHALL render as
+  `Not applicable`.
 - When `cyber_device=no`, every section 524B clause SHALL render as
   `Not applicable`.
 
@@ -46,7 +48,7 @@ applicability, and the producer mapping defined in the master specification.
 |----|----------|--------------|
 | FR-020-AC-1 | The M3 RMM lists `us-congress/fdca-524b@2026-10-15` and `us-fda/premarket-cybersecurity@2026-02-03` alongside the earlier sets in byte order, and each `rowCount` equals its corresponding clause matrix row count. | Test |
 | FR-020-AC-2 | `524B(b)(3)` renders as `Compliant` with a discharge fact citing evidence produced from the ingested SBOM. | Test |
-| FR-020-AC-3 | M3 clauses whose expected output has no producer on `origin/main` render as `Not compliant - undischarged`, and the open-clause list equals the no-producer rows authored by PLAT-1593 and recorded in the master specification. | Test |
+| FR-020-AC-3 | M3 clauses with no recorded discharge fact render as `Not compliant - undischarged`, and with `additional_cybersecurity_regulation=none_issued`, `524B(b)(4)` renders as `Not applicable` with no discharge fact. | Test |
 | FR-020-AC-4 | With `cyber_device=no`, every section 524B clause renders as `Not applicable`. | Test |
 
 ## Dependencies

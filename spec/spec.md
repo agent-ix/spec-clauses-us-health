@@ -144,6 +144,11 @@ pack never derives this value. Every clause has force `mandatory` and applies
 only when `cyber_device=yes`. With the value absent, applicability is
 unresolved; with `no`, each clause is not binding. Section 524B(b)(4) requires
 compliance with additional cybersecurity requirements established by regulation.
+No such regulation has been issued, so `524B(b)(4)` also depends on the
+user-supplied `additional_cybersecurity_regulation` dimension (`issued` or
+`none_issued`): with `none_issued` the clause is not binding, with `issued` it
+binds and its output is customer-supplied, and with the value absent it is
+unresolved. The pack never derives this value.
 
 | Clause ID | Applicability | Expected outputs |
 |---|---|---|
@@ -153,7 +158,7 @@ compliance with additional cybersecurity requirements established by regulation.
 | `524B(b)(2)(A)` | `eq cyber_device yes` | `security-risk-records`, `vulnerability-management-plan` |
 | `524B(b)(2)(B)` | `eq cyber_device yes` | `security-risk-records`, `vulnerability-management-plan` |
 | `524B(b)(3)` | `eq cyber_device yes` | `sbom` |
-| `524B(b)(4)` | `eq cyber_device yes` | `security-risk-records` |
+| `524B(b)(4)` | `all[eq cyber_device yes, eq additional_cybersecurity_regulation issued]` | `additional-cybersecurity-requirement-records` |
 
 ### FDA Premarket Cybersecurity Guidance Clause Table
 
@@ -209,6 +214,7 @@ additional FDA regulation, or establishes equivalence or legal compliance.
 | `524B(a)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `informative` |
 | `524B(a)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.3` | `informative` |
 | `524B(b)(1)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.1` | `informative` |
+| `524B(b)(1)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VI.B` | `informative` |
 | `524B(b)(2)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `informative` |
 | `524B(b)(2)(A)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `informative` |
 | `524B(b)(2)(B)` | `us-fda/premarket-cybersecurity@2026-02-03` | `VII.C.2` | `informative` |
@@ -236,7 +242,8 @@ additional FDA regulation, or establishes equivalence or legal compliance.
 | `V.B.2` | `nist/sp800-53@5.2.0` | `SA-11` | `informative` |
 | `V.C` | `nist/sp800-53@5.2.0` | `CA-8` | `informative` |
 | `V.C` | `nist/sp800-53@5.2.0` | `SA-11` | `informative` |
-| `VI.B` | `nist/sp800-53@5.2.0` | `SR-2` | `informative` |
+| `VI.B` | `nist/sp800-53@5.2.0` | `RA-5` | `informative` |
+| `VI.B` | `nist/sp800-53@5.2.0` | `SI-5` | `informative` |
 | `VII.C.1` | `nist/sp800-53@5.2.0` | `RA-5` | `informative` |
 | `VII.C.1` | `nist/sp800-53@5.2.0` | `SI-5` | `informative` |
 | `VII.C.2` | `nist/sp800-53@5.2.0` | `SA-3` | `informative` |
@@ -520,13 +527,14 @@ does not claim cross-repository enforcement.
 | `security-controls` | `record` | `security.control` records; the clause set does not define a producer. |
 | `health-data-flows` | `record` | Health-data flow projection produced by `quire relations --health-data-flows` from the declared architecture model. |
 | `ephi-access-control` | `record` | Access-control records for the ePHI system: `spec-objects-security` `security.role`, `security.permission`, `security.auth_flow`, `security.mfa_method`, `security.password_policy` and `security.session_config` records the customer authors, or customer-supplied evidence; the clause set defines no producer. |
-| `threat-model` | `record` | Product threat model and trust-boundary analysis; owner: PLAT-1546. |
-| `security-risk-assessment` | `record` | Assessment of cybersecurity risks to the device and related systems; owner: PLAT-1622. |
-| `security-architecture-views` | `record` | Views describing security-relevant device architecture and data flows; owner: PLAT-1532. |
-| `vulnerability-assessment` | `record` | Assessment of identified vulnerabilities and unresolved software anomalies; owner: PLAT-1619. |
-| `cybersecurity-test-results` | `record` | Results of security-focused testing against the device and its controls; owner: PLAT-1638. |
-| `vulnerability-management-plan` | `record` | Plan and procedures for monitoring, identifying, and addressing postmarket vulnerabilities; owner: PLAT-1656. |
-| `sbom` | `record` | SBOM records with component support status and end-of-support dates, from `quoin evidence record --adapter sbom` and `quoin soup report` (PLAT-1517/PLAT-1518). |
+| `threat-model` | `record` | Product threat model and trust-boundary analysis, produced by `quoin dossier generate --doc threat-model` from `spec-objects-security` threat model records. |
+| `security-risk-assessment` | `document` | Customer-provided cybersecurity risk assessment covering risks, controls, residual risk, and the rationale for each risk decision; no toolchain producer. |
+| `security-architecture-views` | `record` | Security-relevant data-flow findings reported by `quire relations --flow` over `spec-objects-security` trust boundaries; the architecture views document itself is customer-provided. |
+| `vulnerability-assessment` | `record` | Unresolved anomalies reported by `quoin anomaly report` and vulnerability findings recorded with `quoin evidence record --adapter osv-scanner`; the assessment of each is authored by a person. |
+| `cybersecurity-test-results` | `record` | Security test runs recorded with `quoin evidence record` using the `sarif`, `osv-scanner`, `cargo-deny`, or `junit` adapter; dynamic and penetration test results are customer-supplied. |
+| `vulnerability-management-plan` | `document` | Customer-provided postmarket vulnerability monitoring, patching, and coordinated vulnerability disclosure plan; no toolchain producer. |
+| `sbom` | `record` | CycloneDX or SPDX SBOM recorded with `quoin evidence record --adapter sbom`, with component support status and end-of-support dates from `quoin soup report`. The customer generates the SBOM, for example with Syft run through the engineering-assurance `producer-execute` command. |
+| `additional-cybersecurity-requirement-records` | `document` | Customer-provided evidence of compliance with cybersecurity requirements FDA establishes by regulation under 524B(b)(4); no toolchain producer. |
 | `device-identification-record` | `record` | No producer on `origin/main`; customer-supplied device identity and UDI assignment records; owner PLAT-1762. |
 | `traceability-records` | `record` | No producer on `origin/main`; customer-supplied traceability procedures and device or batch records; owner PLAT-1762. |
 | `complaint-records` | `record` | No producer on `origin/main`; customer-supplied complaint intake, evaluation, investigation, and response records; owner PLAT-1762. |
