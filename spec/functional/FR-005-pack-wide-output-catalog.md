@@ -20,16 +20,17 @@ outside this requirement's enforceable scope.
 - A pack test SHALL compare each output's kind and description across all US
   sets in this repository and fail on any conflict.
 - The module SHALL NOT add a pack-level catalog field to the engine schema.
-- An output whose evidence is a retained record in the quoin evidence store
-  SHALL carry `producers` in each set's catalog entry: a non-empty list of
+- The module SHALL carry `producers` in each set's catalog entry for an output
+  whose evidence is a retained record in the quoin evidence store: a non-empty list of
   distinct retained kinds as defined by quoin FR-211 (`run`, `scan`,
   `mock-inspection`, `analysis-report`, `scenario`, or an experiment or
   operational record's `subject.kind`). Quoin resolves an `evidenceRefs` entry
   against this list. `verification-records`, `sbom`, `vulnerability-assessment`
   and `cybersecurity-test-results` carry it, as the "US Output Producers"
   table in [the master specification](../spec.md) states.
-- An output that a tool renders or reports (a generated document, snapshot or
-  report) and an output the customer supplies SHALL NOT carry `producers`.
+- The module SHALL NOT carry `producers` on an output that a tool renders or
+  reports (a generated document, snapshot or report) or that the customer
+  supplies.
 
 ## Acceptance Criteria
 
