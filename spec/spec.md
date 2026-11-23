@@ -278,7 +278,7 @@ covered by either value.
 | `164.308(a)(3)(i)` | Standard | required | both roles | `security-controls`, `written-procedure` |
 | `164.308(a)(3)(ii)(A)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
 | `164.308(a)(3)(ii)(B)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
-| `164.308(a)(3)(ii)(C)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
+| `164.308(a)(3)(ii)(C)` | Implementation specification | addressable | both roles | `ephi-access-control`, `security-controls`, `written-procedure` |
 | `164.308(a)(4)(i)` | Standard | required | both roles | `ephi-access-control`, `security-controls` |
 | `164.308(a)(4)(ii)(A)` | Implementation specification | required | both roles | `ephi-access-control` |
 | `164.308(a)(4)(ii)(B)` | Implementation specification | addressable | both roles | `ephi-access-control`, `written-procedure` |
@@ -287,7 +287,7 @@ covered by either value.
 | `164.308(a)(5)(ii)(A)` | Implementation specification | addressable | both roles | `written-procedure` |
 | `164.308(a)(5)(ii)(B)` | Implementation specification | addressable | both roles | `security-controls` |
 | `164.308(a)(5)(ii)(C)` | Implementation specification | addressable | both roles | `audit-logging`, `security-controls` |
-| `164.308(a)(5)(ii)(D)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
+| `164.308(a)(5)(ii)(D)` | Implementation specification | addressable | both roles | `ephi-access-control`, `security-controls`, `written-procedure` |
 | `164.308(a)(6)(i)` | Standard | required | both roles | `security-controls`, `written-procedure` |
 | `164.308(a)(6)(ii)` | Implementation specification | required | both roles | `audit-logging`, `written-procedure` |
 | `164.308(a)(7)(i)` | Standard | required | both roles | `security-controls`, `written-procedure` |
@@ -338,14 +338,13 @@ Each clause has at least one expected output. `access-control` and
 branch rules, git and signed-approval history) and are not used by this set:
 the Security Rule safeguards concern the customer's ePHI system, so access
 control uses `ephi-access-control` and audit controls use `audit-logging`.
-Physical-access clause § 164.310(a)(2)(iii) and encryption clause
-§ 164.312(a)(2)(iv) use `security-controls` and `written-procedure` rather than
-an access-control record. `security-controls` denotes
+Physical-access clause § 164.310(a)(2)(iii) uses `security-controls` and
+`written-procedure`, and encryption clause § 164.312(a)(2)(iv) uses
+`security-controls` only, rather than an access-control record. `security-controls` denotes
 customer control records and has no producer specified by this clause set.
 `health-data-flows` is produced by `quire relations --health-data-flows` from
 the declared architecture model. The table specifies
-the required clause and output design; clause content and the machine-readable
-NIST mapping are authored in PLAT-1613 and PLAT-1616 respectively.
+the required clause and output design.
 
 ### NIST SP 800-66 Rev. 2 Crosswalk Plan
 
@@ -520,7 +519,7 @@ does not claim cross-repository enforcement.
 | `audit-logging` | `record` | `security.audit_event` records and associated retention evidence. |
 | `security-controls` | `record` | `security.control` records; the clause set does not define a producer. |
 | `health-data-flows` | `record` | Health-data flow projection produced by `quire relations --health-data-flows` from the declared architecture model. |
-| `ephi-access-control` | `record` | Access-control records for the ePHI system: `spec-objects-security` `role`, `permission`, `auth_flow`, `mfa_method` and `session_config` records the customer authors, or customer-supplied evidence; the clause set defines no producer. |
+| `ephi-access-control` | `record` | Access-control records for the ePHI system: `spec-objects-security` `security.role`, `security.permission`, `security.auth_flow`, `security.mfa_method`, `security.password_policy` and `security.session_config` records the customer authors, or customer-supplied evidence; the clause set defines no producer. |
 | `threat-model` | `record` | Product threat model and trust-boundary analysis; owner: PLAT-1546. |
 | `security-risk-assessment` | `record` | Assessment of cybersecurity risks to the device and related systems; owner: PLAT-1622. |
 | `security-architecture-views` | `record` | Views describing security-relevant device architecture and data flows; owner: PLAT-1532. |

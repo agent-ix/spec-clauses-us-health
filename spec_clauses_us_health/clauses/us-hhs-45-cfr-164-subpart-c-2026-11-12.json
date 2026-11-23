@@ -46,7 +46,7 @@
     },
     "ephi-access-control": {
       "kind": "record",
-      "description": "Access-control records for the ePHI system: `spec-objects-security` `role`, `permission`, `auth_flow`, `mfa_method` and `session_config` records the customer authors, or customer-supplied evidence; the clause set defines no producer."
+      "description": "Access-control records for the ePHI system: `spec-objects-security` `security.role`, `security.permission`, `security.auth_flow`, `security.mfa_method`, `security.password_policy` and `security.session_config` records the customer authors, or customer-supplied evidence; the clause set defines no producer."
     }
   },
   "clauses": [
@@ -223,6 +223,7 @@
         "implementation": "addressable"
       },
       "expectedOutputs": [
+        "ephi-access-control",
         "security-controls",
         "written-procedure"
       ]
@@ -382,6 +383,7 @@
         "implementation": "addressable"
       },
       "expectedOutputs": [
+        "ephi-access-control",
         "security-controls",
         "written-procedure"
       ]

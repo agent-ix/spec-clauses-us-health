@@ -43,9 +43,9 @@ titles and summaries use original concise wording from public eCFR citations.
   addressable in this pack's table.
 - The set SHALL map access-control and audit-control clauses to outputs about
   the customer's ePHI system, not the development repository: it SHALL NOT use
-  the repository-oriented `access-control` or `audit-trail` outputs, SHALL use
-  `ephi-access-control` for access and authentication clauses, and SHALL use
-  `audit-logging` for audit controls.
+  the repository-oriented `access-control` or `audit-trail` outputs, SHALL list
+  `ephi-access-control` for exactly the clauses in the normative table that
+  show it, and SHALL use `audit-logging` for audit controls.
 - The set SHALL declare unordered `hipaa_role` values `covered_entity` and
   `business_associate`; each § 164.314(a)(2) clause SHALL use the applicability
   shown in the normative table.
@@ -65,11 +65,9 @@ titles and summaries use original concise wording from public eCFR citations.
 | FR-012-AC-4 | The reference-corpus direct fact discharges an addressable clause as implemented as written; each alternate addressable fact in the corpus uses a human `accepted_risk` disposition, non-empty rationale, and named `approvalRef`. Quoin records this valid fact; this criterion does not require the generic parser to infer a pack-specific style from the clause key. | Test |
 | FR-012-AC-5 | For an addressable clause with an `accepted_risk` disposition, the generated RMM preserves the decision and exposes its rationale and approver in tailoring columns; missing disposition remains unresolved, and no evaluation path generates a disposition. | Test |
 | FR-012-AC-6 | No clause summary or packaged source reproduces or paraphrases text from a paywalled standard; the set declares `rights.text: original` and a public-law source basis. | Analysis |
-| FR-012-AC-7 | No HIPAA clause lists `access-control` or `audit-trail`; § 164.312(b) lists only `audit-logging`, and § 164.312(a)(1), (a)(2)(i) and (d) list `ephi-access-control`. | Test |
+| FR-012-AC-7 | No HIPAA clause lists `access-control` or `audit-trail`; § 164.312(b) lists only `audit-logging`; exactly the clauses the normative table marks list `ephi-access-control` (§§ 164.308(a)(3)(ii)(C), (a)(4)(i), (a)(4)(ii)(A)-(C), (a)(5)(ii)(D), 164.312(a)(1), (a)(2)(i)-(iii) and (d)); § 164.310(a)(2)(iii) does not, and § 164.312(a)(2)(iv) lists only `security-controls`. | Test |
 
 ## Dependencies
 
 - The set extends the clause-set, rights, applicability, and RMM contracts
   specified for [FR-003](./FR-003-part-11-clause-set.md), [FR-002](./FR-002-rights-metadata-is-truthful-and-publishable.md), and [FR-004](./FR-004-applicability.md).
-- The M4 clause content is authored in PLAT-1613; NIST crosswalk content is
-  authored in PLAT-1616; disposition workflow is delivered in PLAT-1621.

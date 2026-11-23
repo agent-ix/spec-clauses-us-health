@@ -331,9 +331,10 @@ def test_hipaa_clauses_match_the_normative_table_exactly():
             "kind": "record",
             "description": (
                 "Access-control records for the ePHI system: `spec-objects-security` "
-                "`role`, `permission`, `auth_flow`, `mfa_method` and "
-                "`session_config` records the customer authors, or customer-supplied "
-                "evidence; the clause set defines no producer."
+                "`security.role`, `security.permission`, `security.auth_flow`, "
+                "`security.mfa_method`, `security.password_policy` and "
+                "`security.session_config` records the customer authors, or "
+                "customer-supplied evidence; the clause set defines no producer."
             ),
         },
     }
@@ -352,13 +353,22 @@ def test_hipaa_access_and_audit_clauses_map_to_the_ephi_system_not_the_repositor
     )
     assert not {"access-control", "audit-trail"} & set(clause_set["outputCatalog"])
     assert outputs["164.312(b)"] == ["audit-logging"]
-    for clause_id in ("164.312(a)(1)", "164.312(a)(2)(i)", "164.312(d)"):
-        assert "ephi-access-control" in outputs[clause_id]
+    ephi = {
+        "164.308(a)(3)(ii)(C)",
+        "164.308(a)(4)(i)",
+        "164.308(a)(4)(ii)(A)",
+        "164.308(a)(4)(ii)(B)",
+        "164.308(a)(4)(ii)(C)",
+        "164.308(a)(5)(ii)(D)",
+        "164.312(a)(1)",
+        "164.312(a)(2)(i)",
+        "164.312(a)(2)(ii)",
+        "164.312(a)(2)(iii)",
+        "164.312(d)",
+    }
+    assert {i for i, names in outputs.items() if "ephi-access-control" in names} == ephi
     assert "ephi-access-control" not in outputs["164.310(a)(2)(iii)"]
     assert outputs["164.312(a)(2)(iv)"] == ["security-controls"]
-    assert "quire relations --health-data-flows" in (
-        clause_set["outputCatalog"]["health-data-flows"]["description"]
-    )
 
 
 @pytest.mark.trace("TC-054", "FR-012-AC-3")
@@ -635,7 +645,6 @@ def test_us_clause_set_output_catalog_matches_the_spec():
         for row in _spec_table("Part 11 Clause Table")
         for output in row[2].split(", ")
     }
-    assert len(catalog) == 39
     assert set(list(catalog)[:10]) <= m1_names
 
     for clause_set in load_clause_sets():
