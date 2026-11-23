@@ -1,4 +1,4 @@
-"""M2 clause outputs are connected to producers or tracked owners."""
+"""M2 clause outputs are connected to producers or marked customer-provided."""
 
 from __future__ import annotations
 
@@ -157,34 +157,113 @@ def test_m2_output_mapping_covers_every_clause_output_pair_once():
     )
 
 
-@pytest.mark.trace("TC-076", "FR-018-AC-2")
-def test_m2_record_outputs_name_a_producer_or_owner_ticket():
-    """Each M2 record description matches its current producer or tracked owner."""
-    rows = m2_mapping_rows()
-    by_output = {row["output"]: row for row in rows}
-    assert len(by_output) == len(rows), "each output must have one mapping row"
+M2_DOSSIER_KINDS = {
+    "software-requirements": ("srs",),
+    "software-architecture": ("architecture",),
+    "verification-records": ("verification-report", "trace-matrix"),
+    "risk-management-records": ("risk-management",),
+    "release-record": ("release-record",),
+    "anomaly-list": ("anomalies",),
+}
+# Outputs the customer supplies; the toolchain has no producer for them.
+M2_CUSTOMER_DOCUMENTS = {
+    "documentation-level-decision",
+    "software-description",
+    "software-design",
+    "configuration-management-plan",
+}
+M2_CUSTOMER_RECORDS = {
+    "device-identification-record",
+    "traceability-records",
+    "complaint-records",
+    "regulatory-report-records",
+    "advisory-notice-records",
+    "service-records",
+    "labeling-inspection-records",
+}
+M2_CUSTOMER_PROCEDURES = {"written-procedure"}
 
+
+def _m2_output_catalog() -> dict[str, dict]:
+    catalog: dict[str, dict] = {}
     for clause_set in _m2_sets():
-        for output, definition in clause_set["outputCatalog"].items():
-            row = by_output[output]
-            assert row["kind"] == definition["kind"], output
-            mapping = str(row["producer_or_owner"])
-            description = definition["description"]
+        catalog.update(clause_set["outputCatalog"])
+    return catalog
 
-            if definition["kind"] == "record":
-                if "No producer on `origin/main`" in mapping:
-                    assert "owner PLAT-1762" in mapping, output
-                    assert "PLAT-1762" in description, output
-                else:
-                    assert mapping in description or description in mapping, output
-                    _assert_producer_source_evidence(output, mapping)
-            elif definition["kind"] == "document":
-                assert "Customer-provided" in mapping, output
-                assert "no toolchain producer" in mapping, output
-            else:
-                assert definition["kind"] == "procedure", output
-                assert "Customer-owned" in mapping, output
-                assert "no toolchain producer" in mapping, output
+
+@pytest.mark.trace("TC-076", "FR-018-AC-2")
+def test_every_m2_output_is_in_exactly_one_class():
+    """Each M2 output is a produced record or a customer document or procedure."""
+    classes = [
+        set(MODULE_EVIDENCE) | set(COMMAND_EVIDENCE),
+        M2_CUSTOMER_RECORDS,
+        M2_CUSTOMER_DOCUMENTS,
+        M2_CUSTOMER_PROCEDURES,
+    ]
+    assert sum(len(names) for names in classes) == len(set().union(*classes))
+    assert set(_m2_output_catalog()) == set().union(*classes)
+
+
+@pytest.mark.trace("TC-076", "FR-018-AC-2", "FR-018-AC-4")
+def test_m2_record_outputs_name_producers_that_exist(tmp_path):
+    """Each produced record names installed commands, modules and dossier kinds."""
+    rows = {row["output"]: row for row in m2_mapping_rows()}
+    dossier_kinds = _dossier_kinds(tmp_path)
+    for output, definition in _m2_output_catalog().items():
+        if output not in set(MODULE_EVIDENCE) | set(COMMAND_EVIDENCE):
+            continue
+        mapping = str(rows[output]["producer_or_owner"])
+        assert definition["kind"] == rows[output]["kind"] == "record", output
+        assert definition["description"].rstrip(".") in mapping, output
+        _assert_producer_source_evidence(output, mapping)
+        for kind in M2_DOSSIER_KINDS.get(output, ()):
+            assert f"--doc {kind}" in mapping, output
+            assert kind in dossier_kinds, f"{output}: no {kind} dossier kind"
+    for output in M2_DOSSIER_KINDS:
+        assert "quoin dossier generate" in rows[output]["producer_or_owner"], output
+
+
+@pytest.mark.trace("TC-076", "FR-018-AC-2")
+def test_m2_outputs_without_a_producer_are_customer_provided():
+    """Documents and procedures the toolchain cannot produce are customer-owned."""
+    catalog = _m2_output_catalog()
+    rows = {row["output"]: row for row in m2_mapping_rows()}
+    for output in M2_CUSTOMER_DOCUMENTS:
+        assert catalog[output]["kind"] == rows[output]["kind"] == "document", output
+        assert catalog[output]["description"].startswith("Customer-provided"), output
+        assert "no toolchain producer" in catalog[output]["description"], output
+        assert "Customer-provided" in rows[output]["producer_or_owner"], output
+        assert "no toolchain producer" in rows[output]["producer_or_owner"], output
+    for output in M2_CUSTOMER_RECORDS:
+        assert catalog[output]["kind"] == rows[output]["kind"] == "record", output
+        assert catalog[output]["description"].startswith("Customer-provided"), output
+        assert "no toolchain producer" in catalog[output]["description"], output
+        assert "Customer-provided" in rows[output]["producer_or_owner"], output
+        assert "no toolchain producer" in rows[output]["producer_or_owner"], output
+    for output in M2_CUSTOMER_PROCEDURES:
+        assert catalog[output]["kind"] == rows[output]["kind"] == "procedure", output
+        assert catalog[output]["description"].startswith("Customer-owned"), output
+        assert "Customer-owned" in rows[output]["producer_or_owner"], output
+        assert "no toolchain producer" in rows[output]["producer_or_owner"], output
+
+
+@pytest.mark.trace("TC-076", "FR-018-AC-2", "FR-018-AC-5")
+def test_m2_outputs_name_no_owner_ticket_and_no_tool_decision():
+    """No M2 output points at a ticket, and the level is never tool-assigned."""
+    catalog = _m2_output_catalog()
+    for output, definition in catalog.items():
+        assert "PLAT-" not in definition["description"], output
+        assert "owner" not in definition["description"].casefold(), output
+    for row in m2_mapping_rows():
+        assert "PLAT-" not in str(row["producer_or_owner"]), row["output"]
+    assert "never assigns" in catalog["documentation-level-decision"]["description"]
+    vi_a = next(
+        clause
+        for clause_set in _m2_sets()
+        for clause in clause_set["clauses"]
+        if clause["id"] == "VI.A"
+    )
+    assert vi_a["expectedOutputs"] == ["documentation-level-decision"]
 
 
 @pytest.mark.trace("TC-077", "FR-018-AC-3")

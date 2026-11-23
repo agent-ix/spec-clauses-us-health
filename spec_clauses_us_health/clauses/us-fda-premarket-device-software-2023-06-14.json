@@ -26,6 +26,10 @@
       "kind": "record",
       "description": "`spec-objects-safety` `hazard` and `failure_mode` artifacts; `quoin risk-summary`."
     },
+    "documentation-level-decision": {
+      "kind": "document",
+      "description": "Customer-provided statement of the chosen documentation level (basic or enhanced) and the reasons for the choice; a person decides the level and the toolchain never assigns it; no toolchain producer."
+    },
     "software-description": {
       "kind": "document",
       "description": "Customer-provided software function, input, output, and platform description; no toolchain producer."
@@ -73,7 +77,7 @@
       "obligatedActors": [],
       "approvalRoles": [],
       "styles": {},
-      "expectedOutputs": ["risk-management-records"],
+      "expectedOutputs": ["documentation-level-decision"],
       "applicability": {
         "op": "at_least",
         "dimension": "documentation_level",

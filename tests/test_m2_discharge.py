@@ -357,7 +357,6 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
                 matrix_ref,
             ],
             ("21-cfr-820", "820.45(b)"): [release_ref],
-            ("premarket-device-software", "VI.A"): [risk_ref],
             ("premarket-device-software", "VI.C"): [risk_ref],
             ("premarket-device-software", "VI.D"): [req_ref],
             ("premarket-device-software", "VI.E"): [arch_ref],
@@ -440,7 +439,8 @@ def test_m2_discharge_renders_three_sets_with_producer_backed_facts(
         } == expected_open
         assert rows["820.10(c)"]["compliance"] == "compliant", rows["820.10(c)"]
         assert rows["820.10(a)"]["compliance"] == "compliant"
-        assert rows["VI.A"]["compliance"] == "compliant"
+        assert rows["VI.A"]["compliance"] == "undischarged"
+        assert rows["VI.C"]["compliance"] == "compliant"
         assert rows["VI.I"]["compliance"] == "compliant"
         assert rows["VI.B"]["compliance"] == "undischarged"
         assert rows["820.10(b)(1)"]["compliance"] == "undischarged"
