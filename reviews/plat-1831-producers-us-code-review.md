@@ -25,3 +25,12 @@ Focused runs with quoin 0.36.10 / quire 0.52.1 under a throwaway HOME: `tests/te
 | --- | --- | --- | --- |
 | FND-001 | low | `test_quire_accepts_sets_that_carry_producers` passes on data with no `producers` (verified on origin/main data) and repeats the existing `publish-check` tests over PACKAGE_ROOT; delete it with FR-005-AC-6. | tests/test_clause_sets.py:1517-1539 |
 | FND-002 | low | `test_catalog_producers_name_only_fr_211_kinds_and_match_the_spec` re-checks quire FR-073-AC-9 shape rules (non-empty, distinct, unpadded) and the per-set table equality that `_canonical_catalog` already gives TC-018/TC-043; keep only the FR-211 membership check of the spec table. | tests/test_clause_sets.py:1491-1514 |
+
+## Dispositions
+
+Round 1, checked against `git diff fba28a13..eb8b71d8` (head eb8b71d815e634497dd5461c6934acaa8c81bd40). With quoin 0.36.10 and quire 0.52.1, `tests/test_clause_sets.py -k "producers or catalog"` gives 7 passed and `test_m2_discharge.py` gives 1 passed. With the old set data restored, `test_us_clause_set_output_catalog_matches_the_spec` and `test_all_declared_sets_load_and_match_one_catalog` still fail.
+
+| FND | outcome | reason |
+| --- | --- | --- |
+| FND-001 | fixed | `test_quire_accepts_sets_that_carry_producers`, its TC-086 trace and FR-005-AC-6 as written are removed. |
+| FND-002 | fixed | The test is now `test_spec_producers_name_only_fr_211_kinds`; it checks only that the spec-table kinds belong to the FR-211 family set. Per-set equality stays with TC-018 and TC-043. |
