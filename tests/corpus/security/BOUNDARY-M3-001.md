@@ -3,6 +3,7 @@ id: BOUNDARY-M3-001
 title: Device network trust boundary
 type: trust_boundary
 object: trust_boundary
+trust_level: semi_trusted
 ---
 # BOUNDARY-M3-001 — Device network trust boundary
 

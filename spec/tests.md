@@ -125,7 +125,7 @@ the same reference corpus.
 | FR-009 | FR-009-AC-6 | TC-042 | ✅ Implemented in PLAT-1596 |
 | FR-010 | FR-010-AC-1 | TC-043 | ✅ Implemented in PLAT-1595 |
 | FR-010 | FR-010-AC-2 | TC-044 | ✅ Implemented in PLAT-1595; includes future declared sets |
-| FR-010 | FR-010-AC-3 | TC-045 | 🚧 Planned with source authoring |
+| FR-010 | FR-010-AC-3 | TC-045 | ✅ Implemented |
 | FR-010 | FR-010-AC-4 | TC-046 | ✅ Implemented in PLAT-1596 |
 | FR-011 | FR-011-AC-1 | TC-047 | 🚧 Planned for PLAT-1600 |
 | FR-011 | FR-011-AC-2 | TC-048 | 🚧 Planned for PLAT-1600 |
@@ -176,6 +176,7 @@ the same reference corpus.
 | FR-020 | FR-020-AC-2 | TC-083 | 🚧 Planned for PLAT-1608 |
 | FR-020 | FR-020-AC-3 | TC-083 | 🚧 Planned for PLAT-1608 |
 | FR-020 | FR-020-AC-4 | TC-083 | 🚧 Planned for PLAT-1608 |
+| FR-020 | FR-020-AC-5 | TC-083 | ✅ Implemented |
 | FR-021 | FR-021-AC-1 | TC-084 | ✅ Implemented in PLAT-1621 |
 | FR-021 | FR-021-AC-2 | TC-084 | ✅ Implemented in PLAT-1621 |
 
@@ -233,7 +234,7 @@ the same reference corpus.
 | TC-042 | The FDA clauses requiring an SBOM name the SBOM output with support status and end-of-support date | Unit | P0 | FR-009-AC-6 | ✅ Implemented in PLAT-1596 |
 | TC-043 | Every cybersecurity clause output resolves to a row in the master catalog | Unit | P0 | FR-010-AC-1 | ✅ Implemented in PLAT-1595 |
 | TC-044 | Cybersecurity set outputs match catalog kind and description across all sets | Unit | P0 | FR-010-AC-2 | ✅ Implemented in PLAT-1595; includes future declared sets |
-| TC-045 | Each new cybersecurity catalog row names its producer or owning ticket | Inspection | P1 | FR-010-AC-3 | 🚧 Planned with source authoring |
+| TC-045 | Each cybersecurity catalog row names an installed producer command or is a customer-provided document, and names no owner ticket | Unit | P1 | FR-010-AC-3 | ✅ Implemented |
 | TC-046 | The guidance uses the dedicated SBOM output and declares no generic SOUP output for SBOM clauses | Unit | P1 | FR-010-AC-4 | ✅ Implemented in PLAT-1596 |
 | TC-047 | The crosswalk table contains source, target key, target ID, and a supported relation value | Inspection | P1 | FR-011-AC-1 | 🚧 Planned for PLAT-1600 |
 | TC-048 | Each 524B clause crosswalks to an FDA guidance clause | Unit | P0 | FR-011-AC-2 | 🚧 Planned for PLAT-1600 |
@@ -271,5 +272,5 @@ the same reference corpus.
 | TC-080 | `test_crosswalk_requires_relation_and_nonblank_rationale`: each mapping has supported relation and one-sentence original rationale without designators | Unit | P1 | FR-017-AC-3 | ✅ Implemented in PLAT-1582 |
 | TC-081 | `test_crosswalk_is_informative_and_does_not_claim_equivalence`: all mappings remain informative | Unit | P1 | FR-017-AC-4 | ✅ Implemented in PLAT-1582 |
 | TC-082 | M2 RMM includes three ordered sets with matching row counts, mapped outcomes, basic-level applicability, pack-side missing-reference rejection naming the clause, and deterministic Markdown | Integration | P0 | FR-019-AC-1, FR-019-AC-2, FR-019-AC-3, FR-019-AC-4, FR-019-AC-5 | ✅ Implemented in PLAT-1588 |
-| TC-083 | M3 RMM includes the cybersecurity sets, ingested SBOM evidence, mapped open work, and cyber-device applicability; it also exercises the inherited missing-reference and deterministic-rendering contracts | Integration | P0 | FR-020-AC-1, FR-020-AC-2, FR-020-AC-3, FR-020-AC-4, FR-019-AC-4, FR-019-AC-5 | 🚧 Planned for PLAT-1608 |
+| TC-083 | M3 RMM includes the cybersecurity sets, ingested SBOM evidence, mapped open work, and cyber-device applicability; it also exercises the inherited missing-reference and deterministic-rendering contracts | Integration | P0 | FR-020-AC-1, FR-020-AC-2, FR-020-AC-3, FR-020-AC-4, FR-020-AC-5, FR-019-AC-4, FR-019-AC-5 | 🚧 Planned for PLAT-1608 |
 | TC-084 | M4 RMM index and open `health-data-flows`; direct addressable outcome plus alternative and not-reasonable `accepted_risk` outcomes with decision, rationale, and approver preserved; no-decision rows remain `Not compliant - undischarged`; Quoin refuses an empty-rationale report; delegated non-addressable customer-owned facts; missing-reference rejection names the clause; repeated Markdown is byte-identical | Integration | P0 | FR-021-AC-1, FR-021-AC-2, FR-012-AC-4, FR-012-AC-5, FR-006-AC-2, FR-006-AC-3, FR-019-AC-4, FR-019-AC-5 | ✅ Implemented in PLAT-1621 |

@@ -191,3 +191,180 @@ def test_m2_record_outputs_name_a_producer_or_owner_ticket():
 def test_shared_output_catalog_definitions_are_identical_across_us_sets():
     """Reused outputs keep the same kind and description throughout the module."""
     assert_output_catalog_consistent(load_clause_sets())
+
+
+M3_KEYS = {
+    "us-congress/fdca-524b@2026-10-15",
+    "us-fda/premarket-cybersecurity@2026-02-03",
+}
+
+# Producer commands each cybersecurity output names, with the checks its
+# description relies on: a flag in the command's help ("help"), an accepted
+# `quoin evidence record` adapter ("adapter"), or a registered `quoin dossier
+# generate` document kind ("dossier-kind").
+CYBERSECURITY_PRODUCERS = {
+    "threat-model": [
+        (
+            ("quoin", "dossier", "generate"),
+            [("help", "--doc"), ("dossier-kind", "threat-model")],
+        )
+    ],
+    "vulnerability-assessment": [
+        (("quoin", "anomaly", "report"), []),
+        (("quoin", "evidence", "record"), [("adapter", "osv-scanner")]),
+    ],
+    "security-architecture-views": [(("quire", "relations"), [("help", "--flow")])],
+    "cybersecurity-test-results": [
+        (
+            ("quoin", "evidence", "record"),
+            [
+                ("adapter", "sarif"),
+                ("adapter", "osv-scanner"),
+                ("adapter", "cargo-deny"),
+                ("adapter", "junit"),
+            ],
+        )
+    ],
+    "sbom": [
+        (("quoin", "evidence", "record"), [("adapter", "sbom")]),
+        (("quoin", "soup", "report"), []),
+    ],
+    "soup-list": [(("quoin", "soup", "report"), [])],
+}
+# Records the customer authors in a named module.
+CYBERSECURITY_AUTHORED_RECORDS = {"security-risk-records": "spec-objects-security"}
+CYBERSECURITY_CUSTOMER_DOCUMENTS = {
+    "security-risk-assessment",
+    "vulnerability-management-plan",
+    "additional-cybersecurity-requirement-records",
+}
+
+
+def _m3_output_catalog() -> dict[str, dict]:
+    catalog: dict[str, dict] = {}
+    for clause_set in load_clause_sets():
+        if clause_set_key(clause_set) in M3_KEYS:
+            catalog.update(clause_set["outputCatalog"])
+    return catalog
+
+
+def _evidence_adapters(tmp_path: Path) -> set[str]:
+    """Read the adapter names the installed quoin accepts for `evidence record`."""
+    (tmp_path / "spec").mkdir()
+    results = tmp_path / "results.json"
+    results.write_text("{}")
+    result = subprocess.run(
+        [
+            engine_tool("quoin"),
+            "evidence",
+            "record",
+            "--suite",
+            "S",
+            "--tool",
+            "t",
+            "--adapter",
+            "no-such-adapter",
+            "--results",
+            str(results),
+            "--repo",
+            str(tmp_path),
+        ],
+        capture_output=True,
+        text=True,
+    )
+    return _listed_names(result.stdout + result.stderr, "Available:")
+
+
+def _dossier_kinds(tmp_path: Path) -> set[str]:
+    """Read the document kinds the installed quoin registers for `dossier generate`."""
+    result = subprocess.run(
+        [
+            engine_tool("quoin"),
+            "dossier",
+            "generate",
+            "--doc",
+            "no-such-kind",
+            "--out",
+            str(tmp_path),
+        ],
+        capture_output=True,
+        text=True,
+    )
+    return _listed_names(result.stdout + result.stderr, "the kinds are")
+
+
+def _listed_names(output: str, marker: str) -> set[str]:
+    assert marker in output, f"expected {marker!r} in quoin output: {output}"
+    listed = output.split(marker, 1)[1].lstrip().split("\n", 1)[0]
+    listed = listed.split('"', 1)[0].rstrip(".")
+    return {name.strip() for name in listed.split(",")}
+
+
+@pytest.mark.trace("TC-045", "FR-010-AC-3")
+def test_every_cybersecurity_output_is_in_exactly_one_class():
+    """Each catalog output is a producer, authored records, or a customer document."""
+    classes = [
+        set(CYBERSECURITY_PRODUCERS),
+        set(CYBERSECURITY_AUTHORED_RECORDS),
+        CYBERSECURITY_CUSTOMER_DOCUMENTS,
+    ]
+    assert sum(len(names) for names in classes) == len(set().union(*classes))
+    assert set(_m3_output_catalog()) == set().union(*classes)
+
+
+@pytest.mark.trace("TC-045", "FR-010-AC-3")
+def test_cybersecurity_record_outputs_name_commands_that_exist(tmp_path):
+    """Each producer output names real, installed commands and what they accept."""
+    catalog = _m3_output_catalog()
+    adapters = _evidence_adapters(tmp_path)
+    dossier_kinds = _dossier_kinds(tmp_path)
+    for output, producers in CYBERSECURITY_PRODUCERS.items():
+        description = catalog[output]["description"]
+        assert catalog[output]["kind"] == "record", output
+        for command, checks in producers:
+            assert (
+                " ".join(command) in description
+            ), f"{output}: description omits {' '.join(command)!r}"
+            _assert_command_exists(command)
+            help_text = subprocess.run(
+                [engine_tool(command[0]), *command[1:], "--help"],
+                check=True,
+                capture_output=True,
+                text=True,
+            ).stdout
+            for check, value in checks:
+                assert value in description, f"{output}: description omits {value}"
+                if check == "help":
+                    assert value in help_text, f"{output}: {command} lacks {value}"
+                elif check == "adapter":
+                    assert value in adapters, f"{output}: no {value} adapter"
+                else:
+                    assert value in dossier_kinds, f"{output}: no {value} kind"
+
+
+@pytest.mark.trace("TC-045", "FR-010-AC-3")
+def test_authored_cybersecurity_records_name_their_module():
+    """Records the customer authors name the module that defines them."""
+    catalog = _m3_output_catalog()
+    for output, module in CYBERSECURITY_AUTHORED_RECORDS.items():
+        assert catalog[output]["kind"] == "record", output
+        assert module in catalog[output]["description"], output
+
+
+@pytest.mark.trace("TC-045", "FR-010-AC-3")
+def test_cybersecurity_outputs_without_a_producer_are_customer_documents():
+    """Plans and assessments the toolchain cannot produce are customer-provided."""
+    catalog = _m3_output_catalog()
+    assert CYBERSECURITY_CUSTOMER_DOCUMENTS <= set(catalog)
+    for output in CYBERSECURITY_CUSTOMER_DOCUMENTS:
+        assert catalog[output]["kind"] == "document", output
+        assert catalog[output]["description"].startswith("Customer-provided"), output
+        assert "no toolchain producer" in catalog[output]["description"], output
+
+
+@pytest.mark.trace("TC-045", "FR-010-AC-3")
+def test_cybersecurity_outputs_name_no_owner_ticket():
+    """No cybersecurity output points at a ticket as its owner."""
+    for output, definition in _m3_output_catalog().items():
+        assert "PLAT-" not in definition["description"], output
+        assert "owner" not in definition["description"].casefold(), output

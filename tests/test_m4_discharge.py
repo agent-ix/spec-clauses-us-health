@@ -33,6 +33,7 @@ CONTEXT = [
     "qmsr_life_support_applicability=applies",
     "qmsr_servicing_applicability=applies",
     "cyber_device=yes",
+    "additional_cybersecurity_regulation=none_issued",
     "hipaa_role=covered_entity",
 ]
 DIRECT = "164.308(a)(3)(ii)(A)"

@@ -5,6 +5,11 @@ type: risk
 object: risk
 likelihood: possible
 impact: major
+decision: not_accepted
+decided_by: "reviewer@example.invalid"
+relationships:
+  - target: THREAT-M3-001
+    type: arises_from
 ---
 # RISK-M3-001 — Unsupported dependency compromise
 

@@ -26,31 +26,31 @@
   "outputCatalog": {
     "threat-model": {
       "kind": "record",
-      "description": "Product threat model and trust-boundary analysis; owner: PLAT-1546."
+      "description": "Product threat model and trust-boundary analysis, produced by `quoin dossier generate --doc threat-model` from `spec-objects-security` threat model records."
     },
     "security-risk-assessment": {
-      "kind": "record",
-      "description": "Assessment of cybersecurity risks to the device and related systems; owner: PLAT-1622."
+      "kind": "document",
+      "description": "Customer-provided cybersecurity risk assessment covering risks, controls, residual risk, and the rationale for each risk decision; no toolchain producer."
     },
     "sbom": {
       "kind": "record",
-      "description": "SBOM records with component support status and end-of-support dates, from `quoin evidence record --adapter sbom` and `quoin soup report` (PLAT-1517/PLAT-1518)."
+      "description": "CycloneDX or SPDX SBOM recorded with `quoin evidence record --adapter sbom`, with component support status and end-of-support dates from `quoin soup report`. The customer generates the SBOM, for example with Syft run through the engineering-assurance `producer-execute` command."
     },
     "vulnerability-assessment": {
       "kind": "record",
-      "description": "Assessment of identified vulnerabilities and unresolved software anomalies; owner: PLAT-1619."
+      "description": "Unresolved anomalies reported by `quoin anomaly report` and vulnerability findings recorded with `quoin evidence record --adapter osv-scanner`; the assessment of each is authored by a person."
     },
     "security-architecture-views": {
       "kind": "record",
-      "description": "Views describing security-relevant device architecture and data flows; owner: PLAT-1532."
+      "description": "Security-relevant data-flow findings reported by `quire relations --flow` over `spec-objects-security` trust boundaries; the architecture views document itself is customer-provided."
     },
     "cybersecurity-test-results": {
       "kind": "record",
-      "description": "Results of security-focused testing against the device and its controls; owner: PLAT-1638."
+      "description": "Security test runs recorded with `quoin evidence record` using the `sarif`, `osv-scanner`, `cargo-deny`, or `junit` adapter; dynamic and penetration test results are customer-supplied."
     },
     "vulnerability-management-plan": {
-      "kind": "record",
-      "description": "Plan and procedures for monitoring, identifying, and addressing postmarket vulnerabilities; owner: PLAT-1656."
+      "kind": "document",
+      "description": "Customer-provided postmarket vulnerability monitoring, patching, and coordinated vulnerability disclosure plan; no toolchain producer."
     }
   },
   "clauses": [
@@ -387,10 +387,23 @@
           "id": "sp800-53",
           "version": "5.2.0"
         },
-        "clause": "SR-2"
+        "clause": "RA-5"
       },
       "relation": "informative",
-      "rationale": "This control provides a related supply-chain-risk reference for the cybersecurity recommendation."
+      "rationale": "This control provides a related vulnerability-assessment reference for the cybersecurity recommendation."
+    },
+    {
+      "sourceClause": "VI.B",
+      "target": {
+        "set": {
+          "authority": "nist",
+          "id": "sp800-53",
+          "version": "5.2.0"
+        },
+        "clause": "SI-5"
+      },
+      "relation": "informative",
+      "rationale": "This control provides a related security-advisory reference for the cybersecurity recommendation."
     },
     {
       "sourceClause": "VII.C.1",
