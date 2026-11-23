@@ -1,3 +1,9 @@
+---
+id: RV-1596
+title: "PLAT-1596 source-rights analysis"
+type: Review
+---
+
 # PLAT-1596 source-rights analysis
 
 The only external source identified in the clause set is FDA, *Cybersecurity in

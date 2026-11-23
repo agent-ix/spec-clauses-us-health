@@ -1,3 +1,9 @@
+---
+id: RV-1569
+title: "PLAT-1569 source-rights analysis"
+type: Review
+---
+
 # PLAT-1569 source-rights analysis
 
 ## Source and rights basis

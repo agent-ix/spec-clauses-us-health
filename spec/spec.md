@@ -550,6 +550,24 @@ does not claim cross-repository enforcement.
 | `software-design` | `document` | Customer-provided software design specification; no toolchain producer. |
 | `configuration-management-plan` | `document` | Customer-provided configuration-management and maintenance plan; no toolchain producer. |
 
+### US Output Producers
+
+An output whose evidence is a retained record in the quoin evidence store
+carries `producers` in the catalog entry of every set that declares it. The
+member lists the retained kinds quoin FR-211 resolves an `evidenceRefs` entry
+to: `run` for a run record, `scan` for a finding-shaped scan record. The kind
+follows the record the adapter writes: the `sbom` and `junit` adapters write
+run records, and the `sarif`, `osv-scanner` and `cargo-deny` adapters write
+scan records. No output of this repository is satisfied by a mock-inspection,
+analysis-report, scenario, experiment or operational record.
+
+| Name | Producers | Evidence |
+|---|---|---|
+| `verification-records` | `run` | `quoin evidence record` run records of test suites. |
+| `sbom` | `run` | `quoin evidence record --adapter sbom` run record. |
+| `vulnerability-assessment` | `scan` | `quoin evidence record --adapter osv-scanner` scan record. |
+| `cybersecurity-test-results` | `run`, `scan` | `junit` run records and `sarif`, `osv-scanner` or `cargo-deny` scan records. |
+
 ### Customer-Owned Obligations
 
 For the Part 11 M1 table, a non-addressable clause is customer-owned when every

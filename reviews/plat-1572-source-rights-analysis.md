@@ -1,3 +1,9 @@
+---
+id: RV-1572
+title: "Source and rights analysis: PLAT-1572"
+type: Review
+---
+
 # Source and rights analysis: PLAT-1572
 
 The set identifies FDA's June 14, 2023 *Content of Premarket Submissions for Device Software Functions* guidance and links to its official FDA guidance page. The source is U.S. Government guidance; the set records citation-only structure and original text rights under the public-domain basis already used for FDA guidance in this pack.
