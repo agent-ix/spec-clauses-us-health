@@ -279,10 +279,10 @@ covered by either value.
 | `164.308(a)(3)(ii)(A)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
 | `164.308(a)(3)(ii)(B)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
 | `164.308(a)(3)(ii)(C)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
-| `164.308(a)(4)(i)` | Standard | required | both roles | `access-control`, `security-controls` |
-| `164.308(a)(4)(ii)(A)` | Implementation specification | required | both roles | `access-control` |
-| `164.308(a)(4)(ii)(B)` | Implementation specification | addressable | both roles | `access-control`, `written-procedure` |
-| `164.308(a)(4)(ii)(C)` | Implementation specification | addressable | both roles | `access-control`, `written-procedure` |
+| `164.308(a)(4)(i)` | Standard | required | both roles | `ephi-access-control`, `security-controls` |
+| `164.308(a)(4)(ii)(A)` | Implementation specification | required | both roles | `ephi-access-control` |
+| `164.308(a)(4)(ii)(B)` | Implementation specification | addressable | both roles | `ephi-access-control`, `written-procedure` |
+| `164.308(a)(4)(ii)(C)` | Implementation specification | addressable | both roles | `ephi-access-control`, `written-procedure` |
 | `164.308(a)(5)(i)` | Standard | required | both roles | `security-controls`, `written-procedure` |
 | `164.308(a)(5)(ii)(A)` | Implementation specification | addressable | both roles | `written-procedure` |
 | `164.308(a)(5)(ii)(B)` | Implementation specification | addressable | both roles | `security-controls` |
@@ -302,7 +302,7 @@ covered by either value.
 | `164.310(a)(1)` | Standard | required | both roles | `security-controls` |
 | `164.310(a)(2)(i)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
 | `164.310(a)(2)(ii)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
-| `164.310(a)(2)(iii)` | Implementation specification | addressable | both roles | `access-control`, `security-controls` |
+| `164.310(a)(2)(iii)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
 | `164.310(a)(2)(iv)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
 | `164.310(b)` | Standard | required | both roles | `security-controls`, `written-procedure` |
 | `164.310(c)` | Standard | required | both roles | `security-controls` |
@@ -311,15 +311,15 @@ covered by either value.
 | `164.310(d)(2)(ii)` | Implementation specification | required | both roles | `security-controls`, `written-procedure` |
 | `164.310(d)(2)(iii)` | Implementation specification | addressable | both roles | `security-controls`, `written-procedure` |
 | `164.310(d)(2)(iv)` | Implementation specification | addressable | both roles | `security-controls` |
-| `164.312(a)(1)` | Standard | required | both roles | `access-control`, `security-controls` |
-| `164.312(a)(2)(i)` | Implementation specification | required | both roles | `access-control` |
-| `164.312(a)(2)(ii)` | Implementation specification | required | both roles | `access-control`, `written-procedure` |
-| `164.312(a)(2)(iii)` | Implementation specification | addressable | both roles | `access-control`, `security-controls` |
-| `164.312(a)(2)(iv)` | Implementation specification | addressable | both roles | `access-control`, `security-controls` |
-| `164.312(b)` | Standard | required | both roles | `audit-logging`, `audit-trail` |
+| `164.312(a)(1)` | Standard | required | both roles | `ephi-access-control`, `security-controls` |
+| `164.312(a)(2)(i)` | Implementation specification | required | both roles | `ephi-access-control` |
+| `164.312(a)(2)(ii)` | Implementation specification | required | both roles | `ephi-access-control`, `written-procedure` |
+| `164.312(a)(2)(iii)` | Implementation specification | addressable | both roles | `ephi-access-control`, `security-controls` |
+| `164.312(a)(2)(iv)` | Implementation specification | addressable | both roles | `security-controls` |
+| `164.312(b)` | Standard | required | both roles | `audit-logging` |
 | `164.312(c)(1)` | Standard | required | both roles | `security-controls` |
 | `164.312(c)(2)` | Implementation specification | addressable | both roles | `security-controls` |
-| `164.312(d)` | Standard | required | both roles | `access-control`, `security-controls` |
+| `164.312(d)` | Standard | required | both roles | `ephi-access-control`, `security-controls` |
 | `164.312(e)(1)` | Standard | required | both roles | `health-data-flows`, `security-controls` |
 | `164.312(e)(2)(i)` | Implementation specification | addressable | both roles | `health-data-flows`, `security-controls` |
 | `164.312(e)(2)(ii)` | Implementation specification | addressable | both roles | `health-data-flows`, `security-controls` |
@@ -333,10 +333,17 @@ covered by either value.
 | `164.316(b)(2)(ii)` | Implementation specification | required | both roles | `written-procedure` |
 | `164.316(b)(2)(iii)` | Implementation specification | required | both roles | `written-procedure` |
 
-Each clause has at least one expected output. `security-controls` denotes
+Each clause has at least one expected output. `access-control` and
+`audit-trail` describe the development repository (repository permissions,
+branch rules, git and signed-approval history) and are not used by this set:
+the Security Rule safeguards concern the customer's ePHI system, so access
+control uses `ephi-access-control` and audit controls use `audit-logging`.
+Physical-access clause § 164.310(a)(2)(iii) and encryption clause
+§ 164.312(a)(2)(iv) use `security-controls` and `written-procedure` rather than
+an access-control record. `security-controls` denotes
 customer control records and has no producer specified by this clause set.
-`health-data-flows` is a planned output with no producer in this repository;
-PLAT-1756 in the Data-Flow Model project owns that producer. The table specifies
+`health-data-flows` is produced by `quire relations --health-data-flows` from
+the declared architecture model. The table specifies
 the required clause and output design; clause content and the machine-readable
 NIST mapping are authored in PLAT-1613 and PLAT-1616 respectively.
 
@@ -512,7 +519,8 @@ does not claim cross-repository enforcement.
 | `release-record` | `record` | Release evidence snapshot produced by `quoin release snapshot`. |
 | `audit-logging` | `record` | `security.audit_event` records and associated retention evidence. |
 | `security-controls` | `record` | `security.control` records; the clause set does not define a producer. |
-| `health-data-flows` | `record` | Health-data flow records; PLAT-1756 in the Data-Flow Model project owns the producer definition. |
+| `health-data-flows` | `record` | Health-data flow projection produced by `quire relations --health-data-flows` from the declared architecture model. |
+| `ephi-access-control` | `record` | Access-control records for the ePHI system: `spec-objects-security` `role`, `permission`, `auth_flow`, `mfa_method` and `session_config` records the customer authors, or customer-supplied evidence; the clause set defines no producer. |
 | `threat-model` | `record` | Product threat model and trust-boundary analysis; owner: PLAT-1546. |
 | `security-risk-assessment` | `record` | Assessment of cybersecurity risks to the device and related systems; owner: PLAT-1622. |
 | `security-architecture-views` | `record` | Views describing security-relevant device architecture and data flows; owner: PLAT-1532. |

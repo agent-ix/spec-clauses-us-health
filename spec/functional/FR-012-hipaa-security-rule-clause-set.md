@@ -41,6 +41,11 @@ titles and summaries use original concise wording from public eCFR citations.
   [FR-046](ix://agent-ix/quoin/FR-046). This pack SHALL NOT require Quoin to
   reject a generic disposition solely because the clause key is classified as
   addressable in this pack's table.
+- The set SHALL map access-control and audit-control clauses to outputs about
+  the customer's ePHI system, not the development repository: it SHALL NOT use
+  the repository-oriented `access-control` or `audit-trail` outputs, SHALL use
+  `ephi-access-control` for access and authentication clauses, and SHALL use
+  `audit-logging` for audit controls.
 - The set SHALL declare unordered `hipaa_role` values `covered_entity` and
   `business_associate`; each § 164.314(a)(2) clause SHALL use the applicability
   shown in the normative table.
@@ -60,6 +65,7 @@ titles and summaries use original concise wording from public eCFR citations.
 | FR-012-AC-4 | The reference-corpus direct fact discharges an addressable clause as implemented as written; each alternate addressable fact in the corpus uses a human `accepted_risk` disposition, non-empty rationale, and named `approvalRef`. Quoin records this valid fact; this criterion does not require the generic parser to infer a pack-specific style from the clause key. | Test |
 | FR-012-AC-5 | For an addressable clause with an `accepted_risk` disposition, the generated RMM preserves the decision and exposes its rationale and approver in tailoring columns; missing disposition remains unresolved, and no evaluation path generates a disposition. | Test |
 | FR-012-AC-6 | No clause summary or packaged source reproduces or paraphrases text from a paywalled standard; the set declares `rights.text: original` and a public-law source basis. | Analysis |
+| FR-012-AC-7 | No HIPAA clause lists `access-control` or `audit-trail`; § 164.312(b) lists only `audit-logging`, and § 164.312(a)(1), (a)(2)(i) and (d) list `ephi-access-control`. | Test |
 
 ## Dependencies
 
