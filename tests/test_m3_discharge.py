@@ -106,7 +106,9 @@ def _security_module() -> pathlib.Path:
         entry for entry in installed if entry.get("name") == "spec-objects-security"
     ]
     assert len(matches) == 1, "expected one installed spec-objects-security module"
-    path = pathlib.Path(matches[0]["targetPath"]).resolve()
+    path = pathlib.Path(
+        matches[0].get("resolvedPath") or matches[0]["targetPath"]
+    ).resolve()
     assert path.is_dir(), f"security module path does not exist: {path}"
     return path
 
@@ -208,18 +210,16 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
         "relations",
         "--scope",
         str(project),
-        "--module",
-        str(security_module),
         "--relation",
-        "threat-has-control",
+        "risk-has-treatment",
         "--json",
     )
-    threat_rows = relations["relations"][0]["rows"]
-    assert len(threat_rows) == 1
-    assert threat_rows[0]["document"]["id"] == "THREAT-M3-001"
-    assert threat_rows[0]["state"] == "covered"
-    assert [edge["id"] for edge in threat_rows[0]["linked"]] == ["CTRL-M3-001"]
-    assert threat_rows[0]["linked"][0]["verb"] == "mitigates"
+    risk_rows = relations["relations"][0]["rows"]
+    assert len(risk_rows) == 1
+    assert risk_rows[0]["document"]["id"] == "RISK-M3-001"
+    assert risk_rows[0]["state"] == "covered"
+    assert [edge["id"] for edge in risk_rows[0]["linked"]] == ["CTRL-M3-001"]
+    assert risk_rows[0]["linked"][0]["verb"] == "mitigates"
 
     evidence_repo = project / "evidence-store"
     evidence_repo.mkdir()

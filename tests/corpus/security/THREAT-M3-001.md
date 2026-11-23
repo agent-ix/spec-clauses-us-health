@@ -3,7 +3,7 @@ id: THREAT-M3-001
 title: Unpatched third-party component permits remote compromise
 type: threat
 object: threat
-stride_category: Tampering
+stride_category: tampering
 vector: A vulnerable library version can be reached through the device's network service.
 ---
 # THREAT-M3-001 — Third-party component compromise

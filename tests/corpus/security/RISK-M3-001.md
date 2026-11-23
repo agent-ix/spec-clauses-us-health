@@ -5,6 +5,7 @@ type: risk
 object: risk
 likelihood: possible
 impact: major
+decision: undecided
 ---
 # RISK-M3-001 — Unsupported dependency compromise
 

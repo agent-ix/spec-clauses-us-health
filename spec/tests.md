@@ -125,7 +125,7 @@ the same reference corpus.
 | FR-009 | FR-009-AC-6 | TC-042 | ✅ Implemented in PLAT-1596 |
 | FR-010 | FR-010-AC-1 | TC-043 | ✅ Implemented in PLAT-1595 |
 | FR-010 | FR-010-AC-2 | TC-044 | ✅ Implemented in PLAT-1595; includes future declared sets |
-| FR-010 | FR-010-AC-3 | TC-045 | 🚧 Planned with source authoring |
+| FR-010 | FR-010-AC-3 | TC-045 | ✅ Implemented in PLAT-1825 |
 | FR-010 | FR-010-AC-4 | TC-046 | ✅ Implemented in PLAT-1596 |
 | FR-011 | FR-011-AC-1 | TC-047 | 🚧 Planned for PLAT-1600 |
 | FR-011 | FR-011-AC-2 | TC-048 | 🚧 Planned for PLAT-1600 |
@@ -233,7 +233,7 @@ the same reference corpus.
 | TC-042 | The FDA clauses requiring an SBOM name the SBOM output with support status and end-of-support date | Unit | P0 | FR-009-AC-6 | ✅ Implemented in PLAT-1596 |
 | TC-043 | Every cybersecurity clause output resolves to a row in the master catalog | Unit | P0 | FR-010-AC-1 | ✅ Implemented in PLAT-1595 |
 | TC-044 | Cybersecurity set outputs match catalog kind and description across all sets | Unit | P0 | FR-010-AC-2 | ✅ Implemented in PLAT-1595; includes future declared sets |
-| TC-045 | Each new cybersecurity catalog row names its producer or owning ticket | Inspection | P1 | FR-010-AC-3 | 🚧 Planned with source authoring |
+| TC-045 | Each cybersecurity catalog row names an installed producer command or is a customer-provided document, and names no owner ticket | Unit | P1 | FR-010-AC-3 | ✅ Implemented in PLAT-1825 |
 | TC-046 | The guidance uses the dedicated SBOM output and declares no generic SOUP output for SBOM clauses | Unit | P1 | FR-010-AC-4 | ✅ Implemented in PLAT-1596 |
 | TC-047 | The crosswalk table contains source, target key, target ID, and a supported relation value | Inspection | P1 | FR-011-AC-1 | 🚧 Planned for PLAT-1600 |
 | TC-048 | Each 524B clause crosswalks to an FDA guidance clause | Unit | P0 | FR-011-AC-2 | 🚧 Planned for PLAT-1600 |

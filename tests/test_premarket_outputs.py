@@ -233,10 +233,39 @@ def _m3_output_catalog() -> dict[str, dict]:
     return catalog
 
 
-@pytest.mark.trace("FR-010-AC-3")
-def test_cybersecurity_record_outputs_name_commands_that_exist():
+def _evidence_adapters(tmp_path: Path) -> set[str]:
+    """Read the adapter names the installed quoin accepts for `evidence record`."""
+    (tmp_path / "spec").mkdir()
+    results = tmp_path / "results.json"
+    results.write_text("{}")
+    result = subprocess.run(
+        [
+            engine_tool("quoin"),
+            "evidence",
+            "record",
+            "--suite",
+            "S",
+            "--tool",
+            "t",
+            "--adapter",
+            "no-such-adapter",
+            "--results",
+            str(results),
+            "--repo",
+            str(tmp_path),
+        ],
+        capture_output=True,
+        text=True,
+    )
+    available = (result.stdout + result.stderr).split("Available:", 1)[1]
+    return {name.strip() for name in available.splitlines()[0].split(",")}
+
+
+@pytest.mark.trace("TC-045", "FR-010-AC-3")
+def test_cybersecurity_record_outputs_name_commands_that_exist(tmp_path):
     """Each cybersecurity record output names real, installed producer commands."""
     catalog = _m3_output_catalog()
+    adapters = _evidence_adapters(tmp_path)
     for output, producers in CYBERSECURITY_PRODUCERS.items():
         description = catalog[output]["description"]
         assert catalog[output]["kind"] == "record", output
@@ -252,13 +281,14 @@ def test_cybersecurity_record_outputs_name_commands_that_exist():
                 text=True,
             ).stdout
             for token in tokens:
-                assert token in help_text, f"{output}: {command} help lacks {token}"
-                if token.startswith("--"):
-                    continue
                 assert token in description, f"{output}: description omits {token}"
+                if token.startswith("--"):
+                    assert token in help_text, f"{output}: {command} lacks {token}"
+                else:
+                    assert token in adapters, f"{output}: no {token} adapter"
 
 
-@pytest.mark.trace("FR-010-AC-3")
+@pytest.mark.trace("TC-045", "FR-010-AC-3")
 def test_cybersecurity_outputs_without_a_producer_are_customer_documents():
     """Plans and assessments the toolchain cannot produce are customer-provided."""
     catalog = _m3_output_catalog()
@@ -269,7 +299,7 @@ def test_cybersecurity_outputs_without_a_producer_are_customer_documents():
         assert "no toolchain producer" in catalog[output]["description"], output
 
 
-@pytest.mark.trace("FR-010-AC-3")
+@pytest.mark.trace("TC-045", "FR-010-AC-3")
 def test_cybersecurity_outputs_name_no_owner_ticket():
     """No cybersecurity output points at a ticket as its owner."""
     for output, definition in _m3_output_catalog().items():
@@ -277,7 +307,7 @@ def test_cybersecurity_outputs_name_no_owner_ticket():
         assert "owner" not in definition["description"].casefold(), output
 
 
-@pytest.mark.trace("FR-010-AC-3")
+@pytest.mark.trace("TC-045", "FR-010-AC-3")
 def test_threat_model_dossier_kind_is_registered(tmp_path):
     """The installed quoin registers the `threat-model` dossier document kind."""
     result = subprocess.run(
