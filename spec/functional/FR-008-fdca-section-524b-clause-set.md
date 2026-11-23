@@ -38,7 +38,10 @@ whether the statutory definition is met.
   `additional_cybersecurity_regulation` dimension with values `issued` and
   `none_issued`, and `524B(b)(4)` SHALL apply only when `cyber_device=yes` and
   `additional_cybersecurity_regulation=issued`. The user supplies the value; the
-  set SHALL NOT infer it.
+  set SHALL NOT infer it. Because `none_issued` makes the conjunction false
+  whatever `cyber_device` is, `524B(b)(4)` is not binding for
+  `additional_cybersecurity_regulation=none_issued` even when `cyber_device` is
+  absent.
 - Clause summaries SHALL use original wording and identify their statutory
   paragraph in source metadata.
 
@@ -48,7 +51,7 @@ whether the statutory definition is met.
 |----|----------|--------------|
 | FR-008-AC-1 | The set identity and source metadata identify 21 U.S.C. § 360n-2, with version `2026-10-15` and the official US Code URL. | Test |
 | FR-008-AC-2 | The set contains exactly `524B(a)`, `524B(b)(1)`, `524B(b)(2)`, `524B(b)(2)(A)`, `524B(b)(2)(B)`, `524B(b)(3)`, and `524B(b)(4)`. | Test |
-| FR-008-AC-3 | With `cyber_device=yes`, every listed clause except `524B(b)(4)` is binding; with `no`, every listed clause is not binding; with no value, every listed clause is unresolved. With `cyber_device=yes`, `524B(b)(4)` is not binding for `additional_cybersecurity_regulation=none_issued`, binding for `issued`, and unresolved when the value is absent. | Test |
+| FR-008-AC-3 | With `cyber_device=yes`, every listed clause except `524B(b)(4)` is binding; with `no`, every listed clause is not binding; with no value, every listed clause is unresolved. With `cyber_device=yes`, `524B(b)(4)` is not binding for `additional_cybersecurity_regulation=none_issued`, binding for `issued`, and unresolved when the value is absent. With `cyber_device` absent, `524B(b)(4)` is not binding for `additional_cybersecurity_regulation=none_issued` and the other clauses stay unresolved. | Test |
 | FR-008-AC-4 | Every clause is mandatory, names at least one declared output, and conforms to the existing clause-set schema. | Test |
 | FR-008-AC-5 | The set does not infer `cyber_device` from any other dimension. An undeclared value produces an unresolved outcome with an `unknown_value` reason naming `cyber_device`. | Test |
 

@@ -148,7 +148,8 @@ No such regulation has been issued, so `524B(b)(4)` also depends on the
 user-supplied `additional_cybersecurity_regulation` dimension (`issued` or
 `none_issued`): with `none_issued` the clause is not binding, with `issued` it
 binds and its output is customer-supplied, and with the value absent it is
-unresolved. The pack never derives this value.
+unresolved. With `none_issued` the clause is not binding even when `cyber_device`
+is absent. The pack never derives this value.
 
 | Clause ID | Applicability | Expected outputs |
 |---|---|---|
@@ -519,7 +520,7 @@ does not claim cross-repository enforcement.
 | `software-requirements` | `record` | Requirements authored with the `spec-artifacts-iso` StR, FR, and NFR archetypes. |
 | `software-architecture` | `record` | `spec-objects-architecture` `part`, `port`, `connection`, and `allocation` artifacts; ADR artifacts from `spec-artifacts-process`. |
 | `verification-records` | `record` | `quire matrix` / `quoin matrix` results and `quoin evidence record`. |
-| `soup-list` | `record` | Software of unknown provenance (SOUP) report. |
+| `soup-list` | `record` | Software of unknown provenance (SOUP) report produced by `quoin soup report`. |
 | `security-risk-records` | `record` | `spec-objects-security` threat, risk, and control records. |
 | `anomaly-list` | `record` | Unresolved anomalies reported by `quoin anomaly report`. |
 | `release-record` | `record` | Release evidence snapshot produced by `quoin release snapshot`. |

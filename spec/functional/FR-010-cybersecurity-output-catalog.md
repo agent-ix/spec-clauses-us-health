@@ -31,6 +31,9 @@ sets.
 - The `threat-model` output SHALL name `quoin dossier generate --doc
   threat-model`; the `cybersecurity-test-results` output SHALL name the
   `sarif`, `osv-scanner`, `cargo-deny`, and `junit` evidence adapters.
+- The `soup-list` output SHALL name `quoin soup report`. The
+  `security-risk-records` output SHALL name the `spec-objects-security` module
+  whose threat, risk, and control records the customer authors.
 - The postmarket vulnerability-management plan, the security risk assessment,
   and the evidence for requirements FDA establishes by regulation under
   `524B(b)(4)` SHALL be customer-provided documents; the toolchain has no
@@ -44,7 +47,7 @@ sets.
 |----|----------|--------------|
 | FR-010-AC-1 | Every cybersecurity output referenced by the 524B or FDA guidance tables has a row in the master catalog with its declared kind and description. | Test |
 | FR-010-AC-2 | Every cybersecurity set output matches the catalog's kind and description; a conflict fails and names the output and set. | Test |
-| FR-010-AC-3 | Every cybersecurity catalog row names a producer command that exists in its installed CLI or is a customer-provided document; no row names an owner ticket. | Test |
+| FR-010-AC-3 | Every cybersecurity catalog row is in exactly one class: it names a producer command that exists in its installed CLI, it names the module whose records the customer authors, or it is a customer-provided document. No row names an owner ticket. | Test |
 | FR-010-AC-4 | The guidance clauses V.A.4 and VII.C.3 use the dedicated `sbom` output, with support status and end-of-support date for every component; they do not use `soup-list` for the SBOM. | Test |
 
 ## Dependencies
