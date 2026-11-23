@@ -35,7 +35,7 @@ outside this requirement's enforceable scope.
 | FR-005-AC-2 | A test over every US set in this repository fails when two declarations of one output name differ in kind or description. | Test |
 | FR-005-AC-3 | A fixture US set that reuses a catalog name with its declared kind and description passes the catalog test. | Test |
 | FR-005-AC-4 | The module schema defines no pack-level output catalog field. | Test |
-| FR-005-AC-5 | Each `producers` entry in a US set's catalog lists only distinct, unpadded kinds from `run`, `scan`, `mock-inspection`, `analysis-report` and `scenario`. | Test |
+| FR-005-AC-5 | Every kind in the US Output Producers table is one of `run`, `scan`, `mock-inspection`, `analysis-report`, `scenario`. | Test |
 | FR-005-AC-6 | Each set's catalog entry for an output in the "US Output Producers" table carries the `producers` that table lists. | Test |
 
 ## Dependencies

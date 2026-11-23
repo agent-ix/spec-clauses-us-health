@@ -100,12 +100,12 @@ the same reference corpus.
 | FR-004 | FR-004-AC-4 | TC-015 | ✅ Implemented in PLAT-1423 |
 | FR-004 | FR-004-AC-5 | TC-016 | ✅ Implemented in PLAT-1423 |
 | FR-004 | FR-004-AC-6 | TC-017 | ✅ Implemented in PLAT-1423 |
-| FR-005 | FR-005-AC-1 | TC-018 | 🚧 Planned for PLAT-1545 |
+| FR-005 | FR-005-AC-1 | TC-018 | ✅ Implemented |
 | FR-005 | FR-005-AC-2 | TC-019 | ✅ Implemented in PLAT-1553 |
 | FR-005 | FR-005-AC-3 | TC-020 | 🚧 Planned for PLAT-1545 |
 | FR-005 | FR-005-AC-4 | TC-030 | 🚧 Planned for PLAT-1545 |
 | FR-005 | FR-005-AC-5 | TC-085 | ✅ Implemented in PLAT-1831 |
-| FR-005 | FR-005-AC-6 | TC-018 | ✅ Implemented in PLAT-1831 |
+| FR-005 | FR-005-AC-6 | TC-018 | ✅ Implemented |
 | FR-006 | FR-006-AC-1 | TC-021 | ✅ Implemented in PLAT-1621 |
 | FR-006 | FR-006-AC-2 | TC-022 | ✅ Implemented in PLAT-1559 |
 | FR-006 | FR-006-AC-3 | TC-023 | ✅ Implemented in PLAT-1559 |
@@ -211,7 +211,7 @@ the same reference corpus.
 | TC-015 | Section 11.300 binds only for a supplied identification-code/password method | Unit | P0 | FR-004-AC-4 | ✅ Implemented in PLAT-1423 |
 | TC-016 | An empty applicability context leaves every clause unresolved | Unit | P1 | FR-004-AC-5 | ✅ Implemented in PLAT-1423 |
 | TC-017 | Undeclared applicability dimensions or values are rejected | Unit | P1 | FR-004-AC-6 | ✅ Implemented in PLAT-1423 |
-| TC-018 | The US catalog contains its exact 28 output definitions and M1 entries | Unit | P0 | FR-005-AC-1 | 🚧 Planned for PLAT-1545 |
+| TC-018 | Each US set's output catalog equals the spec catalog's kind, description and listed `producers` for the outputs it uses, and the M1 entries are in the catalog | Unit | P0 | FR-005-AC-1, FR-005-AC-6 | ✅ Implemented |
 | TC-019 | Conflicting kind or description for a reused output fails across US sets | Unit | P0 | FR-005-AC-2 | ✅ Helper and Part 11 catalog checked in PLAT-1553 |
 | TC-020 | A later US set reuses an output only with the catalog definition | Unit | P1 | FR-005-AC-3 | 🚧 Planned for PLAT-1545 |
 | TC-021 | Customer-owned clauses are non-addressable clauses whose outputs are all procedures; the table excludes an addressable fixture even when all of its outputs are procedures | Unit | P0 | FR-006-AC-1 | ✅ Implemented in PLAT-1621 |
