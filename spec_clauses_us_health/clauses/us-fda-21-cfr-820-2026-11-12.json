@@ -50,55 +50,55 @@
   "outputCatalog": {
     "software-requirements": {
       "kind": "record",
-      "description": "Requirements authored with the `spec-artifacts-iso` StR, FR, and NFR archetypes."
+      "description": "Requirements authored with the `spec-artifacts-iso` StR, FR, and NFR archetypes; rendered as the SRS by `quoin dossier generate --doc srs`."
     },
     "release-record": {
       "kind": "record",
-      "description": "Release evidence snapshot produced by `quoin release snapshot`."
+      "description": "Release evidence snapshot produced by `quoin release snapshot`; rendered by `quoin dossier generate --doc release-record`."
     },
     "device-identification-record": {
-      "kind": "record",
-      "description": "No producer on `origin/main`; customer-supplied device identity and UDI assignment records; owner PLAT-1762."
+      "kind": "document",
+      "description": "Customer-provided device identity and UDI assignment records; no toolchain producer."
     },
     "written-procedure": {
       "kind": "procedure",
       "description": "Customer-owned written procedure."
     },
     "traceability-records": {
-      "kind": "record",
-      "description": "No producer on `origin/main`; customer-supplied traceability procedures and device or batch records; owner PLAT-1762."
+      "kind": "document",
+      "description": "Customer-provided traceability procedures and device or batch records; no toolchain producer."
     },
     "complaint-records": {
-      "kind": "record",
-      "description": "No producer on `origin/main`; customer-supplied complaint intake, evaluation, investigation, and response records; owner PLAT-1762."
+      "kind": "document",
+      "description": "Customer-provided complaint intake, evaluation, investigation, and response records; no toolchain producer."
     },
     "regulatory-report-records": {
-      "kind": "record",
-      "description": "No producer on `origin/main`; customer-supplied records of reports to regulatory authorities; owner PLAT-1762."
+      "kind": "document",
+      "description": "Customer-provided records of reports to regulatory authorities; no toolchain producer."
     },
     "advisory-notice-records": {
-      "kind": "record",
-      "description": "No producer on `origin/main`; customer-supplied records of advisory notices and related actions; owner PLAT-1762."
+      "kind": "document",
+      "description": "Customer-provided records of advisory notices and related actions; no toolchain producer."
     },
     "software-architecture": {
       "kind": "record",
-      "description": "`spec-objects-architecture` `part`, `port`, `connection`, and `allocation` artifacts; ADR artifacts from `spec-artifacts-process`."
+      "description": "`spec-objects-architecture` `part`, `port`, `connection`, and `allocation` artifacts; ADR artifacts from `spec-artifacts-process`; rendered by `quoin dossier generate --doc architecture`."
     },
     "verification-records": {
       "kind": "record",
-      "description": "`quire matrix` / `quoin matrix` results and `quoin evidence record`."
+      "description": "`quire matrix` / `quoin matrix` results and `quoin evidence record`; rendered by `quoin dossier generate --doc verification-report` and `--doc trace-matrix`."
     },
     "risk-management-records": {
       "kind": "record",
-      "description": "`spec-objects-safety` `hazard` and `failure_mode` artifacts; `quoin risk-summary`."
+      "description": "`spec-objects-safety` `hazard` and `failure_mode` artifacts; `quoin risk-summary`; rendered by `quoin dossier generate --doc risk-management`."
     },
     "service-records": {
-      "kind": "record",
-      "description": "No producer on `origin/main`; customer-supplied device servicing records; owner PLAT-1762."
+      "kind": "document",
+      "description": "Customer-provided device servicing records; no toolchain producer."
     },
     "labeling-inspection-records": {
-      "kind": "record",
-      "description": "No producer on `origin/main`; customer-supplied labeling and packaging inspection records; owner PLAT-1762."
+      "kind": "document",
+      "description": "Customer-provided labeling and packaging inspection records; no toolchain producer."
     }
   },
   "clauses": [
