@@ -96,21 +96,23 @@ def _record_fact(
     return facts_path
 
 
-def _security_module() -> pathlib.Path:
+def _installed_module(name: str) -> pathlib.Path:
     args = [engine_tool("quoin"), "module", "list"]
     config_root = os.environ.get("IX_CONFIG_ROOT")
     if config_root:
         args.extend(["--config-root", config_root])
     installed = _json(*args)["plugins"]
-    matches = [
-        entry for entry in installed if entry.get("name") == "spec-objects-security"
-    ]
-    assert len(matches) == 1, "expected one installed spec-objects-security module"
+    matches = [entry for entry in installed if entry.get("name") == name]
+    assert len(matches) == 1, f"expected one installed {name} module"
     path = pathlib.Path(
         matches[0].get("resolvedPath") or matches[0]["targetPath"]
     ).resolve()
-    assert path.is_dir(), f"security module path does not exist: {path}"
+    assert path.is_dir(), f"{name} module path does not exist: {path}"
     return path
+
+
+def _security_module() -> pathlib.Path:
+    return _installed_module("spec-objects-security")
 
 
 @pytest.mark.trace("TC-083")
@@ -133,11 +135,8 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
     project = root / "project"
     project.mkdir()
     shutil.copytree(REPO_ROOT / "tests/corpus", project, dirs_exist_ok=True)
-    shutil.copytree(
-        REPO_ROOT / "tests/corpus/security",
-        project / "spec/security",
-        dirs_exist_ok=True,
-    )
+    # The security records live only under spec/ so each is declared once.
+    shutil.move(project / "security", project / "spec/security")
     shutil.copytree(
         REPO_ROOT / "tests/corpus/evidence",
         project / "evidence/fixtures",
@@ -201,6 +200,8 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
         str(project),
         "--module",
         str(security_module),
+        "--module",
+        str(_installed_module("spec-objects-architecture")),
         *(str(document) for document in security_documents),
     )
     assert validated.returncode == 0, validated.stderr + validated.stdout
@@ -310,6 +311,37 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
         == "unsupported"
     )
 
+    threat_model = run(
+        engine_tool("quoin"),
+        "dossier",
+        "generate",
+        "--doc",
+        "threat-model",
+        "--scope",
+        str(project),
+        "--out",
+        str(project / "evidence/dossier"),
+        "--as-of",
+        AS_OF,
+        "--version",
+        "1",
+        "--json",
+    )
+    assert threat_model.returncode == 0, threat_model.stderr + threat_model.stdout
+    generated = json.loads(threat_model.stdout)["documents"]
+    assert [(doc["id"], doc["status"], doc["gaps"]) for doc in generated] == [
+        ("DOS-TM", "complete", [])
+    ]
+    threat_model_ref = "evidence/dossier/DOS-TM.md"
+    threat_model_text = (project / threat_model_ref).read_text()
+    assert "## THREATMODEL-M3-001" in threat_model_text
+    assert (
+        "| CONN-M3-001 | none | BOUNDARY-M3-001 (semi_trusted) | "
+        "THREAT-M3-001 (tampering) | CTRL-M3-001 (not stated) | "
+        "RISK-M3-001: not_accepted, reviewer@example.invalid |"
+    ) in threat_model_text
+    assert "### Open findings\n\nnone" in threat_model_text
+
     shared_security_refs = [
         "spec/security/THREAT-M3-001.md",
         "spec/security/RISK-M3-001.md",
@@ -320,6 +352,7 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
     for clause_id, set_id, refs in [
         ("524B(a)", "fdca-524b", shared_security_refs + [report_ref]),
         ("524B(b)(3)", "fdca-524b", [sbom_run, report_ref]),
+        ("V.A.1", "premarket-cybersecurity", [threat_model_ref]),
         ("V.A.4", "premarket-cybersecurity", [sbom_run, report_ref]),
         ("VII.C.3", "premarket-cybersecurity", [sbom_run, report_ref]),
     ]:
@@ -369,13 +402,6 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
     rows = {
         row["clauseId"]: row for matrix in report["matrices"] for row in matrix["rows"]
     }
-    output_catalog = {
-        name: definition
-        for key in M3_KEYS
-        for clause_set in load_clause_sets()
-        if clause_set_key(clause_set) == key
-        for name, definition in clause_set["outputCatalog"].items()
-    }
     clauses = {
         clause["id"]: clause
         for key in M3_KEYS
@@ -383,10 +409,6 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
         if clause_set_key(clause_set) == key
         for clause in clause_set["clauses"]
     }
-    assert not any(
-        "owner" in definition["description"].casefold()
-        for definition in output_catalog.values()
-    )
     not_applicable = {
         clause_id
         for clause_id in clauses
@@ -401,12 +423,12 @@ def test_m3_discharge_renders_cybersecurity_sets_from_ingested_evidence(
     }
     assert actual_open == expected_open
     assert {"V.A.5", "VII.C.1", "VI.B"}.issubset(actual_open)
-    assert "524B(b)(4)" not in facts
-    assert rows["524B(b)(4)"]["compliance"] != "compliant"
+    assert rows["524B(b)(4)"]["compliance"] == "not_applicable"
     assert rows["524B(b)(3)"]["compliance"] == "compliant"
     assert rows["524B(a)"]["compliance"] == "compliant"
     assert rows["V.A.4"]["compliance"] == "compliant"
     assert rows["VII.C.3"]["compliance"] == "compliant"
+    assert rows["V.A.1"]["compliance"] == "compliant"
 
     for clause_id, facts_path in facts.items():
         changed = json.loads(facts_path.read_text())

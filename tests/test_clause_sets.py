@@ -834,6 +834,14 @@ def test_fdca_524b_b4_applies_only_when_a_regulation_is_declared_issued():
             "additional_cybersecurity_regulation=issued",
         ).stdout
     )
+    no_device_none_issued = json.loads(
+        _fdca_524b_evaluate_error(
+            PACKAGE_ROOT, "additional_cybersecurity_regulation=none_issued"
+        ).stdout
+    )
+    no_device_outcomes = _clause_outcomes(no_device_none_issued)
+    assert no_device_outcomes.pop("524B(b)(4)") == "not_binding"
+    assert set(no_device_outcomes.values()) == {"unresolved"}
     assert _clause_outcomes(none_issued)["524B(b)(4)"] == "not_binding"
     assert _clause_outcomes(issued)["524B(b)(4)"] == "binding"
     for report in (none_issued, issued):

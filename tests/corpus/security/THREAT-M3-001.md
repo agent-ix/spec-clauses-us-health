@@ -5,6 +5,9 @@ type: threat
 object: threat
 stride_category: tampering
 vector: A vulnerable library version can be reached through the device's network service.
+relationships:
+  - target: CONN-M3-001
+    type: threatens
 ---
 # THREAT-M3-001 — Third-party component compromise
 
