@@ -34,3 +34,10 @@ The only production change is clause data. It equals the normative spec tables (
 - Criteria examined: FR-014-AC-1..5, FR-015-AC-1..5, FR-018-AC-1..3 and FR-019-AC-1..5. All are tagged.
 - Semantic review: skipped. It is not requested in this dispatch.
 - Plan completion: not assessed
+
+## New findings (disposition pass 1)
+
+| ID | Severity | Summary | Refs |
+| --- | --- | --- | --- |
+| FND-002 | high | The fix round adds FR-018-AC-4 (installed commands exist and dossier kinds are registered) and FR-018-AC-5 (no owner ticket; `documentation-level-decision` is a customer document). No test carries either trace tag: `quire matrix` at f76d2a43 reports both `untagged`. The TC-076 tests assert both, but are tagged `FR-018-AC-2` only; spec/tests.md maps TC-076 to all three ACs. Add `"FR-018-AC-4"` to `test_m2_record_outputs_name_producers_that_exist` and `"FR-018-AC-5"` to `test_m2_outputs_name_no_owner_ticket_and_no_tool_decision`. | tests/test_premarket_outputs.py:207,246 |
+| FND-003 | low | FR-018-AC-2 says the customer record, document and procedure classes "state that no toolchain producer exists". The procedure branch is untested: the loop checks only `startswith("Customer-owned")`. The `written-procedure` catalog description ("Customer-owned written procedure.") does not say it, and it cannot change, because it is shared with the EU pack. Only the mapping row states it. Assert `"no toolchain producer" in rows[output]["producer_or_owner"]` for procedures, and word AC-2 so that the mapping row is what states it. | tests/test_premarket_outputs.py:241-243; spec/functional/FR-018-m2-output-producer-mapping.md:49 |

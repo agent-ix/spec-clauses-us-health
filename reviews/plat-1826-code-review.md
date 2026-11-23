@@ -35,3 +35,10 @@ The producer claims are true. The customer-provided outputs are honestly marked.
 | --- | --- | --- | --- |
 | FND-001 | medium | `assert f"--doc {kind}" in mapping or kind in mapping` cannot fail for `anomaly-list` or `software-architecture`. The bare kind is already a substring of the row text ("Unresolved anomalies reported by", "spec-objects-architecture"), so deleting the "rendered by `quoin dossier generate --doc ...`" clause still passes (measured). Assert `f"--doc {kind}" in mapping` only, and assert `"quoin dossier generate" in mapping` for every output in `M2_DOSSIER_KINDS`. That replaces the one-off risk-management assert. | tests/test_premarket_outputs.py:217-222 |
 | FND-002 | low | The module docstring still says outputs connect to "producers or tracked owners", which this PR removes. `assert set(M2_DOSSIER_KINDS) <= set(MODULE_EVIDENCE) \| set(COMMAND_EVIDENCE)` compares two module constants and can never fail at runtime. Reword the docstring and delete the constant-to-constant assert. | tests/test_premarket_outputs.py:1,219 |
+
+## Dispositions
+
+| FND | outcome | reason |
+| --- | --- | --- |
+| FND-001 | fixed | Verified at f76d2a43 by running it. The bare-kind fallback is gone, and every `M2_DOSSIER_KINDS` output must name `quoin dossier generate`. Removing the `--doc anomalies` and `--doc architecture` clauses now fails `test_m2_record_outputs_name_producers_that_exist`. After excerpt: `assert f"--doc {kind}" in mapping, output` / `for output in M2_DOSSIER_KINDS: assert "quoin dossier generate" in rows[output]["producer_or_owner"], output` |
+| FND-002 | fixed | Verified at f76d2a43. The constant-to-constant assert is deleted. After excerpt: `"""M2 clause outputs are connected to producers or marked customer-provided."""` |

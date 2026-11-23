@@ -204,7 +204,7 @@ def test_every_m2_output_is_in_exactly_one_class():
     assert set(_m2_output_catalog()) == set().union(*classes)
 
 
-@pytest.mark.trace("TC-076", "FR-018-AC-2")
+@pytest.mark.trace("TC-076", "FR-018-AC-2", "FR-018-AC-4")
 def test_m2_record_outputs_name_producers_that_exist(tmp_path):
     """Each produced record names installed commands, modules and dossier kinds."""
     rows = {row["output"]: row for row in m2_mapping_rows()}
@@ -233,17 +233,21 @@ def test_m2_outputs_without_a_producer_are_customer_provided():
         assert catalog[output]["description"].startswith("Customer-provided"), output
         assert "no toolchain producer" in catalog[output]["description"], output
         assert "Customer-provided" in rows[output]["producer_or_owner"], output
+        assert "no toolchain producer" in rows[output]["producer_or_owner"], output
     for output in M2_CUSTOMER_RECORDS:
         assert catalog[output]["kind"] == rows[output]["kind"] == "record", output
         assert catalog[output]["description"].startswith("Customer-provided"), output
         assert "no toolchain producer" in catalog[output]["description"], output
         assert "Customer-provided" in rows[output]["producer_or_owner"], output
+        assert "no toolchain producer" in rows[output]["producer_or_owner"], output
     for output in M2_CUSTOMER_PROCEDURES:
         assert catalog[output]["kind"] == rows[output]["kind"] == "procedure", output
         assert catalog[output]["description"].startswith("Customer-owned"), output
+        assert "Customer-owned" in rows[output]["producer_or_owner"], output
+        assert "no toolchain producer" in rows[output]["producer_or_owner"], output
 
 
-@pytest.mark.trace("TC-076", "FR-018-AC-2")
+@pytest.mark.trace("TC-076", "FR-018-AC-2", "FR-018-AC-5")
 def test_m2_outputs_name_no_owner_ticket_and_no_tool_decision():
     """No M2 output points at a ticket, and the level is never tool-assigned."""
     catalog = _m2_output_catalog()

@@ -46,7 +46,7 @@ that a clause is satisfied.
 | ID | Criteria | Verification |
 |---|---|---|
 | FR-018-AC-1 | The output mapping table contains each unique `(clause ID, output name)` pair in the normative M2 Part 820 and premarket tables exactly once, with no missing or extra pair. | Test |
-| FR-018-AC-2 | Each M2 output is in exactly one class: a produced `record`, a customer-provided `record`, a customer-provided `document`, or a customer-owned `procedure`; the last three state that no toolchain producer exists. | Test |
+| FR-018-AC-2 | Each M2 output is in exactly one class: a produced `record`, a customer-provided `record`, a customer-provided `document`, or a customer-owned `procedure`; the mapping row of each of the last three states that no toolchain producer exists. | Test |
 | FR-018-AC-4 | Each command a produced record's mapping row names exists in the installed CLI, and each named `quoin dossier generate` kind is registered by the installed `quoin`. | Test |
 | FR-018-AC-5 | No M2 mapping row or output description names a ticket as owner, and `documentation-level-decision` is a customer document. | Test |
 | FR-018-AC-3 | The output catalog definitions for names shared across the M2, Part 11, and other US sets have identical kind and description. | Test |
