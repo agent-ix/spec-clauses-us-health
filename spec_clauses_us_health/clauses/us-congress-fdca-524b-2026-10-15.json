@@ -21,6 +21,12 @@
         "yes",
         "no"
       ]
+    },
+    "additional_cybersecurity_regulation": {
+      "values": [
+        "issued",
+        "none_issued"
+      ]
     }
   },
   "outputCatalog": {
@@ -33,16 +39,20 @@
       "description": "Software of unknown provenance (SOUP) report."
     },
     "vulnerability-management-plan": {
-      "kind": "record",
-      "description": "Plan and procedures for monitoring, identifying, and addressing postmarket vulnerabilities; owner: PLAT-1656."
+      "kind": "document",
+      "description": "Customer-provided postmarket vulnerability monitoring, patching, and coordinated vulnerability disclosure plan; no toolchain producer."
     },
     "vulnerability-assessment": {
       "kind": "record",
-      "description": "Assessment of identified vulnerabilities and unresolved software anomalies; owner: PLAT-1619."
+      "description": "Unresolved anomalies reported by `quoin anomaly report` and vulnerability findings recorded with `quoin evidence record --adapter osv-scanner`; the assessment of each is authored by a person."
     },
     "sbom": {
       "kind": "record",
-      "description": "SBOM records with component support status and end-of-support dates, from `quoin evidence record --adapter sbom` and `quoin soup report` (PLAT-1517/PLAT-1518)."
+      "description": "CycloneDX or SPDX SBOM recorded with `quoin evidence record --adapter sbom`, with component support status and end-of-support dates from `quoin soup report`. The customer generates the SBOM, for example with Syft run through the engineering-assurance `producer-execute` command."
+    },
+    "additional-cybersecurity-requirement-records": {
+      "kind": "document",
+      "description": "Customer-provided evidence of compliance with cybersecurity requirements FDA establishes by regulation under 524B(b)(4); no toolchain producer."
     }
   },
   "clauses": [
@@ -190,12 +200,22 @@
       "approvalRoles": [],
       "styles": {},
       "expectedOutputs": [
-        "security-risk-records"
+        "additional-cybersecurity-requirement-records"
       ],
       "applicability": {
-        "op": "eq",
-        "dimension": "cyber_device",
-        "value": "yes"
+        "op": "all",
+        "terms": [
+          {
+            "op": "eq",
+            "dimension": "cyber_device",
+            "value": "yes"
+          },
+          {
+            "op": "eq",
+            "dimension": "additional_cybersecurity_regulation",
+            "value": "issued"
+          }
+        ]
       }
     }
   ],
@@ -251,6 +271,19 @@
       },
       "relation": "informative",
       "rationale": "This recommendation provides a related cybersecurity-process reference for the statutory obligation."
+    },
+    {
+      "sourceClause": "524B(b)(1)",
+      "target": {
+        "set": {
+          "authority": "us-fda",
+          "id": "premarket-cybersecurity",
+          "version": "2026-02-03"
+        },
+        "clause": "VI.B"
+      },
+      "relation": "informative",
+      "rationale": "This recommendation provides a related postmarket-management-plan reference for the statutory obligation."
     },
     {
       "sourceClause": "524B(b)(2)",
