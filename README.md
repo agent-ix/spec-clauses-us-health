@@ -51,8 +51,16 @@ quoin module install github:agent-ix/spec-clauses-us-health//spec_clauses_us_hea
 Check it with `quoin module list`.
 
 Several commands in the tables below are `engineering-assurance` commands.
-That CLI is a native binary and is not part of the npm toolchain. Install it
-with Cargo:
+That CLI is a native binary and is not part of the npm toolchain. On Linux
+x86-64, download the latest release binary and put it on your `PATH`:
+
+```sh
+gh release download -R agent-ix/engineering-assurance -p engineering-assurance
+chmod +x engineering-assurance
+mv engineering-assurance ~/.local/bin/
+```
+
+On other platforms, build it with Cargo:
 
 ```sh
 cargo install --git https://github.com/agent-ix/engineering-assurance \
@@ -143,11 +151,18 @@ engineering-assurance command or capability. "You supply" lists everything
 else: records you author, documents, procedures and settings. The tool never
 fills these in.
 
-Records you author in the shipped record types (requirements, architecture,
-security risk, hazard, data-flow and baseline records) are yours. They are
-checked against their schema with `quire validate`, which does not judge their
-content. "Nothing" under "Tool produces" means no command writes a report for
-that clause. It does not mean nothing checks your records.
+Some of what you supply has a shipped record type, and `quire validate`
+checks those records against its schema. The schema check does not judge
+content. The record types the US tables rely on are `soup_record` (read by
+`quoin soup report`), Anomaly documents (read by `quoin anomaly report`), and
+the security records `control` (shown as `security.control`), `audit_event`,
+`role`, `permission` and the other security record types for access control.
+Requirements, architecture, threat, risk and hazard records have shipped types
+too. Documents, procedures and records with no shipped type (the 820.35
+complaint, service and device-identification records, the vulnerability
+management plan under VI.B, and the 164.314 and 164.316 procedures) are checked
+by nothing. "Nothing" under "Tool produces" means no command writes a report for
+that clause, not that nothing checks your records.
 
 ### 21 CFR Part 11
 
