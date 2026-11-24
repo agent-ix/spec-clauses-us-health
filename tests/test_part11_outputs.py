@@ -36,7 +36,7 @@ def _clause_outputs_table() -> dict[str, list[str]]:
     }
 
 
-@pytest.mark.trace("TC-010", "FR-003-AC-3")
+@pytest.mark.trace("FR-003-AC-3")
 def test_every_part11_clause_has_declared_outputs_matching_the_spec():
     """Description: Verify nonempty Part 11 outputs against the normative table.
 
@@ -62,7 +62,7 @@ def test_every_part11_clause_has_declared_outputs_matching_the_spec():
         ), f"{clause_id} references undeclared outputs: {undeclared!r}"
 
 
-@pytest.mark.trace("TC-021", "FR-006-AC-1")
+@pytest.mark.trace("FR-006-AC-1")
 def test_customer_owned_table_matches_all_procedure_output_clauses():
     """Description: Compare the customer-owned table with procedure-only clauses.
 

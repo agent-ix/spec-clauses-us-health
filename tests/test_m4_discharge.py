@@ -67,7 +67,6 @@ def _json(*args: str) -> dict:
     return json.loads(result.stdout)
 
 
-@pytest.mark.trace("TC-021")
 @pytest.mark.trace("FR-006-AC-1")
 def test_customer_owned_procedure_sets_exclude_addressable_clauses() -> None:
     """Classify procedure-only clauses as delegated only when non-addressable."""
@@ -111,7 +110,6 @@ def test_customer_owned_procedure_sets_exclude_addressable_clauses() -> None:
     assert TRAINING_ALTERNATIVE not in CUSTOMER_OWNED
 
 
-@pytest.mark.trace("TC-084")
 @pytest.mark.trace("FR-021-AC-1")
 @pytest.mark.trace("FR-021-AC-2")
 @pytest.mark.trace("FR-012-AC-4")

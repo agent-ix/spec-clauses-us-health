@@ -242,7 +242,7 @@ def _unresolved_nist_targets(
     return failures
 
 
-@pytest.mark.trace("TC-047", "FR-011-AC-1")
+@pytest.mark.trace("FR-011-AC-1")
 def test_cybersecurity_crosswalks_match_the_normative_table_exactly() -> None:
     """Compare source, target, relation, and b(4) context to the spec.
 
@@ -278,7 +278,7 @@ def test_cybersecurity_crosswalks_match_the_normative_table_exactly() -> None:
     )
 
 
-@pytest.mark.trace("TC-048", "FR-011-AC-2")
+@pytest.mark.trace("FR-011-AC-2")
 def test_every_524b_clause_crosswalks_to_fda_guidance() -> None:
     """Require each statutory clause to reference at least one FDA guidance clause.
 
@@ -315,7 +315,7 @@ def test_every_524b_clause_crosswalks_to_fda_guidance() -> None:
         )
 
 
-@pytest.mark.trace("TC-049", "FR-011-AC-3", "FR-011-AC-5")
+@pytest.mark.trace("FR-011-AC-3", "FR-011-AC-5")
 def test_every_cybersecurity_clause_resolves_nist_targets_from_module() -> None:
     """Resolve every cybersecurity clause's NIST target through the installed module.
 
@@ -353,7 +353,7 @@ def test_every_cybersecurity_clause_resolves_nist_targets_from_module() -> None:
     assert failures == [], "\n".join(failures)
 
 
-@pytest.mark.trace("TC-050", "FR-011-AC-4")
+@pytest.mark.trace("FR-011-AC-4")
 def test_unknown_nist_target_fails_with_the_source_and_target_ids() -> None:
     """A synthetic missing NIST target names its originating crosswalk.
 
@@ -387,7 +387,7 @@ def _actual_crosswalks() -> list[dict]:
     ]
 
 
-@pytest.mark.trace("TC-051", "FR-011-AC-3", "FR-011-AC-5")
+@pytest.mark.trace("FR-011-AC-3", "FR-011-AC-5")
 def test_crosswalks_have_valid_relations_rationales_and_no_standard_designators() -> (
     None
 ):
@@ -415,7 +415,7 @@ def test_crosswalks_have_valid_relations_rationales_and_no_standard_designators(
         ), f"crosswalk {source} names a standards designator"
 
 
-@pytest.mark.trace("TC-051", "FR-011-AC-5")
+@pytest.mark.trace("FR-011-AC-5")
 def test_nist_target_catalog_is_read_from_the_installed_module_not_a_copy() -> None:
     """The resolver reads the declared NIST set only from the installed module.
 
@@ -440,7 +440,7 @@ def test_nist_target_catalog_is_read_from_the_installed_module_not_a_copy() -> N
     ), "NIST clause data was copied into this repository"
 
 
-@pytest.mark.trace("FR-013-AC-1", "FR-013-AC-3", "TC-057")
+@pytest.mark.trace("FR-013-AC-1", "FR-013-AC-3")
 def test_hipaa_crosswalks_match_the_exact_public_cprt_workbook_rows() -> None:
     """Bind each HIPAA mapping to the workbook row and its original direction.
 
@@ -543,7 +543,7 @@ def test_hipaa_crosswalks_match_the_exact_public_cprt_workbook_rows() -> None:
     ), "parent-level source elements must not be represented as native clause refs"
 
 
-@pytest.mark.trace("FR-013-AC-2", "TC-058")
+@pytest.mark.trace("FR-013-AC-2")
 def test_hipaa_cprt_crosswalks_cover_only_the_included_security_standards() -> None:
     """Check source-standard coverage and the excluded business-associate clause."""
     crosswalks = _hipaa_clause_set().get("cprtCrosswalks", [])
@@ -583,7 +583,7 @@ def test_hipaa_cprt_crosswalks_cover_only_the_included_security_standards() -> N
     assert "crosswalk" in failures[0]
 
 
-@pytest.mark.trace("FR-013-AC-3", "TC-059")
+@pytest.mark.trace("FR-013-AC-3")
 def test_hipaa_unmapped_clauses_targets_and_normalizations_are_explicit() -> None:
     """Reject inferred mappings, absent targets, and unrecorded normalization."""
     clause_set = _hipaa_clause_set()
@@ -628,7 +628,7 @@ def test_hipaa_unmapped_clauses_targets_and_normalizations_are_explicit() -> Non
             }, f"unrecorded or incorrect normalization for {source_target_id}"
 
 
-@pytest.mark.trace("TC-078", "FR-017-AC-1")
+@pytest.mark.trace("FR-017-AC-1")
 def test_premarket_crosswalk_pairs_match_the_m2_table_and_resolve() -> None:
     """Every guidance clause has exactly its declared Part 820 targets.
 
@@ -677,7 +677,7 @@ def test_premarket_crosswalk_pairs_match_the_m2_table_and_resolve() -> None:
     assert not _m2_crosswalk_link_failures(rows, source_ids, target_ids)
 
 
-@pytest.mark.trace("TC-079", "FR-017-AC-2")
+@pytest.mark.trace("FR-017-AC-2")
 def test_crosswalk_unknown_source_or_target_fails_with_identifier() -> None:
     """Cross-set link validation names the invalid identifier and its row.
 
@@ -710,7 +710,7 @@ def test_crosswalk_unknown_source_or_target_fails_with_identifier() -> None:
     assert "crosswalk" in target_failures[0] and "unknown-target" in target_failures[0]
 
 
-@pytest.mark.trace("TC-080", "FR-017-AC-3")
+@pytest.mark.trace("FR-017-AC-3")
 def test_crosswalk_requires_relation_and_nonblank_rationale() -> None:
     """Each M2 row has authored relation and original single-sentence rationale.
 
@@ -744,7 +744,7 @@ def test_crosswalk_requires_relation_and_nonblank_rationale() -> None:
     assert "designator" in _m2_crosswalk_metadata_failures([named_designator])[0]
 
 
-@pytest.mark.trace("TC-081", "FR-017-AC-4")
+@pytest.mark.trace("FR-017-AC-4")
 def test_crosswalk_is_informative_and_does_not_claim_equivalence() -> None:
     """M2 crosswalks remain descriptive relations without derived control facts.
 

@@ -140,7 +140,7 @@ def _synthetic_set(key: str, output_catalog: dict) -> dict:
     }
 
 
-@pytest.mark.trace("TC-002", "FR-001-AC-2")
+@pytest.mark.trace("FR-001-AC-2")
 def test_manifest_is_clause_only_and_lists_all_pack_sets():
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
     assert manifest["clause_sets"] == [
@@ -154,7 +154,7 @@ def test_manifest_is_clause_only_and_lists_all_pack_sets():
     assert not {"object_types", "archetypes", "edges"}.intersection(manifest)
 
 
-@pytest.mark.trace("TC-004", "FR-001-AC-4")
+@pytest.mark.trace("FR-001-AC-4")
 def test_quire_validates_the_module():
     artifact_module = pathlib.Path.home() / ".ix/filament/modules/spec-artifacts-iso"
     result = run(
@@ -171,7 +171,7 @@ def test_quire_validates_the_module():
     assert result.returncode == 0, result.stderr + result.stdout
 
 
-@pytest.mark.trace("TC-002", "FR-001-AC-2", "TC-003", "FR-001-AC-3")
+@pytest.mark.trace("FR-001-AC-2", "FR-001-AC-3")
 def test_local_quoin_install_has_no_object_or_artifact_contributions(tmp_path):
     """A local Quoin install reports the clause-only module shape.
 
@@ -218,7 +218,7 @@ def test_local_quoin_install_has_no_object_or_artifact_contributions(tmp_path):
     assert catalog_module["artifactTypes"] == []
 
 
-@pytest.mark.trace("TC-028", "NFR-001-AC-2")
+@pytest.mark.trace("NFR-001-AC-2")
 def test_every_declared_set_identifies_its_official_public_source():
     """Every manifest entry has source metadata for its official public source.
 
@@ -277,7 +277,7 @@ def test_every_declared_set_identifies_its_official_public_source():
     assert actual_sources == expected_sources
 
 
-@pytest.mark.trace("TC-052", "FR-012-AC-1")
+@pytest.mark.trace("FR-012-AC-1")
 def test_hipaa_set_identity_source_and_rights_match_the_dated_ecfr_snapshot():
     clause_set = next(
         item for item in load_clause_sets() if clause_set_key(item) == HIPAA_KEY
@@ -299,7 +299,7 @@ def test_hipaa_set_identity_source_and_rights_match_the_dated_ecfr_snapshot():
     }
 
 
-@pytest.mark.trace("TC-053", "FR-012-AC-2")
+@pytest.mark.trace("FR-012-AC-2")
 def test_hipaa_clauses_match_the_normative_table_exactly():
     clause_set = next(
         item for item in load_clause_sets() if clause_set_key(item) == HIPAA_KEY
@@ -395,7 +395,7 @@ def test_hipaa_access_and_audit_clauses_map_to_the_ephi_system_not_the_repositor
     assert outputs["164.312(a)(2)(iv)"] == ["security-controls"]
 
 
-@pytest.mark.trace("TC-054", "FR-012-AC-3")
+@pytest.mark.trace("FR-012-AC-3")
 def test_hipaa_role_only_gates_business_associate_contract_clauses():
     clause_set = next(
         item for item in load_clause_sets() if clause_set_key(item) == HIPAA_KEY
@@ -431,7 +431,7 @@ def test_hipaa_role_only_gates_business_associate_contract_clauses():
     assert all(missing[key] == "binding" for key in both)
 
 
-@pytest.mark.trace("TC-060", "FR-015-AC-1")
+@pytest.mark.trace("FR-015-AC-1")
 def test_premarket_software_identity_source_and_rights_match_spec():
     """The clause set identifies only the dated public FDA guidance."""
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
@@ -461,7 +461,7 @@ def test_premarket_software_identity_source_and_rights_match_spec():
     }
 
 
-@pytest.mark.trace("TC-061", "FR-015-AC-2")
+@pytest.mark.trace("FR-015-AC-2")
 def test_premarket_software_clause_ids_and_outputs_match_section_vi_table():
     """The complete Section VI clause and output set matches the specification."""
     clause_set = next(
@@ -484,7 +484,7 @@ def test_premarket_software_clause_ids_and_outputs_match_section_vi_table():
     } == {clause_id: row["outputs"] for clause_id, row in expected.items()}
 
 
-@pytest.mark.trace("TC-062", "FR-015-AC-3")
+@pytest.mark.trace("FR-015-AC-3")
 def test_premarket_software_clauses_match_force_outputs_and_level_table():
     """Every recommendation has original text, catalog outputs, and declared gating."""
     clause_set = next(
@@ -516,7 +516,7 @@ def test_premarket_software_clauses_match_force_outputs_and_level_table():
         }
 
 
-@pytest.mark.trace("TC-063", "FR-015-AC-4")
+@pytest.mark.trace("FR-015-AC-4")
 def test_documentation_level_is_exactly_ordered_basic_then_enhanced():
     """The declared human-supplied levels have only the specified order."""
     clause_set = next(
@@ -532,7 +532,7 @@ def test_documentation_level_is_exactly_ordered_basic_then_enhanced():
     }
 
 
-@pytest.mark.trace("TC-064", "FR-015-AC-5")
+@pytest.mark.trace("FR-015-AC-5")
 def test_premarket_software_module_validates_and_passes_publish_check():
     """The spec and publishability checks accept the completed module."""
     artifact_module = pathlib.Path.home() / ".ix/filament/modules/spec-artifacts-iso"
@@ -553,7 +553,7 @@ def test_premarket_software_module_validates_and_passes_publish_check():
     assert publish.returncode == 0, publish.stderr + publish.stdout
 
 
-@pytest.mark.trace("TC-065", "FR-016-AC-3", "FR-016-AC-4")
+@pytest.mark.trace("FR-016-AC-3", "FR-016-AC-4")
 def test_premarket_software_level_evaluation_is_explicit_and_ordered():
     """Basic, enhanced, and missing levels produce the required outcomes."""
     expected_ids = {
@@ -581,7 +581,7 @@ def test_premarket_software_level_evaluation_is_explicit_and_ordered():
     assert set(missing.values()) == {"unresolved"}
 
 
-@pytest.mark.trace("TC-066", "FR-016-AC-5")
+@pytest.mark.trace("FR-016-AC-5")
 def test_invalid_documentation_level_is_unresolved_with_dimension_diagnostic():
     """An undeclared level leaves clauses unresolved with a dimension diagnostic."""
     result = run(
@@ -614,7 +614,7 @@ def test_invalid_documentation_level_is_unresolved_with_dimension_diagnostic():
     )
 
 
-@pytest.mark.trace("TC-067", "FR-016-AC-3")
+@pytest.mark.trace("FR-016-AC-3")
 def test_basic_level_rmm_marks_enhanced_only_clause_not_applicable(tmp_path):
     """A basic-level report visibly excludes an enhanced-only recommendation."""
     result = record_and_render_matrix(
@@ -657,7 +657,7 @@ def test_publish_check_rejects_a_licensed_synthetic_set(tmp_path):
     assert result.returncode == 2, result.stderr + result.stdout
 
 
-@pytest.mark.trace("TC-018", "FR-005-AC-1", "FR-005-AC-6", "TC-043", "FR-010-AC-1")
+@pytest.mark.trace("FR-005-AC-1", "FR-005-AC-6", "FR-010-AC-1")
 def test_us_clause_set_output_catalog_matches_the_spec():
     names = [row[0] for row in _spec_table("US Health-Law Output Catalog")]
     assert len(names) == len(set(names)), "duplicate output catalog name in spec"
@@ -685,7 +685,7 @@ def test_us_clause_set_output_catalog_matches_the_spec():
         }, f"{clause_set_key(clause_set)} output catalog differs from the spec"
 
 
-@pytest.mark.trace("TC-019", "FR-005-AC-2", "TC-044", "FR-010-AC-2")
+@pytest.mark.trace("FR-005-AC-2", "FR-010-AC-2")
 def test_catalog_consistency_error_names_both_conflicting_sets():
     sets = [
         _synthetic_set(
@@ -707,7 +707,7 @@ def test_catalog_consistency_error_names_both_conflicting_sets():
         assert_output_catalog_consistent(sets)
 
 
-@pytest.mark.trace("TC-020", "FR-005-AC-3")
+@pytest.mark.trace("FR-005-AC-3")
 def test_catalog_consistency_accepts_a_reused_definition():
     definition = {"kind": "record", "description": "Git history of the record."}
     assert_output_catalog_consistent(
@@ -718,14 +718,14 @@ def test_catalog_consistency_accepts_a_reused_definition():
     )
 
 
-@pytest.mark.trace("TC-030", "FR-005-AC-4")
+@pytest.mark.trace("FR-005-AC-4")
 def test_no_pack_level_output_catalog_is_declared():
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
     assert "output_catalog" not in manifest
     assert "outputCatalog" not in manifest
 
 
-@pytest.mark.trace("TC-019", "FR-005-AC-2", "TC-044", "FR-010-AC-2")
+@pytest.mark.trace("FR-005-AC-2", "FR-010-AC-2")
 def test_all_declared_sets_load_and_match_one_catalog():
     clause_sets = load_clause_sets()
     assert all(clause_set_key(item) for item in clause_sets)
@@ -742,7 +742,7 @@ def test_all_declared_sets_load_and_match_one_catalog():
         }, f"{clause_set_key(clause_set)} differs from the canonical output catalog"
 
 
-@pytest.mark.trace("TC-032", "FR-008-AC-1")
+@pytest.mark.trace("FR-008-AC-1")
 def test_fdca_524b_identity_and_source_match_the_current_us_code():
     """Verify the 524B key, version, and official statute source.
 
@@ -771,7 +771,7 @@ def test_fdca_524b_identity_and_source_match_the_current_us_code():
     }
 
 
-@pytest.mark.trace("TC-033", "FR-008-AC-2")
+@pytest.mark.trace("FR-008-AC-2")
 def test_fdca_524b_contains_exactly_the_specified_clause_ids_and_outputs():
     """Compare the loaded 524B clause IDs and outputs with the spec table.
 
@@ -796,7 +796,7 @@ def test_fdca_524b_contains_exactly_the_specified_clause_ids_and_outputs():
     } == expected
 
 
-@pytest.mark.trace("TC-034", "FR-008-AC-3")
+@pytest.mark.trace("FR-008-AC-3")
 def test_fdca_524b_applicability_uses_only_the_user_supplied_classification():
     """Evaluate statutory clauses only from the supplied cyber-device value.
 
@@ -830,7 +830,7 @@ def test_fdca_524b_applicability_uses_only_the_user_supplied_classification():
     }
 
 
-@pytest.mark.trace("TC-034", "FR-008-AC-3")
+@pytest.mark.trace("FR-008-AC-3")
 def test_fdca_524b_b4_applies_only_when_a_regulation_is_declared_issued():
     """524B(b)(4) is not binding until the user records an issued regulation.
 
@@ -872,7 +872,7 @@ def test_fdca_524b_b4_applies_only_when_a_regulation_is_declared_issued():
         assert others == {"binding"}
 
 
-@pytest.mark.trace("TC-035", "FR-008-AC-4")
+@pytest.mark.trace("FR-008-AC-4")
 def test_fdca_524b_clauses_are_mandatory_and_use_declared_outputs():
     """Validate every 524B clause's required fields and output declarations.
 
@@ -894,7 +894,7 @@ def test_fdca_524b_clauses_are_mandatory_and_use_declared_outputs():
     assert evaluated.returncode == 0, evaluated.stderr + evaluated.stdout
 
 
-@pytest.mark.trace("TC-036", "FR-008-AC-5")
+@pytest.mark.trace("FR-008-AC-5")
 def test_fdca_524b_does_not_infer_classification_and_reports_unknown_value(tmp_path):
     """Keep cyber-device classification caller-owned and reject unknown values.
 
@@ -926,7 +926,7 @@ def test_fdca_524b_does_not_infer_classification_and_reports_unknown_value(tmp_p
     )
 
 
-@pytest.mark.trace("TC-037", "FR-009-AC-1")
+@pytest.mark.trace("FR-009-AC-1")
 def test_fda_guidance_identity_and_source_match_the_current_guidance():
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
     assert f"clauses/{FDA_GUIDANCE_FILE}" in manifest["clause_sets"]
@@ -956,7 +956,7 @@ def test_fda_guidance_identity_and_source_match_the_current_guidance():
     }
 
 
-@pytest.mark.trace("TC-038", "FR-009-AC-2")
+@pytest.mark.trace("FR-009-AC-2")
 def test_fda_guidance_clause_ids_and_outputs_match_the_specification():
     result = evaluate_clause_set(PACKAGE_ROOT, FDA_GUIDANCE_KEY)
     expected = {
@@ -979,7 +979,7 @@ def test_fda_guidance_clause_ids_and_outputs_match_the_specification():
     assert "known vulnerabilit" not in section_v_a_5["text"].lower()
 
 
-@pytest.mark.trace("TC-039", "FR-009-AC-3")
+@pytest.mark.trace("FR-009-AC-3")
 def test_fda_guidance_clauses_are_recommended_and_use_declared_outputs():
     (clause_set,) = [
         item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
@@ -998,7 +998,7 @@ def test_fda_guidance_clauses_are_recommended_and_use_declared_outputs():
     assert result["clauses"]
 
 
-@pytest.mark.trace("TC-040", "FR-009-AC-4")
+@pytest.mark.trace("FR-009-AC-4")
 def test_fda_guidance_applicability_uses_only_the_supplied_cyber_device_value():
     (clause_set,) = [
         item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
@@ -1053,8 +1053,8 @@ def test_fda_guidance_rights_metadata_and_wording_are_citation_only():
     assert not re.search(r"\b(?:ISO|IEC|ANSI|AAMI|IEEE|NEMA|ASTM|UL)\s*[0-9]", raw)
 
 
-@pytest.mark.trace("TC-042", "FR-009-AC-6")
-@pytest.mark.trace("TC-046", "FR-010-AC-4")
+@pytest.mark.trace("FR-009-AC-6")
+@pytest.mark.trace("FR-010-AC-4")
 def test_fda_guidance_sbom_clauses_use_the_catalogued_lifecycle_output():
     (clause_set,) = [
         item for item in load_clause_sets() if clause_set_key(item) == FDA_GUIDANCE_KEY
@@ -1192,7 +1192,7 @@ def test_markerless_backup_refuses_unowned_data_and_allows_retry(tmp_path):
     assert not (package / "clauses").exists()
 
 
-@pytest.mark.trace("TC-005", "TC-008", "FR-002-AC-1", "FR-003-AC-1")
+@pytest.mark.trace("FR-002-AC-1", "FR-003-AC-1")
 def test_part_11_manifest_and_source_metadata_match_the_spec():
     """Description: Verify the Part 11 set identity, source, and rights metadata.
 
@@ -1235,7 +1235,7 @@ def test_part_11_manifest_and_source_metadata_match_the_spec():
     }
 
 
-@pytest.mark.trace("TC-009", "FR-003-AC-2")
+@pytest.mark.trace("FR-003-AC-2")
 def test_part_11_contains_exactly_the_specified_clause_ids():
     """Description: Check clause IDs against the normative Part 11 table.
 
@@ -1247,7 +1247,7 @@ def test_part_11_contains_exactly_the_specified_clause_ids():
     assert {entry["clauseId"] for entry in binding["clauses"]} == expected
 
 
-@pytest.mark.trace("TC-010", "FR-003-AC-3")
+@pytest.mark.trace("FR-003-AC-3")
 def test_part_11_clauses_are_mandatory_nonempty_and_loadable():
     """Description: Validate required clause fields and engine loadability.
 
@@ -1265,7 +1265,7 @@ def test_part_11_clauses_are_mandatory_nonempty_and_loadable():
     assert validated.returncode == 0, validated.stderr + validated.stdout
 
 
-@pytest.mark.trace("TC-011", "FR-003-AC-4")
+@pytest.mark.trace("FR-003-AC-4")
 def test_clause_with_undeclared_output_fails_and_names_the_clause(tmp_path):
     """Description: Reject a clause that references an undeclared output.
 
@@ -1285,7 +1285,7 @@ def test_clause_with_undeclared_output_fails_and_names_the_clause(tmp_path):
     assert "11.10(a)" in result.stderr + result.stdout
 
 
-@pytest.mark.trace("TC-012", "FR-004-AC-1")
+@pytest.mark.trace("FR-004-AC-1")
 def test_closed_systems_bind_11_10_without_signatures_binding_elsewhere():
     """Description: Evaluate closed-system controls without electronic signatures.
 
@@ -1308,7 +1308,7 @@ def test_closed_systems_bind_11_10_without_signatures_binding_elsewhere():
     )
 
 
-@pytest.mark.trace("TC-013", "FR-004-AC-2")
+@pytest.mark.trace("FR-004-AC-2")
 def test_open_system_controls_wait_for_per_paragraph_assessments():
     """Description: Keep open-system controls unresolved before assessment.
 
@@ -1330,7 +1330,7 @@ def test_open_system_controls_wait_for_per_paragraph_assessments():
     assert all(outcomes[f"11.300({letter})"] == "unresolved" for letter in "abcde")
 
 
-@pytest.mark.trace("TC-014", "FR-004-AC-3")
+@pytest.mark.trace("FR-004-AC-3")
 def test_open_system_assessments_resolve_only_the_named_control():
     """Description: Apply open-system assessments to their named controls only.
 
@@ -1352,7 +1352,7 @@ def test_open_system_assessments_resolve_only_the_named_control():
     assert outcomes["11.10(c)"] == "unresolved"
 
 
-@pytest.mark.trace("TC-015", "FR-004-AC-4")
+@pytest.mark.trace("FR-004-AC-4")
 def test_nonbiometric_11_300_requires_identification_code_password():
     """Description: Gate § 11.300 on the selected non-biometric method.
 
@@ -1383,7 +1383,7 @@ def test_nonbiometric_11_300_requires_identification_code_password():
     assert all(other[f"11.300({letter})"] == "not_binding" for letter in "abcde")
 
 
-@pytest.mark.trace("TC-016", "FR-004-AC-5")
+@pytest.mark.trace("FR-004-AC-5")
 def test_empty_context_leaves_every_part_11_clause_unresolved():
     """Description: Check default outcomes when applicability is unspecified.
 
@@ -1394,7 +1394,7 @@ def test_empty_context_leaves_every_part_11_clause_unresolved():
     assert set(outcomes.values()) == {"unresolved"}
 
 
-@pytest.mark.trace("TC-017", "FR-004-AC-6")
+@pytest.mark.trace("FR-004-AC-6")
 def test_undeclared_applicability_dimensions_and_values_are_rejected(tmp_path):
     """Description: Reject undeclared applicability dimensions and values.
 
@@ -1422,7 +1422,7 @@ def test_undeclared_applicability_dimensions_and_values_are_rejected(tmp_path):
     assert unknown_value.returncode != 0
 
 
-@pytest.mark.trace("TC-031", "FR-003-AC-5")
+@pytest.mark.trace("FR-003-AC-5")
 def test_certification_clause_uses_the_fda_record_output():
     """Description: Check the § 11.100(c) output mapping.
 
@@ -1439,7 +1439,7 @@ def test_certification_clause_uses_the_fda_record_output():
     assert clause_set["outputCatalog"]["fda-certification-record"]["kind"] == "record"
 
 
-@pytest.mark.trace("TC-006", "FR-002-AC-2")
+@pytest.mark.trace("FR-002-AC-2")
 def test_part_11_publish_check_accepts_the_original_text_module():
     """Description: Run publish-check on the original-text Part 11 module.
 
@@ -1450,7 +1450,7 @@ def test_part_11_publish_check_accepts_the_original_text_module():
     assert result.returncode == 0, result.stderr + result.stdout
 
 
-@pytest.mark.trace("TC-007", "FR-002-AC-3")
+@pytest.mark.trace("FR-002-AC-3")
 def test_licensed_part_11_fixture_is_refused_with_its_set_key(tmp_path):
     """Description: Refuse a Part 11 fixture marked with licensed text.
 
@@ -1468,7 +1468,7 @@ def test_licensed_part_11_fixture_is_refused_with_its_set_key(tmp_path):
     assert PART_11_KEY in result.stderr + result.stdout
 
 
-@pytest.mark.trace("TC-026", "FR-007-AC-3")
+@pytest.mark.trace("FR-007-AC-3")
 def test_single_set_rmm_marks_one_direct_fact_compliant(tmp_path):
     """Description: Render one direct fact while retaining an undischarged control.
 
@@ -1488,7 +1488,7 @@ def test_single_set_rmm_marks_one_direct_fact_compliant(tmp_path):
     assert r"11.10\(a\) | Applicable | Not compliant - undischarged" in output
 
 
-@pytest.mark.trace("TC-085", "FR-005-AC-5")
+@pytest.mark.trace("FR-005-AC-5")
 def test_spec_producers_name_only_fr_211_kinds():
     """Every kind in the spec's producers table is an FR-211 family kind."""
     expected = _spec_producers()

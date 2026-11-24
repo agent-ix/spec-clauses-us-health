@@ -73,7 +73,7 @@ def _assert_applicability_matches_spec(clause_set: dict) -> None:
         ), f"{clause_id}: expected applicability {expected!r}; found {actual!r}"
 
 
-@pytest.mark.trace("TC-069", "FR-014-AC-1")
+@pytest.mark.trace("FR-014-AC-1")
 def test_part820_identity_source_and_rights_match_the_dated_ecfr_snapshot():
     """The set identifies the specified public source and rights basis."""
     manifest = yaml.safe_load(MANIFEST_PATH.read_text())
@@ -96,7 +96,7 @@ def test_part820_identity_source_and_rights_match_the_dated_ecfr_snapshot():
     assert clause_set_key(clause_set) == PART_820_KEY
 
 
-@pytest.mark.trace("TC-070", "FR-014-AC-2")
+@pytest.mark.trace("FR-014-AC-2")
 def test_part820_clause_ids_match_the_normative_table_and_exclusions():
     """The selected clause IDs match the spec without reserved or excluded rows."""
     clause_set = _part820_set()
@@ -115,7 +115,7 @@ def test_part820_clause_ids_match_the_normative_table_and_exclusions():
     }.intersection(actual_ids)
 
 
-@pytest.mark.trace("TC-071", "FR-014-AC-3")
+@pytest.mark.trace("FR-014-AC-3")
 def test_part820_clauses_match_force_outputs_and_ibr_treatment():
     """Each row is mandatory and declares the outputs and IBR boundary in the spec."""
     clause_set = _part820_set()
@@ -144,7 +144,7 @@ def test_part820_clauses_match_force_outputs_and_ibr_treatment():
     assert_output_catalog_consistent(load_clause_sets())
 
 
-@pytest.mark.trace("TC-072", "FR-014-AC-4")
+@pytest.mark.trace("FR-014-AC-4")
 def test_part820_applicability_matches_the_normative_table_exactly():
     """Conditional expressions match the table and unconditional clauses have none."""
     _assert_applicability_matches_spec(_part820_set())
@@ -158,7 +158,7 @@ def test_part820_applicability_matches_the_normative_table_exactly():
         ("820.10(a)", "added"),
     ],
 )
-@pytest.mark.trace("TC-072", "FR-014-AC-4")
+@pytest.mark.trace("FR-014-AC-4")
 def test_part820_applicability_fixture_errors_name_the_clause(clause_id, mutation):
     """Changed, missing, and unexpected expressions identify the affected clause."""
     clause_set = copy.deepcopy(_part820_set())
@@ -178,7 +178,7 @@ def test_part820_applicability_fixture_errors_name_the_clause(clause_id, mutatio
         _assert_applicability_matches_spec(clause_set)
 
 
-@pytest.mark.trace("TC-074", "FR-016-AC-1", "FR-016-AC-2")
+@pytest.mark.trace("FR-016-AC-1", "FR-016-AC-2")
 def test_part820_human_dimensions_control_only_their_dependent_clauses():
     """Only supplied Part 820 dimensions resolve their dependent clauses."""
     dimensions = {
@@ -228,7 +228,7 @@ def test_part820_human_dimensions_control_only_their_dependent_clauses():
         )
 
 
-@pytest.mark.trace("TC-073", "FR-014-AC-5")
+@pytest.mark.trace("FR-014-AC-5")
 def test_part820_spec_validates_and_module_passes_publish_check():
     """Quire validates the spec and the package publish check accepts the set."""
     artifact_module = pathlib.Path.home() / ".ix/filament/modules/spec-artifacts-iso"

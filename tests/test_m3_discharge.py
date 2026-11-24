@@ -115,7 +115,6 @@ def _security_module() -> pathlib.Path:
     return _installed_module("spec-objects-security")
 
 
-@pytest.mark.trace("TC-083")
 @pytest.mark.trace("FR-020-AC-1")
 @pytest.mark.trace("FR-020-AC-2")
 @pytest.mark.trace("FR-020-AC-3")
