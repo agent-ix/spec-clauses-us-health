@@ -7,6 +7,7 @@ import json
 import os
 import pathlib
 import shutil
+import subprocess
 import tempfile
 
 import pytest
@@ -38,34 +39,24 @@ def _git(repo: pathlib.Path, *args: str):
     return result.stdout.strip()
 
 
-def _save_tool_output(repo: pathlib.Path, name: str, value: dict) -> str:
+def _save_tool_output(repo: pathlib.Path, name: str, value: bytes) -> str:
     relative = pathlib.PurePosixPath("evidence") / name
     destination = repo.joinpath(*relative.parts)
     destination.parent.mkdir(parents=True, exist_ok=True)
-    destination.write_text(
-        json.dumps(value, sort_keys=True, separators=(",", ":")) + "\n"
-    )
+    destination.write_bytes(value)
     return relative.as_posix()
 
 
-def _verify_signature(
-    repo: pathlib.Path, allowed_signers: pathlib.Path, kind: str
-) -> dict:
-    command = ["git", "-C", str(repo), "-c", "gpg.format=ssh"]
-    command.extend(["-c", f"gpg.ssh.allowedSignersFile={allowed_signers}"])
-    command.extend(
-        ["verify-commit", "HEAD"]
-        if kind == "commit"
-        else ["verify-tag", "part11-synthetic-approval"]
+def _run_ea_json(capability: str, request: dict) -> tuple[bytes, dict]:
+    result = subprocess.run(
+        [engine_tool("engineering-assurance"), capability, "--request", "-"],
+        input=json.dumps(request).encode("utf-8"),
+        capture_output=True,
     )
-    result = run(*command, cwd=repo)
     assert result.returncode == 0, result.stderr + result.stdout
-    return {
-        "kind": kind,
-        "status": "signed_valid",
-        "subject": "reviewer@example.invalid",
-        "verification": result.stderr.strip(),
-    }
+    assert result.stdout.endswith(b"\n")
+    assert result.stdout.count(b"\n") == 1
+    return result.stdout, json.loads(result.stdout)
 
 
 def _make_signed_corpus(repo: pathlib.Path, private_key: pathlib.Path) -> pathlib.Path:
@@ -131,10 +122,12 @@ def _stage_part11_module(destination: pathlib.Path) -> pathlib.Path:
 
 @pytest.mark.trace("FR-007-AC-1")
 def test_synthetic_corpus_validates():
-    """Description: Validate each Markdown artifact in the synthetic corpus.
+    """Validate each Markdown artifact in the synthetic corpus.
 
+    Description: Check that every authored corpus artifact passes Quire validation.
     Assumptions: Quire's installed ISO module provides the FR and NFR schemas.
     Criteria: Corpus Markdown passes structural validation.
+    Trace: FR-007-AC-1
     """
     result = run(
         engine_tool("quire"), "validate", "tests/corpus/**/*.md", cwd=REPO_ROOT
@@ -144,14 +137,26 @@ def test_synthetic_corpus_validates():
 
 @pytest.mark.trace("FR-007-AC-2")
 @pytest.mark.trace("FR-007-AC-3")
+@pytest.mark.trace("FR-007-AC-4")
+@pytest.mark.trace("FR-007-AC-5")
+@pytest.mark.trace("FR-007-AC-6")
+@pytest.mark.trace("FR-007-AC-7")
 @pytest.mark.trace("FR-006-AC-2")
 @pytest.mark.trace("FR-006-AC-3")
 def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path):
     """Description: Produce signed synthetic evidence and discharge the Part 11 pack.
 
     Assumptions: The published Quoin CLI accepts the publishable US module as a pack.
-    Criteria: Direct and delegated facts render truthfully, open and non-applicable
-        clauses remain visible, evidence refs resolve, and repeated output is stable.
+        The `system_type=closed` context describes only this synthetic fixture; system
+        inputs and deployment classification remain owner-supplied. For the 11.200
+        scenario, EA reports the signing-gesture declaration separately from signature
+        gesture evidence; the software-key evidence is `none`, and it does not decide
+        clause status or classify a deployment.
+    Criteria: Real EA capability JSON is retained and checked, direct and delegated
+        facts render truthfully, open and non-applicable clauses remain visible,
+        evidence refs resolve, and repeated output is stable.
+    Trace: FR-007-AC-2, FR-007-AC-3, FR-007-AC-4, FR-007-AC-5,
+        FR-007-AC-6, FR-007-AC-7, FR-006-AC-2, FR-006-AC-3
     """
     with tempfile.TemporaryDirectory(
         dir=tmp_path, prefix="part11-corpus-"
@@ -174,6 +179,13 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
         )
         assert keygen.returncode == 0, keygen.stderr
         allowed_signers = _make_signed_corpus(repo, private_key)
+        approval_path = "approvals/customer-procedure-acceptance.json"
+        approval_record = json.loads(
+            (REPO_ROOT / "tests/corpus" / approval_path).read_text()
+        )
+        record_digest = (
+            "sha256:" + hashlib.sha256((repo / approval_path).read_bytes()).hexdigest()
+        )
         clause_module = _stage_part11_module(root / "part11-module")
         config_root = root / "quoin-config"
         install = run(
@@ -186,12 +198,93 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
         )
         assert install.returncode == 0, install.stderr + install.stdout
 
-        signature_commit = _verify_signature(repo, allowed_signers, "commit")
-        signature_tag = _verify_signature(repo, allowed_signers, "tag")
-        approval_path = "approvals/customer-procedure-acceptance.json"
-        approval_record = json.loads(
-            (REPO_ROOT / "tests/corpus" / approval_path).read_text()
+        ea_repository = str(repo.resolve())
+        signature_commit_bytes, signature_commit = _run_ea_json(
+            "signature-verify",
+            {
+                "protocol": "engineering-assurance.signature-verify-request/v1",
+                "repository": ea_repository,
+                "revision": "HEAD",
+                "kind": "commit",
+                "allowed_signers": str(allowed_signers.resolve()),
+            },
         )
+        signature_tag_bytes, signature_tag = _run_ea_json(
+            "signature-verify",
+            {
+                "protocol": "engineering-assurance.signature-verify-request/v1",
+                "repository": ea_repository,
+                "revision": "part11-synthetic-approval",
+                "kind": "tag",
+                "allowed_signers": str(allowed_signers.resolve()),
+            },
+        )
+        assert signature_commit["protocol"] == (
+            "engineering-assurance.signature-verify-result/v1"
+        )
+        assert signature_commit["status"] == "signed_valid"
+        assert signature_commit["kind"] == "commit"
+        assert signature_tag["protocol"] == (
+            "engineering-assurance.signature-verify-result/v1"
+        )
+        assert signature_tag["status"] == "signed_valid"
+        assert signature_tag["kind"] == "tag"
+
+        approval_result_bytes, approval_result = _run_ea_json(
+            "approval-verify",
+            {
+                "protocol": "engineering-assurance.approval-verify-request/v1",
+                "repository": ea_repository,
+                "tag": "part11-synthetic-approval",
+                "record_id": approval_record["recordId"],
+                "record_digest": record_digest,
+                "allowed_signers": str(allowed_signers.resolve()),
+            },
+        )
+        assert approval_result["protocol"] == (
+            "engineering-assurance.approval-verify-result/v1"
+        )
+        assert approval_result["status"] == "approved"
+        assert approval_result["record_id"] == approval_record["recordId"]
+        assert approval_result["record_digest"] == record_digest
+
+        approval_trail_bytes, approval_trail = _run_ea_json(
+            "approval-trail",
+            {
+                "protocol": "engineering-assurance.approval-trail-request/v1",
+                "repository": ea_repository,
+                "record_id": approval_record["recordId"],
+                "record_digest": record_digest,
+                "allowed_signers": str(allowed_signers.resolve()),
+            },
+        )
+        assert approval_trail["protocol"] == (
+            "engineering-assurance.approval-trail-result/v1"
+        )
+        assert approval_trail["record_id"] == approval_record["recordId"]
+        assert approval_trail["record_digest"] == record_digest
+        assert approval_trail["tag_receipts"] == {
+            "checked": False,
+            "considered": 0,
+        }
+        assert approval_trail["complete"] is False
+        assert len(approval_trail["entries"]) == 1
+        trail_entry = approval_trail["entries"][0]
+        assert trail_entry["tag"] == "part11-synthetic-approval"
+        assert trail_entry["status"] == "approved"
+
+        assert "Signing-Gesture:" not in _git(
+            repo,
+            "for-each-ref",
+            "refs/tags/part11-synthetic-approval",
+            "--format=%(contents)",
+        )
+        # A declared gesture is distinct from evidence carried by the signature.
+        assert approval_result["gesture"] == {"declared": "none"}
+        assert approval_result["signature"]["gesture"]["evidenced"] == "none"
+        assert trail_entry["gesture"] == {"declared": "none"}
+        assert trail_entry["signature"]["gesture"]["evidenced"] == "none"
+
         assert approval_record == {
             "recordId": "approval://example.invalid/part11/customer-procedure-acceptance",
             "recordType": "person-approval",
@@ -218,11 +311,21 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
 
         refs = {
             "commit": _save_tool_output(
-                repo, "signature-commit.json", signature_commit
+                repo, "signature-commit.json", signature_commit_bytes
             ),
-            "tag": _save_tool_output(repo, "signature-tag.json", signature_tag),
+            "tag": _save_tool_output(repo, "signature-tag.json", signature_tag_bytes),
+            "approval_result": _save_tool_output(
+                repo, "approval-verify.json", approval_result_bytes
+            ),
+            "approval_trail": _save_tool_output(
+                repo, "approval-trail.json", approval_trail_bytes
+            ),
             "approval": approval_path,
         }
+        assert (repo / refs["commit"]).read_bytes() == signature_commit_bytes
+        assert (repo / refs["tag"]).read_bytes() == signature_tag_bytes
+        assert (repo / refs["approval_result"]).read_bytes() == approval_result_bytes
+        assert (repo / refs["approval_trail"]).read_bytes() == approval_trail_bytes
         binding = _run_json(
             engine_tool("quire"),
             "clauses",
@@ -257,6 +360,8 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
                     refs["commit"],
                     refs["tag"],
                     refs["approval"],
+                    refs["approval_result"],
+                    refs["approval_trail"],
                 ],
                 "attestation": attestation,
             }
