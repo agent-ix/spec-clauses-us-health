@@ -35,11 +35,12 @@ are created in isolated test execution resources rather than as corpus inputs.
   [FR-003](./FR-003-part-11-clause-set.md), the test SHALL obtain evidence for
   catalog outputs that name an Engineering
   Assurance capability by invoking that capability and retaining its JSON
-  result, rather than constructing a capability-shaped result itself. The
-  test SHALL compare each retained result with that capability's result
-  contract; this requirement covers `signature-verify`, `approval-verify`, and
-  `approval-trail` and does not make a declaration of signing mode evidence of
-  a human gesture.
+  result, rather than constructing a capability-shaped result itself; the
+  capabilities are `signature-verify`, `approval-verify`, and `approval-trail`.
+- The test SHALL compare each retained capability result with its result
+  contract in the cited Engineering Assurance requirement.
+- The test SHALL NOT treat a declared signing gesture as evidence of a human
+  gesture.
 
 ## Acceptance Criteria
 
@@ -48,7 +49,10 @@ are created in isolated test execution resources rather than as corpus inputs.
 | FR-007-AC-1 | `tests/corpus/` validates with `quire validate`. | Test |
 | FR-007-AC-2 | A discharge integration test creates a fixture signing key in a temporary directory, successfully verifies a signed commit and signed tag made with that key, and removes the key when the test completes. | Test |
 | FR-007-AC-3 | A discharge integration test records its facts in a temporary evidence store and removes that store when the test completes. | Test |
-| FR-007-AC-4 | The Part 11 discharge test retains the exact JSON emitted by `signature-verify` for a signed commit and tag and checks protocol `engineering-assurance.signature-verify-result/v1` and status `signed_valid`; it retains `approval-verify` output for the fixture record id and digest and checks protocol `engineering-assurance.approval-verify-result/v1` and status `approved`; and it retains `approval-trail` output for that record and checks protocol `engineering-assurance.approval-trail-result/v1`, the matching `approved` entry, and (when no `tag_receipts` input is supplied) `tag_receipts.checked` false and `complete` false. For the software-key fixture, it checks gesture evidence as `none`; it does not treat a declared signing gesture as evidence or fabricate any capability result. | Test |
+| FR-007-AC-4 | The Part 11 discharge test retains the exact JSON emitted by `signature-verify` for a signed commit and tag and checks protocol `engineering-assurance.signature-verify-result/v1` and status `signed_valid`; it does not fabricate either result. | Test |
+| FR-007-AC-5 | The Part 11 discharge test retains the exact `approval-verify` JSON for the fixture record id and digest and checks protocol `engineering-assurance.approval-verify-result/v1` and status `approved`; it does not fabricate the result. | Test |
+| FR-007-AC-6 | The Part 11 discharge test retains the exact `approval-trail` JSON for the fixture record and checks protocol `engineering-assurance.approval-trail-result/v1` and a matching `approved` entry; when no `tag_receipts` input is supplied, it also checks `tag_receipts.checked` is false and `complete` is false. It does not fabricate the result. | Test |
+| FR-007-AC-7 | For the software-key fixture, the Part 11 discharge test checks that the approval result's signature gesture evidence is `none` and does not use a declared signing gesture as evidence of a human gesture. | Test |
 
 ## Dependencies
 
