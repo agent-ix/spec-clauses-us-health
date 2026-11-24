@@ -32,7 +32,7 @@ def _assert_pack_rights_metadata(clause_sets: list[dict]) -> None:
         ), f"{key}: rights.licence public-source basis is missing or blank"
 
 
-@pytest.mark.trace("TC-006", "FR-002-AC-2", "TC-027", "NFR-001-AC-1", "NFR-001-M-1")
+@pytest.mark.trace("FR-002-AC-2", "NFR-001-AC-1", "NFR-001-M-1")
 def test_publish_check_accepts_the_real_module() -> None:
     """The real module publishes only when each declared set passes rights checks.
 
@@ -54,7 +54,7 @@ def test_publish_check_accepts_the_real_module() -> None:
     assert result.returncode == 0, result.stderr + result.stdout
 
 
-@pytest.mark.trace("TC-027", "NFR-001-M-1")
+@pytest.mark.trace("NFR-001-M-1")
 @pytest.mark.parametrize(
     ("basis", "remove_key"),
     [(None, True), ("  ", False)],
@@ -86,7 +86,7 @@ def test_pack_rights_metadata_check_rejects_missing_or_blank_public_source_basis
     assert "rights.licence" in str(error.value)
 
 
-@pytest.mark.trace("TC-007", "FR-002-AC-3")
+@pytest.mark.trace("FR-002-AC-3")
 def test_publish_check_rejects_licensed_fixture_and_names_the_set(
     tmp_path: pathlib.Path,
 ) -> None:

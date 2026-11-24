@@ -258,7 +258,6 @@ def _record_fact(
     return path
 
 
-@pytest.mark.trace("TC-082")
 @pytest.mark.trace("FR-019-AC-1")
 @pytest.mark.trace("FR-019-AC-2")
 @pytest.mark.trace("FR-019-AC-3")

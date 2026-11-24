@@ -48,10 +48,10 @@ row SHALL NOT state legal equivalence.
 
 | Criterion | Test | Verification |
 |---|---|---|
-| FR-017-AC-1 | TC-078 `test_premarket_crosswalk_pairs_match_the_m2_table_and_resolve` | Unit |
-| FR-017-AC-2 | TC-079 `test_crosswalk_unknown_source_or_target_fails_with_identifier` | Unit |
-| FR-017-AC-3 | TC-080 `test_crosswalk_requires_relation_and_nonblank_rationale` | Unit |
-| FR-017-AC-4 | TC-081 `test_crosswalk_is_informative_and_does_not_claim_equivalence` | Unit |
+| FR-017-AC-1 | `test_premarket_crosswalk_pairs_match_the_m2_table_and_resolve` | Unit |
+| FR-017-AC-2 | `test_crosswalk_unknown_source_or_target_fails_with_identifier` | Unit |
+| FR-017-AC-3 | `test_crosswalk_requires_relation_and_nonblank_rationale` | Unit |
+| FR-017-AC-4 | `test_crosswalk_is_informative_and_does_not_claim_equivalence` | Unit |
 
 ## Dependencies
 

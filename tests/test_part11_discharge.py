@@ -129,7 +129,7 @@ def _stage_part11_module(destination: pathlib.Path) -> pathlib.Path:
     return destination
 
 
-@pytest.mark.trace("TC-024", "FR-007-AC-1")
+@pytest.mark.trace("FR-007-AC-1")
 def test_synthetic_corpus_validates():
     """Description: Validate each Markdown artifact in the synthetic corpus.
 
@@ -142,10 +142,10 @@ def test_synthetic_corpus_validates():
     assert result.returncode == 0, result.stderr + result.stdout
 
 
-@pytest.mark.trace("TC-025", "FR-007-AC-2")
-@pytest.mark.trace("TC-026", "FR-007-AC-3")
-@pytest.mark.trace("TC-022", "FR-006-AC-2")
-@pytest.mark.trace("TC-023", "FR-006-AC-3")
+@pytest.mark.trace("FR-007-AC-2")
+@pytest.mark.trace("FR-007-AC-3")
+@pytest.mark.trace("FR-006-AC-2")
+@pytest.mark.trace("FR-006-AC-3")
 def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path):
     """Description: Produce signed synthetic evidence and discharge the Part 11 pack.
 

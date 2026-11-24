@@ -134,7 +134,7 @@ def _m2_sets() -> list[dict]:
     ]
 
 
-@pytest.mark.trace("TC-075", "FR-018-AC-1")
+@pytest.mark.trace("FR-018-AC-1")
 def test_m2_output_mapping_covers_every_clause_output_pair_once():
     """The mapping table equals the M2 clause tables without duplicate pairs."""
     expected_pairs = {
@@ -191,7 +191,7 @@ def _m2_output_catalog() -> dict[str, dict]:
     return catalog
 
 
-@pytest.mark.trace("TC-076", "FR-018-AC-2")
+@pytest.mark.trace("FR-018-AC-2")
 def test_every_m2_output_is_in_exactly_one_class():
     """Each M2 output is a produced record or a customer document or procedure."""
     classes = [
@@ -204,7 +204,7 @@ def test_every_m2_output_is_in_exactly_one_class():
     assert set(_m2_output_catalog()) == set().union(*classes)
 
 
-@pytest.mark.trace("TC-076", "FR-018-AC-2", "FR-018-AC-4")
+@pytest.mark.trace("FR-018-AC-2", "FR-018-AC-4")
 def test_m2_record_outputs_name_producers_that_exist(tmp_path):
     """Each produced record names installed commands, modules and dossier kinds."""
     rows = {row["output"]: row for row in m2_mapping_rows()}
@@ -223,7 +223,7 @@ def test_m2_record_outputs_name_producers_that_exist(tmp_path):
         assert "quoin dossier generate" in rows[output]["producer_or_owner"], output
 
 
-@pytest.mark.trace("TC-076", "FR-018-AC-2")
+@pytest.mark.trace("FR-018-AC-2")
 def test_m2_outputs_without_a_producer_are_customer_provided():
     """Documents and procedures the toolchain cannot produce are customer-owned."""
     catalog = _m2_output_catalog()
@@ -247,7 +247,7 @@ def test_m2_outputs_without_a_producer_are_customer_provided():
         assert "no toolchain producer" in rows[output]["producer_or_owner"], output
 
 
-@pytest.mark.trace("TC-076", "FR-018-AC-2", "FR-018-AC-5")
+@pytest.mark.trace("FR-018-AC-2", "FR-018-AC-5")
 def test_m2_outputs_name_no_owner_ticket_and_no_tool_decision():
     """No M2 output points at a ticket, and the level is never tool-assigned."""
     catalog = _m2_output_catalog()
@@ -266,7 +266,7 @@ def test_m2_outputs_name_no_owner_ticket_and_no_tool_decision():
     assert vi_a["expectedOutputs"] == ["documentation-level-decision"]
 
 
-@pytest.mark.trace("TC-077", "FR-018-AC-3")
+@pytest.mark.trace("FR-018-AC-3")
 def test_shared_output_catalog_definitions_are_identical_across_us_sets():
     """Reused outputs keep the same kind and description throughout the module."""
     assert_output_catalog_consistent(load_clause_sets())
@@ -379,7 +379,7 @@ def _listed_names(output: str, marker: str) -> set[str]:
     return {name.strip() for name in listed.split(",")}
 
 
-@pytest.mark.trace("TC-045", "FR-010-AC-3")
+@pytest.mark.trace("FR-010-AC-3")
 def test_every_cybersecurity_output_is_in_exactly_one_class():
     """Each catalog output is a producer, authored records, or a customer document."""
     classes = [
@@ -391,7 +391,7 @@ def test_every_cybersecurity_output_is_in_exactly_one_class():
     assert set(_m3_output_catalog()) == set().union(*classes)
 
 
-@pytest.mark.trace("TC-045", "FR-010-AC-3")
+@pytest.mark.trace("FR-010-AC-3")
 def test_cybersecurity_record_outputs_name_commands_that_exist(tmp_path):
     """Each producer output names real, installed commands and what they accept."""
     catalog = _m3_output_catalog()
@@ -421,7 +421,7 @@ def test_cybersecurity_record_outputs_name_commands_that_exist(tmp_path):
                     assert value in dossier_kinds, f"{output}: no {value} kind"
 
 
-@pytest.mark.trace("TC-045", "FR-010-AC-3")
+@pytest.mark.trace("FR-010-AC-3")
 def test_authored_cybersecurity_records_name_their_module():
     """Records the customer authors name the module that defines them."""
     catalog = _m3_output_catalog()
@@ -430,7 +430,7 @@ def test_authored_cybersecurity_records_name_their_module():
         assert module in catalog[output]["description"], output
 
 
-@pytest.mark.trace("TC-045", "FR-010-AC-3")
+@pytest.mark.trace("FR-010-AC-3")
 def test_cybersecurity_outputs_without_a_producer_are_customer_documents():
     """Plans and assessments the toolchain cannot produce are customer-provided."""
     catalog = _m3_output_catalog()
@@ -441,7 +441,7 @@ def test_cybersecurity_outputs_without_a_producer_are_customer_documents():
         assert "no toolchain producer" in catalog[output]["description"], output
 
 
-@pytest.mark.trace("TC-045", "FR-010-AC-3")
+@pytest.mark.trace("FR-010-AC-3")
 def test_cybersecurity_outputs_name_no_owner_ticket():
     """No cybersecurity output points at a ticket as its owner."""
     for output, definition in _m3_output_catalog().items():
