@@ -178,9 +178,9 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
         approval_record = json.loads(
             (REPO_ROOT / "tests/corpus" / approval_path).read_text()
         )
-        record_digest = "sha256:" + hashlib.sha256(
-            (repo / approval_path).read_bytes()
-        ).hexdigest()
+        record_digest = (
+            "sha256:" + hashlib.sha256((repo / approval_path).read_bytes()).hexdigest()
+        )
         clause_module = _stage_part11_module(root / "part11-module")
         config_root = root / "quoin-config"
         install = run(
