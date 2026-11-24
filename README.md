@@ -58,8 +58,9 @@ On Linux x86-64, download the latest release binary and put it on your `PATH`:
 curl -fsSL -o engineering-assurance \
   https://github.com/agent-ix/engineering-assurance/releases/latest/download/engineering-assurance
 chmod +x engineering-assurance
-mv engineering-assurance ~/.local/bin/
 ```
+
+Move `engineering-assurance` into a directory on your `PATH`.
 
 On other platforms, build it with Cargo:
 
@@ -258,7 +259,7 @@ recorded decision that it is not reasonable and appropriate.
 - Customer-owned clauses, where every expected output is a procedure, need
   your own written procedures. The pack records that you own them, not that
   they exist or are adequate.
-- It is not legal advice and does not certify anything.
+- It gives no legal opinion and does not certify anything.
 
 ## Known limits
 
