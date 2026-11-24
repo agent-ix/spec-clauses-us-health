@@ -20,12 +20,16 @@ jobs:
         run: python -m pip install poetry pytest PyYAML black ruff
       - name: Install Quire and Quoin CLIs
         run: npm ci
-      - name: Install Engineering Assurance release CLI
+      - name: Install Rust 1.98.1
+        uses: dtolnay/rust-toolchain@1.98.1
+      - name: Install pinned Engineering Assurance CLI
         run: |
-          curl --fail --location --silent --show-error \
-            https://github.com/agent-ix/engineering-assurance/releases/download/v0.10.1/engineering-assurance \
-            --output /usr/local/bin/engineering-assurance
-          chmod 0755 /usr/local/bin/engineering-assurance
+          cargo install \
+            --locked \
+            --features full \
+            --bin engineering-assurance \
+            --git https://github.com/agent-ix/engineering-assurance \
+            --rev 1e16a8969aedec7366f165039740dfbbbbf66ccc
       - name: Add engine CLIs to PATH
         run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> "$GITHUB_PATH"
       - name: Install default Quire modules

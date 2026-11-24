@@ -147,6 +147,11 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
     """Description: Produce signed synthetic evidence and discharge the Part 11 pack.
 
     Assumptions: The published Quoin CLI accepts the publishable US module as a pack.
+        The `system_type=closed` context describes only this synthetic fixture; system
+        inputs and deployment classification remain owner-supplied. For the 11.200
+        scenario, EA reports the signing-gesture declaration separately from signature
+        gesture evidence; the software-key evidence is `none`, and it does not decide
+        clause status or classify a deployment.
     Criteria: Real EA capability JSON is retained and checked, direct and delegated
         facts render truthfully, open and non-applicable clauses remain visible,
         evidence refs resolve, and repeated output is stable.
@@ -274,6 +279,7 @@ def test_part11_discharge_renders_deterministic_pack_rmm(tmp_path: pathlib.Path)
             "refs/tags/part11-synthetic-approval",
             "--format=%(contents)",
         )
+        # A declared gesture is distinct from evidence carried by the signature.
         assert approval_result["gesture"] == {"declared": "none"}
         assert approval_result["signature"]["gesture"]["evidenced"] == "none"
         assert trail_entry["gesture"] == {"declared": "none"}
