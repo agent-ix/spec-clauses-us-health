@@ -1,6 +1,6 @@
 manifest_version: 1.0.0
 name: spec_clauses_us_health
-version: 0.1.0
+version: 0.3.0
 clause_sets:
   - clauses/us-fda-21-cfr-11-2026-11-12.json
   - clauses/us-fda-21-cfr-820-2026-11-12.json
